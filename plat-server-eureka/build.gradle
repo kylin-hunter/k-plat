@@ -1,0 +1,11 @@
+dependencies {
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+}
+
+test{
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

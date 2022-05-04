@@ -1,0 +1,15 @@
+dependencies {
+    implementation(rootProject.dep['guava']) ;
+    implementation(rootProject.dep['commons-lang3'])
+    implementation(rootProject.dep['commons-io'])
+
+}
+jar.enabled = true
+
+test{
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

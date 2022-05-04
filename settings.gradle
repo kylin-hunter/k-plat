@@ -1,0 +1,10 @@
+rootProject.name = 'k-plat'
+include 'plat-commons'
+include 'plat-api'
+include 'plat-core'
+include 'plat-dao'
+include 'plat-web'
+include 'plat-server-core'
+include 'plat-server-eureka'
+
+
