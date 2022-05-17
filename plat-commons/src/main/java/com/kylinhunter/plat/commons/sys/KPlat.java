@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.commons.constants;
+package com.kylinhunter.plat.commons.sys;
 
 /**
  * @author BiJi'an

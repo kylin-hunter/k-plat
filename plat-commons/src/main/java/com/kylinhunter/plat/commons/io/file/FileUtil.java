@@ -20,27 +20,6 @@ import com.kylinhunter.plat.commons.io.ResourceHelper;
  **/
 public class FileUtil {
 
-    /**
-     * @param pathInfo pathInfo
-     * @return java.lang.String
-     * @title correctPath
-     * @description
-     * @author BiJi'an
-     * @updateTime 2022-01-21 00:52
-     */
-    public static File getFile(PathInfo pathInfo) {
-        if (pathInfo != null) {
-            PathType pathType = pathInfo.getPathType();
-            if (pathType == PathType.CLASSPATH) {
-                return ResourceHelper.getFileInClassPath(pathInfo.getPath());
-
-            } else {
-                return new File(pathInfo.getPath());
-            }
-        }
-        return null;
-
-    }
 
     /**
      * @param file      a file

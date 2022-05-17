@@ -2,6 +2,9 @@ package com.kylinhunter.plat.commons.exception.explain;
 
 import java.util.Set;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author BiJi'an
  * @description
@@ -10,15 +13,14 @@ import java.util.Set;
 public class ExceptionFinder {
 
     /**
-     * @param e
-     * @param acceptSubClass
-     * @param cls
+     * @param e              e
+     * @param acceptSubClass acceptSubClass
+     * @param cls            cls
      * @return T
-     * @throws
      * @title 查找指定类型的异常
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:14 下午
+     * @date 2022/01/01 5:14 下午
      */
     @SuppressWarnings("unchecked")
     public static <T extends Throwable> T find(Throwable e, boolean acceptSubClass, Class<T> cls) {
@@ -37,15 +39,14 @@ public class ExceptionFinder {
     }
 
     /**
-     * @param e
-     * @param acceptSubClass
-     * @param samples
+     * @param e              e
+     * @param acceptSubClass acceptSubClass
+     * @param samples        samples
      * @return com.kylinhunter.plat.commons.exception.ExceptionHelper.ExceptionFind
-     * @throws
      * @title 找到第一个需要的异常
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:20 下午
+     * @date 2022/01/01 5:20 下午
      */
     public static ExceptionFind find(Throwable e, boolean acceptSubClass, Set<Class<? extends Throwable>> samples) {
 
@@ -55,7 +56,6 @@ public class ExceptionFinder {
                     if (e.getClass().equals(sample)) {
                         return new ExceptionFind(e, sample);
                     }
-
                     if (acceptSubClass && sample.isAssignableFrom(e.getClass())) {
                         return new ExceptionFind(e, sample);
                     }
@@ -68,4 +68,14 @@ public class ExceptionFinder {
         return null;
 
     }
+
+    @AllArgsConstructor
+    @Getter
+    public static class ExceptionFind {
+        private final Throwable target;
+        private final Class<? extends Throwable> source;
+
+    }
 }
+
+

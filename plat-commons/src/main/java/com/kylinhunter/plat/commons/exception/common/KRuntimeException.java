@@ -7,13 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @description 
- * @author  BiJi'an
+ * @author BiJi'an
+ * @description
  * @date 2022/1/1
  **/
 @Getter
 @Setter
-public class KRuntimeException extends RuntimeException implements ThrowableEx {
+public class KRuntimeException extends RuntimeException implements KThrowable {
     private static final long serialVersionUID = 1L;
     protected ErrInfo errInfo = ErrInfos.UNKNOWN;
     private Object extra;
@@ -39,9 +39,21 @@ public class KRuntimeException extends RuntimeException implements ThrowableEx {
         this.errInfo = errInfo;
     }
 
+    public KRuntimeException(ErrInfo errInfo, Object extra, String message, Throwable cause) {
+        super(message, cause);
+        this.errInfo = errInfo;
+        this.extra = extra;
+    }
+
     public KRuntimeException(ErrInfo errInfo, String message) {
         super(message);
         this.errInfo = errInfo;
+    }
+
+    public KRuntimeException(ErrInfo errInfo, Object extra, String message) {
+        super(message);
+        this.errInfo = errInfo;
+        this.extra = extra;
     }
 
     public KRuntimeException(ErrInfo errInfo, Throwable cause) {

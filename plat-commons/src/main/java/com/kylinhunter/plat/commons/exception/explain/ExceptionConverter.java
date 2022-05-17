@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.commons.exception.explain;
 
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
-import com.kylinhunter.plat.commons.exception.inner.InternalException;
+import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,32 +19,57 @@ public class ExceptionConverter {
     @Setter
     private ExceptionExplainer exceptionExplainer = new ExceptionExplainer();
 
-    public <T extends Throwable> void register(Class<T> cls, ExceptionExplainFunc<T> exceptionExplainFunc) {
-        exceptionExplainer.register(cls, exceptionExplainFunc);
+    /**
+     * @param cls              cls
+     * @param exceptionExplain exceptionExplain
+     * @return void
+     * @title register
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:30
+     */
+    public <T extends Throwable> void register(Class<T> cls, ExceptionExplain<T> exceptionExplain) {
+        exceptionExplainer.register(cls, exceptionExplain);
     }
 
-    public <R extends Throwable> KRuntimeException convert(R exception) {
+    /**
+     * @param exception exception
+     * @return KRuntimeException
+     * @title convert
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:30
+     */
+    public KRuntimeException convert(Throwable exception) {
         return convert(exception, true);
     }
 
-    public <R extends Throwable> KRuntimeException convert(R exception, boolean trace) {
+    /**
+     * @param exception exception
+     * @param trace     trace
+     * @return KRuntimeException
+     * @title convert
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:30
+     */
+    public KRuntimeException convert(Throwable exception, boolean trace) {
         if (KRuntimeException.class.isAssignableFrom(exception.getClass())) {
             return (KRuntimeException) exception;
         } else {
             try {
-                ExceptionExplain exceptionExplain = exceptionExplainer.getExceptionExplain(exception);
-                KRuntimeException runtimeException;
+                ExplainResult explainResult = exceptionExplainer.explain(exception);
                 if (trace) {
-                    runtimeException = new KRuntimeException(exceptionExplain.getMsg(true), exception);
+                    return new KRuntimeException(explainResult.getErrInfo(), explainResult.getExtra(),
+                            explainResult.getMsg(), exception);
                 } else {
-                    runtimeException = new KRuntimeException(exceptionExplain.getMsg(true));
+                    return new KRuntimeException(explainResult.getErrInfo(), explainResult.getExtra(),
+                            explainResult.getMsg());
                 }
-                runtimeException.setErrInfo(exceptionExplain.getErrInfo());
-                runtimeException.setExtra(exceptionExplain.getExtra());
-                return runtimeException;
             } catch (Exception e) {
-                throw new InternalException(e);
+                log.error("convert error", e);
             }
+            return new KRuntimeException(ErrInfos.UNKNOWN, exception.getMessage());
         }
 
     }

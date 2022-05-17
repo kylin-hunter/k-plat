@@ -2,7 +2,7 @@ package com.kylinhunter.plat.commons.exception;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.kylinhunter.plat.commons.exception.common.ThrowableEx;
+import com.kylinhunter.plat.commons.exception.common.KThrowable;
 import com.kylinhunter.plat.commons.exception.info.ErrInfo;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
@@ -23,8 +23,8 @@ public class ExceptionHelper {
      * @updateTime 2022/01/01 5:22 下午
      */
     public static int getErrCode(Throwable e) {
-        if (e instanceof ThrowableEx) {
-            ErrInfo errInfo = ((ThrowableEx) e).getErrInfo();
+        if (e instanceof KThrowable) {
+            ErrInfo errInfo = ((KThrowable) e).getErrInfo();
             if (errInfo != null) {
                 return errInfo.getCode();
             }
@@ -60,8 +60,8 @@ public class ExceptionHelper {
      */
     public static String getMessage(Throwable e, boolean showUnknownMsg, int max) {
 
-        if (e instanceof ThrowableEx) {
-            ErrInfo errInfo = ((ThrowableEx) e).getErrInfo();
+        if (e instanceof KThrowable) {
+            ErrInfo errInfo = ((KThrowable) e).getErrInfo();
             if (errInfo != null) {
                 int code = errInfo.getCode();
                 if (code != ErrInfos.UNKNOWN.getCode()) {

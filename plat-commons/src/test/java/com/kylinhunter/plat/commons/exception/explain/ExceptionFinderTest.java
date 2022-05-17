@@ -36,7 +36,7 @@ class ExceptionFinderTest {
         KRuntimeException e3 = new KRuntimeException(e2);
         KException e4 = new KException(e3);
 
-        ExceptionFind exceptionFind = ExceptionFinder.find(e4, false, Sets.newHashSet(RuntimeException.class));
+        ExceptionFinder.ExceptionFind exceptionFind = ExceptionFinder.find(e4, false, Sets.newHashSet(RuntimeException.class));
         assertEquals(RuntimeException.class, exceptionFind.getTarget().getClass());
         assertEquals(RuntimeException.class, exceptionFind.getSource());
 

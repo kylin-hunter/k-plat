@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.commons.exception;
+package com.kylinhunter.plat.commons.suite;
 
 import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
@@ -10,6 +10,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
  * @date 2022-05-13 22:41
  **/
 @Suite
-@SelectPackages("com.kylinhunter.plat.commons.exception")
-public class SuiteTestForException {
+@SuiteDisplayName("SuiteTestForUtil")
+@SelectPackages("com.kylinhunter.plat.commons.io")
+public class SuiteTestForIO {
 }

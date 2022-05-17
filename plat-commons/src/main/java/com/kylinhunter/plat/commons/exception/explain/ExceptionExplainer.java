@@ -5,7 +5,8 @@ import java.util.Set;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.kylinhunter.plat.commons.exception.common.ThrowableEx;
+import com.kylinhunter.plat.commons.exception.common.KThrowable;
+import com.kylinhunter.plat.commons.exception.explain.ExceptionFinder.ExceptionFind;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,40 +19,50 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExceptionExplainer {
 
-    private final Map<Class<? extends Throwable>, ExceptionExplainFunc<Throwable>> exceptionExplainers =
+    private final Map<Class<? extends Throwable>, ExceptionExplain<Throwable>> exceptionExplains =
             Maps.newHashMap();
     public Set<Class<? extends Throwable>> allExceptions = Sets.newHashSet();
 
     /**
-     * @param cls                cls
-     * @param exceptionExplainFunc exceptionExplainFunc
+     * @param cls              cls
+     * @param exceptionExplain exceptionExplain
      * @title register
      * @description
      * @author BiJi'an
      * @date 2022-01-01 01:25
      */
+
     @SuppressWarnings("unchecked")
-    public <T extends Throwable> void register(Class<T> cls, ExceptionExplainFunc<T> exceptionExplainFunc) {
-        exceptionExplainers.put(cls, (ExceptionExplainFunc<Throwable>) exceptionExplainFunc);
+    public <T extends Throwable> void register(Class<T> cls, ExceptionExplain<T> exceptionExplain) {
+        exceptionExplains.put(cls, (ExceptionExplain<Throwable>) exceptionExplain);
         allExceptions.add(cls);
     }
 
-    public ExceptionExplain getExceptionExplain(Throwable throwable) {
-        ExceptionExplain exceptionExplain = null;
-        if (throwable instanceof ThrowableEx) {
-            exceptionExplain = new ExceptionExplain((ThrowableEx) throwable, throwable.getMessage());
+    /**
+     * @param throwable throwable
+     * @return com.kylinhunter.plat.commons.exception.explain.ExplainResult
+     * @title explain explain
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:31
+     */
+
+    public ExplainResult explain(Throwable throwable) {
+        ExplainResult explainResult = null;
+        if (throwable instanceof KThrowable) {
+            explainResult = new ExplainResult((KThrowable) throwable, throwable.getMessage());
         } else {
             ExceptionFind exceptionFind = ExceptionFinder.find(throwable, true, allExceptions);
             if (exceptionFind != null) {
-                ExceptionExplainFunc<Throwable> exceptionExplainFunc = exceptionExplainers.get(exceptionFind.getSource());
-                if (exceptionExplainFunc != null) {
-                    exceptionExplain = exceptionExplainFunc.explain(exceptionFind.getTarget());
+                ExceptionExplain<Throwable> exceptionExplain = exceptionExplains.get(exceptionFind.getSource());
+                if (exceptionExplain != null) {
+                    explainResult = exceptionExplain.explain(exceptionFind.getTarget());
                 }
             }
-            if (exceptionExplain == null) {
-                exceptionExplain = new ExceptionExplain(ErrInfos.UNKNOWN, throwable.getMessage());
+            if (explainResult == null) {
+                explainResult = new ExplainResult(ErrInfos.UNKNOWN, throwable.getMessage());
             }
         }
-        return exceptionExplain;
+        return explainResult;
     }
 }

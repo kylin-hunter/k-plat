@@ -7,7 +7,7 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfo;
  * @description
  * @date 2022/1/1
  **/
-public interface ThrowableEx {
+public interface KThrowable {
     ErrInfo getErrInfo();
 
     Object getExtra();

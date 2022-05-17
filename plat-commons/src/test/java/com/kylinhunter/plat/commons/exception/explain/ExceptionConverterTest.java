@@ -16,9 +16,9 @@ public class ExceptionConverterTest {
     @BeforeAll
     static void init() {
         exceptionConverter.register(TestException2.class, e -> {
-            ExceptionExplain exceptionExplain = new ExceptionExplain(ERR_INFO_TEST, "TestException2's msg");
-            exceptionExplain.setExtra("TestException2's extra");
-            return exceptionExplain;
+            ExplainResult explainResult = new ExplainResult(ERR_INFO_TEST, "TestException2's msg");
+            explainResult.setExtra("TestException2's extra");
+            return explainResult;
         });
 
     }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 import com.kylinhunter.plat.commons.exception.explain.ExceptionConverter;
-import com.kylinhunter.plat.commons.exception.explain.ExceptionExplain;
+import com.kylinhunter.plat.commons.exception.explain.ExplainResult;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.web.exception.WebErrInfos;
 
@@ -40,7 +40,7 @@ public class WebExceptionConverter {
                     }
                 }
             }
-            return new ExceptionExplain(ErrInfos.PARAM, errMsgs.toString());
+            return new ExplainResult(ErrInfos.PARAM, errMsgs.toString());
         });
         exceptionConverter.getExceptionExplainer().register(MethodArgumentNotValidException.class, (e) -> {
             Map<String, String> errMsgs = Maps.newHashMap();
@@ -51,25 +51,25 @@ public class WebExceptionConverter {
                     }
                 }
             }
-            return new ExceptionExplain(ErrInfos.PARAM, errMsgs.toString());
+            return new ExplainResult(ErrInfos.PARAM, errMsgs.toString());
         });
 
         exceptionConverter.getExceptionExplainer().register(HttpRequestMethodNotSupportedException.class, (e) -> {
 
-            return new ExceptionExplain(WebErrInfos.WEB_NOT_SUPPORTED, e.getMessage());
+            return new ExplainResult(WebErrInfos.WEB_NOT_SUPPORTED, e.getMessage());
         });
 
         exceptionConverter.getExceptionExplainer().register(NoHandlerFoundException.class, (e) -> {
 
-            return new ExceptionExplain(WebErrInfos.WEB_NO_HANDLER_FOUND, e.getMessage());
+            return new ExplainResult(WebErrInfos.WEB_NO_HANDLER_FOUND, e.getMessage());
         });
 
         exceptionConverter.getExceptionExplainer().register(InvalidFormatException.class, (e) -> {
-            return new ExceptionExplain(ErrInfos.FORMAT, "json format" + e.getMessage());
+            return new ExplainResult(ErrInfos.FORMAT, "json format" + e.getMessage());
         });
 
         exceptionConverter.getExceptionExplainer().register(HttpMessageNotReadableException.class, (e) -> {
-            return new ExceptionExplain(WebErrInfos.FORMAT, e.getMessage());
+            return new ExplainResult(WebErrInfos.FORMAT, e.getMessage());
         });
 
     }

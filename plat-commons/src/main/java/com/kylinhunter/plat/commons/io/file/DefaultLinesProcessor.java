@@ -1,13 +1,11 @@
 package com.kylinhunter.plat.commons.io.file;
 
 /**
- * @description  default line processor
- * @author  BiJi'an
+ * @author BiJi'an
+ * @description default line processor
  * @date 2022/1/1
  **/
 public abstract class DefaultLinesProcessor<T> implements LinesProcessor {
 
-    T getResult() {
-        return null;
-    }
+    abstract T getResult();
 }

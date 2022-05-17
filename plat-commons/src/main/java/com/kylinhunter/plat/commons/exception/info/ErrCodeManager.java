@@ -7,8 +7,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.exception.info.ErrInfo;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.InitException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,24 +38,28 @@ public class ErrCodeManager {
         }
     }
 
+    public static synchronized void init(Class cls) {
+        for (Field field : cls.getDeclaredFields()) {
+            if (field.getType() == ErrInfo.class && Modifier.isFinal(field.getModifiers())) {
+                try {
+                    ErrInfo errInfo = (ErrInfo) field.get(null);
+                    if (StringUtils.isEmpty(errInfo.getDefaultMsg())) {
+                        errInfo.setDefaultMsg(field.getName());
+                    }
+                    register(errInfo.getCode(), errInfo.getDefaultMsg());
+
+                } catch (Exception e) {
+                    throw new InitException("init ErrCodeManager error", e);
+                }
+
+            }
+        }
+    }
+
     public static synchronized void init() {
         if (!initialized) {
             initialized = true;
-            for (Field field : ErrInfos.class.getDeclaredFields()) {
-                if (field.getType() == ErrInfo.class && Modifier.isFinal(field.getModifiers())) {
-                    try {
-                        ErrInfo errInfo = (ErrInfo) field.get(null);
-                        if (StringUtils.isEmpty(errInfo.getDefaultMsg())) {
-                            errInfo.setDefaultMsg(field.getName());
-                        }
-                        register(errInfo.getCode(), errInfo.getDefaultMsg());
-
-                    } catch (Exception e) {
-                        throw new InitException("init ErrCodeManager error", e);
-                    }
-
-                }
-            }
+            init(ErrInfos.class);
         }
 
     }

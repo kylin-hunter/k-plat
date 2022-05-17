@@ -14,7 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.kylinhunter.plat.commons.constants.KPlat;
+import com.kylinhunter.plat.commons.sys.KPlat;
 import com.kylinhunter.plat.commons.util.DateUtils;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.web.request.RequestContexService;

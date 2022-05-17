@@ -13,7 +13,7 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class KException extends Exception implements ThrowableEx {
+public class KException extends Exception implements KThrowable {
     private static final long serialVersionUID = 1L;
     private ErrInfo errInfo = ErrInfos.UNKNOWN;
     private Object extra;

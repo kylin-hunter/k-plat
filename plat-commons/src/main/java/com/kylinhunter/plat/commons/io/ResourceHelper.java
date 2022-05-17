@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 
@@ -33,20 +31,17 @@ public class ResourceHelper {
      * @author BiJi'an
      * @updateTime 2022-01-21 00:52
      */
-    public static PathInfo getPathInfo(String path) {
-        if (!StringUtils.isEmpty(path)) {
-            if (path.startsWith(CLASSPATH_TAG)) {
-                return new PathInfo(PathType.CLASSPATH, path.replace(CLASSPATH_TAG, ""));
-            } else {
-                return new PathInfo(PathType.FILESYSTEM, path.replace(USER_DIR_TAG,
-                        UserDirUtils.get().getAbsolutePath()));
-            }
+    private static PathInfo getPathInfo(String path) {
+        if (path.startsWith(CLASSPATH_TAG)) {
+            return new PathInfo(PathType.CLASSPATH, path.substring(CLASSPATH_TAG.length()));
+        } else {
+            return new PathInfo(PathType.FILESYSTEM, path.replace(USER_DIR_TAG, UserDirUtils.get().getAbsolutePath()));
         }
-        return null;
+
     }
 
     /**
-     * @param pathInfo
+     * @param path path
      * @return java.io.InputStream
      * @throws
      * @title getInputStream
@@ -54,26 +49,22 @@ public class ResourceHelper {
      * @author BiJi'an
      * @updateTime 2022-01-01 02:11
      */
-    public static InputStream getInputStream(PathInfo pathInfo, String subPath) {
-
-        if (pathInfo != null) {
-            PathType pathType = pathInfo.getPathType();
-            if (pathType == PathType.CLASSPATH) {
-                return ResourceHelper.getInputStreamInClassPath(pathInfo.getPath() + "/" + subPath);
-
-            } else {
-                File file = new File(pathInfo.getPath(), subPath);
-                try {
-                    if (file.exists() && file.isFile()) {
-                        return new FileInputStream(file);
-                    }
-                } catch (FileNotFoundException e) {
-                    throw new ParamException("invalid file " + file.getAbsolutePath(), e);
-
+    public static InputStream getInputStream(String path) {
+        PathInfo pathInfo = getPathInfo(path);
+        PathType pathType = pathInfo.getPathType();
+        if (pathType == PathType.CLASSPATH) {
+            return ResourceHelper.getInputStreamInClassPath(pathInfo.getPath());
+        } else {
+            File file = new File(pathInfo.getPath());
+            try {
+                if (file.exists() && file.isFile()) {
+                    return new FileInputStream(file);
                 }
+            } catch (FileNotFoundException e) {
+                throw new ParamException("invalid file " + file.getAbsolutePath(), e);
             }
+            return null;
         }
-        return null;
     }
 
     /**
@@ -102,37 +93,30 @@ public class ResourceHelper {
      * @author BiJi'an
      * @updateTime 2022-01-01 02:11
      */
-    public static InputStreamReader getStreamReaderInClassPath(String resourcePath) throws IOException {
-        return getStreamReaderInClassPath(resourcePath, "UTF-8");
+    public static InputStreamReader getStreamReaderInClassPath(String resourcePath, String charset) throws IOException {
+        return new InputStreamReader(getInputStreamInClassPath(resourcePath), "UTF-8");
     }
 
     /**
-     * @param resourcePath resourcePath
-     * @param charset      charset
-     * @return java.io.InputStreamReader
-     * @title getStreamReaderInClassPath
+     * @param path path
+     * @return java.lang.String
+     * @title correctPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:11
+     * @updateTime 2022-01-21 00:52
      */
-    public static InputStreamReader getStreamReaderInClassPath(String resourcePath, String charset) throws IOException {
-        try {
-            InputStream in = ResourceHelper.class.getClassLoader().getResourceAsStream(resourcePath);
-            if (in != null) {
-                return new InputStreamReader(in, charset);
-            } else {
-                in = ResourceHelper.class.getResourceAsStream(resourcePath);
-                if (in != null) {
-                    return new InputStreamReader(in, charset);
-
-                } else {
-                    return null;
-                }
+    public static File getFile(String path) {
+        PathInfo pathInfo = getPathInfo(path);
+        PathType pathType = pathInfo.getPathType();
+        if (pathType == PathType.CLASSPATH) {
+            return getFileInClassPath(pathInfo.getPath());
+        } else {
+            File file = new File(pathInfo.getPath());
+            if (file.exists()) {
+                return file;
             }
-        } catch (Exception e) {
-            throw new IOException("getStreamReaderInClassPath error", e);
         }
-
+        return null;
     }
 
     /**
@@ -144,8 +128,7 @@ public class ResourceHelper {
      * @updateTime 2022-01-01 02:12
      */
 
-    public static File getFileInClassPath(String resourcePath) {
-
+    private static File getFileInClassPath(String resourcePath) {
         URL url = ResourceHelper.class.getClassLoader().getResource(resourcePath);
         if (url == null) {
             url = ResourceHelper.class.getResource(resourcePath);
@@ -161,7 +144,7 @@ public class ResourceHelper {
      * @author BiJi'an
      * @updateTime 2022-01-01 02:11
      */
-    public static File getFile(URL url) {
+    private static File getFile(URL url) {
         File file;
         try {
             if (url != null) {
