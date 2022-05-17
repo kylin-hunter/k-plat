@@ -1,10 +1,28 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
 }
 
-test{
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
-    println jvmArgs
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact bootJar
+//            artifact sourcesJar
+//            artifact javadocJar
+        }
+    }
+}
+
+test {
+
 }
 
 

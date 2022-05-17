@@ -1,0 +1,58 @@
+package ${sys_packageName};
+
+#foreach($pkg in ${sys_importPackages})
+import ${pkg};
+#end
+
+/**
+ * <p>
+ * $!{sys_comment} 代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${sys_date}
+ */
+#if(${sys_isLombok})
+@Data
+    #if(${sys_haveSuperClass})
+@EqualsAndHashCode(callSuper = true)
+    #else
+@EqualsAndHashCode(callSuper = false)
+    #end
+    #if(${sys_isLombokChainModel})
+@Accessors(chain = true)
+    #end
+#end
+#if(${sys_swagger2})
+@ApiModel(value = "${sys_className}对象", description = "$!{sys_comment}")
+#end
+#if(${sys_haveSuperClass})
+public class ${sys_className} extends ${sys_superClassName} {
+#else
+public class ${sys_className} #if(${sys_serializable})implements Serializable#end{
+#end
+
+#if(${sys_serializable})
+    private static final long serialVersionUID = 1L;
+#end
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${sys_entityFields})
+    #if($field.supportCreate)
+    #if("$!field.comment" != "")
+        #if(${sys_swagger2})
+    @ApiModelProperty(value = "${field.comment}")
+        #else
+        /**
+         * ${field.comment}
+         */
+        #end
+    #end
+##    #if(${field.datetime})
+##    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+##    #end
+    private ${field.typeSimpleName} ${field.name};
+    #end
+#end
+
+
+}

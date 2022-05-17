@@ -4,9 +4,9 @@ buildscript {
     apply from: "./script/gradle-script/ext-func-allprojects.gradle"
     repositories {
         mavenLocal()
-        maven {
-            url "https://maven.aliyun.com/repository/public-snapshots"
-        }
+//        maven {
+//            url "https://maven.aliyun.com/repository/public-snapshots"
+//        }
         maven {
             url "https://maven.aliyun.com/repository/public"
         }
@@ -20,21 +20,22 @@ buildscript {
 }
 
 
-
 plugins {
-    id 'java'
-    id 'maven'
+    id 'java-library'
+    id 'maven-publish'
+
 }
 
 allprojects {
+    group 'com.kylinhunter.plat'
+    version '1.0.1-SNAPSHOT'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-
     repositories {
         mavenLocal()
-        maven {
-            url "https://maven.aliyun.com/repository/public-snapshots"
-        }
+//        maven {
+//            url "https://maven.aliyun.com/repository/public-snapshots"
+//        }
         maven {
             url "https://maven.aliyun.com/repository/public"
         }
@@ -43,19 +44,13 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven'
-    apply from: "../script/gradle-script/ext-func-subprojects.gradle"
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    dependencyManagement {
-        imports {
-            //spring bom helps us to declare dependencies without specifying version numbers.
-            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    apply from: "../script/gradle-script/ext-func-subprojects.gradle"
 
-        }
-    }
+
     jar {
         manifest.attributes provider: 'gradle'
     }
@@ -66,22 +61,38 @@ subprojects {
         implementation("org.projectlombok:lombok")
         annotationProcessor 'org.projectlombok:lombok'
 
+
+        implementation(rootProject.dep['springfox-swagger2'])
+        implementation(rootProject.dep['springfox-swagger-ui'])
+
+
         testImplementation("org.projectlombok:lombok")
         testAnnotationProcessor 'org.projectlombok:lombok'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-        testImplementation 'org.junit.jupiter:junit-jupiter-api'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+
+        testImplementation 'org.junit.platform:junit-platform-suite-api:1.8.2'
+        testImplementation 'org.junit.platform:junit-platform-suite:1.8.2'
+        testImplementation 'org.junit.platform:junit-platform-engine:1.8.2'
+        testImplementation 'org.junit.platform:junit-platform-commons:1.8.2'
+        testImplementation 'org.junit.platform:junit-platform-launcher:1.8.2'
+
+
+        testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
         testImplementation(rootProject.dep['jmockit'])
 
     }
 
     test {
-
+//        exclude 'com/kylinhunter/plat/**/Suite**'
         useJUnitPlatform()
         testLogging {
-            outputs.upToDateWhen {false}
+            outputs.upToDateWhen { false }
             showStandardStreams = true
         }
 
@@ -93,15 +104,39 @@ subprojects {
         }
     }
     classes.finalizedBy(taskChangeActiveProfile)
-
     addDockerBuildTask(project.name)
+
+
+    java{
+        withSourcesJar()
+//        withJavadocJar()
+
+    }
+
+
+    // 解决javadoc打包乱码
+    javadoc {
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            author true
+            version true
+        }
+    }
+    if (project.name != 'plat-server-eureka') {
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                }
+            }
+        }
+    }
+
 
 }
 
-group 'com.kylinhunter.plat'
-version '1.0.1-SNAPSHOT'
-
-wrapper{
+wrapper {
     gradleVersion = '6.9'
     archiveBase = 'GRADLE_USER_HOME'
     archivePath = 'wrapper/dists'

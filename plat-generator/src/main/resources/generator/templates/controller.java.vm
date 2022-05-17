@@ -1,0 +1,34 @@
+package ${sys_packageName};
+
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}Resp;
+import com.kylinhunter.plat.api.module.${sys_module_name}.service.rpc.Rpc${sys_entityName}Service;
+import com.kylinhunter.plat.web.controller.CommonCurdController;
+
+import io.swagger.annotations.Api;
+import lombok.Getter;
+
+/**
+ * <p>
+ * $!{sys_comment}  代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${sys_date}
+ */
+@RestController
+@RequestMapping("/api/v1/${sys_module_name}/${sys_output.entityNameUL}")
+@Api(value = "${sys_entityName}相关接口")
+public class ${sys_entityName}Controller extends CommonCurdController<${sys_entityName}ReqCreate,
+        ${sys_entityName}ReqUpdate, ${sys_entityName}Resp, ${sys_entityName}ReqQuery> {
+
+    @DubboReference
+    @Getter
+    private Rpc${sys_entityName}Service rpcService;
+
+}

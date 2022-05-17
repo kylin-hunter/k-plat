@@ -1,0 +1,36 @@
+package ${sys_packageName};
+
+    ${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqQuery;
+    ${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
+    ${sys_module_name}.bean.vo.${sys_entityName}Resp;
+    ${sys_module_name}.service.local.${sys_entityName}Service;
+import com.kylinhunter.plat.api.page.PageData;
+import com.kylinhunter.plat.api.service.rpc.RpcCommonService;
+/**
+ * <p>
+ * $!{sys_comment} 代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${sys_date}
+ */
+public interface ${sys_className} extends RpcCommonService<${sys_entityName}Service,
+        ${sys_entityName}ReqCreate, ${sys_entityName}ReqUpdate,
+        ${sys_entityName}Resp, ${sys_entityName}ReqQuery> {
+    @Override
+    ${sys_entityName}Resp save(${sys_entityName}ReqCreate reqCreate);
+
+    @Override
+    ${sys_entityName}Resp update(${sys_entityName}ReqUpdate reqUpdate);
+
+    @Override
+    ${sys_entityName}Resp findById(ReqFindById reqFindById);
+
+    @Override
+    boolean delete(ReqDelete reqDelete);
+
+    @Override
+    PageData<${sys_entityName}Resp> query(${sys_entityName}ReqQuery reqQueryPage);
+
+}

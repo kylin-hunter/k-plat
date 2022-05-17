@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false" scan="true">
-    <property name="application.name" value="kylinhunter-dic-core"/>
-    <include resource="com/kylinhunter/nlp/dic/commons/kylinhunter.xml"/>
-</configuration>

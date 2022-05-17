@@ -1,0 +1,22 @@
+package ${sys_packageName};
+
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.entity.${sys_entityName};
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqQuery;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}Resp;
+import com.kylinhunter.plat.api.service.local.CommonService;
+
+/**
+ * <p>
+ * $!{sys_comment} 代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${sys_date}
+ */
+public interface ${sys_className} extends CommonService<${sys_entityName},
+        ${sys_entityName}ReqCreate, ${sys_entityName}ReqUpdate,
+        ${sys_entityName}Resp, ${sys_entityName}ReqQuery>  {
+
+}

@@ -1,12 +1,15 @@
 dependencies {
-    implementation(rootProject.dep['guava']) ;
-    implementation(rootProject.dep['commons-lang3'])
-    implementation(rootProject.dep['commons-io'])
-
+    api("com.fasterxml.jackson.core:jackson-databind")
+    api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    api('com.google.guava:guava')
+    api("org.jodd:jodd-core:5.1.6")
+    api(rootProject.dep['commons-lang3'])
+    api(rootProject.dep['commons-io'])
 }
 jar.enabled = true
+bootJar.enabled(false)
 
-test{
+test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
     println jvmArgs
 }

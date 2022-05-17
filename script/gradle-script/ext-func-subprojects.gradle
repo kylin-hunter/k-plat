@@ -1,9 +1,9 @@
 buildscript {
     repositories {
         mavenLocal()
-        maven {
-            url "https://maven.aliyun.com/repository/public-snapshots"
-        }
+//        maven {
+//            url "https://maven.aliyun.com/repository/public-snapshots"
+//        }
         maven {
             url "https://maven.aliyun.com/repository/public"
         }

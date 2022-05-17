@@ -1,4 +1,12 @@
 dependencies {
+    api project(':plat-api')
+
+    api(rootProject.dep['mybatis-spring-boot-starter'])
+    api(rootProject.dep['mybatis-plus-boot-starter'])
+    api(rootProject.dep['mybatis-plus-generator'])
+    api(rootProject.dep['mybatis-typehandlers-jsr310'])
+    api(rootProject.dep['mysql-connector-java'])
+
 }
 jar.enabled = true
 

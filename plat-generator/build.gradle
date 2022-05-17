@@ -1,0 +1,23 @@
+dependencies {
+
+    implementation project(':plat-api')
+    implementation project(':plat-commons')
+    implementation(rootProject.dep['guava']) ;
+
+    implementation(rootProject.dep['velocity-engine-core'])
+    implementation(rootProject.dep['mybatis-spring-boot-starter'])
+    implementation(rootProject.dep['mybatis-plus-boot-starter'])
+    implementation(rootProject.dep['mybatis-plus-generator'])
+    implementation(rootProject.dep['mybatis-typehandlers-jsr310'])
+
+}
+jar.enabled = true
+bootJar.enabled = false
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

@@ -1,12 +1,7 @@
-
 dependencies {
+    api project(':plat-commons')
+    api("jakarta.validation:jakarta.validation-api")
+    api(rootProject.dep['mybatis-plus'])
 }
 jar.enabled = true
-
-test{
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
-    println jvmArgs
-}
-
-
-
+bootJar.enabled = false

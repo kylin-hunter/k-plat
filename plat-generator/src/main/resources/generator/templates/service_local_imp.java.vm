@@ -1,0 +1,28 @@
+package ${sys_packageName};
+
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.entity.${sys_entityName};
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqQuery;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
+import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}Resp;
+import com.kylinhunter.plat.api.module.${sys_module_name}.service.local.${sys_entityName}Service;
+import com.kylinhunter.plat.dao.mapper.${sys_module_name}.${sys_entityName}Mapper;
+import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{sys_comment} 代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${sys_date}
+ */
+@Service
+public class ${sys_className}
+        extends CommonServiceImpl<${sys_entityName}Mapper, ${sys_entityName},
+        ${sys_entityName}ReqCreate, ${sys_entityName}ReqUpdate,
+        ${sys_entityName}Resp, ${sys_entityName}ReqQuery> implements ${sys_entityName}Service {
+
+}

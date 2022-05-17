@@ -19,6 +19,7 @@ ext {
             "springfox-swagger-ui"            : 'io.springfox:springfox-swagger-ui:2.9.2',
 
             'mybatis-spring-boot-starter'     : 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4',
+            'mybatis-plus'                    : 'com.baomidou:mybatis-plus:3.4.3.1',
             'mybatis-plus-boot-starter'       : 'com.baomidou:mybatis-plus-boot-starter:3.4.3.1',
             'mybatis-plus-generator'          : 'com.baomidou:mybatis-plus-generator:3.4.1',
             'velocity-engine-core'            : 'org.apache.velocity:velocity-engine-core:2.3',

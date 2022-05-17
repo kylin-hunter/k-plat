@@ -1,8 +1,19 @@
-dependencies {
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
-jar.enabled = true
 
-test{
+dependencies {
+
+    api project(':plat-web')
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+}
+
+jar.enabled = false
+bootJar.enabled(true)
+
+test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
     println jvmArgs
 }

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author BiJi'an
  * @description
- * @create 2022-05-04 17:35
+ * @date  2022-01-04 17:35
  **/
 @EnableEurekaServer
 @SpringBootApplication
