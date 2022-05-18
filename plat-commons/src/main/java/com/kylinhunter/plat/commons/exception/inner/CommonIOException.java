@@ -9,18 +9,18 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfos;
  * @date 2022/1/1
  **/
 
-public class KIOException extends KRuntimeException {
+public class CommonIOException extends KRuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public KIOException() {
+    public CommonIOException() {
         this.errInfo = ErrInfos.IO;
     }
 
-    public KIOException(String message) {
+    public CommonIOException(String message) {
         super(ErrInfos.IO, message);
     }
 
-    public KIOException(String message, Throwable e) {
+    public CommonIOException(String message, Throwable e) {
         super(ErrInfos.IO, message, e);
     }
 }

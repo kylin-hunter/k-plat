@@ -11,6 +11,8 @@ import java.net.URL;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -34,8 +36,10 @@ public class ResourceHelper {
     private static PathInfo getPathInfo(String path) {
         if (path.startsWith(CLASSPATH_TAG)) {
             return new PathInfo(PathType.CLASSPATH, path.substring(CLASSPATH_TAG.length()));
-        } else {
+        } else if (path.startsWith(USER_DIR_TAG)) {
             return new PathInfo(PathType.FILESYSTEM, path.replace(USER_DIR_TAG, UserDirUtils.get().getAbsolutePath()));
+        } else {
+            return new PathInfo(PathType.FILESYSTEM, path);
         }
 
     }
@@ -68,33 +72,33 @@ public class ResourceHelper {
     }
 
     /**
-     * @param resourcePath the path
+     * @param classPath the path
      * @return java.io.InputStream
      * @title getInputStreamInClassPath
      * @description
      * @author BiJi'an
      * @updateTime 2022-01-01 02:10
      */
-    public static InputStream getInputStreamInClassPath(String resourcePath) {
-        InputStream in = ResourceHelper.class.getClassLoader().getResourceAsStream(resourcePath);
+    public static InputStream getInputStreamInClassPath(String classPath) {
+        InputStream in = ResourceHelper.class.getClassLoader().getResourceAsStream(classPath);
         if (in != null) {
             return in;
         } else {
-            return ResourceHelper.class.getResourceAsStream(resourcePath);
+            return ResourceHelper.class.getResourceAsStream(classPath);
         }
 
     }
 
     /**
-     * @param resourcePath resourcePath
+     * @param classPath classPath
      * @return java.io.InputStreamReader
      * @title getStreamReaderInClassPath
      * @description
      * @author BiJi'an
      * @updateTime 2022-01-01 02:11
      */
-    public static InputStreamReader getStreamReaderInClassPath(String resourcePath, String charset) throws IOException {
-        return new InputStreamReader(getInputStreamInClassPath(resourcePath), "UTF-8");
+    public static InputStreamReader getStreamReaderInClassPath(String classPath, String charset) throws IOException {
+        return new InputStreamReader(getInputStreamInClassPath(classPath), "UTF-8");
     }
 
     /**
@@ -120,7 +124,7 @@ public class ResourceHelper {
     }
 
     /**
-     * @param resourcePath resourcePath
+     * @param classPath classPath
      * @return java.io.File
      * @title getFileInClassPath
      * @description
@@ -128,10 +132,10 @@ public class ResourceHelper {
      * @updateTime 2022-01-01 02:12
      */
 
-    private static File getFileInClassPath(String resourcePath) {
-        URL url = ResourceHelper.class.getClassLoader().getResource(resourcePath);
+    public static File getFileInClassPath(String classPath) {
+        URL url = ResourceHelper.class.getClassLoader().getResource(classPath);
         if (url == null) {
-            url = ResourceHelper.class.getResource(resourcePath);
+            url = ResourceHelper.class.getResource(classPath);
         }
         return getFile(url);
     }
@@ -162,5 +166,27 @@ public class ResourceHelper {
             log.warn("get File error " + url, e);
         }
         return null;
+    }
+
+    /**
+     * @author BiJi'an
+     * @description
+     * @date 2022-01-01 02:15
+     **/
+    @Data
+    @AllArgsConstructor
+    public static class PathInfo {
+        private PathType pathType;
+        private String path;
+
+    }
+
+    /**
+     * @author BiJi'an
+     * @description
+     * @date 2022-01-01 02:14
+     **/
+    public enum PathType {
+        CLASSPATH, FILESYSTEM;
     }
 }

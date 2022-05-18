@@ -1,17 +1,12 @@
 package com.kylinhunter.plat.commons.io.file;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 
-import org.apache.commons.io.Charsets;
+import org.apache.commons.io.FileUtils;
 
-import com.kylinhunter.plat.commons.exception.inner.KIOException;
-import com.kylinhunter.plat.commons.io.PathInfo;
-import com.kylinhunter.plat.commons.io.PathType;
-import com.kylinhunter.plat.commons.io.ResourceHelper;
+import com.kylinhunter.plat.commons.exception.inner.CommonIOException;
+import com.kylinhunter.plat.commons.exception.inner.InternalException;
 
 /**
  * @author BiJi'an
@@ -19,49 +14,18 @@ import com.kylinhunter.plat.commons.io.ResourceHelper;
  * @date 2022/1/1
  **/
 public class FileUtil {
-
-
     /**
-     * @param file      a file
-     * @param encoding  the encoding of the file
-     * @param processor a processor to process the file
-     * @title process
+     * @param directory the dir
+     * @title forceMkdir
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 01:48
+     * @date 2022-01-01 01:58
      */
-    public static void process(File file, String encoding, LinesProcessor processor) {
-
-        try (InputStream input = new FileInputStream(file)) {
-            process(input, encoding, processor);
-        } catch (Exception e) {
-            throw new KIOException("process error", e);
-        }
-
-    }
-
-    /**
-     * @param input     the input stream
-     * @param encoding  the encoding
-     * @param processor the processor
-     * @title process
-     * @description
-     * @author BiJi'an
-     * @updateTime 2022-01-01 02:00
-     */
-    public static void process(InputStream input, String encoding, LinesProcessor processor) {
-
-        try (InputStreamReader streamReader = new InputStreamReader(input, Charsets.toCharset(encoding));
-             BufferedReader bufferReader = new BufferedReader(streamReader)) {
-            String line = bufferReader.readLine();
-            while (line != null) {
-                processor.process(line);
-                line = bufferReader.readLine();
-
-            }
-        } catch (Exception e) {
-            throw new KIOException("process error", e);
+    public static void forceMkdir(final File directory) {
+        try {
+            FileUtils.forceMkdir(directory);
+        } catch (IOException e) {
+            throw new CommonIOException("forceMkdir  error", e);
         }
     }
-
 }
