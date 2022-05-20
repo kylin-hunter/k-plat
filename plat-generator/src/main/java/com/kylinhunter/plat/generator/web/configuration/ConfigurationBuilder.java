@@ -5,16 +5,16 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import com.kylinhunter.plat.generator.web.convertor.FieldConvert;
-import com.kylinhunter.plat.generator.web.convertor.FieldConvertRegister;
-import com.kylinhunter.plat.generator.web.pojo.EntityField;
-import com.kylinhunter.plat.generator.web.pojo.OutputInfo;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.util.ReflectionUtil;
 import com.kylinhunter.plat.commons.util.rules.NCStrategy;
 import com.kylinhunter.plat.commons.util.rules.NamingConvertors;
+import com.kylinhunter.plat.generator.web.convertor.FieldConvert;
+import com.kylinhunter.plat.generator.web.convertor.FieldConvertRegister;
+import com.kylinhunter.plat.generator.web.pojo.EntityField;
+import com.kylinhunter.plat.generator.web.pojo.OutputInfo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,9 +24,9 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description 全部配置信息的处理工具
  * @author BiJi'an
- * @date   2021/8/4
+ * @description 全部配置信息的处理工具
+ * @date 2021/8/4
  **/
 @Data
 @Slf4j
@@ -136,7 +136,7 @@ public class ConfigurationBuilder {
 
         // 处理fields
         FieldConvert fieldConvert = FieldConvertRegister.get(templateType);
-        for (Field field : ReflectionUtil.getAllDeclaredFields(entityClass, ReflectionUtil.FieldScope.ALLL)) {
+        for (Field field : ReflectionUtil.getAllDeclaredFields(entityClass, true).values()) {
             EntityField entityField = fieldConvert.process(strategyConfig, field);
             if (entityField != null) {
                 if (!entityField.isPrimitive() && !entityField.getTypeFullName().startsWith("java.lang")) {

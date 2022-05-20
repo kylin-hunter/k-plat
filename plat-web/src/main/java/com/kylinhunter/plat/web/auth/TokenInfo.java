@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.BooleanUtils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kylinhunter.plat.commons.util.DateUtils;
+import com.kylinhunter.plat.commons.util.date.DatePatterns;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-28 01:49
+ * @description
+ * @date 2022-01-28 01:49
  **/
 @Data
 @ToString
@@ -36,9 +36,9 @@ public class TokenInfo {
     @ApiModelProperty(value = "账户类型")
     @NotBlank(message = " for example=> fake or others")
     private String accountType;
-   
+
     @ApiModelProperty(value = "过期时间", hidden = true)
-    @JsonFormat(pattern = DateUtils.FROMAT_DATE_TIME, timezone = "GMT+8")
+    @JsonFormat(pattern = DatePatterns.DATE_TIME, timezone = "GMT+8")
     private Date expireDate;
 
     public TokenInfo(String userId, String userName, boolean superuser, String accountType) {

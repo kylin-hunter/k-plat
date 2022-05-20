@@ -30,7 +30,7 @@ public class MybatisCodeGeneratorSearchOptimization {
     }
 
     public static void main(String[] args) {
-        MainTestInvoker.invoke(() -> {
+        MainTestInvoker.run(() -> {
             run();
         });
     }

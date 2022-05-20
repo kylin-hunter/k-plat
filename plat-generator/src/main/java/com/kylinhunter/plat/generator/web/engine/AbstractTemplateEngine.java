@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.exception.inner.InternalException;
-import com.kylinhunter.plat.commons.util.DateUtils;
+import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.generator.web.configuration.CodeContext;
 import com.kylinhunter.plat.generator.web.configuration.GlobalConfig;
 import com.kylinhunter.plat.generator.web.configuration.StrategyConfig;
@@ -222,7 +222,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("sys_className", outputInfo.getClassName());
         objectMap.put("sys_comment", outputInfo.getClassName());
         objectMap.put("sys_entityFields", outputInfo.getEntityFields());
-        objectMap.put("sys_date", DateUtils.toStringDate());
+        objectMap.put("sys_date", DateUtils.formatDate());
 
         StrategyConfig strategyConfig = codeContext.getStrategyConfigs().getStrategyConfig(template);
         objectMap.put("sys_isLombok", strategyConfig.isLombok());

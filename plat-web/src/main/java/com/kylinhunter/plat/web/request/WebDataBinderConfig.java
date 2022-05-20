@@ -14,7 +14,7 @@ import com.kylinhunter.plat.api.bean.filter.ReqFilters;
 import com.kylinhunter.plat.api.bean.sort.ReqSorts;
 import com.kylinhunter.plat.api.bean.filter.ReqFilter;
 import com.kylinhunter.plat.api.bean.sort.ReqSort;
-import com.kylinhunter.plat.commons.util.DateUtils;
+import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.commons.util.name.NamePair;
 import com.kylinhunter.plat.commons.util.name.NamePairUtils;
 
@@ -34,8 +34,8 @@ public class WebDataBinderConfig {
             public void setAsText(String text) throws IllegalArgumentException {
                 // 日期解析方法,将对应的text解析成自己需要的格式
                 if (!StringUtils.isEmpty(text)) {
-                    LocalDateTime localDateTime = DateUtils.toLocalDateTime(text);
-                    this.setValue(DateUtils.localDateTimeToDate(localDateTime));
+                    LocalDateTime localDateTime = DateUtils.parse(text);
+                    this.setValue(DateUtils.toDate(localDateTime));
                 }
             }
         });
@@ -45,7 +45,7 @@ public class WebDataBinderConfig {
             public void setAsText(String text) throws IllegalArgumentException {
                 // 日期解析方法,将对应的text解析成自己需要的格式
                 if (!StringUtils.isEmpty(text)) {
-                    this.setValue(DateUtils.toLocalDateTime(text));
+                    this.setValue(DateUtils.parse(text));
                 }
             }
         });
@@ -55,7 +55,7 @@ public class WebDataBinderConfig {
             public void setAsText(String text) throws IllegalArgumentException {
                 // 日期解析方法,将对应的text解析成自己需要的格式
                 if (!StringUtils.isEmpty(text)) {
-                    this.setValue(DateUtils.toLocalDate(text));
+                    this.setValue(DateUtils.parseDate(text));
                 }
             }
         });

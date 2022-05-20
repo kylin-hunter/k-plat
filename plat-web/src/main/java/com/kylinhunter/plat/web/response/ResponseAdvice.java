@@ -15,8 +15,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.kylinhunter.plat.commons.sys.KPlat;
-import com.kylinhunter.plat.commons.util.DateUtils;
 import com.kylinhunter.plat.commons.util.JsonUtils;
+import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.request.RequestContexService;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
@@ -61,8 +61,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         response.setTraceId(trace.getId());
 
         if (requestContexService.isDebugMode()) { // 更好地调试信息
-            response.setStartTime(DateUtils.toStringDateTimeMillis(trace.getStartTime()));
-            response.setEndTime(DateUtils.toStringDateTimeMillis(trace.getEndTime()));
+            response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
+            response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
         }
         if (!trace.getExplain().isDummy()) {
             response.setExplain(trace.getExplain());

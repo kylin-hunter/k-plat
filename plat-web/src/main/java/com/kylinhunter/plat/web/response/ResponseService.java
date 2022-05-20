@@ -19,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.exception.ExceptionHelper;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
-import com.kylinhunter.plat.commons.util.DateUtils;
+import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.i18n.I18nUtils;
 import com.kylinhunter.plat.web.request.RequestContexService;
 import com.kylinhunter.plat.web.trace.Trace;
@@ -66,8 +66,8 @@ public class ResponseService {
         response.setDurationTime(trace.getDurationTime());
         response.setData(e.getExtra());
         if (debugMode) { // 更好地调试信息
-            response.setStartTime(DateUtils.toStringDateTimeMillis(trace.getStartTime()));
-            response.setEndTime(DateUtils.toStringDateTimeMillis(trace.getEndTime()));
+            response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
+            response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
         }
         response.setTraceId(trace.getId());
         if (!trace.getExplain().isDummy()) {

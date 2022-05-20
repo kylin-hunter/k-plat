@@ -7,7 +7,7 @@ import com.kylinhunter.plat.web.trace.Explain;
 /**
  * @description 返回响应
  * @author BiJi'an
- * @date   2021/7/29
+ * @date   2022/01/01
  **/
 
 public interface Response<T> extends Serializable {

@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author BiJi'an
  * @description trace
- * @date 2021/7/29
+ * @date 2022/01/01
  **/
 @Component
 @Slf4j
@@ -49,7 +49,7 @@ public class DefaultTraceHandler implements TraceHandler {
      * @title 从request获取Trace信息
      * @description
      * @author BiJi'an
-     * @updateTime 2021/7/29 2:45 下午
+     * @updateTime 2022/01/01 2:45 下午
      */
     private Trace tryCreateTraceFromRequest() {
         String traceId = requestContexService.getTraceId();

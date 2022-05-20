@@ -2,9 +2,9 @@ package com.kylinhunter.plat.generator.web.configuration;
 
 import java.util.Set;
 
+import org.apache.commons.lang3.ClassUtils;
 
- import com.google.common.collect.Sets;
-import com.kylinhunter.plat.commons.util.ClassUtils;
+import com.google.common.collect.Sets;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -42,7 +42,7 @@ public class StrategyConfig {
      */
     public StrategyConfig setSuperClass(Class<?> superClass) {
         this.superClass = superClass.getCanonicalName();
-        this.superClassName = ClassUtils.getClassName(this.superClass);
+        this.superClassName = ClassUtils.getShortClassName(this.superClass);
         return this;
     }
 
@@ -58,7 +58,7 @@ public class StrategyConfig {
 
     public StrategyConfig setSuperClass(String superClass) {
         this.superClass = superClass;
-        this.superClassName = ClassUtils.getClassName(this.superClass);
+        this.superClassName = ClassUtils.getShortClassName(this.superClass);
         return this;
     }
 

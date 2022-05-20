@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2022/5/3
  **/
 @Slf4j
-public class EnumServices {
+public class EServices {
     private static final Map<Enum<?>, Object> services = Maps.newHashMap();
 
     /**
@@ -31,13 +31,13 @@ public class EnumServices {
         if (service != null) {
             return (R) service;
         } else {
-            if (e instanceof EnumService) {
-                synchronized(EnumService.class) {
+            if (e instanceof EService) {
+                synchronized(EService.class) {
                     service = services.get(e);
                     if (service != null) {
                         return (R) service;
                     } else {
-                        Class<R> clazz = (Class<R>) ((EnumService) e).getClazz();
+                        Class<R> clazz = (Class<R>) ((EService) e).getClazz();
                         return register(e, clazz);
 
                     }

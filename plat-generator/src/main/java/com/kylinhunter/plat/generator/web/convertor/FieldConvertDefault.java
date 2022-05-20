@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.kylinhunter.plat.generator.constants.VoSupport;
@@ -14,7 +15,6 @@ import com.kylinhunter.plat.generator.constants.VoType;
 import com.kylinhunter.plat.generator.web.configuration.StrategyConfig;
 import com.kylinhunter.plat.generator.web.convertor.select.Selectors;
 import com.kylinhunter.plat.generator.web.pojo.EntityField;
-import com.kylinhunter.plat.commons.util.ClassUtils;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -70,7 +70,7 @@ public class FieldConvertDefault implements FieldConvert {
         }
         entityField.setName(field.getName());
         entityField.setTypeFullName(field.getType().getCanonicalName());
-        entityField.setTypeSimpleName(ClassUtils.getClassName(entityField.getTypeFullName()));
+        entityField.setTypeSimpleName(ClassUtils.getShortClassName(entityField.getTypeFullName()));
         ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);
         if (apiModelProperty != null) {
             entityField.setComment(StringUtils.defaultIfBlank(apiModelProperty.value(), field.getName()));

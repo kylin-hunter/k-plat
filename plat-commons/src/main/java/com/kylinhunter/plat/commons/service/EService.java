@@ -5,6 +5,6 @@ package com.kylinhunter.plat.commons.service;
  * @description a definition for simple service
  * @date 2022/1/1
  **/
-public interface EnumService {
+public interface EService {
     Class<?> getClazz();
 }

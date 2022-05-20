@@ -11,21 +11,21 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.commons.exception.inner.FormatException;
+import com.kylinhunter.plat.commons.exception.inner.InitException;
+import com.kylinhunter.plat.commons.util.ReflectionUtil;
 import com.kylinhunter.plat.commons.util.convertor.ClassConvertor;
 import com.kylinhunter.plat.commons.util.convertor.ClassCopy;
 import com.kylinhunter.plat.commons.util.convertor.FieldConvertor;
 import com.kylinhunter.plat.commons.util.convertor.FieldCopy;
 import com.kylinhunter.plat.commons.util.convertor.TargetType;
-import com.kylinhunter.plat.commons.exception.inner.FormatException;
-import com.kylinhunter.plat.commons.exception.inner.InitException;
-import com.kylinhunter.plat.commons.util.ReflectionUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-13 19:09
+ * @description
+ * @date 2022-01-13 19:09
  **/
 @Slf4j
 public class BeanCopyUtils {
@@ -133,11 +133,11 @@ public class BeanCopyUtils {
      */
     private static void initFieldConvertor(BeanCopies fileCopies, Class<?> sourceClass, Class<?> targetClass) {
         Map<String, Field> sourceFields =
-                ReflectionUtil.getAllDeclaredFieldMaps(sourceClass, ReflectionUtil.FieldScope.ALLL);
+                ReflectionUtil.getAllDeclaredFields(sourceClass, true);
 
         sourceFields.forEach((sourceFieldName, sourceField) -> {
             Map<String, Field> targetFields =
-                    ReflectionUtil.getAllDeclaredFieldMaps(targetClass, ReflectionUtil.FieldScope.ALLL);
+                    ReflectionUtil.getAllDeclaredFields(targetClass, true);
             Field targetField = targetFields.get(sourceFieldName);
 
             FieldConvertor fieldConvertor = sourceField.getAnnotation(FieldConvertor.class);

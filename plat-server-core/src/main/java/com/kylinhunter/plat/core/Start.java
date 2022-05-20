@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 /**
  * @author BiJi'an
  * @description
- * @date  2022-01-05 00:13
+ * @date  2022-01-01 00:13
  **/
 @EnableEurekaClient
 @SpringBootApplication(scanBasePackages = {"com.kylinhunter.plat"})
