@@ -37,7 +37,7 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.ExceptionHelper;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
-import com.kylinhunter.plat.commons.util.bean.BeanCopyUtils;
+import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 import com.kylinhunter.plat.dao.exception.DAOExceptionConverter;
 import com.kylinhunter.plat.dao.service.helper.ServiceDataHelper;
 

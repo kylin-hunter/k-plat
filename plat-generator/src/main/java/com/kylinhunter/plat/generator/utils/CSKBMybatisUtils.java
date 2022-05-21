@@ -55,8 +55,8 @@ public class CSKBMybatisUtils {
         return files;
     }
 
-    //    public static File getCoreFile(String name) {
-    //        return new File(SRC_DIR_CSKB_SERVER_CORE, SRC_ENTITY + "/" + name);
+    //    public static File getCoreFile(String name1) {
+    //        return new File(SRC_DIR_CSKB_SERVER_CORE, SRC_ENTITY + "/" + name1);
     //
     //    }
 

@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.commons.util.rules;
+package com.kylinhunter.plat.commons.util.name;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,7 +9,7 @@ import jodd.util.StringPool;
  * @author BiJi'an
  * @date   2022-01-10 14:39
  **/
-public class NCCamelToUnderline implements NamingConvertors.NamingConvertor {
+public class NCCamelToSnake implements NamingConvertor {
     public String convert(String name) {
 
         if (StringUtils.isBlank(name)) {

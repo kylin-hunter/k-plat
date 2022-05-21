@@ -106,7 +106,6 @@ public class JsonUtilsTest {
         String text = JsonUtils.toString(Lists.newArrayList(testBean));
         Assertions.assertEquals("keyValue",
                 Objects.requireNonNull(JsonUtils.toList(text, Map.class, true)).get(0).get("key"));
-
     }
 
 }

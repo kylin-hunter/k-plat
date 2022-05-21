@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author BiJi'an
  * @description
- * @date 2022/5/3
+ * @date 2022/01/01
  **/
 @Slf4j
 public class EServices {
@@ -24,7 +24,7 @@ public class EServices {
      * @author BiJi'an
      * @date 2022-01-01 23:55
      */
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>, R> R get(Enum<T> e) {
 
         Object service = services.get(e);
@@ -37,7 +37,7 @@ public class EServices {
                     if (service != null) {
                         return (R) service;
                     } else {
-                        Class<R> clazz = (Class<R>) ((EService) e).getClazz();
+                        Class<R> clazz = (Class<R>) ((EService<?>) e).getClazz();
                         return register(e, clazz);
 
                     }

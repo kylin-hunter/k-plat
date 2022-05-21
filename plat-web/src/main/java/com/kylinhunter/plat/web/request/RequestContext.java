@@ -7,7 +7,7 @@ package com.kylinhunter.plat.web.request;
  **/
 public class RequestContext {
 //    public static final String HEADER_CURRENT_USERID = "x-current-user"; /*上游传来的 userId*/
-    /*    public static final String HEADER_CURRENT_USERNAME = "x-current-user-name"; 上游传来的 userName*/
+    /*    public static final String HEADER_CURRENT_USERNAME = "x-current-user-name1"; 上游传来的 userName*/
     /*    public static final String HEADER_ACCOUNT_TYPE = "x-account-reqType";  上游传来的 账户类型*/
     /*    public static final String HEADER_AGENT_ID = "x-biz-id";  上游传来的 agent_id*/
     //    public static final String HEADER_AGENT_TOKEN = "x-agent-token"; /* 上游传来的 agent_id*/

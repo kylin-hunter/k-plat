@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.util.ReflectionUtil;
-import com.kylinhunter.plat.commons.util.rules.NCStrategy;
-import com.kylinhunter.plat.commons.util.rules.NamingConvertors;
+import com.kylinhunter.plat.commons.util.name.NCStrategy;
+import com.kylinhunter.plat.commons.util.name.NamingConvertors;
 import com.kylinhunter.plat.generator.web.convertor.FieldConvert;
 import com.kylinhunter.plat.generator.web.convertor.FieldConvertRegister;
 import com.kylinhunter.plat.generator.web.pojo.EntityField;
@@ -99,7 +99,7 @@ public class ConfigurationBuilder {
         TemplateType templateType = template.getType();
 
         outputInfo.setEntityName(entityName);
-        outputInfo.setEntityNameUL(NamingConvertors.convert(NCStrategy.CAMEL_TO_UNDERLINE, entityName));
+        outputInfo.setEntityNameUL(NamingConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, entityName));
         // 处理包
         outputInfo.setPackageName(packageConfig.getPackage(template));
         outputInfo.setPackagePath(packageConfig.getPackagePath(template));

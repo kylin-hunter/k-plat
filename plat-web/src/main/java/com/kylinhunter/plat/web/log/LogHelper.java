@@ -12,7 +12,7 @@ import com.kylinhunter.plat.web.trace.Trace;
 public class LogHelper {
     private static final String MDC_TRACE_ID = "x-trace-id";
     private static final String MDC_USER_ID = "x-current-user";
-    private static final String MDC_USER_NAME = "x-current-user-name";
+    private static final String MDC_USER_NAME = "x-current-user-name1";
     private static final String MDC_AGENT_ID = "x-agent-id";
 
     /**

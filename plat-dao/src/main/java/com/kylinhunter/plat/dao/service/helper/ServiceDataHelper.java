@@ -13,7 +13,7 @@ import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
 import com.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
-import com.kylinhunter.plat.commons.util.bean.BeanCopyUtils;
+import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 
 /**
  * @author BiJi'an

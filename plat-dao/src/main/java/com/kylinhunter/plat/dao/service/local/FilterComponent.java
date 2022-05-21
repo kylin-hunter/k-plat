@@ -48,7 +48,7 @@ public class FilterComponent {
                 v = Sets.newHashSet();
             }
             NamePair namePair = NamePairUtils.toNamePair(field);
-            v.add(namePair.getUnderline());
+            v.add(namePair.getSnake());
             v.add(namePair.getCamel());
             return v;
         });

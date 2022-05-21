@@ -1,12 +1,15 @@
 package com.kylinhunter.plat.commons.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +69,26 @@ public class ReflectionUtil {
             return Arrays.stream(clazz.getDeclaredFields()).collect(Collectors.toList());
         }
 
+    }
+
+    public static <T> Class<T> getSuperClassGenericType(Class<?> clazz, int index) {
+        try {
+            Type superClass = clazz.getGenericSuperclass();
+            return (Class<T>) ((ParameterizedType) superClass).getActualTypeArguments()[index];
+
+        } catch (Exception e) {
+            throw new DBException("getEntityBean error", e);
+        }
+    }
+
+    public static <T> Class<T> getGenericType(Field field, int index) {
+        try {
+            Type type = field.getGenericType();
+            return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[index];
+
+        } catch (Exception e) {
+            throw new DBException("getEntityBean error", e);
+        }
     }
 
 }

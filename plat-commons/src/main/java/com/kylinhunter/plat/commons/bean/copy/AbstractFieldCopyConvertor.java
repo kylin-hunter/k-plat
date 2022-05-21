@@ -1,24 +1,24 @@
-package com.kylinhunter.plat.commons.util.bean;
+package com.kylinhunter.plat.commons.bean.copy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import com.kylinhunter.plat.commons.bean.copy.convertor.FieldCopyConvertor;
 import com.kylinhunter.plat.commons.exception.inner.InternalException;
-import com.kylinhunter.plat.commons.util.convertor.FieldCopy;
 
 import lombok.Data;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-13 19:09
+ * @description
+ * @date 2022-01-01 19:09
  **/
 @Data
-public abstract class AbstractFieldCopy implements FieldCopy {
+public abstract class AbstractFieldCopyConvertor implements FieldCopyConvertor  {
 
+    protected final boolean reverse;
     protected final Method sourceMethod;
     protected final Method targetMethod;
-    protected final boolean reverse;
     protected final Field sourceField;
     protected final Field targetField;
 
@@ -38,5 +38,18 @@ public abstract class AbstractFieldCopy implements FieldCopy {
             throw new InternalException("setTargetValue error", e);
         }
     }
+
+    @Override
+    public void convert(Object source, Object target) {
+        if (reverse) {
+            this.backward(source, target);
+        } else {
+            this.forword(source, target);
+        }
+    }
+
+    public abstract void forword(Object source, Object target);
+
+    public abstract void backward(Object source, Object target);
 
 }

@@ -11,6 +11,6 @@ import lombok.Data;
  **/
 @Data
 public class NamePair implements Serializable {
-    private String camel; /*fe使用保留驼峰模式*/
-    private String underline; /*后端数据库使用下划线（蛇形）模式*/
+    private String camel; /*驼峰模式*/
+    private String snake; /*后端数据库使用下划线（蛇形）模式*/
 }

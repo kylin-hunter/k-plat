@@ -1,9 +1,6 @@
 package com.kylinhunter.plat.commons.util.name;
 
 
-import com.kylinhunter.plat.commons.util.rules.NCStrategy;
-import com.kylinhunter.plat.commons.util.rules.NamingConvertors;
-
 import jodd.util.StringPool;
 import jodd.util.StringUtil;
 
@@ -18,11 +15,11 @@ public class NamePairUtils {
         if (!StringUtil.isEmpty(str)) {
             NamePair namePair = new NamePair();
             if (str.indexOf(StringPool.UNDERSCORE) > 0) {
-                namePair.setUnderline(str);
-                namePair.setCamel(NamingConvertors.convert(NCStrategy.UNDERLINE_TO_CAMEL_LOWERCASE_FIRST, str));
+                namePair.setSnake(str);
+                namePair.setCamel(NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL, str));
             } else {
                 namePair.setCamel(str);
-                namePair.setUnderline(NamingConvertors.convert(NCStrategy.CAMEL_TO_UNDERLINE, str));
+                namePair.setSnake(NamingConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, str));
             }
 
             return namePair;

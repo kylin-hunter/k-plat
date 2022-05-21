@@ -106,7 +106,7 @@ public class EnumUtil {
 
     /**
      * @param enumType enumType
-     * @param name     name
+     * @param name     name1
      * @return T
      * @title get enum from code
      * @description
@@ -119,7 +119,7 @@ public class EnumUtil {
 
     /**
      * @param enumType      enumType
-     * @param name          name
+     * @param name          name1
      * @param throwIfFailed throwIfFailed
      * @return T
      * @title fromCode
@@ -137,7 +137,7 @@ public class EnumUtil {
             log.error("fromName  error", e);
         }
         if (throwIfFailed) {
-            throw new ParamException("invalid enum name:" + name);
+            throw new ParamException("invalid enum name1:" + name);
         } else {
             return null;
         }

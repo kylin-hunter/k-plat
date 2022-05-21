@@ -40,7 +40,7 @@ public class ReqSort implements Serializable {
 
     public String getColumn() {
         if (namePair != null) {
-            return namePair.getUnderline();
+            return namePair.getSnake();
         }
         return "";
     }
