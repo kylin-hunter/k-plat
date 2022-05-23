@@ -45,7 +45,7 @@ public class ReflectionUtil {
                     return classFields;
                 } else {
                     List<Field> declaredFields = getDeclaredFields(clazz, withSuper);
-                    classFields = declaredFields.stream().collect(Collectors.toMap(Field::getName, e -> e));
+                    classFields = declaredFields.stream().collect(Collectors.toMap(Field::getName, e -> e,(k,v)->v));
                     ALL_DECLARED_FIELDS.put(key, classFields);
                     return classFields;
                 }

@@ -1,0 +1,25 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+
+    api project(':plat-web')
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
+
+}
+
+jar.enabled = false
+bootJar.enabled(true)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

@@ -6,6 +6,7 @@ include 'plat-dao'
 include 'plat-web'
 include 'plat-generator'
 include 'plat-server-core'
+include 'plat-server-admin'
 include 'plat-server-eureka'
 
 

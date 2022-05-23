@@ -8,7 +8,7 @@ import com.kylinhunter.plat.api.module.core.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.vo.UserReqUpdate;
 import com.kylinhunter.plat.api.module.core.vo.UserSysResp;
-import com.kylinhunter.plat.dao.mapper.core.UserMapper;
+import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import lombok.Data;

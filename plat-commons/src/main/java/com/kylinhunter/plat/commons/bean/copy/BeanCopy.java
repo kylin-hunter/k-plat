@@ -26,7 +26,7 @@ public class BeanCopy {
         if (classCopyConvertor != null) {
             classCopyConvertor.convert(source, target);
         }
-        if (!fieldCopyConvertors.isEmpty()) {
+        if (fieldCopyConvertors != null && !fieldCopyConvertors.isEmpty()) {
             for (FieldCopyConvertor fieldCopyConvertor : fieldCopyConvertors) {
                 fieldCopyConvertor.convert(source, target);
             }

@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.mapper.core;
+package com.kylinhunter.plat.core.dao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
