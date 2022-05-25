@@ -9,8 +9,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
+import com.kylinhunter.plat.commons.exception.inner.GeneralException;
 
+import jodd.util.ClassLoaderUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReflectionUtil {
 
-    @SuppressWarnings("unchecked")
     private static final Map<String, Map<String, Field>> ALL_DECLARED_FIELDS = Maps.newHashMap();
 
     /**
@@ -41,14 +41,13 @@ public class ReflectionUtil {
         if (classFields == null) {
             synchronized(ReflectionUtil.class) {
                 classFields = ALL_DECLARED_FIELDS.get(key);
-                if (classFields != null) {
-                    return classFields;
-                } else {
+                if (classFields == null) {
                     List<Field> declaredFields = getDeclaredFields(clazz, withSuper);
-                    classFields = declaredFields.stream().collect(Collectors.toMap(Field::getName, e -> e,(k,v)->v));
+                    classFields =
+                            declaredFields.stream().collect(Collectors.toMap(Field::getName, e -> e, (k, v) -> v));
                     ALL_DECLARED_FIELDS.put(key, classFields);
-                    return classFields;
                 }
+                return classFields;
             }
         } else {
             return classFields;
@@ -71,23 +70,34 @@ public class ReflectionUtil {
 
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> Class<T> getSuperClassGenericType(Class<?> clazz, int index) {
         try {
             Type superClass = clazz.getGenericSuperclass();
             return (Class<T>) ((ParameterizedType) superClass).getActualTypeArguments()[index];
 
         } catch (Exception e) {
-            throw new DBException("getEntityBean error", e);
+            throw new GeneralException("getEntityBean error", e);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> Class<T> getGenericType(Field field, int index) {
         try {
             Type type = field.getGenericType();
             return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[index];
 
         } catch (Exception e) {
-            throw new DBException("getEntityBean error", e);
+            throw new GeneralException("getEntityBean error", e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Class<T> loadClass(String clazz) {
+        try {
+            return ClassLoaderUtil.loadClass(clazz);
+        } catch (Exception e) {
+            throw new GeneralException("getEntityBean error", e);
         }
     }
 

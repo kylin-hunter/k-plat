@@ -7,7 +7,7 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-10 00:53
+ * @date 2022-01-01 00:53
  **/
 public class WebErrInfos extends ErrInfos {
 

@@ -7,7 +7,7 @@ import jodd.util.StringPool;
 /**
  * @description
  * @author BiJi'an
- * @date   2022-01-10 14:39
+ * @date   2022-01-01 14:39
  **/
 public class NCCamelToSnake implements NamingConvertor {
     public String convert(String name) {

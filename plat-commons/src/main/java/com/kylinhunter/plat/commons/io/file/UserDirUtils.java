@@ -14,7 +14,7 @@ import com.kylinhunter.plat.commons.exception.inner.CommonIOException;
 public class UserDirUtils {
     private static final File USER_DIR = new File(System.getProperty("user.dir"));
     private static final String PATH_OF_USER_DIR = USER_DIR.getAbsolutePath();
-    private static final String USER_DIR_CONFIG = "config";
+    private static final String USER_DIR_CONFIG = "configurationBuilder";
     private static final String USER_DIR_TMP = "tmp";
     private static final String USER_DIR_TMP_JAVA = USER_DIR_TMP + "/src/main/java";
     private static final String USER_DIR_TMP_RESOURCE = USER_DIR_TMP + "/src/main/resources";

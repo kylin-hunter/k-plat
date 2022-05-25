@@ -1,12 +1,12 @@
 package ${sys_packageName};
 
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.entity.${sys_entityName};
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqQuery;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}Resp;
-import com.kylinhunter.plat.api.module.${sys_module_name}.service.local.${sys_entityName}Service;
-import com.kylinhunter.plat.dao.mapper.${sys_module_name}.${sys_entityName}Mapper;
+import ${sys_entity_class};
+import ${pgk_vo_create}.${sys_entityName}ReqCreate;
+import ${pgk_vo_query}.${sys_entityName}ReqQuery;
+import ${pgk_vo_update}.${sys_entityName}ReqUpdate;
+import ${pgk_vo_response}.${sys_entityName}Resp;
+import ${pgk_service_local}.${sys_entityName}Service;
+import ${pgk_parent}.${sys_module_name}.dao.mapper.${sys_entityName}Mapper;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;

@@ -50,7 +50,7 @@ public class ${sys_className} #if(${sys_serializable})implements Serializable#en
 ##    #if(${field.datetime})
 ##    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 ##    #end
-    private ${field.typeSimpleName} ${field.name};
+    private ${field.classSimpleName} ${field.name};
     #end
 
 #end

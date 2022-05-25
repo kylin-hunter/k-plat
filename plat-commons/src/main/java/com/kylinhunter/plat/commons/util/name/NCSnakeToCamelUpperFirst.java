@@ -8,7 +8,7 @@ import jodd.util.StringUtil;
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-10 14:39
+ * @date 2022-01-01 14:39
  **/
 public class NCSnakeToCamelUpperFirst implements NamingConvertor {
     public String convert(String name) {

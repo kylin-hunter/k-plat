@@ -35,26 +35,7 @@ public class ${sys_className} #if(${sys_serializable})implements Serializable#en
 #if(${sys_serializable})
     private static final long serialVersionUID = 1L;
 #end
-## ----------  BEGIN 字段循环遍历  ----------
-#foreach($field in ${sys_entityFields})
-    #if($field.supportQuery)
-    #if("$!field.comment" != "")
-        #if(${sys_swagger2})
-    @ApiModelProperty(value = "${field.comment}")
-        #else
-        /**
-         * ${field.comment}
-         */
-        #end
-    #end
-##    #if(${field.datetime})
-##    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-##    #end
-    private ${field.typeSimpleName} ${field.name};
-    #end
-#end
 
-    public ${sys_className}(int pn, int ps) {
-        super(pn, ps);
-    }
+
+
 }

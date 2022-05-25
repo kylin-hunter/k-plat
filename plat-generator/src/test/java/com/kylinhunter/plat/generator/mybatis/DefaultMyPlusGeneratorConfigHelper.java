@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.generator.mybatis;
 
+import com.kylinhunter.plat.generator.common.Module;
+
 /**
  * @author BiJi'an
  * @description
@@ -7,11 +9,10 @@ package com.kylinhunter.plat.generator.mybatis;
  **/
 public class DefaultMyPlusGeneratorConfigHelper {
 
-    public static MyPlusGeneratorConfig create(Module module) {
-
-        return MyPlusGeneratorCustomizer.customize(module, (e -> {
-
-        }));
+    public static MyPlusGeneratorConfig getConfig(Module module) {
+        return MyPlusGeneratorCustomizer.customize(module, e -> {
+            module.getEntityClassNames().forEach(System.out::println);
+        });
 
     }
 

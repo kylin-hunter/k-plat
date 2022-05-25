@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @NoArgsConstructor
 public class MyPlusGenerator {
-    private Module module;
     private MyPlusGeneratorConfig myPlusGeneratorConfig;
 
     public void exec(boolean clear) {
@@ -38,15 +37,8 @@ public class MyPlusGenerator {
         autoGenerator.execute();
     }
 
-    public Module createModule(String name) {
-        this.module = new Module(name);
-        return this.module;
-    }
-
     private void check() {
-        if (module == null) {
-            throw new ParamException("module is null");
-        }
+       
         if (myPlusGeneratorConfig == null) {
             throw new ParamException("myPlusGeneratorConfig is null");
         }

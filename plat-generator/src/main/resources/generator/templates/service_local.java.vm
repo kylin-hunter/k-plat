@@ -1,10 +1,10 @@
 package ${sys_packageName};
 
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.entity.${sys_entityName};
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqCreate;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqQuery;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}ReqUpdate;
-import com.kylinhunter.plat.api.module.${sys_module_name}.bean.vo.${sys_entityName}Resp;
+import ${sys_entity_class};
+import ${pgk_vo_create}.${sys_entityName}ReqCreate;
+import ${pgk_vo_query}.${sys_entityName}ReqQuery;
+import ${pgk_vo_update}.${sys_entityName}ReqUpdate;
+import ${pgk_vo_response}.${sys_entityName}Resp;
 import com.kylinhunter.plat.api.service.local.CommonService;
 
 /**

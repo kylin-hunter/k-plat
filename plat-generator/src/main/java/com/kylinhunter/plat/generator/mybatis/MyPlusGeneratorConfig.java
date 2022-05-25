@@ -2,6 +2,7 @@ package com.kylinhunter.plat.generator.mybatis;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -13,7 +14,10 @@ import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.google.common.collect.Lists;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.commons.io.file.UserDirUtils;
+import com.kylinhunter.plat.commons.util.name.NCStrategy;
+import com.kylinhunter.plat.commons.util.name.NamingConvertors;
+import com.kylinhunter.plat.generator.common.GenConst;
+import com.kylinhunter.plat.generator.common.Module;
 
 import lombok.Data;
 
@@ -25,28 +29,42 @@ import lombok.Data;
 @Data
 public class MyPlusGeneratorConfig {
 
-    public final File OUTPUT_MYBATIS = UserDirUtils.getDir("plat-generator/src_gen");
     private DataSourceConfig dataSourceConfig;
     private GlobalConfig globalConfig;
     private PackageConfig packageConfig;
     private StrategyConfig strategyConfig;
     private TemplateConfig templateConfig;
     private File output;
+    private Module module;
 
     public MyPlusGeneratorConfig(Module module) {
-        this.setOutput(OUTPUT_MYBATIS);
+        this.setOutput(GenConst.DEFAULT_OUTPUT);
+        this.setDataSourceConfig(initDataSourceConfig());
+        this.setGlobalConfig(initGlobalConfig());
+        this.setPackageConfig(initPackageConfig(module));
+        this.setStrategyConfig(initStrategyConfig(module));
+        this.setTemplateConfig(initTemplateConfig());
+        this.module = module;
+        init();
+    }
 
-        this.setDataSourceConfig(getDataSourceConfig());
-        this.setGlobalConfig(getGlobalConfig());
-        this.setPackageConfig(getPackageConfig(module));
-        this.setStrategyConfig(getStrategyConfig(module));
-        this.setTemplateConfig(getTemplateConfig());
+    private void init() {
+        List<String> entityClasses =
+                this.module.getTables().stream().map(this::getEntityClass).collect(Collectors.toList());
+        module.setEntityClassNames(entityClasses);
+    }
+
+    private String getEntityClass(String table) {
+        String parent = packageConfig.getParent();
+        String entity = packageConfig.getEntity();
+        String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
+        return parent + "." + entity + "." + entityName;
 
     }
 
-    public GlobalConfig getGlobalConfig() {
+    public GlobalConfig initGlobalConfig() {
         GlobalConfig globalConfig = new GlobalConfig();
-        globalConfig.setOutputDir(OUTPUT_MYBATIS.getAbsolutePath());
+        globalConfig.setOutputDir(GenConst.DEFAULT_OUTPUT.getAbsolutePath());
         globalConfig.setAuthor("biji'an");
         globalConfig.setOpen(false);
         globalConfig.setServiceName("%sService");  // 设置Service接口生成名称
@@ -55,7 +73,7 @@ public class MyPlusGeneratorConfig {
         return globalConfig;
     }
 
-    public DataSourceConfig getDataSourceConfig() {
+    public DataSourceConfig initDataSourceConfig() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/kp?serverTimezone=Asia/Shanghai&useUnicode=true"
                 + "&characterEncoding=utf8&useSSL=false");
@@ -67,7 +85,7 @@ public class MyPlusGeneratorConfig {
 
     }
 
-    private static PackageConfig getPackageConfig(Module module) {
+    private static PackageConfig initPackageConfig(Module module) {
 
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setModuleName("");
@@ -82,41 +100,44 @@ public class MyPlusGeneratorConfig {
 
     }
 
-    private static StrategyConfig getStrategyConfig(Module module) {
+    private static StrategyConfig initStrategyConfig(Module module) {
         StrategyConfig strategyConfig = new StrategyConfig();
 
-        strategyConfig.setInclude(module.getTableNames());
+        strategyConfig.setInclude(module.getTableArr());
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setSuperEntityClass(BaseEntity.class);
-        strategyConfig.setSuperEntityColumns("id", "sys_created", "sys_updated", "agent_id", "created_user_id",
-                "created_user_name", "last_edit_user_id", "last_edit_user_name", "last_edit_time", "delete_flag",
-                "op_lock");
+        strategyConfig.setSuperEntityColumns("id", "sys_tenant_id", "sys_auto_updated", "sys_created_user_id",
+                "sys_created_user_name",
+                "sys_created_time", "sys_update_user_id", "sys_update_user_name", "sys_update_time", "sys_delete_flag",
+                "sys_op_lock");
 
-        strategyConfig.setVersionFieldName("op_lock"); // 乐观锁
+        //        strategyConfig.setVersionFieldName("sys_op_lock");
         //        strategyConfig.setSuperControllerClass("com.kylinhunter.plat.****.BaseController");
         strategyConfig.setControllerMappingHyphenStyle(true);
         strategyConfig.setEntityLombokModel(true);
         strategyConfig.setRestControllerStyle(true);
-        strategyConfig.setLogicDeleteFieldName("deleted"); // 逻辑删除(deleted表明)
-
-        TableFill tableFillCreate = new TableFill("user", FieldFill.INSERT); // 创建时自动填充策略user数据库表
-        TableFill tableFillUpdate = new TableFill("user", FieldFill.INSERT_UPDATE); // 修改时
-        List tableFills = Lists.newArrayList(tableFillCreate, tableFillUpdate);
+        //        strategyConfig.setLogicDeleteFieldName("sys_delete_flag"); // 逻辑删除(deleted表明)
+        TableFill tableFillCreate = new TableFill("sys_created_time", FieldFill.INSERT); // 创建时自动填充策略user数据库表
+        TableFill tableFillUpdate = new TableFill("sys_update_time", FieldFill.INSERT_UPDATE); // 修改时
+        List<TableFill> tableFills = Lists.newArrayList(tableFillCreate, tableFillUpdate);
         strategyConfig.setTableFillList(tableFills);
         strategyConfig.setTablePrefix("cskb_");
         return strategyConfig;
     }
 
-    public TemplateConfig getTemplateConfig() {
+    public TemplateConfig initTemplateConfig() {
         TemplateConfig templateConfig = new TemplateConfig();
 
         // 配置自定义输出模板
         // 指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         // templateConfig.setEntity("/strategies/entity.java");
-        // templateConfig.setService();
-        // templateConfig.setTemplateController();
+        templateConfig.setService(null);
+        templateConfig.setServiceImpl(null);
+        templateConfig.setController(null);
         templateConfig.setXml(null);
+
+        templateConfig.setMapper("mybatis/plus/templates/mapper.java.vm");
         return templateConfig;
 
     }

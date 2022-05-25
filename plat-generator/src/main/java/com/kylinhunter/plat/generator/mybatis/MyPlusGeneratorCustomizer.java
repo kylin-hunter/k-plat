@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.generator.mybatis;
 
+import com.kylinhunter.plat.generator.common.Module;
+
 /**
  * @author BiJi'an
  * @description
@@ -7,8 +9,13 @@ package com.kylinhunter.plat.generator.mybatis;
  **/
 
 public class MyPlusGeneratorCustomizer {
+
+    public static MyPlusGeneratorConfig defaultConfig(Module module) {
+        return new MyPlusGeneratorConfig(module);
+    }
+
     public static MyPlusGeneratorConfig customize(Module module, MyPlusGeneratorCustomize myPlusGeneratorCustomize) {
-        MyPlusGeneratorConfig myPlusGeneratorConfig = new MyPlusGeneratorConfig(module);
+        MyPlusGeneratorConfig myPlusGeneratorConfig = defaultConfig(module);
         myPlusGeneratorCustomize.customize(myPlusGeneratorConfig);
         return myPlusGeneratorConfig;
     }

@@ -18,6 +18,8 @@ public class ErrInfos {
     public static final ErrInfo INTERNAL = new ErrInfo(BASE);
     public static final ErrInfo IO = new ErrInfo(BASE);
     public static final ErrInfo PARAM = new ErrInfo(BASE);
+    public static final ErrInfo GENERAL = new ErrInfo(BASE);
+
 
     private static final ErrClassify CLASSIFY_BIZ = new ErrClassify(10001);
     public static final ErrInfo BIZ = new ErrInfo(CLASSIFY_BIZ);

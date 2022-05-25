@@ -1,16 +1,19 @@
 package com.kylinhunter.plat.generator.mybatis;
 
+import com.kylinhunter.plat.generator.common.Module;
+
 public class MybatisPlusGeneratorForRole {
 
     public static void main(String[] args) {
         MyPlusGenerator myPlusGenerator = new MyPlusGenerator();
-
-        Module module = myPlusGenerator.createModule("core");
-        module.setTableNames("kp_role");
-
-        myPlusGenerator.setMyPlusGeneratorConfig(DefaultMyPlusGeneratorConfigHelper.create(module));
-
+        myPlusGenerator.setMyPlusGeneratorConfig(getConfig());
         myPlusGenerator.exec(true);
+    }
+
+    public static MyPlusGeneratorConfig getConfig() {
+        Module module = new Module("core");
+        module.addTable("kp_role");
+        return DefaultMyPlusGeneratorConfigHelper.getConfig(module);
     }
 
 }
