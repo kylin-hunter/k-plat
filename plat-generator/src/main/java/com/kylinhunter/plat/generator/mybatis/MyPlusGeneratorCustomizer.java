@@ -10,12 +10,8 @@ import com.kylinhunter.plat.generator.common.Module;
 
 public class MyPlusGeneratorCustomizer {
 
-    public static MyPlusGeneratorConfig defaultConfig(Module module) {
-        return new MyPlusGeneratorConfig(module);
-    }
-
     public static MyPlusGeneratorConfig customize(Module module, MyPlusGeneratorCustomize myPlusGeneratorCustomize) {
-        MyPlusGeneratorConfig myPlusGeneratorConfig = defaultConfig(module);
+        MyPlusGeneratorConfig myPlusGeneratorConfig = new MyPlusGeneratorConfig(module);
         myPlusGeneratorCustomize.customize(myPlusGeneratorConfig);
         return myPlusGeneratorConfig;
     }

@@ -40,13 +40,12 @@ public abstract class AbstractTemplateEngine {
     private CodeContext codeContext;
 
     /**
-     * @param
+     * @param CodeContext CodeContext
      * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
-     * @throws
      * @title 模板引擎初始化
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 8:15 下午
+     * @date 2021/8/4 8:15 下午
      */
     public AbstractTemplateEngine init(CodeContext CodeContext) {
         this.codeContext = CodeContext;
@@ -55,11 +54,10 @@ public abstract class AbstractTemplateEngine {
 
     /**
      * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
-     * @throws
      * @title 创建目录
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 8:14 下午
+     * @date 2021/8/4 8:14 下午
      */
     public AbstractTemplateEngine mkdirs() {
         GlobalConfig globalConfig = codeContext.getGlobalConfig();
@@ -86,11 +84,10 @@ public abstract class AbstractTemplateEngine {
 
     /**
      * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
-     * @throws
      * @title 输出结果
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 2:23 下午
+     * @date 2021/8/4 2:23 下午
      */
     public AbstractTemplateEngine batchOutput() {
         try {
@@ -118,36 +115,33 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * @param path
+     * @param path path
      * @return java.lang.String
-     * @throws
      * @title 模板真实文件路径
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/5 1:02 上午
+     * @date 2021/8/5 1:02 上午
      */
     public abstract String pathTemplate(String path);
 
     /**
      * @return java.lang.String
-     * @throws
      * @title 文件后缀
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/5 1:02 上午
+     * @date 2021/8/5 1:02 上午
      */
     protected String fileSuffix() {
         return StringPool.DOT_JAVA;
     }
 
     /**
-     * @param path
+     * @param path path
      * @return boolean
-     * @throws
      * @title 检测文件是否需要生成
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/5 12:42 上午
+     * @date 2021/8/5 12:42 上午
      */
     protected boolean isCreate(Path path) throws IOException {
 
@@ -172,19 +166,17 @@ public abstract class AbstractTemplateEngine {
     public abstract void writer(Map<String, Object> context, String templatePath, Path path) throws Exception;
 
     public void open() {
-        codeContext.getGlobalConfig().getOutputDirs().values().stream().distinct().forEach(dir -> {
-            this.open(dir.toString());
-        });
+        codeContext.getGlobalConfig().getOutputDirs().values().stream().distinct()
+                .forEach(dir -> this.open(dir.toString()));
 
     }
 
     /**
      * @return void
-     * @throws
      * @title 打开生成的代码目录
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 8:14 下午
+     * @date 2021/8/4 8:14 下午
      */
     public void open(String outputDir) {
         if (codeContext.getGlobalConfig().isOpen()
@@ -193,9 +185,9 @@ public abstract class AbstractTemplateEngine {
                 String osName = System.getProperty("os.className");
                 if (osName != null) {
                     if (osName.contains("Mac")) {
-                        //                        Runtime.getRuntime().exec("open " + outputDir);
+                        Runtime.getRuntime().exec("open " + outputDir);
                     } else if (osName.contains("Windows")) {
-                        //                        Runtime.getRuntime().exec("cmd /c start " + outputDir);
+                        Runtime.getRuntime().exec("cmd /c start " + outputDir);
                     } else {
                         log.debug("文件输出目录:" + outputDir);
                     }
@@ -207,13 +199,12 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * @param outputInfo
+     * @param outputInfo outputInfo
      * @return java.util.Map<java.lang.String, java.lang.Object>
-     * @throws
      * @title 渲染对象 MAP 信息
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 8:23 下午
+     * @date 2021/8/4 8:23 下午
      */
     private Map<String, Object> getObjectMap(OutputInfo outputInfo, Template template) {
         Map<String, Object> objectMap = Maps.newLinkedHashMap();
@@ -263,8 +254,6 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("vo_resp_class_name", strategyConfigVoResponse.getClassName(entityName));
             objectMap.put("vo_query_class_name", strategyConfigVoQuery.getClassName(entityName));
             objectMap.put("service_local_class_name", strategyConfigServiceImp.getClassName(entityName));
-
-
 
             objectMap.put("pgk_parent", pkgConfig.getParentPackage());
         }

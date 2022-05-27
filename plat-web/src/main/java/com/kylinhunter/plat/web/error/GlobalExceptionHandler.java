@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
      * @title handler
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 4:00 上午
+     * @date 2021/8/1 4:00 上午
      */
     @ExceptionHandler(value = Exception.class)
     public Object handler(HttpServletRequest req, HttpServletResponse rsp, Exception globalException, Model model) {

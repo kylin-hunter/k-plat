@@ -36,7 +36,7 @@ public class RequestContexService {
      * @title getTraceId
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     public String getTraceId() {
         return getHeader(RequestContext.HEADER_TRACE_ID);
@@ -48,7 +48,7 @@ public class RequestContexService {
      * @title getTraceId
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     public String getAgentId() {
         String agentId = getHeader(RequestContext.HEADER_AGENT_ID);
@@ -64,7 +64,7 @@ public class RequestContexService {
      * @title getTenantId
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     public String getToken() {
         // 获取请求头信息authorization信息
@@ -96,7 +96,7 @@ public class RequestContexService {
      * @title isExplain
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     public boolean isDebugMode() {
         return BooleanUtils.toBoolean(this.getParameter(RequestContext.PARAM_DEBUG));
@@ -111,7 +111,7 @@ public class RequestContexService {
      * @title getIP
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     public String getIP(HttpServletRequest request, boolean xForwardedFor, boolean xRealIp) {
         if (xForwardedFor) {
@@ -142,7 +142,7 @@ public class RequestContexService {
      * @title getHeader
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     private String getHeader(String name) {
         return StringUtils.defaultString(request.getHeader(name));
@@ -155,7 +155,7 @@ public class RequestContexService {
      * @title getParameter
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 3:46 上午
+     * @date 2021/8/1 3:46 上午
      */
     private String getParameter(String name) {
         return StringUtils.defaultString(request.getParameter(name));

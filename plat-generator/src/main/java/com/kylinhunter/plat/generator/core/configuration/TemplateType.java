@@ -11,7 +11,6 @@ import lombok.Getter;
 public enum TemplateType {
     VO,
     SERVICE,
-    CONTROLLER;
-
+    CONTROLLER
 }
 

@@ -33,7 +33,7 @@ public class SortComponent {
      * @title 添加合法的字段
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 8:48 下午
+     * @date 2021/11/11 8:48 下午
      */
     public void addValidField(Class<?> cls, String field) {
         VALID_FIELDS.compute(cls, (k, v) -> {
@@ -56,7 +56,7 @@ public class SortComponent {
      * @title 校验排序字段的合法性
      * @description
      * @author BiJi'an
-     * @updateTime 2022/1/21 4:21 下午
+     * @date 2022/1/21 4:21 下午
      */
     private void check(ReqSorts sorts, Class<?> clazz) {
         Set<String> fields = VALID_FIELDS.get(clazz);
@@ -79,7 +79,7 @@ public class SortComponent {
      * @title 解析sort
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 3:45 下午
+     * @date 2021/11/11 3:45 下午
      */
     public ReqSorts getSorts(ReqQueryPage reqQueryPage, boolean needCheck) {
         ReqSorts sorts = new ReqSorts(reqQueryPage.getSorts());
@@ -113,7 +113,7 @@ public class SortComponent {
      * @title 写sort到wrapper
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 3:45 下午
+     * @date 2021/11/11 3:45 下午
      */
     public <T> void writeToWrapper(QueryWrapper<T> wrapper, ReqQueryPage reqQueryPage) {
         ReqSorts sorts = getSorts(reqQueryPage);

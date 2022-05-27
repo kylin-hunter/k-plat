@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.generator.core;
 
 import com.kylinhunter.plat.generator.common.Module;
+import com.kylinhunter.plat.generator.core.configuration.ConfigurationsCustomizer;
 import com.kylinhunter.plat.generator.core.configuration.Configurations;
 
 /**
@@ -10,11 +11,10 @@ import com.kylinhunter.plat.generator.core.configuration.Configurations;
  **/
 public class DefaultCodeGenneratorConfigHelper {
 
-    public static Configurations configurations(Module module) {
-        module.loadEntityClasses();
-        return new ConfigurationsForDefault((codeContext) -> {
-            codeContext.getGlobalConfig().setModuleName(module.getName());
-            codeContext.getStrategyConfigs().setEntityClasses(module.getEntityClasses());
+    public static Configurations getConfig(Module module) {
+        return ConfigurationsCustomizer.customize(module, e -> {
+            module.getEntityClassNames().forEach(System.out::println);
         });
+
     }
 }

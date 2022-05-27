@@ -48,13 +48,12 @@ public class PackageConfig {
     }
 
     /**
-     * @param template
+     * @param template template
      * @return java.lang.String
-     * @throws
      * @title 获取包名
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:31 下午
+     * @date 2022/01/01 4:31 下午
      */
     public String getPackage(Template template) {
         String parentPackage = getParentPackage();
@@ -74,13 +73,12 @@ public class PackageConfig {
     }
 
     /**
-     * @param template
+     * @param template template
      * @return java.nio.file.Path
-     * @throws
      * @title 获取包的路径
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:31 下午
+     * @date 2022/01/01 4:31 下午
      */
     public Path getPackagePath(Template template) {
         Path outputDir = globalConfig.getOutputDir(template);

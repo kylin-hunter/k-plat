@@ -10,7 +10,6 @@ import com.kylinhunter.plat.commons.util.name.NamingConvertors;
 import com.kylinhunter.plat.generator.core.configuration.bean.EntityField;
 import com.kylinhunter.plat.generator.core.configuration.bean.OutputInfo;
 import com.kylinhunter.plat.generator.core.convertor.FieldConvert;
-import com.kylinhunter.plat.generator.core.convertor.FieldConvertRegister;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,9 +25,10 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Data
 @Slf4j
+
 public class CodeContextBuilder {
 
-    private CodeContext codeContext = new CodeContext();
+    private final  CodeContext codeContext ;
 
     /**
      * @return ConfigCentor
@@ -109,9 +109,9 @@ public class CodeContextBuilder {
         }
 
         // 处理fields
-        FieldConvert fieldConvert = FieldConvertRegister.get(templateType);
+        FieldConvert fieldConvert = strategyConfigs.getFieldConvert();
         for (Field field : ReflectionUtil.getAllDeclaredFields(entityClass, true).values()) {
-            EntityField entityField = fieldConvert.process(strategyConfig, field);
+            EntityField entityField = fieldConvert.convert(strategyConfig, field);
             if (entityField != null) {
                 if (!entityField.isPrimitive() && !entityField.getClassName().startsWith("java.lang")) {
                     outputInfo.addImportPackages(entityField.getClassName());

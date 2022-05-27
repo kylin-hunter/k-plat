@@ -3,6 +3,7 @@ package com.kylinhunter.plat.generator.core.engine;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Properties;
@@ -51,7 +52,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
     public void writer(Map<String, Object> context, String templatePath, Path path) throws Exception {
         Template template = velocityEngine.getTemplate(templatePath, StringPool.UTF_8);
         try (FileOutputStream fos = new FileOutputStream(path.toFile());
-             OutputStreamWriter ow = new OutputStreamWriter(fos, StringPool.UTF_8);
+             OutputStreamWriter ow = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
              BufferedWriter writer = new BufferedWriter(ow)) {
             template.merge(new VelocityContext(context), writer);
         }

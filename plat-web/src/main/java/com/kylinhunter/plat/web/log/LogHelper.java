@@ -22,7 +22,7 @@ public class LogHelper {
      * @title addToMDC
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 2:53 下午
+     * @date 2022/01/01 2:53 下午
      */
 
     public static void setContext(Trace trace) {

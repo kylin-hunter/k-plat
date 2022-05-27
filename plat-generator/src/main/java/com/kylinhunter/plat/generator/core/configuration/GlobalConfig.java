@@ -15,9 +15,9 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * @description 全局配置
  * @author BiJi'an
- * @date   2022/01/01
+ * @description 全局配置
+ * @date 2022/01/01
  **/
 @Data
 @Accessors(chain = true)
@@ -41,39 +41,36 @@ public class GlobalConfig {
     private Map<Template, Path> outputDirs = Maps.newHashMap();
 
     /**
-     * @param outputDir
+     * @param outputDir outputDir
      * @return void
-     * @throws
      * @title setOutputDir
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 3:45 下午
+     * @date 2022/01/01 3:45 下午
      */
     public void setDefaultOutputDir(File outputDir) {
         this.setDefaultOutputDir(outputDir.toPath());
     }
 
     /**
-     * @param outputDir
+     * @param outputDir outputDir
      * @return void
-     * @throws
      * @title setOutputDir
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 3:45 下午
+     * @date 2022/01/01 3:45 下午
      */
     public void setDefaultOutputDir(String outputDir) {
         this.setDefaultOutputDir(Paths.get(outputDir));
     }
 
     /**
-     * @param outputDir
+     * @param outputDir outputDir
      * @return void
-     * @throws
      * @title setOutputDir
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 3:45 下午
+     * @date 2022/01/01 3:45 下午
      */
     public void setDefaultOutputDir(Path outputDir) {
         if (Files.exists(outputDir)) {

@@ -22,7 +22,7 @@ public interface Branch<P, T> {
      * @title 参考 mybatis plus 创建分支
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:48 下午
+     * @date 2022/01/01 4:48 下午
      */
     static <P, T> Branch<P, T> of(Predicate<P> tester, Function<P, T> factory) {
         return new Branch<P, T>() {

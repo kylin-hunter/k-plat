@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.generator.core.convertor.FieldConvert;
+import com.kylinhunter.plat.generator.core.convertor.FieldConvertDefault;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -20,21 +22,19 @@ import lombok.experimental.Accessors;
 public class StrategyConfigs {
     private Map<Template, StrategyConfig> strategies = Maps.newHashMap();
     private List<Class<?>> entityClasses = Lists.newArrayList();
+    private FieldConvert fieldConvert = new FieldConvertDefault();
 
     public StrategyConfigs() {
-        Arrays.stream(Template.values()).forEach(t -> {
-            setStrategyConfig(t, new StrategyConfig(t));
-        });
+        Arrays.stream(Template.values()).forEach(t -> setStrategyConfig(t, new StrategyConfig(t)));
     }
 
     /**
-     * @param entityClass
+     * @param entityClass entityClass
      * @return void
-     * @throws
      * @title 添加entity
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 4:47 下午
+     * @date 2021/8/4 4:47 下午
      */
     public void addEntityClass(Class<?> entityClass) {
         this.entityClasses.add(entityClass);

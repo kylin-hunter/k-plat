@@ -28,7 +28,7 @@ public class ServiceDataHelper {
      * @title 构造空的返回数据
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/10 11:13 上午
+     * @date 2021/11/10 11:13 上午
      */
     public static <Z, T> PageData<Z> emptyPageData(ReqQueryPage reqQueryPage) {
         PageData<Z> pageData = new PageData<>();
@@ -99,7 +99,7 @@ public class ServiceDataHelper {
      * @title 根据ReqUpdate 统一更新 Bean
      * @description
      * @author BiJi'an
-     * @updateTime 2021/10/25 7:45 下午
+     * @date 2021/10/25 7:45 下午
      */
     public static void setUpdateMsg(BaseEntity baseEntity, Req reqUpdate) {
 
@@ -119,7 +119,7 @@ public class ServiceDataHelper {
      * @title 根据ReqUpdate 统一更新 Bean
      * @description
      * @author BiJi'an
-     * @updateTime 2021/10/25 7:45 下午
+     * @date 2021/10/25 7:45 下午
      */
     public static void setCreateMsg(BaseEntity baseEntity, Req reqCreate) {
         if (reqCreate.getUserContext() != null) {

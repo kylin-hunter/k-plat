@@ -27,7 +27,7 @@ public class Selector<P, T> {
      * @title 使用指定的参数创建选择器
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:51 下午
+     * @date 2022/01/01 4:51 下午
      */
     public static <P, T> Selector<P, T> param(P param) {
         return new Selector<>(param);
@@ -40,7 +40,7 @@ public class Selector<P, T> {
      * @title 传入一个新的分支，判定这个分支满足条件
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:51 下午
+     * @date 2022/01/01 4:51 下午
      */
     public Selector<P, T> test(Branch<P, T> branch) {
         if (!selected) {
@@ -60,7 +60,7 @@ public class Selector<P, T> {
      * @title 获取结果，如果当前选择器没有击中任何条件分支，则从给定的提供者中获取结果；
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:52 下午
+     * @date 2022/01/01 4:52 下午
      */
     public T withDefault(Function<P, T> supplier) {
         return selected ? this.factory.apply(param) : supplier.apply(param);
@@ -72,7 +72,7 @@ public class Selector<P, T> {
      * @title 当前选择器是否已经选择分支
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:52 下午
+     * @date 2022/01/01 4:52 下午
      */
     public boolean isSelected() {
         return selected;

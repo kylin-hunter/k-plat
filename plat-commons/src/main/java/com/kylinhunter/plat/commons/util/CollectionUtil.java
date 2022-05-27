@@ -18,7 +18,7 @@ public class CollectionUtil {
      * @title merge body
      * @description
      * @author BiJi'an
-     * @updateTime 2022/1/1 8:30
+     * @date 2022/1/1 8:30
      */
     @SafeVarargs
     public static <T> List<T> merge(List<T>... results) {

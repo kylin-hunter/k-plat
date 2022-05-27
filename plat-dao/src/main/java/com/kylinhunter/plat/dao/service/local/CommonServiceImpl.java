@@ -159,7 +159,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
      * @title 支持逻辑删除，跳过非法数据
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/8 8:26 下午
+     * @date 2021/11/8 8:26 下午
      */
     protected boolean skip(ReqQuery reqQuery, BaseEntity baseEntity) {
         if (!reqQuery.isWithLogicDelData() && true == baseEntity.getSysDeleteFlag()) {

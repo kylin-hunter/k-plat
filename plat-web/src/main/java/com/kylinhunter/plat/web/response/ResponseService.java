@@ -47,7 +47,7 @@ public class ResponseService {
      * @title toResponse
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/1 4:00 上午
+     * @date 2021/8/1 4:00 上午
      */
     public DefaultResponse toResponse(KRuntimeException e) {
         boolean debugMode = requestContexService.isDebugMode();

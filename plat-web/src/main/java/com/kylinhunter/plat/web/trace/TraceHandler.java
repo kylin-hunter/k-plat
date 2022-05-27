@@ -12,7 +12,7 @@ public interface TraceHandler {
      * @title 隐式 从 request中 创建 trace
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 2:46 下午
+     * @date 2022/01/01 2:46 下午
      */
     Trace create();
 
@@ -22,7 +22,7 @@ public interface TraceHandler {
      * @title 获取trace
      * @description
      * @author BiJi'an
-     * @updateTime 2021/7/30 11:25 上午
+     * @date 2021/7/30 11:25 上午
      */
     Trace get();
 
@@ -32,7 +32,7 @@ public interface TraceHandler {
      * @title remove
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 2:54 下午
+     * @date 2022/01/01 2:54 下午
      */
     void remove();
 }

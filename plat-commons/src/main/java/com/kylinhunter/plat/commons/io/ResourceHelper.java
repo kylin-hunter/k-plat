@@ -31,7 +31,7 @@ public class ResourceHelper {
      * @title correctPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-21 00:52
+     * @date 2022-01-21 00:52
      */
     private static PathInfo getPathInfo(String path) {
         if (path.startsWith(CLASSPATH_TAG)) {
@@ -51,7 +51,7 @@ public class ResourceHelper {
      * @title getInputStream
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:11
+     * @date 2022-01-01 02:11
      */
     public static InputStream getInputStream(String path) {
         PathInfo pathInfo = getPathInfo(path);
@@ -77,7 +77,7 @@ public class ResourceHelper {
      * @title getInputStreamInClassPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:10
+     * @date 2022-01-01 02:10
      */
     public static InputStream getInputStreamInClassPath(String classPath) {
         InputStream in = ResourceHelper.class.getClassLoader().getResourceAsStream(classPath);
@@ -95,7 +95,7 @@ public class ResourceHelper {
      * @title getStreamReaderInClassPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:11
+     * @date 2022-01-01 02:11
      */
     public static InputStreamReader getStreamReaderInClassPath(String classPath, String charset) throws IOException {
         return new InputStreamReader(getInputStreamInClassPath(classPath), "UTF-8");
@@ -107,7 +107,7 @@ public class ResourceHelper {
      * @title correctPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-21 00:52
+     * @date 2022-01-21 00:52
      */
     public static File getFile(String path) {
         PathInfo pathInfo = getPathInfo(path);
@@ -129,7 +129,7 @@ public class ResourceHelper {
      * @title getFileInClassPath
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:12
+     * @date 2022-01-01 02:12
      */
 
     public static File getFileInClassPath(String classPath) {
@@ -146,7 +146,7 @@ public class ResourceHelper {
      * @title getFile
      * @description
      * @author BiJi'an
-     * @updateTime 2022-01-01 02:11
+     * @date 2022-01-01 02:11
      */
     private static File getFile(URL url) {
         File file;

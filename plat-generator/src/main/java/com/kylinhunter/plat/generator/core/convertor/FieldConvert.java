@@ -6,21 +6,20 @@ import com.kylinhunter.plat.generator.core.configuration.StrategyConfig;
 import com.kylinhunter.plat.generator.core.configuration.bean.EntityField;
 
 /**
- * @description 字段转换
  * @author BiJi'an
- * @date   2022/01/01
+ * @description 字段转换
+ * @date 2022/01/01
  **/
 public interface FieldConvert {
     /**
-     * @param strategyConfig
-     * @param field
+     * @param strategyConfig strategyConfig
+     * @param field          field
      * @return com.kylinhunter.plat.generator.custom.convertor.EntityField
-     * @throws
      * @title 类型转换
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 11:18 上午
+     * @date 2022/01/01 11:18 上午
      */
-    EntityField process(StrategyConfig strategyConfig, Field field);
+    EntityField convert(StrategyConfig strategyConfig, Field field);
 
 }

@@ -8,15 +8,14 @@ import com.kylinhunter.plat.generator.core.configuration.Template;
 import com.kylinhunter.plat.generator.core.configuration.TemplateType;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-01 17:25
+ * @description
+ * @date 2022-01-01 17:25
  **/
 public class CodeContextUtils {
     public static void addSkipField(CodeContext codeContext, TemplateType templateType, String skipField) {
         StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
-        Arrays.stream(Template.values()).filter(t -> t.getType() == templateType).forEach(t -> {
-            strategyConfigs.get(t).addSkipField(skipField);
-        });
+        Arrays.stream(Template.values()).filter(t -> t.getType() == templateType)
+                .forEach(t -> strategyConfigs.get(t).addSkipField(skipField));
     }
 }

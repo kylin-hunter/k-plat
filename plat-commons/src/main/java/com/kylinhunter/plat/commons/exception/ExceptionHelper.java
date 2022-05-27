@@ -20,7 +20,7 @@ public class ExceptionHelper {
      * @title 获取异常代码
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:22 下午
+     * @date 2022/01/01 5:22 下午
      */
     public static int getErrCode(Throwable e) {
         if (e instanceof KThrowable) {
@@ -40,7 +40,7 @@ public class ExceptionHelper {
      * @title 获取异常消息
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:22 下午
+     * @date 2022/01/01 5:22 下午
      */
     public static String getMessage(Throwable e) {
         return getMessage(e, false, 100);
@@ -56,7 +56,7 @@ public class ExceptionHelper {
      * @title 获取异常消息
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:23 下午
+     * @date 2022/01/01 5:23 下午
      */
     public static String getMessage(Throwable e, boolean showUnknownMsg, int max) {
 

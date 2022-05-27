@@ -17,7 +17,7 @@ public interface BranchBuilder<P, T> {
      * @title 使用一个值工厂构造出一个分支
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:49 下午
+     * @date 2022/01/01 4:49 下午
      */
     Branch<P, T> then(Function<P, T> factory);
 
@@ -28,7 +28,7 @@ public interface BranchBuilder<P, T> {
      * @title 从值构建出一个分支
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:50 下午
+     * @date 2022/01/01 4:50 下午
      */
     default Branch<P, T> then(T value) {
         return then(p -> value);
@@ -41,7 +41,7 @@ public interface BranchBuilder<P, T> {
      * @title 工厂函数，用于创建分支构建者
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:50 下午
+     * @date 2022/01/01 4:50 下午
      */
     static <P, T> BranchBuilder<P, T> of(Predicate<P> tester) {
         return factory -> Branch.of(tester, factory);

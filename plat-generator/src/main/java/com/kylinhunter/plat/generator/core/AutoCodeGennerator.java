@@ -1,5 +1,6 @@
 package com.kylinhunter.plat.generator.core;
 
+import com.kylinhunter.plat.generator.core.configuration.CodeContext;
 import com.kylinhunter.plat.generator.core.configuration.CodeContextBuilder;
 import com.kylinhunter.plat.generator.core.configuration.Configurations;
 import com.kylinhunter.plat.generator.core.engine.AbstractTemplateEngine;
@@ -21,26 +22,24 @@ public class AutoCodeGennerator {
     private AbstractTemplateEngine templateEngine;  /*模板引擎*/
 
     public AutoCodeGennerator withConfigurations(Configurations configurations) {
-        this.codeContextBuilder = new CodeContextBuilder();
-        configurations.configure(this.codeContextBuilder);
+        this.codeContextBuilder = new CodeContextBuilder(configurations.getCodeContext());
+        templateEngine = new VelocityTemplateEngine(); /* 默认模板引擎采用 Velocity */
+
         return this;
     }
 
     /**
      * @return void
-     * @throws
      * @title 生成代码
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 8:43 下午
+     * @date 2021/8/4 8:43 下午
      */
     public void execute() {
-        log.debug("==========================准备生成文件...==========================");
-        if (templateEngine == null) {
-            templateEngine = new VelocityTemplateEngine(); /* 默认模板引擎采用 Velocity */
-        }
-        templateEngine.init(codeContextBuilder.build()).mkdirs().batchOutput().open();
-        log.debug("==========================文件生成完成！！！==========================");
+        log.info("==========================准备生成文件...==========================");
+        CodeContext build = codeContextBuilder.build();
+        templateEngine.init(build).mkdirs().batchOutput().open();
+        log.info("==========================文件生成完成！！！==========================");
     }
 
 }

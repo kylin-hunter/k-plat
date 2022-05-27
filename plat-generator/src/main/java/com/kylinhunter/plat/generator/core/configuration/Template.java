@@ -18,7 +18,7 @@ public enum Template {
     //    SERVICE_RPC(TemplateType.SERVICE, "Rpc", "Service"),
     //    SERVICE_RPC_IMP(TemplateType.SERVICE, "Rpc", "ServiceImp"),
     CONTROLLER(TemplateType.CONTROLLER, "", "Controller");
-    private TemplateType type;
+    private final TemplateType type;
     private final String suffix;
     private final String prefix;
 

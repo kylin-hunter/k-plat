@@ -37,11 +37,10 @@ public class StrategyConfig {
     /**
      * @param superClass 父类
      * @return com.kylinhunter.plat.generator.custom.configuration.StrategyConfig
-     * @throws
      * @title 设置父类
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/4 4:49 下午
+     * @date 2021/8/4 4:49 下午
      */
     public StrategyConfig setSuperClass(Class<?> superClass) {
         this.superClass = superClass.getCanonicalName();
@@ -50,13 +49,12 @@ public class StrategyConfig {
     }
 
     /**
-     * @param superClass
+     * @param superClass superClass
      * @return com.kylinhunter.plat.generator.custom.configuration.StrategyConfig
-     * @throws
      * @title 设置父类
      * @description
      * @author BiJi'an
-     * @updateTime 2021/8/5 9:47 下午
+     * @date 2021/8/5 9:47 下午
      */
 
     public StrategyConfig setSuperClass(String superClass) {

@@ -40,7 +40,7 @@ public class FilterComponent {
      * @title 添加合法的字段
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 8:48 下午
+     * @date 2021/11/11 8:48 下午
      */
     public void addValidField(Class<?> cls, String field) {
         VALID_FIELDS.compute(cls, (k, v) -> {
@@ -63,7 +63,7 @@ public class FilterComponent {
      * @title 校验排序字段
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 8:57 下午
+     * @date 2021/11/11 8:57 下午
      */
     public static void checkValid(ReqQueryPage reqQueryPage, ReqFilters filters) {
         if (filters.size() > 0 && !filters.isInit()) {
@@ -88,7 +88,7 @@ public class FilterComponent {
      * @title 解析filter
      * @description
      * @author BiJi'an
-     * @updateTime 2021/11/11 3:45 下午
+     * @date 2021/11/11 3:45 下午
      */
     public ReqFilters getFilters(ReqQueryPage reqQueryPage) {
         ReqFilters filters = new ReqFilters(reqQueryPage.getFilters());

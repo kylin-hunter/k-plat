@@ -6,24 +6,23 @@ import java.util.Set;
 import com.kylinhunter.plat.generator.core.configuration.bean.EntityField;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-06 17:05
+ * @description
+ * @date 2022-01-06 17:05
  **/
 public class Selectors {
 
     /**
-     * @param field
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.Selector
-     * <java.lang.reflect.Field, com.kylinhunter.plat.generator.cskb.pojo.EntityField>
-     * @throws
-     * @title 构造一个选择器
+     * @param field field
+     * @return com.kylinhunter.plat.generator.core.convertor.select.Selector<java.lang.reflect.Field,
+            * com.kylinhunter.plat.generator.core.configuration.bean.EntityField>
+     * @title use
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 5:15 下午
+     * @date 2022-05-28 02:12
      */
     public static Selector<Field, EntityField> use(Field field) {
-        return new Selector(field);
+        return new Selector<>(field);
     }
 
     public static BranchBuilder<Field, EntityField> contains(Class clazz) {
@@ -42,8 +41,6 @@ public class Selectors {
     }
 
     public static BranchBuilder<Field, EntityField> containsAny(Set<String> skipFields) {
-        return BranchBuilder.of(field -> {
-            return skipFields.contains(field.getName());
-        });
+        return BranchBuilder.of(field -> skipFields.contains(field.getName()));
     }
 }

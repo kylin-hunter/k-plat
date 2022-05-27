@@ -3,15 +3,15 @@ package com.kylinhunter.plat.generator.core.configuration.bean;
 import lombok.Data;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-01 01:53
+ * @description
+ * @date 2022-01-01 01:53
  **/
 @Data
 public class EntityField {
     private String name;    /*field名字*/
     private String className;  /*包名+类名*/
-    private String classSimpleName;  /*类名*/
+    private String shortClassName;  /*类名*/
     private String comment = "";
     private boolean primitive;
     private boolean datetime;

@@ -49,7 +49,7 @@ public class DefaultTraceHandler implements TraceHandler {
      * @title 从request获取Trace信息
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 2:45 下午
+     * @date 2022/01/01 2:45 下午
      */
     private Trace tryCreateTraceFromRequest() {
         String traceId = requestContexService.getTraceId();

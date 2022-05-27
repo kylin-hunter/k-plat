@@ -15,9 +15,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * @description 模板配置
  * @author BiJi'an
- * @date   2021/8/4
+ * @description 模板配置
+ * @date 2021/8/4
  **/
 @Data
 @Accessors(chain = true)
@@ -46,8 +46,8 @@ public class TemplateConfig {
         setTemplate(Template.VO_REQ_QUREY, DEFAULT_TEMPLATE_RESP_VO_REQ_QUERY);
         setTemplate(Template.SERVICE_LOCAL, DEFAULT_TEMPLATE_SERVICE_LOCAL);
         setTemplate(Template.SERVICE_LOCAL_IMP, DEFAULT_TEMPLATE_SERVICE_LOCAL_IMP);
-//        setTemplate(Template.SERVICE_RPC, DEFAULT_TEMPLATE_SERVICE_RPC);
-//        setTemplate(Template.SERVICE_RPC_IMP, DEFAULT_TEMPLATE_SERVICE_RPC_IMP);
+        //        setTemplate(Template.SERVICE_RPC, DEFAULT_TEMPLATE_SERVICE_RPC);
+        //        setTemplate(Template.SERVICE_RPC_IMP, DEFAULT_TEMPLATE_SERVICE_RPC_IMP);
         setTemplate(Template.CONTROLLER, DEFAULT_TEMPLATE_CONTROLLER);
         setEnabled(TemplateType.VO, true);
         setEnabled(TemplateType.SERVICE, true);
@@ -61,31 +61,28 @@ public class TemplateConfig {
     }
 
     /**
-     * @param template
+     * @param template template
      * @return java.lang.String
-     * @throws
      * @title 获取模板
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:42 下午
+     * @date 2022/01/01 4:42 下午
      */
     public String getTemplate(@NonNull Template template) {
         return templates.get(template);
     }
 
     /**
-     * @param templateType
+     * @param templateType templateType
      * @return void
-     * @throws
      * @title 开启模板
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:42 下午
+     * @date 2022/01/01 4:42 下午
      */
     public void setEnabled(TemplateType templateType, boolean enabled) {
-        Arrays.stream(Template.values()).filter(t -> t.getType() == templateType).forEach(t -> {
-            templateStates.put(t, enabled);
-        });
+        Arrays.stream(Template.values()).filter(t -> t.getType() == templateType)
+                .forEach(t -> templateStates.put(t, enabled));
     }
 
     public void setEnabled(Template template, boolean enabled) {
@@ -93,13 +90,12 @@ public class TemplateConfig {
     }
 
     /**
-     * @param template
+     * @param template template
      * @return boolean
-     * @throws
      * @title 检查模板是否开启
      * @description
      * @author BiJi'an
-     * @updateTime 2022/01/01 4:43 下午
+     * @date 2022/01/01 4:43 下午
      */
     public boolean isEnabled(Template template) {
         return templateStates.getOrDefault(template, false);
