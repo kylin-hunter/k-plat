@@ -57,6 +57,7 @@ public class MyPlusGeneratorConfig {
     private String getEntityClass(String table) {
         String parent = packageConfig.getParent();
         String entity = packageConfig.getEntity();
+        table = table.replace("kplat_", "");
         String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
         return parent + "." + entity + "." + entityName;
 
@@ -70,6 +71,7 @@ public class MyPlusGeneratorConfig {
         globalConfig.setServiceName("%sService");  // 设置Service接口生成名称
         globalConfig.setSwagger2(true); // 实体属性 Swagger2 注解
         globalConfig.setFileOverride(true);
+
         return globalConfig;
     }
 
@@ -122,7 +124,7 @@ public class MyPlusGeneratorConfig {
         TableFill tableFillUpdate = new TableFill("sys_update_time", FieldFill.INSERT_UPDATE); // 修改时
         List<TableFill> tableFills = Lists.newArrayList(tableFillCreate, tableFillUpdate);
         strategyConfig.setTableFillList(tableFills);
-        strategyConfig.setTablePrefix("cskb_");
+        strategyConfig.setTablePrefix("kplat_");
         return strategyConfig;
     }
 
@@ -138,6 +140,7 @@ public class MyPlusGeneratorConfig {
         templateConfig.setXml(null);
 
         templateConfig.setMapper("mybatis/plus/templates/mapper.java.vm");
+
         return templateConfig;
 
     }

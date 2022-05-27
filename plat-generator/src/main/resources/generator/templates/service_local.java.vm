@@ -1,22 +1,22 @@
-package ${sys_packageName};
+package ${package};
 
-import ${sys_entity_class};
-import ${pgk_vo_create}.${sys_entityName}ReqCreate;
-import ${pgk_vo_query}.${sys_entityName}ReqQuery;
-import ${pgk_vo_update}.${sys_entityName}ReqUpdate;
-import ${pgk_vo_response}.${sys_entityName}Resp;
+import ${import_entity_class};
+import ${import_vo_create};
+import ${import_vo_query};
+import ${import_vo_update};
+import ${import_vo_response};
 import com.kylinhunter.plat.api.service.local.CommonService;
 
 /**
  * <p>
- * $!{sys_comment} 代码工具自动生成，按需扩展
+ * $!{class_comment} 代码工具自动生成，按需扩展
  * </p>
  *
  * @author ${sys_author}
- * @since ${sys_date}
+ * @since ${date}
  */
-public interface ${sys_className} extends CommonService<${sys_entityName},
-        ${sys_entityName}ReqCreate, ${sys_entityName}ReqUpdate,
-        ${sys_entityName}Resp, ${sys_entityName}ReqQuery>  {
+public interface ${class_name} extends CommonService<${entity_name},
+    ${vo_create_class_name}, ${vo_update_class_name},
+    ${vo_resp_class_name}, ${vo_query_class_name}>  {
 
 }

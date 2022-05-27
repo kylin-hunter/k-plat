@@ -12,7 +12,7 @@ public class MybatisPlusGeneratorForRole {
 
     public static MyPlusGeneratorConfig getConfig() {
         Module module = new Module("core");
-        module.addTable("kp_role");
+        module.addTable("kplat_role");
         return DefaultMyPlusGeneratorConfigHelper.getConfig(module);
     }
 

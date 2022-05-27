@@ -16,25 +16,15 @@ import com.kylinhunter.plat.generator.mybatis.MybatisPlusGeneratorForRole;
  **/
 public class CodeGenneratorForRole {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Module module = MybatisPlusGeneratorForRole.getConfig().getModule();
-
-        module.loadEntityClasses();
-
         AutoCodeGennerator autoCodeGennerator = new AutoCodeGennerator();
-        // core vo
-        autoCodeGennerator.withConfigurations(configurations(module)).execute();
+        autoCodeGennerator.withConfigurations(DefaultCodeGenneratorConfigHelper.configurations(module)).execute();
         // core service
         //        autoCodeGennerator.createConfig().withCodeContextBuilder(configurationsForService(module)).execute();
         // core controller
-        //        autoCodeGennerator.createConfig().withCodeContextBuilder(configurationsForController(module)).execute();
-    }
-
-    public static Configurations configurations(Module module) {
-        return new ConfigurationsForDefault((codeContext) -> {
-            codeContext.getGlobalConfig().setModuleName(module.getName());
-            codeContext.getStrategyConfigs().setEntityClasses(module.getEntityClasses());
-        });
+        //        autoCodeGennerator.createConfig().withCodeContextBuilder(configurationsForController(module))
+        //        .execute();
     }
 
     public static Configurations configurationsForService(Module module) {
@@ -49,11 +39,12 @@ public class CodeGenneratorForRole {
 
             templateConfig.setEnabled(Template.SERVICE_LOCAL, true);
             templateConfig.setEnabled(Template.SERVICE_LOCAL_IMP, true);
-//            templateConfig.setEnabled(Template.SERVICE_RPC, true);
-//            templateConfig.setEnabled(Template.SERVICE_RPC_IMP, true);
+            //            templateConfig.setEnabled(Template.SERVICE_RPC, true);
+            //            templateConfig.setEnabled(Template.SERVICE_RPC_IMP, true);
 
             globalConfig.setOutputDir(Template.SERVICE_LOCAL_IMP, GenConst.DEFAULT_OUTPUT.getAbsolutePath());
-//            globalConfig.setOutputDir(Template.SERVICE_RPC_IMP, GenConst.DEFAULT_OUTPUT.getAbsolutePath());
+            //            globalConfig.setOutputDir(Template.SERVICE_RPC_IMP, GenConst.DEFAULT_OUTPUT.getAbsolutePath
+            //            ());
         });
     }
 

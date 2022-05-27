@@ -8,17 +8,17 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * KpRoleReqQuery 代码工具自动生成，按需扩展
+ * RoleReqQuery 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-05-26
+ * @since 2022-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value = "KpRoleReqQuery对象", description = "KpRoleReqQuery")
-public class KpRoleReqQuery extends ReqQueryPage {
+@ApiModel(value = "RoleReqQuery对象", description = "RoleReqQuery")
+public class RoleReqQuery extends ReqQueryPage {
 
     private static final long serialVersionUID = 1L;
 

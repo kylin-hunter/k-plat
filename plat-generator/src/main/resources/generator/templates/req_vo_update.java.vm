@@ -1,45 +1,45 @@
-package ${sys_packageName};
+package ${package};
 
-#foreach($pkg in ${sys_importPackages})
+#foreach($pkg in ${imports})
 import ${pkg};
 #end
 
 /**
  * <p>
- * $!{sys_comment} 代码工具自动生成，按需扩展
+ * $!{class_comment} 代码工具自动生成，按需扩展
  * </p>
  *
  * @author ${sys_author}
- * @since ${sys_date}
+ * @since ${date}
  */
-#if(${sys_isLombok})
+#if(${strategy_is_lombok})
 @Data
-    #if(${sys_haveSuperClass})
+    #if(${strategy_has_super_class})
 @EqualsAndHashCode(callSuper = true)
     #else
 @EqualsAndHashCode(callSuper = false)
     #end
-    #if(${sys_isLombokChainModel})
+    #if(${strategy_is_lombok_chain_model})
 @Accessors(chain = true)
     #end
 #end
-#if(${sys_swagger2})
-@ApiModel(value = "${sys_className}对象", description = "$!{sys_comment}")
+#if(${sys_is_swagger2})
+@ApiModel(value = "${class_name}对象", description = "$!{class_comment}")
 #end
-#if(${sys_haveSuperClass})
-public class ${sys_className} extends ${sys_superClassName} {
+#if(${strategy_has_super_class})
+public class ${class_name} extends ${strategy_super_class_name} {
 #else
-public class ${sys_className} #if(${sys_serializable})implements Serializable#end{
+public class ${class_name} #if(${strategy_is_serializable})implements Serializable#end{
 #end
 
-#if(${sys_serializable})
+#if(${strategy_is_serializable})
     private static final long serialVersionUID = 1L;
 #end
 ## ----------  BEGIN 字段循环遍历  ----------
-#foreach($field in ${sys_entityFields})
+#foreach($field in ${entity_fields})
     #if($field.supportUpdate)
     #if("$!field.comment" != "")
-        #if(${sys_swagger2})
+        #if(${sys_is_swagger2})
     @ApiModelProperty(value = "${field.comment}")
         #else
         /**

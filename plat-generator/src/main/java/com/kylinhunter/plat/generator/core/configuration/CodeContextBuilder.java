@@ -67,7 +67,7 @@ public class CodeContextBuilder {
         OutputInfo outputInfo = new OutputInfo(template, entityClass);
 
         StrategyConfigs strategyConfigs = this.codeContext.getStrategyConfigs();
-        StrategyConfig strategyConfig = strategyConfigs.getStrategyConfig(template);
+        StrategyConfig strategyConfig = strategyConfigs.get(template);
         PackageConfig packageConfig = this.codeContext.getPackageConfig();
         GlobalConfig globalConfig = this.codeContext.getGlobalConfig();
 
@@ -97,11 +97,7 @@ public class CodeContextBuilder {
         }
 
         // 处理类名
-        if (StringUtils.isNotBlank(strategyConfig.getNamePattern())) {
-            outputInfo.setClassName(String.format(strategyConfig.getNamePattern(), entityName));
-        } else {
-            outputInfo.setClassName(template.getPrefix() + entityName + template.getSuffix());
-        }
+        outputInfo.setClassName(strategyConfig.getClassName(entityName));
 
         // 处理父类
         if (StringUtils.isNotBlank(strategyConfig.getSuperClass())) {
@@ -124,7 +120,6 @@ public class CodeContextBuilder {
             }
 
         }
-
 
         log.info("buildOutputInfo success,template:" + template + ",entityClass:" + entityClass.getName());
         return outputInfo;

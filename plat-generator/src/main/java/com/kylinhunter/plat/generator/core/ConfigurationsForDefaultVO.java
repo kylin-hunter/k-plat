@@ -36,7 +36,7 @@ public class ConfigurationsForDefaultVO extends ConfigurationsForDefault {
     @Override
     public void initStrategyConfig(StrategyConfigs strategyConfigs) {
         Arrays.stream(Template.values()).forEach(t -> {
-            StrategyConfig strategyConfig = strategyConfigs.getStrategyConfig(t);
+            StrategyConfig strategyConfig = strategyConfigs.get(t);
             strategyConfig.setLombok(true);
             strategyConfig.setLombokChainModel(true);
             strategyConfig.setSuperClass(Req.class);

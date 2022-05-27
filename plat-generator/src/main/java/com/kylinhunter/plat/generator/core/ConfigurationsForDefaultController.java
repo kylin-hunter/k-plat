@@ -35,7 +35,7 @@ public class ConfigurationsForDefaultController extends ConfigurationsForDefault
     @Override
     public void initStrategyConfig(StrategyConfigs strategyConfigs) {
         Arrays.stream(Template.values()).filter(t -> t.getType() == TemplateType.CONTROLLER).forEach(t -> {
-            StrategyConfig strategyConfig = strategyConfigs.getStrategyConfig(t);
+            StrategyConfig strategyConfig = strategyConfigs.get(t);
             strategyConfig.setLombok(true);
             strategyConfig.setLombokChainModel(true);
             strategyConfig.setSuperClass(Req.class);

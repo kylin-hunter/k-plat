@@ -3,6 +3,7 @@ package com.kylinhunter.plat.generator.core.configuration;
 import java.util.Set;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Sets;
 
@@ -17,13 +18,14 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class StrategyConfig {
+    private final Template template;
     private boolean filedSwagger2 = true;
     private boolean lombok = false; /*是否为lombok模型（默认 false*/
     private boolean lombokChainModel = false; /*是否为链式模型（默认 false）*/
 
     private String superClass; /*自定义继承的Vo类全称，带包名*/
     private String superClassName; /*自定义继承的Vo类名字 */
-    private String namePattern; /*名称方式，%s 为占位符 例如： %sVO生成 UserVO*/
+    private String classNamePattern; /*名称方式，%s 为占位符 例如： %sVO生成 UserVO*/
 
     private boolean serializable = false;  /*序列化支持*/
     private Set<String> skipFields = Sets.newHashSet();
@@ -61,6 +63,14 @@ public class StrategyConfig {
         this.superClass = superClass;
         this.superClassName = ClassUtils.getShortClassName(this.superClass);
         return this;
+    }
+
+    public String getClassName(String entityName) {
+        if (StringUtils.isNotBlank(classNamePattern)) {
+            return String.format(classNamePattern, entityName);
+        } else {
+            return template.getName(entityName);
+        }
     }
 
 }

@@ -64,6 +64,11 @@ public class PackageConfig {
         return packageName;
     }
 
+    public String getImport(StrategyConfig strategyConfig, String entityName) {
+        String pkg = this.getPackage(strategyConfig.getTemplate());
+        return pkg + "." + strategyConfig.getClassName(entityName);
+    }
+
     public String getParentPackage() {
         return String.format(this.parentPattern, globalConfig.getModuleName());
     }

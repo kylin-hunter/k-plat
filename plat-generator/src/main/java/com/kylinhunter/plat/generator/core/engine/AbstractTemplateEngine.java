@@ -12,11 +12,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.exception.inner.InternalException;
+import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.generator.core.configuration.CodeContext;
 import com.kylinhunter.plat.generator.core.configuration.GlobalConfig;
 import com.kylinhunter.plat.generator.core.configuration.PackageConfig;
 import com.kylinhunter.plat.generator.core.configuration.StrategyConfig;
+import com.kylinhunter.plat.generator.core.configuration.StrategyConfigs;
 import com.kylinhunter.plat.generator.core.configuration.Template;
 import com.kylinhunter.plat.generator.core.configuration.TemplateConfig;
 import com.kylinhunter.plat.generator.core.configuration.TemplateType;
@@ -214,51 +216,65 @@ public abstract class AbstractTemplateEngine {
      * @updateTime 2021/8/4 8:23 下午
      */
     private Map<String, Object> getObjectMap(OutputInfo outputInfo, Template template) {
-        Map<String, Object> objectMap = Maps.newHashMap();
+        Map<String, Object> objectMap = Maps.newLinkedHashMap();
 
-        TemplateConfig templateConfig = codeContext.getTemplateConfig();
+        objectMap.put("package", outputInfo.getPackageName());
+        objectMap.put("imports", outputInfo.getImportPackages());
+        objectMap.put("class_name", outputInfo.getClassName());
+        objectMap.put("class_comment", outputInfo.getClassName());
+        objectMap.put("date", DateUtils.formatDate());
+        objectMap.put("entity_fields", outputInfo.getEntityFields());
+        String entityName = outputInfo.getEntityName();
+        objectMap.put("entity_name", entityName);
+        objectMap.put("output", outputInfo);
 
-        objectMap.put("sys_TemplateType", template.getType());
-        objectMap.put("sys_packageName", outputInfo.getPackageName());
-        objectMap.put("sys_importPackages", outputInfo.getImportPackages());
-        objectMap.put("sys_className", outputInfo.getClassName());
-        objectMap.put("sys_comment", outputInfo.getClassName());
-        objectMap.put("sys_entityFields", outputInfo.getEntityFields());
-        objectMap.put("sys_date", DateUtils.formatDate());
+        final TemplateType templateType = template.getType();
+        objectMap.put("template_type", templateType);
 
-        StrategyConfig strategyConfig = codeContext.getStrategyConfigs().getStrategyConfig(template);
-        objectMap.put("sys_isLombok", strategyConfig.isLombok());
-        objectMap.put("sys_isLombokChainModel", strategyConfig.isLombokChainModel());
-        objectMap.put("sys_haveSuperClass", StringUtils.isNotBlank(strategyConfig.getSuperClass()));
-        objectMap.put("sys_superClass", strategyConfig.getSuperClass());
-        objectMap.put("sys_superClassName", strategyConfig.getSuperClassName());
-        objectMap.put("sys_serializable", strategyConfig.isSerializable());
+        StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
+        StrategyConfig strategyConfig = strategyConfigs.get(template);
+        objectMap.put("strategy_is_lombok", strategyConfig.isLombok());
+        objectMap.put("strategy_is_lombok_chain_model", strategyConfig.isLombokChainModel());
+        objectMap.put("strategy_has_super_class", StringUtils.isNotBlank(strategyConfig.getSuperClass()));
+        objectMap.put("strategy_super_class", strategyConfig.getSuperClass());
+        objectMap.put("strategy_super_class_name", strategyConfig.getSuperClassName());
+        objectMap.put("strategy_is_serializable", strategyConfig.isSerializable());
 
-        PackageConfig packageConfig = codeContext.getPackageConfig();
+        objectMap.put("import_entity_class", outputInfo.getEntityClass().getCanonicalName());
 
-        if (template.getType() == TemplateType.SERVICE) {
-            objectMap.put("sys_entity_class", outputInfo.getEntityClass().getCanonicalName());
-            objectMap.put("pgk_vo_create", packageConfig.getPackage(Template.VO_CREATE));
-            objectMap.put("pgk_vo_update", packageConfig.getPackage(Template.VO_UPDATE));
-            objectMap.put("pgk_vo_response", packageConfig.getPackage(Template.VO_RESPONSE));
-            objectMap.put("pgk_vo_query", packageConfig.getPackage(Template.VO_REQ_QUREY));
-            objectMap.put("pgk_service_local", packageConfig.getPackage(Template.SERVICE_LOCAL));
-            objectMap.put("pgk_parent", packageConfig.getParentPackage());
+        PackageConfig pkgConfig = codeContext.getPackageConfig();
+
+        if (templateType == TemplateType.SERVICE || templateType == TemplateType.CONTROLLER) {
+
+            StrategyConfig strategyConfigVoCreate = strategyConfigs.get(Template.VO_CREATE);
+            StrategyConfig strategyConfigVoUpdate = strategyConfigs.get(Template.VO_UPDATE);
+            StrategyConfig strategyConfigVoQuery = strategyConfigs.get(Template.VO_REQ_QUREY);
+            StrategyConfig strategyConfigVoResponse = strategyConfigs.get(Template.VO_RESPONSE);
+            StrategyConfig strategyConfigServiceImp = strategyConfigs.get(Template.SERVICE_LOCAL);
+
+            objectMap.put("import_vo_create", pkgConfig.getImport(strategyConfigVoCreate, entityName));
+            objectMap.put("import_vo_update", pkgConfig.getImport(strategyConfigVoUpdate, entityName));
+            objectMap.put("import_vo_response", pkgConfig.getImport(strategyConfigVoResponse, entityName));
+            objectMap.put("import_vo_query", pkgConfig.getImport(strategyConfigVoQuery, entityName));
+            objectMap.put("import_service_local", pkgConfig.getImport(strategyConfigServiceImp, entityName));
+
+            objectMap.put("vo_create_class_name", strategyConfigVoCreate.getClassName(entityName));
+            objectMap.put("vo_update_class_name", strategyConfigVoUpdate.getClassName(entityName));
+            objectMap.put("vo_resp_class_name", strategyConfigVoResponse.getClassName(entityName));
+            objectMap.put("vo_query_class_name", strategyConfigVoQuery.getClassName(entityName));
+            objectMap.put("service_local_class_name", strategyConfigServiceImp.getClassName(entityName));
 
 
+
+            objectMap.put("pgk_parent", pkgConfig.getParentPackage());
         }
 
         GlobalConfig globalConfig = codeContext.getGlobalConfig();
         objectMap.put("sys_author", globalConfig.getAuthor());
-        objectMap.put("sys_swagger2", globalConfig.isSwagger2());
+        objectMap.put("sys_is_swagger2", globalConfig.isSwagger2());
         objectMap.put("sys_module_name", globalConfig.getModuleName());
 
-        objectMap.put("sys_entityName", outputInfo.getEntityName());
-        objectMap.put("sys_output", outputInfo);
-
-        // ==
-
-        //        log.info(JsonUtils.toString(objectMap, false));
+        log.info(JsonUtils.toString(objectMap, false));
         return objectMap;
     }
 

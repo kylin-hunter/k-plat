@@ -16,7 +16,7 @@ public class CodeContextUtils {
     public static void addSkipField(CodeContext codeContext, TemplateType templateType, String skipField) {
         StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
         Arrays.stream(Template.values()).filter(t -> t.getType() == templateType).forEach(t -> {
-            strategyConfigs.getStrategyConfig(t).addSkipField(skipField);
+            strategyConfigs.get(t).addSkipField(skipField);
         });
     }
 }

@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
-import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
+import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,17 +9,17 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * KpRoleResp 代码工具自动生成，按需扩展
+ * RoleReqUpdate 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-05-26
+ * @since 2022-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value = "KpRoleResp对象", description = "KpRoleResp")
-public class KpRoleResp extends DefaultSysResp {
+@ApiModel(value = "RoleReqUpdate对象", description = "RoleReqUpdate")
+public class RoleReqUpdate extends ReqUpdate {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "角色id")

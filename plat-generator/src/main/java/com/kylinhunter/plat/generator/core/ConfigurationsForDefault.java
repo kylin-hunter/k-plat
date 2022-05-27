@@ -68,30 +68,30 @@ public class ConfigurationsForDefault extends ConfigurationsAdapter {
 //        packageConfig.setPackagePattern(Template.SERVICE_RPC, "api.module.%s.service.rpc");
         packageConfig.setPackagePattern(Template.SERVICE_LOCAL_IMP, "%s.service.local.imp");
 //        packageConfig.setPackagePattern(Template.SERVICE_RPC_IMP, "%s.service.rpc");
-        packageConfig.setPackagePattern(Template.CONTROLLER, "gateway.module.%s.controller");
+        packageConfig.setPackagePattern(Template.CONTROLLER, "%s.controller");
 
     }
 
     public void initTemplateConfig(TemplateConfig templateConfig) {
         templateConfig.setEnabled(TemplateType.VO, true);
         templateConfig.setEnabled(TemplateType.SERVICE, true);
-        templateConfig.setEnabled(TemplateType.CONTROLLER, false);
+        templateConfig.setEnabled(TemplateType.CONTROLLER, true);
     }
 
     public void initStrategyConfig(StrategyConfigs strategyConfigs) {
-        Arrays.stream(Template.values()).forEach(t -> {
-            if (t.getType() == TemplateType.VO) {
-                StrategyConfig strategyConfig = strategyConfigs.getStrategyConfig(t);
+        Arrays.stream(Template.values()).forEach(template -> {
+            if (template.getType() == TemplateType.VO) {
+                StrategyConfig strategyConfig = strategyConfigs.get(template);
                 strategyConfig.setLombok(true);
                 strategyConfig.setLombokChainModel(true);
                 strategyConfig.setSuperClass(Req.class);
-                if (t == Template.VO_CREATE) {
+                if (template == Template.VO_CREATE) {
                     strategyConfig.setSuperClass(ReqCreate.class);
-                } else if (t == Template.VO_UPDATE) {
+                } else if (template == Template.VO_UPDATE) {
                     strategyConfig.setSuperClass(ReqUpdate.class);
-                } else if (t == Template.VO_RESPONSE) {
+                } else if (template == Template.VO_RESPONSE) {
                     strategyConfig.setSuperClass(DefaultSysResp.class);
-                } else if (t == Template.VO_REQ_QUREY) {
+                } else if (template == Template.VO_REQ_QUREY) {
                     strategyConfig.setSuperClass(ReqQueryPage.class);
                     strategyConfig.setFiledSwagger2(false);
                 }

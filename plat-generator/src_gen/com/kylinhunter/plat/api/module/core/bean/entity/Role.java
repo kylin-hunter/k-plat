@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.api.module.core.bean.entity;
 
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,12 +13,13 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-05-25
+ * @since 2022-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="KpRole对象", description="")
-public class KpRole extends BaseEntity {
+@TableName("kplat_role")
+@ApiModel(value="Role对象", description="")
+public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

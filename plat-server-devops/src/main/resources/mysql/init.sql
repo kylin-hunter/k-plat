@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS `kp_user` (
+CREATE TABLE IF NOT EXISTS `kplat_user` (
     `id` varchar(64) NOT NULL COMMENT '主键',
     `sys_tenant_id` varchar(64) NOT NULL DEFAULT '' COMMENT '租户ID',
     `sys_auto_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '系统更新时间',
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `kp_user` (
 );
 
 
-CREATE TABLE IF NOT EXISTS `kp_role` (
+CREATE TABLE IF NOT EXISTS `kplat_role` (
   `id` varchar(64) NOT NULL COMMENT '主键',
   `sys_tenant_id` varchar(64) NOT NULL DEFAULT '' COMMENT '租户ID',
   `sys_auto_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '系统更新时间',

@@ -27,5 +27,9 @@ public enum Template {
         this.prefix = prefix;
         this.suffix = suffix;
     }
+
+    public String getName(String entityName) {
+        return this.prefix + entityName + this.suffix;
+    }
 }
 

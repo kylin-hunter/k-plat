@@ -37,9 +37,6 @@ public class Module {
         return this;
     }
 
-    public void addEntityClass(Class<?> clazz) {
-        this.entityClasses.add(clazz);
-    }
 
     public void loadEntityClasses() {
         entityClassNames.forEach(e -> {

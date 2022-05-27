@@ -48,7 +48,6 @@ public class DateUtils {
 
     public static String formatDate() {
         return format(LocalDateTime.now(), DateFormats.DATE);
-
     }
 
     public static LocalDateTime parse(String date, DateFormat format) {

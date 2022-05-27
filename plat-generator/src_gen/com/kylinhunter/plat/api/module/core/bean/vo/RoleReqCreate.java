@@ -9,17 +9,17 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * KpRoleReqCreate 代码工具自动生成，按需扩展
+ * RoleReqCreate 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-05-26
+ * @since 2022-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value = "KpRoleReqCreate对象", description = "KpRoleReqCreate")
-public class KpRoleReqCreate extends ReqCreate {
+@ApiModel(value = "RoleReqCreate对象", description = "RoleReqCreate")
+public class RoleReqCreate extends ReqCreate {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "角色id")

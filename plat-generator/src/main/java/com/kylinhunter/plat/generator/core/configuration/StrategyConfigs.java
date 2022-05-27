@@ -11,9 +11,9 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * @description 策略配置项
  * @author BiJi'an
- * @date   2021/8/4
+ * @description 策略配置项
+ * @date 2021/8/4
  **/
 @Data
 @Accessors(chain = true)
@@ -23,7 +23,7 @@ public class StrategyConfigs {
 
     public StrategyConfigs() {
         Arrays.stream(Template.values()).forEach(t -> {
-            setStrategyConfig(t, new StrategyConfig());
+            setStrategyConfig(t, new StrategyConfig(t));
         });
     }
 
@@ -40,7 +40,7 @@ public class StrategyConfigs {
         this.entityClasses.add(entityClass);
     }
 
-    public StrategyConfig getStrategyConfig(Template template) {
+    public StrategyConfig get(Template template) {
         return strategies.get(template);
     }
 
