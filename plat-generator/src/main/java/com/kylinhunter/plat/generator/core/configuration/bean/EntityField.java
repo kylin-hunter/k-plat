@@ -11,7 +11,7 @@ import lombok.Data;
 public class EntityField {
     private String name;    /*field名字*/
     private String className;  /*包名+类名*/
-    private String shortClassName;  /*类名*/
+    private String classSimpleName;  /*类名*/
     private String comment = "";
     private boolean primitive;
     private boolean datetime;

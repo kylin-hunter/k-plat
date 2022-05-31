@@ -226,9 +226,9 @@ public abstract class AbstractTemplateEngine {
         StrategyConfig strategyConfig = strategyConfigs.get(template);
         objectMap.put("strategy_is_lombok", strategyConfig.isLombok());
         objectMap.put("strategy_is_lombok_chain_model", strategyConfig.isLombokChainModel());
-        objectMap.put("strategy_has_super_class", StringUtils.isNotBlank(strategyConfig.getSuperClass()));
-        objectMap.put("strategy_super_class", strategyConfig.getSuperClass());
-        objectMap.put("strategy_super_class_name", strategyConfig.getSuperClassName());
+        objectMap.put("strategy_has_super_class", StringUtils.isNotBlank(strategyConfig.getSuperClassName()));
+        objectMap.put("strategy_super_class", strategyConfig.getSuperClassName());
+        objectMap.put("strategy_super_class_name", strategyConfig.getSuperClassSimpleName());
         objectMap.put("strategy_is_serializable", strategyConfig.isSerializable());
 
         objectMap.put("import_entity_class", outputInfo.getEntityClass().getCanonicalName());

@@ -1,48 +1,49 @@
-package com.kylinhunter.plat.generator.core.convertor.select;
+package com.kylinhunter.plat.commons.tools.select;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import lombok.ToString;
 
 /**
- * @description 分支结果选择器
  * @author BiJi'an
- * @date   2022/01/01
+ * @description 分支结果选择器
+ * @date 2022/01/01
  **/
 @ToString(of = "selected")
-public class Selector<P, T> {
+public class BranchExecutor<P, T> {
     private boolean selected = false;
     private Function<P, T> factory;
 
     private final P param;/* 选择器参数，该参数会在进行条件判断和结果获取时会被当做条件传入*/
 
-    public Selector(P param) {
+    public BranchExecutor(P param) {
         this.param = param;
     }
 
     /**
      * @param param
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.Selector<P, T>
+     * @return com.kylinhunter.plat.generator.cskb.convertor.select.BranchExecutor<P, T>
      * @throws
      * @title 使用指定的参数创建选择器
      * @description
      * @author BiJi'an
      * @date 2022/01/01 4:51 下午
      */
-    public static <P, T> Selector<P, T> param(P param) {
-        return new Selector<>(param);
+    public static <P, T> BranchExecutor<P, T> param(P param) {
+        return new BranchExecutor<>(param);
     }
 
     /**
      * @param branch
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.Selector<P, T>
+     * @return com.kylinhunter.plat.generator.cskb.convertor.select.BranchExecutor<P, T>
      * @throws
      * @title 传入一个新的分支，判定这个分支满足条件
      * @description
      * @author BiJi'an
      * @date 2022/01/01 4:51 下午
      */
-    public Selector<P, T> test(Branch<P, T> branch) {
+    public BranchExecutor<P, T> test(Branch<P, T> branch) {
         if (!selected) {
             boolean pass = branch.tester().test(param);
             if (pass) {
@@ -62,20 +63,13 @@ public class Selector<P, T> {
      * @author BiJi'an
      * @date 2022/01/01 4:52 下午
      */
-    public T withDefault(Function<P, T> supplier) {
+    public T others(Function<P, T> supplier) {
         return selected ? this.factory.apply(param) : supplier.apply(param);
     }
 
-    /**
-     * @return boolean
-     * @throws
-     * @title 当前选择器是否已经选择分支
-     * @description
-     * @author BiJi'an
-     * @date 2022/01/01 4:52 下午
-     */
-    public boolean isSelected() {
-        return selected;
+    public BranchBuilder<P, T> predicate(Predicate<P> tester) {
+
+        return factory -> Branch.of(tester, factory);
     }
 
 }

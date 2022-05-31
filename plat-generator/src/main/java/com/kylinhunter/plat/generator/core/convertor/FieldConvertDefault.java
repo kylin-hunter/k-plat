@@ -1,18 +1,17 @@
 package com.kylinhunter.plat.generator.core.convertor;
 
-import static com.kylinhunter.plat.generator.core.convertor.select.Selectors.containsAny;
-
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.kylinhunter.plat.commons.tools.select.BranchBuilder;
+import com.kylinhunter.plat.commons.tools.select.BranchExecutors;
 import com.kylinhunter.plat.generator.core.configuration.StrategyConfig;
 import com.kylinhunter.plat.generator.core.configuration.bean.EntityField;
-import com.kylinhunter.plat.generator.core.convertor.select.Selectors;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,17 +26,30 @@ public class FieldConvertDefault implements FieldConvert {
     @Override
     public EntityField convert(StrategyConfig strategyConfig, Field field) {
 
-        return Selectors.use(field)
+        return BranchExecutors.use(field, EntityField.class)
                 .test(
-                        containsAny(strategyConfig.getSkipFields())
-                                .then(f -> null)
-
+                        containsAny(strategyConfig.getSkipFields()).then(f -> null)
                 )
                 .test(
                         containsAny(LocalDate.class, LocalDateTime.class, Date.class)
                                 .then(f -> processDate(strategyConfig, f))
                 )
-                .withDefault(f -> processDefault(strategyConfig, f));
+                .others(f -> processDefault(strategyConfig, f));
+    }
+
+    public static BranchBuilder<Field, EntityField> containsAny(Class... classes) {
+        return BranchBuilder.of(field -> {
+            for (Class clazz : classes) {
+                if (field.getType() == clazz) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    public static BranchBuilder<Field, EntityField> containsAny(Set<String> skipFields) {
+        return BranchBuilder.of(field -> skipFields.contains(field.getName()));
     }
 
     /**
@@ -73,7 +85,7 @@ public class FieldConvertDefault implements FieldConvert {
         }
         entityField.setName(field.getName());
         entityField.setClassName(field.getType().getCanonicalName());
-        entityField.setShortClassName(ClassUtils.getShortClassName(entityField.getClassName()));
+        entityField.setClassSimpleName(field.getType().getSimpleName());
         ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);
         if (apiModelProperty != null) {
             entityField.setComment(StringUtils.defaultIfBlank(apiModelProperty.value(), field.getName()));

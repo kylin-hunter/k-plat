@@ -78,15 +78,15 @@ public class Configurations {
                 StrategyConfig strategyConfig = strategyConfigs.get(template);
                 strategyConfig.setLombok(true);
                 strategyConfig.setLombokChainModel(true);
-                strategyConfig.setSuperClass(Req.class);
+                strategyConfig.setSuperClassName(Req.class);
                 if (template == Template.VO_CREATE) {
-                    strategyConfig.setSuperClass(ReqCreate.class);
+                    strategyConfig.setSuperClassName(ReqCreate.class);
                 } else if (template == Template.VO_UPDATE) {
-                    strategyConfig.setSuperClass(ReqUpdate.class);
+                    strategyConfig.setSuperClassName(ReqUpdate.class);
                 } else if (template == Template.VO_RESPONSE) {
-                    strategyConfig.setSuperClass(DefaultSysResp.class);
+                    strategyConfig.setSuperClassName(DefaultSysResp.class);
                 } else if (template == Template.VO_REQ_QUREY) {
-                    strategyConfig.setSuperClass(ReqQueryPage.class);
+                    strategyConfig.setSuperClassName(ReqQueryPage.class);
                     strategyConfig.setFiledSwagger2(false);
                 }
                 strategyConfig.setSerializable(true);

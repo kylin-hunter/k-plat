@@ -100,8 +100,8 @@ public class CodeContextBuilder {
         outputInfo.setClassName(strategyConfig.getClassName(entityName));
 
         // 处理父类
-        if (StringUtils.isNotBlank(strategyConfig.getSuperClass())) {
-            outputInfo.addImportPackages(strategyConfig.getSuperClass());
+        if (StringUtils.isNotBlank(strategyConfig.getSuperClassName())) {
+            outputInfo.addImportPackages(strategyConfig.getSuperClassName());
         } else {
             if (strategyConfig.isSerializable()) {
                 outputInfo.addImportPackages(Serializable.class.getCanonicalName());

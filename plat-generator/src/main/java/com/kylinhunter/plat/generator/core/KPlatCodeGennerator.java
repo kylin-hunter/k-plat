@@ -16,12 +16,12 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 @Data
-public class AutoCodeGennerator {
+public class KPlatCodeGennerator {
 
     protected CodeContextBuilder codeContextBuilder;  /*配置信息*/
     private AbstractTemplateEngine templateEngine;  /*模板引擎*/
 
-    public AutoCodeGennerator withConfigurations(Configurations configurations) {
+    public KPlatCodeGennerator withConfigurations(Configurations configurations) {
         this.codeContextBuilder = new CodeContextBuilder(configurations.getCodeContext());
         templateEngine = new VelocityTemplateEngine(); /* 默认模板引擎采用 Velocity */
 

@@ -9,13 +9,13 @@ import com.kylinhunter.plat.generator.mybatis.MybatisPlusGeneratorForRole;
  * @description
  * @date 2022-01-04 10:53
  **/
-public class CodeGenneratorForRole {
+public class KPlatCodeGenneratorForRole {
 
     public static void main(String[] args) {
         Module module = MybatisPlusGeneratorForRole.getConfig().getModule();
-        AutoCodeGennerator autoCodeGennerator = new AutoCodeGennerator();
+        KPlatCodeGennerator kPlatCodeGennerator = new KPlatCodeGennerator();
         Configurations config = DefaultCodeGenneratorConfigHelper.getConfig(module);
-        autoCodeGennerator.withConfigurations(config).execute();
+        kPlatCodeGennerator.withConfigurations(config).execute();
 
     }
 

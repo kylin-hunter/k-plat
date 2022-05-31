@@ -1,12 +1,12 @@
-package com.kylinhunter.plat.generator.core.convertor.select;
+package com.kylinhunter.plat.commons.tools.select;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022/01/01
+ * @description
+ * @date 2022/01/01
  **/
 public interface BranchBuilder<P, T> {
 
