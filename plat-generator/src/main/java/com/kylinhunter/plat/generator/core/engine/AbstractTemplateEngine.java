@@ -232,6 +232,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("strategy_is_serializable", strategyConfig.isSerializable());
 
         objectMap.put("import_entity_class", outputInfo.getEntityClass().getCanonicalName());
+        objectMap.put("import_mapper_class", outputInfo.getMapperClass().getCanonicalName());
 
         PackageConfig pkgConfig = codeContext.getPackageConfig();
 

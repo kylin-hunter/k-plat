@@ -1,8 +1,10 @@
 package com.kylinhunter.plat.generator.common;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.kylinhunter.plat.commons.util.ReflectionUtil;
 
 import lombok.Data;
@@ -23,6 +25,8 @@ public class Module {
     private List<String> tables = Lists.newArrayList();
     private List<String> entityClassNames = Lists.newArrayList();
     private List<Class<?>> entityClasses = Lists.newArrayList();
+    private Map<String, String> mapperClassNames = Maps.newHashMap();
+    private Map<Class<?>, Class<?>> mapperClasses = Maps.newHashMap();
 
     public Module(String name) {
         this.name = name;
@@ -37,11 +41,14 @@ public class Module {
         return this;
     }
 
-
-    public void loadEntityClasses() {
+    public void loadClasses() {
         entityClassNames.forEach(e -> {
             entityClasses.add(ReflectionUtil.loadClass(e));
         });
+        mapperClassNames.forEach((k, v) -> {
+            mapperClasses.put(ReflectionUtil.loadClass(k), ReflectionUtil.loadClass(v));
+        });
+
     }
 
 }

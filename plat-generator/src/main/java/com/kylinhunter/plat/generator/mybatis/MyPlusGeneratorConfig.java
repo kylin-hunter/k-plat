@@ -2,6 +2,7 @@ package com.kylinhunter.plat.generator.mybatis;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -52,15 +53,27 @@ public class MyPlusGeneratorConfig {
         List<String> entityClasses =
                 this.module.getTables().stream().map(this::getEntityClass).collect(Collectors.toList());
         module.setEntityClassNames(entityClasses);
+
+        Map<String, String> mapperClasses = this.module.getTables().stream()
+                .collect(Collectors.toMap(this::getEntityClass, this::getMapperClass));
+        module.setMapperClassNames(mapperClasses);
     }
 
     private String getEntityClass(String table) {
-        String parent = packageConfig.getParent();
-        String entity = packageConfig.getEntity();
+        String parentPkg = packageConfig.getParent();
+        String entityPkg = packageConfig.getEntity();
         table = table.replace("kplat_", "");
         String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
-        return parent + "." + entity + "." + entityName;
+        return parentPkg + "." + entityPkg + "." + entityName;
 
+    }
+
+    private String getMapperClass(String table) {
+        String parentPkg = packageConfig.getParent();
+        String mapperPkg = packageConfig.getMapper();
+        table = table.replace("kplat_", "");
+        String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
+        return parentPkg + "." + mapperPkg + "." + entityName + "Mapper";
     }
 
     public GlobalConfig initGlobalConfig() {

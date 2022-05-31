@@ -6,7 +6,7 @@ import ${import_vo_query};
 import ${import_vo_update};
 import ${import_vo_response};
 import ${import_service_local};
-import ${pgk_parent}.${sys_module_name}.dao.mapper.${entity_name}Mapper;
+import ${import_mapper_class};
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;

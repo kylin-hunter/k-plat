@@ -30,7 +30,7 @@ public class Configurations {
     public Configurations(Module module) {
         this.module = module;
 
-        module.loadEntityClasses();
+        module.loadClasses();
 
         initGlobalConfig(codeContext.getGlobalConfig());
         initPackageConfig(codeContext.getPackageConfig());
@@ -72,6 +72,7 @@ public class Configurations {
 
     public void initStrategyConfig(StrategyConfigs strategyConfigs) {
         strategyConfigs.setEntityClasses(module.getEntityClasses());
+        strategyConfigs.setMapperClasses(module.getMapperClasses());
 
         Arrays.stream(Template.values()).forEach(template -> {
             if (template.getType() == TemplateType.VO) {

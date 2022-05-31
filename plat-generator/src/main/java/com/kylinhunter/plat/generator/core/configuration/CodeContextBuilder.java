@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 public class CodeContextBuilder {
 
-    private final  CodeContext codeContext ;
+    private final CodeContext codeContext;
 
     /**
      * @return ConfigCentor
@@ -64,6 +64,7 @@ public class CodeContextBuilder {
      * @date 2021/8/4 7:59 下午
      */
     private OutputInfo buildOutputInfo(Template template, Class<?> entityClass) {
+
         OutputInfo outputInfo = new OutputInfo(template, entityClass);
 
         StrategyConfigs strategyConfigs = this.codeContext.getStrategyConfigs();
@@ -71,8 +72,8 @@ public class CodeContextBuilder {
         PackageConfig packageConfig = this.codeContext.getPackageConfig();
         GlobalConfig globalConfig = this.codeContext.getGlobalConfig();
 
+        outputInfo.setMapperClass(strategyConfigs.getMapperClasses().get(entityClass));
         String entityName = entityClass.getSimpleName();
-        TemplateType templateType = template.getType();
 
         outputInfo.setEntityName(entityName);
         outputInfo.setEntitySnakeName(NamingConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, entityName));

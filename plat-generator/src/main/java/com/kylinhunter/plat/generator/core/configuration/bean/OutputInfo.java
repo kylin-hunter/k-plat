@@ -23,6 +23,7 @@ import lombok.experimental.Accessors;
 public class OutputInfo {
     private final Template template; /*模板类型*/
     private final Class<?> entityClass; /*entity的Class*/
+    private Class<?> mapperClass; /*mapper的Class*/
     private String entityName;/* entity名字*/
     private String entitySnakeName;/* entity 的 snake */
 

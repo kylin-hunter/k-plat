@@ -6,8 +6,8 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.generator.core.convertor.DefaultFieldConvert;
 import com.kylinhunter.plat.generator.core.convertor.FieldConvert;
-import com.kylinhunter.plat.generator.core.convertor.FieldConvertDefault;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -22,7 +22,8 @@ import lombok.experimental.Accessors;
 public class StrategyConfigs {
     private Map<Template, StrategyConfig> strategies = Maps.newHashMap();
     private List<Class<?>> entityClasses = Lists.newArrayList();
-    private FieldConvert fieldConvert = new FieldConvertDefault();
+    private Map<Class<?>, Class<?>> mapperClasses = Maps.newHashMap();
+    private FieldConvert fieldConvert = new DefaultFieldConvert();
 
     public StrategyConfigs() {
         Arrays.stream(Template.values()).forEach(t -> setStrategyConfig(t, new StrategyConfig(t)));
@@ -36,6 +37,7 @@ public class StrategyConfigs {
      * @author BiJi'an
      * @date 2021/8/4 4:47 下午
      */
+    @SuppressWarnings("unused")
     public void addEntityClass(Class<?> entityClass) {
         this.entityClasses.add(entityClass);
     }
@@ -44,6 +46,7 @@ public class StrategyConfigs {
         return strategies.get(template);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public StrategyConfigs setStrategyConfig(Template template, StrategyConfig strategyConfig) {
         strategies.put(template, strategyConfig);
         return this;

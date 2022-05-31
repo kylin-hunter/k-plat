@@ -42,6 +42,7 @@ public class StrategyConfig {
      * @author BiJi'an
      * @date 2021/8/4 4:49 下午
      */
+    @SuppressWarnings("UnusedReturnValue")
     public StrategyConfig setSuperClassName(Class<?> superClassName) {
         this.superClassName = superClassName.getCanonicalName();
         this.superClassSimpleName = superClassName.getSimpleName();
@@ -57,6 +58,7 @@ public class StrategyConfig {
      * @date 2021/8/5 9:47 下午
      */
 
+    @SuppressWarnings("unused")
     public StrategyConfig setSuperClassName(String superClass) {
         this.superClassName = superClass;
         this.superClassSimpleName = ClassUtils.getShortClassName(this.superClassName);
