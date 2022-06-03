@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: plat-server-admin
   profiles:
     active: dev
   messages:
@@ -12,20 +10,3 @@ spring:
     password: root
 server:
   port: 8003
-eureka:
-  instance:
-    hostname: localhost
-    leaseRenewalIntervalInSeconds: 30
-    leaseExpirationDurationInSeconds: 90
-    preferIpAddress: false
-    ipAddress: 127.0.0.1
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://localhost:8001/eureka
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql⽇志
-    map-underscore-to-camel-case: true
-    # 该配置就是将带有下划线的表字段映射为驼峰格式的实体类属性

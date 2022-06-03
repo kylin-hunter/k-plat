@@ -27,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = false)
-public class UserServiceImp extends CommonServiceImpl<UserMapper, User,
-        UserReqCreate, UserReqUpdate,
+public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqCreate, UserReqUpdate,
         UserSysResp, UserReqQuery> implements UserService {
 
 }

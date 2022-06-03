@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.web.controller;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,13 @@ public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,Q>, X
         Q extends ReqQueryPage,T extends BaseEntity> {
 
     @Autowired
-    private  S commonService;
+    private  S service;
+
+
+    @PostConstruct
+    private  void init(){
+        log.info("init controller {} ok",this.getClass().getName());
+    }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     @ResponseBody
@@ -42,28 +50,28 @@ public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,Q>, X
 
     public DefaultResponse<Z> create(@RequestBody @Validated X reqCreate) {
 
-        return new DefaultResponse(commonService.save(reqCreate));
+        return new DefaultResponse(service.save(reqCreate));
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("修改")
     public DefaultResponse<Z> update(@RequestBody @Validated Y reqUpdate) {
-        return new DefaultResponse(commonService.update(reqUpdate));
+        return new DefaultResponse(service.update(reqUpdate));
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("删除")
     public DefaultResponse<Boolean> delete(@RequestBody @Validated ReqDelete commonreqDelete) {
-        return new DefaultResponse(commonService.delete(commonreqDelete));
+        return new DefaultResponse(service.delete(commonreqDelete));
     }
 
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查看详情")
     public DefaultResponse<Z> detail(@Validated ReqQueryById reqQueryById) {
-        return new DefaultResponse(this.commonService.findById(reqQueryById));
+        return new DefaultResponse(this.service.findById(reqQueryById));
 
     }
 
@@ -72,7 +80,7 @@ public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,Q>, X
     @ApiOperation("分页获取全部数据")
     public DefaultResponse<PageData<Z>> list(@Validated Q reqQueryPage) {
 
-        return new DefaultResponse(this.commonService.query(reqQueryPage));
+        return new DefaultResponse(this.service.query(reqQueryPage));
     }
 
 }

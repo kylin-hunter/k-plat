@@ -3,6 +3,7 @@ dependencies {
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     api('com.google.guava:guava')
     api("org.jodd:jodd-core:5.1.6")
+    implementation 'com.googlecode.aviator:aviator:5.3.1'
     api(rootProject.dep['commons-lang3'])
     api(rootProject.dep['commons-io'])
 }

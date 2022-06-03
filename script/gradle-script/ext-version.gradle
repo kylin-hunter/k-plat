@@ -1,6 +1,9 @@
 ext {
     springBootVersion = '2.3.12.RELEASE'
     springCloudVersion = 'Hoxton.SR12'
+    springCloudAlibabaVersion = '2.2.7.RELEASE'
+
+
 //    dubboVersion = '2.7.11'
     dubboVersion = '2.7.15'
     app_plugins = [

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@TableName("kp_user")
+@TableName("kplat_user")
 @ApiModel(value = "User", description = "")
 @NoArgsConstructor
 public class User extends BaseEntity {
