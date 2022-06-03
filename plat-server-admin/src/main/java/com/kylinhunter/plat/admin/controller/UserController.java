@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.core.controller;
+package com.kylinhunter.plat.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class UserController {
     @RequestMapping("")
     public DefaultResponse<PageData<UserSysResp>> hello() {
         // FeignClient注解的接口自己不需要实现，可以直接的访问HelloServerApplication里定义的的地址
-        return client.query(null);
+        return client.userQuery(null);
     }
 
 }

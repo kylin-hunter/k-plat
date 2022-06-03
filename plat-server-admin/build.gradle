@@ -2,6 +2,7 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        
     }
 }
 
@@ -10,7 +11,9 @@ dependencies {
     api project(':plat-web')
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation 'com.alibaba.csp:sentinel-datasource-nacos'
 
 }
 

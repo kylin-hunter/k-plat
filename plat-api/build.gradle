@@ -1,6 +1,7 @@
 dependencies {
     api project(':plat-commons')
-    api("jakarta.validation:jakarta.validation-api")
+//    api("jakarta.validation:jakarta.validation-api")
+    api 'org.hibernate.validator:hibernate-validator:7.0.4.Final'
     api(rootProject.dep['mybatis-plus'])
 }
 jar.enabled = true
