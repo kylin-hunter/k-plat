@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.api.module.core.bean.enity.User;
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;

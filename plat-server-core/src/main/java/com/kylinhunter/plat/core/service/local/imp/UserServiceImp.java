@@ -2,7 +2,7 @@ package com.kylinhunter.plat.core.service.local.imp;
 
 import org.springframework.stereotype.Service;
 
-import com.kylinhunter.plat.api.module.core.bean.enity.User;
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;

@@ -3,7 +3,7 @@ package com.kylinhunter.plat.core.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kylinhunter.plat.api.module.core.bean.enity.User;
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.core.service.local.UserService;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;

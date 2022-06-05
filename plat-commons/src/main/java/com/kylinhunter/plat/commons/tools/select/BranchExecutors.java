@@ -10,7 +10,7 @@ public class BranchExecutors {
     /**
      * @param p p
      * @return com.kylinhunter.plat.commons.tools.select.BranchExecutor<java.lang.reflect.Field,
-            * com.kylinhunter.plat.generator.core.configuration.bean.EntityField>
+            * com.kylinhunter.plat.generator.auto.core.configuration.bean.EntityField>
      * @title use
      * @description
      * @author BiJi'an
