@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.request;
 
-import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
+import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,16 +24,16 @@ public class Req extends ReqTenant {
     @ApiModelProperty(value = "debug", hidden = true)
     private boolean debug = false;
 
-    @ApiModelProperty(value = "reqType", hidden = true)
-    private ReqType reqType;
+    @ApiModelProperty(value = "voType", hidden = true)
+    private VoType voType;
 
-    public Req(ReqType reqType) {
-        this.reqType = reqType;
+    public Req(VoType voType) {
+        this.voType = voType;
     }
 
     public void copyFrom(Req req) {
         this.userContext = req.userContext;
-        this.reqType = req.reqType;
+        this.voType = req.voType;
         this.debug = req.debug;
     }
 

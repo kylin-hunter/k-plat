@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kylinhunter.plat.admin.service.rpc.UserFeign;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserSysResp;
+import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 
@@ -27,7 +27,7 @@ public class UserController {
     UserFeign client;
 
     @RequestMapping("")
-    public DefaultResponse<PageData<UserSysResp>> hello() {
+    public DefaultResponse<PageData<UserResp>> hello() {
         // FeignClient注解的接口自己不需要实现，可以直接的访问HelloServerApplication里定义的的地址
         return client.userQuery(null);
     }

@@ -257,6 +257,9 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("service_local_class_name", strategyConfigServiceImp.getClassName(entityName));
 
             objectMap.put("pgk_parent", pkgConfig.getParentPackage());
+        } else if (templateType == TemplateType.VO) {
+            StrategyConfig strategyConfigVO = strategyConfigs.get(Template.VO);
+            objectMap.put("vo", strategyConfigVO.getClassName(entityName));
         }
 
         GlobalConfig globalConfig = codeContext.getGlobalConfig();

@@ -13,6 +13,7 @@ public enum Template {
     VO_UPDATE(TemplateType.VO, "", "ReqUpdate"),
     VO_RESPONSE(TemplateType.VO, "", "Resp"),
     VO_REQ_QUREY(TemplateType.VO, "", "ReqQuery"),
+    VO(TemplateType.VO, "", "VO"),
     SERVICE_LOCAL(TemplateType.SERVICE, "", "Service"),
     SERVICE_LOCAL_IMP(TemplateType.SERVICE, "", "ServiceImp"),
     //    SERVICE_RPC(TemplateType.SERVICE, "Rpc", "Service"),

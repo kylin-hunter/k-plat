@@ -4,7 +4,7 @@ import com.kylinhunter.plat.generator.common.Module;
 
 public class MybatisPlusGeneratorForRole {
 
-    public static void run() {
+    public static void exec() {
         MyPlusGenerator myPlusGenerator = new MyPlusGenerator();
         myPlusGenerator.setMyPlusGeneratorConfig(getConfig());
         myPlusGenerator.exec(true);

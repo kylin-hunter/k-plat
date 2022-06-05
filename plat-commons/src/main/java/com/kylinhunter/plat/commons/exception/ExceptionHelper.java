@@ -3,6 +3,7 @@ package com.kylinhunter.plat.commons.exception;
 import org.apache.commons.lang3.StringUtils;
 
 import com.kylinhunter.plat.commons.exception.common.KThrowable;
+import com.kylinhunter.plat.commons.exception.info.ErrCodeManager;
 import com.kylinhunter.plat.commons.exception.info.ErrInfo;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
@@ -65,7 +66,8 @@ public class ExceptionHelper {
             if (errInfo != null) {
                 int code = errInfo.getCode();
                 if (code != ErrInfos.UNKNOWN.getCode()) {
-                    return StringUtils.substring(e.getMessage(), 0, max);
+                    String msg = StringUtils.defaultIfBlank(e.getMessage(), ErrCodeManager.getDefaultMsg(code));
+                    return StringUtils.substring(msg, 0, max);
                 }
             }
 

@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,9 +17,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@Accessors(chain = true)
 @ApiModel(value = "UserReqUpdate", description = "UserReqUpdate")
-public class UserReqUpdate extends ReqUpdate {
+public class UserReqUpdate extends ReqUpdate implements UserVO {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +27,9 @@ public class UserReqUpdate extends ReqUpdate {
 
     @ApiModelProperty(value = "用户名")
     private String userName;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
 
     @ApiModelProperty(value = "用户来源")
     private String source;

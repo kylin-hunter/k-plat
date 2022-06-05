@@ -1,0 +1,12 @@
+package ${package};
+
+public interface  ${class_name}  {
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${entity_fields})
+    ${field.readMethod};
+    ${field.writeMethod};
+
+#end
+
+
+}

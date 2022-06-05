@@ -23,7 +23,7 @@ public class UserContext implements Serializable {
     @ApiModelProperty(value = "username", hidden = true)
     private String currentUserName = "";
 
-    @ApiModelProperty(value = "superuser", hidden = true)
+    @ApiModelProperty(value = "admin", hidden = true)
     private boolean superuser = false;
 
     @ApiModelProperty(value = "agentCreator", hidden = true)

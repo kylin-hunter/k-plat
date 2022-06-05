@@ -1,14 +1,9 @@
 package com.kylinhunter.plat.web.auth;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.BooleanUtils;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kylinhunter.plat.commons.util.date.DatePatterns;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +18,7 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-public class TokenInfo {
+public class Token {
     @ApiModelProperty(value = "用户ID")
     @NotBlank
     private String userId;
@@ -32,31 +27,27 @@ public class TokenInfo {
     private String userName;
     @ApiModelProperty(value = "是否是超级管理员")
     @NotNull(message = " true|false")
-    private Boolean superuser;
+    private boolean admin;
     @ApiModelProperty(value = "账户类型")
     @NotBlank(message = " for example=> fake or others")
-    private String accountType;
+    private String type;
 
     @ApiModelProperty(value = "过期时间", hidden = true)
-    @JsonFormat(pattern = DatePatterns.DATE_TIME, timezone = "GMT+8")
-    private Date expireDate;
+    private LocalDateTime expireDate;
 
-    public TokenInfo(String userId, String userName, boolean superuser, String accountType) {
+    public Token(String userId, String userName, boolean admin, String type) {
         this.userId = userId;
         this.userName = userName;
-        this.superuser = superuser;
-        this.accountType = accountType;
+        this.admin = admin;
+        this.type = type;
     }
 
-    public TokenInfo(String userId, String userName, boolean superuser, String accountType, Date expireDate) {
+    public Token(String userId, String userName, boolean admin, String type, LocalDateTime expireDate) {
         this.userId = userId;
         this.userName = userName;
-        this.superuser = superuser;
-        this.accountType = accountType;
+        this.admin = admin;
+        this.type = type;
         this.expireDate = expireDate;
     }
 
-    public boolean isSuperuser() {
-        return BooleanUtils.toBoolean(this.getSuperuser());
-    }
 }

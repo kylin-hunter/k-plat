@@ -18,17 +18,20 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@Accessors(chain = true)
 @ApiModel(value = "UserReqCreate", description = "")
-public class UserReqCreate extends ReqCreate {
+public class UserReqCreate extends ReqCreate implements UserVO {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
     private String userId;
 
+
     @ApiModelProperty(value = "用户名")
     private String userName;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
 
     @ApiModelProperty(value = "用户来源")
     private String source;

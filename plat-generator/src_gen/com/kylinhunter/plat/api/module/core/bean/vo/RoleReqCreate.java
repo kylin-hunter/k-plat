@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -17,9 +16,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 @ApiModel(value = "RoleReqCreate对象", description = "RoleReqCreate")
-public class RoleReqCreate extends ReqCreate {
+public class RoleReqCreate extends ReqCreate implements RoleVO{
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "角色id")

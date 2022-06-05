@@ -1,11 +1,14 @@
 package com.kylinhunter.plat.generator.auto.core.convertor;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 
 import com.kylinhunter.plat.commons.tools.select.BranchExecutor;
 import com.kylinhunter.plat.commons.tools.select.BranchExecutors;
@@ -23,7 +26,7 @@ public class DefaultFieldConvert implements FieldConvert {
     private static final String SERIAL_VERSIONU_ID = "serialVersionUID";
 
     @Override
-    public EntityField convert(StrategyConfig strategyConfig, Field field) {
+    public EntityField convert(StrategyConfig strategyConfig, Class<?> entityClass, Field field) {
 
         final BranchExecutor<Field, EntityField> branchExecutor = BranchExecutors.use(field, EntityField.class);
         return branchExecutor
@@ -31,7 +34,7 @@ public class DefaultFieldConvert implements FieldConvert {
                         branchExecutor
                                 .predicate(f -> strategyConfig.getSkipFields().contains(f.getName()))
                                 .then(f -> null)
-                ).others(f -> processDefault(strategyConfig, f));
+                ).others(f -> processDefault(strategyConfig, entityClass, f));
     }
 
     /**
@@ -44,7 +47,7 @@ public class DefaultFieldConvert implements FieldConvert {
      * @date 2022/01/01 5:00 下午
      */
     @SuppressWarnings("rawtypes")
-    public EntityField processDefault(StrategyConfig strategyConfig, Field field) {
+    public EntityField processDefault(StrategyConfig strategyConfig, Class<?> entityClass, Field field) {
         EntityField entityField = new EntityField();
         if (SERIAL_VERSIONU_ID.equals(field.getName())) {
             return null;
@@ -67,6 +70,14 @@ public class DefaultFieldConvert implements FieldConvert {
 
             }
         }
+        PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(entityClass, field.getName());
+        Method readMethod = pd.getReadMethod();
+        Method wirteMethod = pd.getWriteMethod();
+        entityField.setReadMethod(readMethod.getReturnType().getSimpleName() + " " + readMethod.getName() + "()");
+
+        entityField.setWriteMethod(
+                "void " + wirteMethod.getName() + " (" + wirteMethod.getParameterTypes()[0].getSimpleName() +
+                        " "+entityField.getName()+")");
         return entityField;
     }
 

@@ -112,7 +112,7 @@ public class CodeContextBuilder {
         // 处理fields
         FieldConvert fieldConvert = strategyConfigs.getFieldConvert();
         for (Field field : ReflectionUtil.getAllDeclaredFields(entityClass, true).values()) {
-            EntityField entityField = fieldConvert.convert(strategyConfig, field);
+            EntityField entityField = fieldConvert.convert(strategyConfig, entityClass, field);
             if (entityField != null) {
                 if (!entityField.isPrimitive() && !entityField.getClassName().startsWith("java.lang")) {
                     outputInfo.addImportPackages(entityField.getClassName());

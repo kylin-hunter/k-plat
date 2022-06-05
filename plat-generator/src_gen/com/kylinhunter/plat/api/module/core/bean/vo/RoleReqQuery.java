@@ -4,7 +4,6 @@ import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,7 +15,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 @ApiModel(value = "RoleReqQuery对象", description = "RoleReqQuery")
 public class RoleReqQuery extends ReqQueryPage {
 

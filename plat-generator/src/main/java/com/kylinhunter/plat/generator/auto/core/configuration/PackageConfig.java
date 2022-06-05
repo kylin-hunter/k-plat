@@ -34,6 +34,7 @@ public class PackageConfig {
         setPackagePattern(Template.VO_UPDATE, DEFAULT_VO);
         setPackagePattern(Template.VO_RESPONSE, DEFAULT_VO);
         setPackagePattern(Template.VO_REQ_QUREY, DEFAULT_VO);
+        setPackagePattern(Template.VO, DEFAULT_VO);
         setPackagePattern(Template.SERVICE_LOCAL, DEFAULT_SERVICE);
         setPackagePattern(Template.SERVICE_LOCAL_IMP, DEFAULT_SERVICE);
         //        setPackagePattern(Template.SERVICE_RPC, DEFAULT_SERVICE);

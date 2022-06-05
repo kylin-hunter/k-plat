@@ -6,7 +6,7 @@ import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserSysResp;
+import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.UserService;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
@@ -28,6 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EqualsAndHashCode(callSuper = false)
 public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqCreate, UserReqUpdate,
-        UserSysResp, UserReqQuery> implements UserService {
+        UserResp, UserReqQuery> implements UserService {
 
+    @Override
+    public UserResp save(UserReqCreate reqCreate) {
+        return super.save(reqCreate);
+    }
 }

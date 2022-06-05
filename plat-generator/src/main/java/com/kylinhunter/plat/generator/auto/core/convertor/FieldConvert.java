@@ -20,6 +20,6 @@ public interface FieldConvert {
      * @author BiJi'an
      * @date 2022/01/01 11:18 上午
      */
-    EntityField convert(StrategyConfig strategyConfig, Field field);
+    EntityField convert(StrategyConfig strategyConfig, Class<?> entityClass,Field field);
 
 }

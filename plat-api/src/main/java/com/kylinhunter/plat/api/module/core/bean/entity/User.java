@@ -32,6 +32,10 @@ public class User extends BaseEntity {
     @ApiModelProperty(value = "用户名")
     private String userName;
 
+
+    @ApiModelProperty(value = "密码")
+    private String password;
+
     @ApiModelProperty(value = "用户来源")
     private String source;
 

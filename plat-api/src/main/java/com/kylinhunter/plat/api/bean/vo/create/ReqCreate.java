@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.create;
 
-import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
+import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 
 import io.swagger.annotations.ApiModel;
@@ -24,11 +24,11 @@ public class ReqCreate extends Req {
     private String id;
 
     public ReqCreate() {
-        super(ReqType.CREATE);
+        super(VoType.CREATE);
     }
 
     public ReqCreate(String id) {
-        super(ReqType.CREATE);
+        super(VoType.CREATE);
         this.id = id;
     }
 }

@@ -6,11 +6,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
- * UserSysResp 代码工具自动生成，按需扩展
+ * UserResp 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
@@ -18,9 +17,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@Accessors(chain = true)
-@ApiModel(value = "UserSysResp", description = "")
-public class UserSysResp extends DefaultSysResp {
+@ApiModel(value = "UserResp", description = "")
+public class UserResp extends DefaultSysResp {
 
     private static final long serialVersionUID = 1L;
 

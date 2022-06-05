@@ -18,7 +18,7 @@ import com.kylinhunter.plat.generator.common.Module;
  **/
 public class KPlatCodeGenneratorForRole {
 
-    public static void run() {
+    public static void exec() {
         Module module = MybatisPlusGeneratorForRole.getConfig().getModule();
         KPlatCodeGennerator kPlatCodeGennerator = new KPlatCodeGennerator();
         Configurations config = DefaultCodeGenneratorConfigHelper.getConfig(module);

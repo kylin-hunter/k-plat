@@ -19,7 +19,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-@Accessors(chain = true)
 @ApiModel(value = "UserReqQuery", description = "")
 @NoArgsConstructor
 public class UserReqQuery extends ReqQueryPage {

@@ -1,5 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.response.single;
 
+import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.ReqTenant;
 
 import io.swagger.annotations.ApiModel;
@@ -23,5 +24,8 @@ public class Resp extends ReqTenant {
     @ApiModelProperty(value = "id")
     @EqualsAndHashCode.Include
     protected String id;
+
+    @ApiModelProperty(value = "voType", hidden = true)
+    private VoType voType = VoType.RESP;
 
 }

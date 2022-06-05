@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.web.controller;
+package com.kylinhunter.plat.core.controller;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kylinhunter.plat.web.auth.JWTService;
-import com.kylinhunter.plat.web.auth.TokenInfo;
+import com.kylinhunter.plat.web.auth.Token;
 import com.kylinhunter.plat.web.controller.CommonController;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.trace.TraceHandler;
@@ -38,8 +38,8 @@ public class AuthController extends CommonController {
 
     @PostMapping(value = "")
     @ApiOperation("创建token")
-    public DefaultResponse<String> create(@Validated @RequestBody TokenInfo tokenInfo) {
-        return new DefaultResponse(jwtService.create(tokenInfo));
+    public DefaultResponse<String> create(@Validated @RequestBody Token token) {
+        return new DefaultResponse(jwtService.create(token));
     }
 
     @PostMapping(value = "/verify")

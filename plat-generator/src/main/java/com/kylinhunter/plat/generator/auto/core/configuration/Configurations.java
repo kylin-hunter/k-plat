@@ -56,6 +56,8 @@ public class Configurations {
         packageConfig.setPackagePattern(Template.VO_UPDATE, "api.module.%s.bean.vo");
         packageConfig.setPackagePattern(Template.VO_RESPONSE, "api.module.%s.bean.vo");
         packageConfig.setPackagePattern(Template.VO_REQ_QUREY, "api.module.%s.bean.vo");
+        packageConfig.setPackagePattern(Template.VO, "api.module.%s.bean.vo");
+
         packageConfig.setPackagePattern(Template.SERVICE_LOCAL, "%s.service.local");
         //        packageConfig.setPackagePattern(Template.SERVICE_RPC, "api.module.%s.service.rpc");
         packageConfig.setPackagePattern(Template.SERVICE_LOCAL_IMP, "%s.service.local.imp");
@@ -78,7 +80,6 @@ public class Configurations {
             if (template.getType() == TemplateType.VO) {
                 StrategyConfig strategyConfig = strategyConfigs.get(template);
                 strategyConfig.setLombok(true);
-                strategyConfig.setLombokChainModel(true);
                 strategyConfig.setSuperClassName(Req.class);
                 if (template == Template.VO_CREATE) {
                     strategyConfig.setSuperClassName(ReqCreate.class);
@@ -89,6 +90,8 @@ public class Configurations {
                 } else if (template == Template.VO_REQ_QUREY) {
                     strategyConfig.setSuperClassName(ReqQueryPage.class);
                     strategyConfig.setFiledSwagger2(false);
+                } else if (template == Template.VO) {
+
                 }
                 strategyConfig.setSerializable(true);
                 for (Field field : BaseEntity.class.getDeclaredFields()) {

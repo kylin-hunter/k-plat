@@ -12,8 +12,8 @@ import com.kylinhunter.plat.generator.auto.core.KPlatCodeGenneratorForRole;
 public class GenRole {
 
     public static void main(String[] args) throws IOException {
-        //        MybatisPlusGeneratorForRole.run();
-        //        KPlatCodeGenneratorForRole.run();
+        //        MybatisPlusGeneratorForRole.exec();
+        KPlatCodeGenneratorForRole.exec();
 
         KPlatCodeGenneratorForRole.copy();
 

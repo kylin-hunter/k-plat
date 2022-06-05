@@ -27,7 +27,7 @@ import ${pkg};
 @ApiModel(value = "${class_name}对象", description = "$!{class_comment}")
 #end
 #if(${strategy_has_super_class})
-public class ${class_name} extends ${strategy_super_class_name} {
+public class ${class_name} extends ${strategy_super_class_name}  implements ${vo} {
 #else
 public class ${class_name} #if(${strategy_is_serializable})implements Serializable#end{
 #end

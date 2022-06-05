@@ -19,5 +19,7 @@ public class EntityField {
     private boolean supportUpdate = true;
     private boolean supportQuery = false;
     private boolean supportResponse = true;
+    private String readMethod;
+    private String writeMethod;
 
 }
