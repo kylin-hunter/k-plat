@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "RoleReqUpdate对象", description = "RoleReqUpdate")
-public class RoleReqUpdate extends ReqUpdate  implements RoleVO{
+public class RoleReqUpdate extends ReqUpdate  implements RoleVO {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "角色id")

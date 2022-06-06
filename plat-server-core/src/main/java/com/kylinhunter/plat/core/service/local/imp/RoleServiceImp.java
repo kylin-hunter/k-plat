@@ -25,4 +25,5 @@ public class RoleServiceImp
         RoleReqCreate, RoleReqUpdate,
         RoleResp, RoleReqQuery> implements RoleService {
 
+
 }

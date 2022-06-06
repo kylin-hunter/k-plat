@@ -1,6 +1,6 @@
 package ${package};
-
-public interface  ${class_name}  {
+import com.kylinhunter.plat.api.bean.vo.VO;
+public interface  ${class_name}  extends VO {
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${entity_fields})
     ${field.readMethod};

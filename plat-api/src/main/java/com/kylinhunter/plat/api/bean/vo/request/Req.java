@@ -1,5 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.request;
 
+import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 
 import io.swagger.annotations.ApiModel;
@@ -15,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @ApiModel(value = "Req", description = "Req")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-public class Req extends ReqTenant {
+public class Req extends ReqTenant implements VO {
     private static final long serialVersionUID = -8450405452557433712L;
 
     @ApiModelProperty(value = "userContext", hidden = true)

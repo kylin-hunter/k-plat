@@ -19,27 +19,31 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQuery;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
-import com.kylinhunter.plat.api.bean.vo.request.Req;
-import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
-import com.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
-import com.kylinhunter.plat.api.bean.vo.response.batch.BatchSingleResp;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import com.kylinhunter.plat.api.bean.vo.query.ReqQuery;
+import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
+import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
+import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.request.Req;
+import com.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
+import com.kylinhunter.plat.api.bean.vo.response.batch.BatchSingleResp;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
+import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
+import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.api.service.local.CommonService;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
+import com.kylinhunter.plat.api.service.local.SaveInterceptor;
+import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 import com.kylinhunter.plat.commons.exception.ExceptionHelper;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
+import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
-import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 import com.kylinhunter.plat.dao.exception.DAOExceptionConverter;
 import com.kylinhunter.plat.dao.service.helper.ServiceDataHelper;
+
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
@@ -50,6 +54,8 @@ import com.kylinhunter.plat.dao.service.helper.ServiceDataHelper;
  * @since 2022-01-01
  */
 @Transactional(rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@NoArgsConstructor
 public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseEntity, X extends ReqCreate,
         Y extends ReqUpdate,
         Z extends Resp, Q extends ReqQueryPage> extends ServiceImpl<M, T>
@@ -60,15 +66,30 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Autowired
     private FilterComponent filterComponent;
 
+    private SaveInterceptor saveInterceptor;
+
+    public CommonServiceImpl(SaveInterceptor saveInterceptor) {
+        this.saveInterceptor = saveInterceptor;
+    }
+
     @Override
     public Z save(X reqCreate) {
         try {
             T t = this.createSaveEntity(reqCreate);
+            if (saveInterceptor != null) {
+                saveInterceptor.before(reqCreate);
+            }
+            Z z;
             if (this.save((T) t)) {
-                return this.findById(new ReqQueryById(t.getId()));
+                z = this.findById(new ReqQueryById(t.getId()));
             } else {
                 throw new DBException("save db error");
             }
+
+            if (saveInterceptor != null) {
+                saveInterceptor.after(reqCreate);
+            }
+            return z;
 
         } catch (KRuntimeException e) {
             throw e;
@@ -191,17 +212,27 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
         try {
             checkRpcContext(reqUpdate);
 
+            if (saveInterceptor != null) {
+                saveInterceptor.before(reqUpdate);
+            }
+
             T t = this.getById(reqUpdate.getId());
             if (t == null) {
                 throw new DBException(ErrInfos.DB_NO_EXIST, "no body for id =" + reqUpdate.getId());
             }
             BeanCopyUtils.copyProperties(reqUpdate, t);
             ServiceDataHelper.setUpdateMsg(t, reqUpdate);
+            Z z;
             if (this.updateById(t)) {
-                return this.findById(new ReqQueryById(t.getId()));
+                z = this.findById(new ReqQueryById(t.getId()));
             } else {
                 throw new DBException("update db error");
             }
+
+            if (saveInterceptor != null) {
+                saveInterceptor.after(reqUpdate);
+            }
+            return z;
         } catch (KRuntimeException e) {
             throw e;
         } catch (Exception e) {

@@ -1,6 +1,8 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
-public interface UserVO {
+import com.kylinhunter.plat.api.bean.vo.VO;
+
+public interface UserVO  extends VO {
     String getUserId();
 
     String getUserName();

@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
-
-public interface  RoleVO  {
+import com.kylinhunter.plat.api.bean.vo.VO;
+public interface  RoleVO  extends VO {
     String getRoleId();
     void setRoleId (String roleId);
 

@@ -1,7 +1,6 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,5 +30,6 @@ public class RoleReqCreate extends ReqCreate implements RoleVO {
     private String roleName;
     @ApiModelProperty(value = "角色状态，预留")
     private Integer status;
+
 
 }
