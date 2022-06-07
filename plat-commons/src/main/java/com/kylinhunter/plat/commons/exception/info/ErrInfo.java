@@ -15,14 +15,14 @@ public class ErrInfo {
     private int code;
     private String defaultMsg;
 
-    public ErrInfo(ErrClassify errClassify) {
-        this.classCode = errClassify.getCode();
-        this.code = errClassify.next();
+    public ErrInfo(ErrInfoClassify errInfoClassify) {
+        this.classCode = errInfoClassify.getCode();
+        this.code = errInfoClassify.next();
     }
 
-    public ErrInfo(ErrClassify errClassify, String defaultMsg) {
-        this.classCode = errClassify.getCode();
-        this.code = errClassify.next();
+    public ErrInfo(ErrInfoClassify errInfoClassify, String defaultMsg) {
+        this.classCode = errInfoClassify.getCode();
+        this.code = errInfoClassify.next();
         this.defaultMsg = defaultMsg;
     }
 

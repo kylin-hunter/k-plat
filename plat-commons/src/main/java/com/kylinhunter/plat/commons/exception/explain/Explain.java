@@ -6,6 +6,6 @@ package com.kylinhunter.plat.commons.exception.explain;
  * @date 2022-01-19 18:59
  **/
 @FunctionalInterface
-public interface ExceptionExplain<T extends Throwable> {
-    ExplainResult explain(T t);
+public interface Explain<T extends Throwable> {
+    ExplainInfo explain(T t);
 }

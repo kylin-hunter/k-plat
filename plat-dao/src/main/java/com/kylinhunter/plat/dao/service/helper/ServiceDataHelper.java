@@ -9,11 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
 import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
+import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
 
 /**
  * @author BiJi'an
@@ -68,6 +68,8 @@ public class ServiceDataHelper {
 
     }
 
+
+
     public static <Z, T> List<Z> assembleData(List<T> dbDatas, Class<Z> beanClass) {
         try {
             if (dbDatas != null) {
@@ -101,7 +103,7 @@ public class ServiceDataHelper {
      * @author BiJi'an
      * @date 2021/10/25 7:45 下午
      */
-    public static void setUpdateMsg(BaseEntity baseEntity, Req reqUpdate) {
+    public static void setDefaultUpdateMsg(BaseEntity baseEntity, Req reqUpdate) {
 
         if (reqUpdate.getUserContext() != null && !StringUtils
                 .isEmpty(reqUpdate.getUserContext().getCurrentUserId())) { // 防止
@@ -121,7 +123,7 @@ public class ServiceDataHelper {
      * @author BiJi'an
      * @date 2021/10/25 7:45 下午
      */
-    public static void setCreateMsg(BaseEntity baseEntity, Req reqCreate) {
+    public static void setDefaultCreateMsg(BaseEntity baseEntity, Req reqCreate) {
         if (reqCreate.getUserContext() != null) {
 
             baseEntity.setSysCreatedUserId(reqCreate.getUserContext().getCurrentUserId());
@@ -132,7 +134,5 @@ public class ServiceDataHelper {
 
         baseEntity.setSysUpdateTime(LocalDateTime.now());
     }
-
-
 
 }

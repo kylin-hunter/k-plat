@@ -1,12 +1,14 @@
-package com.kylinhunter.plat.api.bean.vo.request;
+package com.kylinhunter.plat.api.bean.vo;
 
 import java.io.Serializable;
+
+import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author BiJi'an
@@ -14,11 +16,15 @@ import lombok.NoArgsConstructor;
  * @date 2022-01-01 21:42
  **/
 @Data
-@ApiModel(value = "ReqTenant", description = "ReqTenant")
+@ApiModel(value = "BasicVO", description = "BasicVO")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
-public class ReqTenant implements Serializable {
+@RequiredArgsConstructor
+public class BasicVO implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
+
+    @ApiModelProperty(value = "voType", hidden = true)
+    private final VoType voType;
+
     @ApiModelProperty(value = "tenantId")
     protected String tenantId = "";
 

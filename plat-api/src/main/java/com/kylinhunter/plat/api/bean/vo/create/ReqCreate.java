@@ -1,5 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.create;
 
+import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 
@@ -24,11 +25,11 @@ public class ReqCreate extends Req {
     private String id;
 
     public ReqCreate() {
-        super(VoType.CREATE);
+        super(VoType.CREATE, ReqType.CREATE);
     }
 
     public ReqCreate(String id) {
-        super(VoType.CREATE);
+        this();
         this.id = id;
     }
 }

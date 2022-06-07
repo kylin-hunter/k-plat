@@ -10,7 +10,7 @@ import com.kylinhunter.plat.commons.exception.inner.biz.BizException;
  **/
 public class AuthException extends BizException {
     public AuthException(String message, Throwable cause) {
-        this(WebErrInfos.AUTH_ERROR, message, cause);
+        this(WebErrInfoCustomizer.AUTH_ERROR, message, cause);
     }
 
     public AuthException(ErrInfo errInfo) {
@@ -18,11 +18,11 @@ public class AuthException extends BizException {
     }
 
     public AuthException(String message) {
-        this(WebErrInfos.AUTH_ERROR, message);
+        this(WebErrInfoCustomizer.AUTH_ERROR, message);
     }
 
     public AuthException(Throwable cause) {
-        this(WebErrInfos.AUTH_ERROR, cause);
+        this(WebErrInfoCustomizer.AUTH_ERROR, cause);
     }
 
     public AuthException(ErrInfo errInfo, String message, Throwable cause) {

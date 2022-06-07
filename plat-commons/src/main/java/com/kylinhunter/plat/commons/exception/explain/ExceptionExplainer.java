@@ -5,8 +5,9 @@ import java.util.Set;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.kylinhunter.plat.commons.exception.common.KThrowable;
 import com.kylinhunter.plat.commons.exception.explain.ExceptionFinder.ExceptionFind;
+import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
+import com.kylinhunter.plat.commons.exception.common.KThrowable;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExceptionExplainer {
 
-    private final Map<Class<? extends Throwable>, ExceptionExplain<Throwable>> exceptionExplains =
+    private final Map<Class<? extends Throwable>, Explain<Throwable>> exceptionExplains =
             Maps.newHashMap();
     public Set<Class<? extends Throwable>> allExceptions = Sets.newHashSet();
 
     /**
      * @param cls              cls
-     * @param exceptionExplain exceptionExplain
+     * @param explain explain
      * @title register
      * @description
      * @author BiJi'an
@@ -33,36 +34,80 @@ public class ExceptionExplainer {
      */
 
     @SuppressWarnings("unchecked")
-    public <T extends Throwable> void register(Class<T> cls, ExceptionExplain<T> exceptionExplain) {
-        exceptionExplains.put(cls, (ExceptionExplain<Throwable>) exceptionExplain);
+    public <T extends Throwable> void register(Class<T> cls, Explain<T> explain) {
+        exceptionExplains.put(cls, (Explain<Throwable>) explain);
         allExceptions.add(cls);
     }
 
     /**
      * @param throwable throwable
-     * @return com.kylinhunter.plat.commons.exception.explain.ExplainResult
+     * @return com.kylinhunter.plat.commons.exception.explain.ExplainInfo
      * @title explain explain
      * @description
      * @author BiJi'an
      * @date 2022-05-18 00:31
      */
 
-    public ExplainResult explain(Throwable throwable) {
-        ExplainResult explainResult = null;
+    private ExplainInfo explain(Throwable throwable) {
+        ExplainInfo explainInfo = null;
         if (throwable instanceof KThrowable) {
-            explainResult = new ExplainResult((KThrowable) throwable, throwable.getMessage());
+            explainInfo = new ExplainInfo((KThrowable) throwable, throwable.getMessage());
         } else {
             ExceptionFind exceptionFind = ExceptionFinder.find(throwable, true, allExceptions);
             if (exceptionFind != null) {
-                ExceptionExplain<Throwable> exceptionExplain = exceptionExplains.get(exceptionFind.getSource());
-                if (exceptionExplain != null) {
-                    explainResult = exceptionExplain.explain(exceptionFind.getTarget());
+                Explain<Throwable> explain = exceptionExplains.get(exceptionFind.getSource());
+                if (explain != null) {
+                    explainInfo = explain.explain(exceptionFind.getTarget());
                 }
             }
-            if (explainResult == null) {
-                explainResult = new ExplainResult(ErrInfos.UNKNOWN, throwable.getMessage());
+            if (explainInfo == null) {
+                explainInfo = new ExplainInfo(ErrInfos.UNKNOWN, throwable.getMessage());
             }
         }
-        return explainResult;
+        return explainInfo;
+    }
+
+
+
+    /**
+     * @param exception exception
+     * @return KRuntimeException
+     * @title convert
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:30
+     */
+    public KRuntimeException convert(Throwable exception) {
+        return convert(exception, true);
+    }
+
+    /**
+     * @param exception exception
+     * @param trace     trace
+     * @return KRuntimeException
+     * @title convert
+     * @description
+     * @author BiJi'an
+     * @date 2022-05-18 00:30
+     */
+    public KRuntimeException convert(Throwable exception, boolean trace) {
+        if (KRuntimeException.class.isAssignableFrom(exception.getClass())) {
+            return (KRuntimeException) exception;
+        } else {
+            try {
+                ExplainInfo explainInfo = this.explain(exception);
+                if (trace) {
+                    return new KRuntimeException(explainInfo.getErrInfo(), explainInfo.getExtra(),
+                            explainInfo.getMsg(), exception);
+                } else {
+                    return new KRuntimeException(explainInfo.getErrInfo(), explainInfo.getExtra(),
+                            explainInfo.getMsg());
+                }
+            } catch (Exception e) {
+                log.error("convert error", e);
+            }
+            return new KRuntimeException(ErrInfos.UNKNOWN, exception.getMessage());
+        }
+
     }
 }

@@ -2,9 +2,6 @@ package com.kylinhunter.plat.api.bean.filter;
 
 import java.io.Serializable;
 
-import com.kylinhunter.plat.commons.util.name.NamePair;
-import com.kylinhunter.plat.commons.util.name.NamePairUtils;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,22 +23,5 @@ public class ReqFilter implements Serializable {
 
     @ApiModelProperty(value = "value")
     private String value;
-
-    @ApiModelProperty(value = "namePair", hidden = true)
-    private NamePair namePair;
-
-    public ReqFilter(String field, String value) {
-        this.field = field;
-        this.value = value;
-        this.namePair = NamePairUtils.toNamePair(field);
-
-    }
-
-    public String getColumn() {
-        if (namePair != null) {
-            return namePair.getSnake();
-        }
-        return "";
-    }
 
 }

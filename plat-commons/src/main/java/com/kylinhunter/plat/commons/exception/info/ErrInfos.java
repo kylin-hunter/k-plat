@@ -12,7 +12,7 @@ public class ErrInfos {
     public static final String MSG_UNKNOWN = "UNKNOWN";
     public static final ErrInfo UNKNOWN = new ErrInfo(CODE_UNKNOWN, MSG_UNKNOWN);
 
-    public static final ErrClassify BASE = new ErrClassify(10000);
+    public static final ErrInfoClassify BASE = new ErrInfoClassify(10000);
     public static final ErrInfo FORMAT = new ErrInfo(BASE);
     public static final ErrInfo INIT = new ErrInfo(BASE);
     public static final ErrInfo INTERNAL = new ErrInfo(BASE);
@@ -21,10 +21,10 @@ public class ErrInfos {
     public static final ErrInfo GENERAL = new ErrInfo(BASE);
 
 
-    private static final ErrClassify CLASSIFY_BIZ = new ErrClassify(10001);
+    private static final ErrInfoClassify CLASSIFY_BIZ = new ErrInfoClassify(10001);
     public static final ErrInfo BIZ = new ErrInfo(CLASSIFY_BIZ);
 
-    private static final ErrClassify CLASSIFY_DB = new ErrClassify(10002);
+    private static final ErrInfoClassify CLASSIFY_DB = new ErrInfoClassify(10002);
     public static final ErrInfo DB = new ErrInfo(CLASSIFY_DB);
     public static final ErrInfo DB_NO_EXIST = new ErrInfo(CLASSIFY_DB);
 

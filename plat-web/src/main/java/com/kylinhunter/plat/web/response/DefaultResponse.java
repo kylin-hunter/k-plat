@@ -2,8 +2,8 @@ package com.kylinhunter.plat.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.kylinhunter.plat.commons.exception.info.ErrInfoManager;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
-import com.kylinhunter.plat.commons.exception.info.ErrCodeManager;
 import com.kylinhunter.plat.web.trace.Explain;
 
 import io.swagger.annotations.ApiModel;
@@ -60,7 +60,7 @@ public class DefaultResponse<T> implements Response<T> {
         if (code == ErrInfos.CODE_SUCCESS) {
             this.msg = "ok";
         } else {
-            this.msg = ErrCodeManager.getDefaultMsg(this.code);
+            this.msg = ErrInfoManager.getDefaultMsg(this.code);
             if (msg != null && msg.length() > 0) {
                 this.msg += ":" + msg;
             }

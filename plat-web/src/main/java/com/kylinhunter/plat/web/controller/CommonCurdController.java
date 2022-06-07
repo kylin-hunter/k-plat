@@ -71,7 +71,7 @@ public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,Q>, X
     @ResponseBody
     @ApiOperation("查看详情")
     public DefaultResponse<Z> detail(@Validated ReqQueryById reqQueryById) {
-        return new DefaultResponse(this.service.findById(reqQueryById));
+        return new DefaultResponse(this.service.queryById(reqQueryById));
 
     }
 

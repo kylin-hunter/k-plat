@@ -2,6 +2,7 @@ package com.kylinhunter.plat.api.bean.vo.update;
 
 import javax.validation.constraints.NotBlank;
 
+import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 
@@ -27,11 +28,11 @@ public class ReqUpdate extends Req {
     private String id;
 
     public ReqUpdate() {
-        super(VoType.UPDATE);
+        super(VoType.UPDATE, ReqType.UPDATE);
     }
 
     public ReqUpdate(String id) {
-        super(VoType.UPDATE);
+        this();
         this.id = id;
     }
 }

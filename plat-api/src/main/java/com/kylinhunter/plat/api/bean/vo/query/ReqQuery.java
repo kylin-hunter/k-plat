@@ -2,6 +2,7 @@ package com.kylinhunter.plat.api.bean.vo.query;
 
 import java.io.Serializable;
 
+import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 
@@ -30,6 +31,6 @@ public class ReqQuery extends Req implements Serializable {
     private boolean withLogicDelData = false;
 
     public ReqQuery() {
-        super(VoType.QUERY);
+        super(VoType.QUERY, ReqType.QUERY);
     }
 }

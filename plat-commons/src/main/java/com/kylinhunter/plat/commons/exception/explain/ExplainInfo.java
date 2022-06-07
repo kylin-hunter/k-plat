@@ -13,12 +13,12 @@ import lombok.Data;
  **/
 
 @Data
-public class ExplainResult {
+public class ExplainInfo {
     private ErrInfo errInfo;
     private Object extra;
     private String msg;
 
-    public ExplainResult(KThrowable KThrowable, String msg) {
+    public ExplainInfo(KThrowable KThrowable, String msg) {
         this.errInfo = KThrowable.getErrInfo();
         if (this.errInfo == null) {
             this.errInfo = ErrInfos.UNKNOWN;
@@ -27,7 +27,7 @@ public class ExplainResult {
         this.msg = msg;
     }
 
-    public ExplainResult(ErrInfo errInfo, String msg) {
+    public ExplainInfo(ErrInfo errInfo, String msg) {
         this.errInfo = errInfo;
         if (this.errInfo == null) {
             this.errInfo = ErrInfos.UNKNOWN;

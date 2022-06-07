@@ -2,7 +2,6 @@ package com.kylinhunter.plat.api.bean.vo.response.single;
 
 import java.time.LocalDateTime;
 
-import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.constants.SwaggerConst;
 
 import io.swagger.annotations.ApiModel;

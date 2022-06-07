@@ -18,27 +18,27 @@ import lombok.extern.slf4j.Slf4j;
  **/
 
 @Slf4j
-public class ErrCodeManager {
-    public static final Map<Integer, String> ERR_CODES = Maps.newLinkedHashMap();
-    private static volatile boolean initialized = false;
+public class ErrInfoManager {
+    public static final Map<Integer, ErrInfo> ERR_INFOS = Maps.newLinkedHashMap();
+    private static final ErrInfoManager singleton = new ErrInfoManager();
 
     public static String getDefaultMsg(int code) {
-        return ERR_CODES.getOrDefault(code, ErrInfos.MSG_UNKNOWN);
+        return ERR_INFOS.getOrDefault(code, ErrInfos.UNKNOWN).getDefaultMsg();
     }
 
     static {
-        init();
+        singleton.init(ErrInfos.class);
     }
 
-    public static void register(int code, String defaultMsg) {
-        if (ERR_CODES.containsKey(code)) {
-            throw new InitException(" error code is used:" + code);
+    private void register(ErrInfo errInfo) {
+        if (ERR_INFOS.containsKey(errInfo.getCode())) {
+            throw new InitException(" error code is used:" + errInfo.getCode());
         } else {
-            ERR_CODES.put(code, defaultMsg);
+            ERR_INFOS.put(errInfo.getCode(), errInfo);
         }
     }
 
-    public static synchronized void init(Class cls) {
+    public void init(Class<?> cls) {
         for (Field field : cls.getDeclaredFields()) {
             if (field.getType() == ErrInfo.class && Modifier.isFinal(field.getModifiers())) {
                 try {
@@ -46,27 +46,19 @@ public class ErrCodeManager {
                     if (StringUtils.isEmpty(errInfo.getDefaultMsg())) {
                         errInfo.setDefaultMsg(field.getName());
                     }
-                    register(errInfo.getCode(), errInfo.getDefaultMsg());
+                    register(errInfo);
 
                 } catch (Exception e) {
-                    throw new InitException("init ErrCodeManager error", e);
+                    throw new InitException("init ErrInfoManager error", e);
                 }
 
             }
         }
     }
 
-    public static synchronized void init() {
-        if (!initialized) {
-            initialized = true;
-            init(ErrInfos.class);
-        }
-
-    }
-
     public static void println() {
-        log.info("print err code ");
-        ERR_CODES.forEach((errCode, defaultMsg) -> log.info("erroCode={},defaultMsg={}", errCode, defaultMsg));
+        log.info("print errInfo code ");
+        ERR_INFOS.forEach((errCode, defaultMsg) -> log.info("erroCode={},defaultMsg={}", errCode, defaultMsg));
 
     }
 

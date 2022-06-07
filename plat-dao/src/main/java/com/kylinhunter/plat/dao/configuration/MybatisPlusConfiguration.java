@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
  * @date 2022-01-07 00:06
  **/
 @Configuration
-public class MybatisPlusConfig {
+public class MybatisPlusConfiguration {
 
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

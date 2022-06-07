@@ -15,7 +15,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.exception.AuthException;
-import com.kylinhunter.plat.web.exception.WebErrInfos;
+import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 
 /**
  * @author BiJi'an
@@ -54,7 +54,7 @@ public class JWTService {
         } catch (AuthException e) {
             throw e;
         } catch (Exception e) {
-            throw new AuthException(WebErrInfos.AUTH_TOKEN_CREATE_ERROR, e);
+            throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_CREATE_ERROR, e);
 
         }
     }
@@ -62,7 +62,7 @@ public class JWTService {
     public Token verify(String token) {
         try {
             if (StringUtils.isBlank(token)) {
-                throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_NOT_FOUND);
+                throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_NOT_FOUND);
             }
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
@@ -75,11 +75,11 @@ public class JWTService {
         } catch (AuthException e) {
             throw e;
         } catch (TokenExpiredException e) {
-            throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_EXPIRED, e);
+            throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_EXPIRED, e);
         } catch (JWTVerificationException e) {
-            throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_INVALID, e);
+            throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_INVALID, e);
         } catch (Exception e) {
-            throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_ERROR, e);
+            throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_ERROR, e);
         }
     }
 }

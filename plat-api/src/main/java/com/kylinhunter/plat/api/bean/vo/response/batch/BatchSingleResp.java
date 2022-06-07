@@ -3,7 +3,7 @@ package com.kylinhunter.plat.api.bean.vo.response.batch;
 
 import java.io.Serializable;
 
-import com.kylinhunter.plat.api.bean.vo.request.ReqTenant;
+import com.kylinhunter.plat.api.bean.vo.BasicVO;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
 import io.swagger.annotations.ApiModel;
@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value = "BatchSingleResp", description = "BatchSingleResp")
 @AllArgsConstructor
-public class BatchSingleResp<T extends ReqTenant> implements Serializable {
+public class BatchSingleResp<T extends BasicVO> implements Serializable {
 
     @ApiModelProperty(value = "code")
     private int code = ErrInfos.CODE_SUCCESS;

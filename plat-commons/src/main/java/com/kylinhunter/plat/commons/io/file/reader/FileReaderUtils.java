@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 import org.apache.commons.io.Charsets;
 
-import com.kylinhunter.plat.commons.exception.inner.CommonIOException;
+import com.kylinhunter.plat.commons.exception.inner.KIOException;
 
 /**
  * @author BiJi'an
@@ -31,7 +31,7 @@ public class FileReaderUtils {
         try (InputStream input = new FileInputStream(file)) {
             process(input, encoding, processor);
         } catch (Exception e) {
-            throw new CommonIOException("process error", e);
+            throw new KIOException("process error", e);
         }
 
     }
@@ -56,7 +56,7 @@ public class FileReaderUtils {
 
             }
         } catch (Exception e) {
-            throw new CommonIOException("process error", e);
+            throw new KIOException("process error", e);
         }
     }
 

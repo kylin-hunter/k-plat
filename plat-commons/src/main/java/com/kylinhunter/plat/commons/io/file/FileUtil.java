@@ -5,8 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.kylinhunter.plat.commons.exception.inner.CommonIOException;
-import com.kylinhunter.plat.commons.exception.inner.InternalException;
+import com.kylinhunter.plat.commons.exception.inner.KIOException;
 
 /**
  * @author BiJi'an
@@ -25,7 +24,7 @@ public class FileUtil {
         try {
             FileUtils.forceMkdir(directory);
         } catch (IOException e) {
-            throw new CommonIOException("forceMkdir  error", e);
+            throw new KIOException("forceMkdir  error", e);
         }
     }
 }

@@ -4,19 +4,17 @@ import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.kylinhunter.plat.api.bean.filter.ReqFilters;
-import com.kylinhunter.plat.api.bean.sort.ReqSorts;
+import com.google.common.collect.Lists;
 import com.kylinhunter.plat.api.bean.filter.ReqFilter;
 import com.kylinhunter.plat.api.bean.sort.ReqSort;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
-import com.kylinhunter.plat.commons.util.name.NamePair;
-import com.kylinhunter.plat.commons.util.name.NamePairUtils;
 
 /**
  * @author BiJi'an
@@ -60,15 +58,14 @@ public class WebDataBinderConfig {
             }
         });
 
-        binder.registerCustomEditor(ReqSorts.class, new PropertyEditorSupport() {
+        binder.registerCustomEditor(List.class, "sorts", new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
 
                 if (!StringUtils.isEmpty(text)) {
-
                     String[] textArrs = StringUtils.split(text, ";");
                     if (textArrs != null && textArrs.length > 0) {
-                        ReqSorts reqSorts = new ReqSorts();
+                        List<ReqSort> reqSorts = Lists.newArrayList();
                         for (String textArr : textArrs) {
                             String[] fieldAndSort = StringUtils.split(textArr, "@");
                             if (fieldAndSort != null && fieldAndSort.length == 2) {
@@ -82,7 +79,7 @@ public class WebDataBinderConfig {
                 }
             }
         });
-        binder.registerCustomEditor(ReqFilters.class, new PropertyEditorSupport() {
+        binder.registerCustomEditor(List.class, "filters", new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
 
@@ -90,12 +87,11 @@ public class WebDataBinderConfig {
 
                     String[] textArrs = StringUtils.split(text, ";");
                     if (textArrs != null && textArrs.length > 0) {
-                        ReqFilters reqFilters = new ReqFilters();
+                        List<ReqFilter> reqFilters = Lists.newArrayList();
                         for (String textArr : textArrs) {
                             String[] fieldAndValue = StringUtils.split(textArr, "@");
                             if (fieldAndValue != null && fieldAndValue.length == 2) {
-                                NamePair namePair = NamePairUtils.toNamePair(fieldAndValue[0]);
-                                reqFilters.add(new ReqFilter(fieldAndValue[0], fieldAndValue[1], namePair));
+                                reqFilters.add(new ReqFilter(fieldAndValue[0], fieldAndValue[1]));
 
                             }
                         }

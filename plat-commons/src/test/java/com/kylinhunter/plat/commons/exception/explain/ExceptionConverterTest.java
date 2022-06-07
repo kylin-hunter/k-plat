@@ -10,15 +10,15 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.biz.BizException;
 
 public class ExceptionConverterTest {
-    public static ExceptionConverter exceptionConverter = new ExceptionConverter();
-    public static ErrInfo ERR_INFO_TEST = new ErrInfo(-99, -99, "default msg");
+    public static ExceptionExplainer exceptionExplainer = new ExceptionExplainer();
+    public static ErrInfo errInfoInfoTest = new ErrInfo(-99, -99, "default msg");
 
     @BeforeAll
     static void init() {
-        exceptionConverter.register(TestException2.class, e -> {
-            ExplainResult explainResult = new ExplainResult(ERR_INFO_TEST, "TestException2's msg");
-            explainResult.setExtra("TestException2's extra");
-            return explainResult;
+        exceptionExplainer.register(TestException2.class, e -> {
+            ExplainInfo explainInfo = new ExplainInfo(errInfoInfoTest, "TestException2's msg");
+            explainInfo.setExtra("TestException2's extra");
+            return explainInfo;
         });
 
     }
@@ -43,7 +43,7 @@ public class ExceptionConverterTest {
 
         TestException2 testException2 = new TestException2("test2", new RuntimeException());
 
-        KRuntimeException convert = exceptionConverter.convert(testException1, true);
+        KRuntimeException convert = exceptionExplainer.convert(testException1, true);
 
         Assertions.assertEquals(TestException1.class, convert.getClass());
         Assertions.assertEquals(ErrInfos.BIZ, convert.getErrInfo());
@@ -51,7 +51,7 @@ public class ExceptionConverterTest {
         Assertions.assertEquals("TestException1's msg", convert.getMessage());
 
         Assertions.assertNotNull(convert.getCause());
-        convert = exceptionConverter.convert(testException1, false);
+        convert = exceptionExplainer.convert(testException1, false);
 
         Assertions.assertEquals(TestException1.class, convert.getClass());
         Assertions.assertEquals(ErrInfos.BIZ, convert.getErrInfo());
@@ -60,18 +60,18 @@ public class ExceptionConverterTest {
 
         Assertions.assertNotNull(convert.getCause());
 
-        convert = exceptionConverter.convert(testException2, true);
+        convert = exceptionExplainer.convert(testException2, true);
 
         Assertions.assertEquals(KRuntimeException.class, convert.getClass());
-        Assertions.assertEquals(ERR_INFO_TEST, convert.getErrInfo());
+        Assertions.assertEquals(errInfoInfoTest, convert.getErrInfo());
         Assertions.assertEquals("TestException2's extra", convert.getExtra());
         Assertions.assertEquals("TestException2's msg", convert.getMessage());
         Assertions.assertNotNull(convert.getCause());
 
-        convert = exceptionConverter.convert(testException2, false);
+        convert = exceptionExplainer.convert(testException2, false);
 
         Assertions.assertEquals(KRuntimeException.class, convert.getClass());
-        Assertions.assertEquals(ERR_INFO_TEST, convert.getErrInfo());
+        Assertions.assertEquals(errInfoInfoTest, convert.getErrInfo());
         Assertions.assertEquals("TestException2's extra", convert.getExtra());
         Assertions.assertEquals("TestException2's msg", convert.getMessage());
         Assertions.assertNull(convert.getCause());

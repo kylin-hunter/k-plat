@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.response.ResponseService;
@@ -15,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2021/8/1
+ * @description
+ * @date 2021/8/1
  **/
 @ControllerAdvice
 @Slf4j
@@ -25,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
     private final ResponseService responseService;
+
+    private final ExceptionExplainer exceptionExplainer;
 
     /**
      * @param req
@@ -43,7 +46,7 @@ public class GlobalExceptionHandler {
 
         try {
             log.error("global error", globalException);
-            DefaultResponse response = responseService.toResponse(WebExceptionConverter.convert(globalException));
+            DefaultResponse response = responseService.toResponse(exceptionExplainer.convert(globalException));
             String responseJson = JsonUtils.toString(response, false);
             log.error(req.getRequestURI() + "'s response:" + responseJson);
             responseService.writeJson(responseJson);

@@ -1,49 +1,38 @@
 package com.kylinhunter.plat.dao.service.local;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
+import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQuery;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
-import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
-import com.kylinhunter.plat.api.bean.vo.response.batch.BatchSingleResp;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.api.service.local.CommonService;
-import com.kylinhunter.plat.api.service.local.SaveInterceptor;
-import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 import com.kylinhunter.plat.commons.exception.ExceptionHelper;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
+import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
-import com.kylinhunter.plat.dao.exception.DAOExceptionConverter;
 import com.kylinhunter.plat.dao.service.helper.ServiceDataHelper;
 
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
@@ -54,7 +43,6 @@ import lombok.RequiredArgsConstructor;
  * @since 2022-01-01
  */
 @Transactional(rollbackFor = Exception.class)
-@RequiredArgsConstructor
 @NoArgsConstructor
 public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseEntity, X extends ReqCreate,
         Y extends ReqUpdate,
@@ -62,181 +50,126 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
         implements CommonService<T, X, Y, Z, Q> {
 
     @Autowired
-    private SortComponent sortComponent;
-    @Autowired
-    private FilterComponent filterComponent;
+    private ExceptionExplainer exceptionExplainer;
+    private PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor = new PersistInterceptor<>();
+    private QueryInterceptor<T, Q, Z> queryInterceptor = new QueryInterceptor<>();
 
-    private SaveInterceptor saveInterceptor;
+    public CommonServiceImpl(PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor) {
+        this.persistInterceptor = persistInterceptor;
+    }
 
-    public CommonServiceImpl(SaveInterceptor saveInterceptor) {
-        this.saveInterceptor = saveInterceptor;
+    public CommonServiceImpl(QueryInterceptor<T, Q, Z> queryInterceptor) {
+        this.queryInterceptor = queryInterceptor;
+    }
+
+    public CommonServiceImpl(PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor,
+                             QueryInterceptor<T, Q, Z> queryInterceptor) {
+        this.persistInterceptor = persistInterceptor;
+        this.queryInterceptor = queryInterceptor;
+    }
+
+    protected Z save(X reqCreate, boolean newData) {
+        try {
+            T t = persistInterceptor.saveBefore(reqCreate);
+            if (this.save(t)) {
+                if (newData) {
+                    return persistInterceptor.saveAfter(reqCreate, t);
+                } else {
+                    return null;
+                }
+            } else {
+                throw new DBException("save db error");
+            }
+        } catch (Exception e) {
+            throw exceptionExplainer.convert(e);
+        }
     }
 
     @Override
     public Z save(X reqCreate) {
-        try {
-            T t = this.createSaveEntity(reqCreate);
-            if (saveInterceptor != null) {
-                saveInterceptor.before(reqCreate);
-            }
-            Z z;
-            if (this.save((T) t)) {
-                z = this.findById(new ReqQueryById(t.getId()));
-            } else {
-                throw new DBException("save db error");
-            }
-
-            if (saveInterceptor != null) {
-                saveInterceptor.after(reqCreate);
-            }
-            return z;
-
-        } catch (KRuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
-        }
+        return this.save(reqCreate, true);
     }
 
     @Override
     public boolean save(Collection<X> reqCreates) {
         try {
-            reqCreates.forEach(reqCreate -> {
-                T t = this.createSaveEntity(reqCreate);
-                if (!this.save((T) t)) {
-                    throw new DBException("save db error");
-                }
-            });
+            reqCreates.forEach(reqCreate -> this.save(reqCreate, false));
             return true;
-        } catch (KRuntimeException e) {
-            throw e;
         } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
-        }
-
-    }
-
-    private T createSaveEntity(X reqCreate) {
-        checkRpcContext(reqCreate);
-        T saveEntity = createEntityBean();
-        BeanCopyUtils.copyProperties(reqCreate, saveEntity);
-        ServiceDataHelper.setCreateMsg(saveEntity, reqCreate);
-        return saveEntity;
-    }
-
-    @Override
-    public Z findById(ReqQueryById commonVoFindById) {
-
-        try {
-            checkRpcContext(commonVoFindById);
-            T docBase = this.getById(commonVoFindById.getId());
-            if (docBase == null) {
-                return null;
-            }
-            Z docDraftRespVo = createResponseBean();
-            if (skip(commonVoFindById, docBase)) {
-                return null;
-            }
-            BeanCopyUtils.copyProperties(docBase, docDraftRespVo);
-            return docDraftRespVo;
-        } catch (KRuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
+            throw exceptionExplainer.convert(e);
         }
     }
 
     @Override
-    public List<Z> findByIds(ReqQueryByIds reqQueryByIds) {
+    public Z queryById(ReqQueryById reqQueryById) {
         try {
-            checkRpcContext(reqQueryByIds);
-            List<T> beans = this.baseMapper.selectBatchIds(reqQueryByIds.getIds());
-            if (CollectionUtils.isEmpty(beans)) {
-                return Collections.EMPTY_LIST;
+            queryInterceptor.queryByIdBefore(reqQueryById);
+            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
+            query.eq(T::getId, reqQueryById.getId());
+            if (!reqQueryById.isWithLogicDelData()) {
+                query.eq(T::getSysDeleteFlag, 0);
             }
-            return beans.stream().filter(bean -> {
-                if (skip(reqQueryByIds, bean)) {
-                    return false;
-                }
-                return true;
-            }).map(bean -> {
-                Z responseBean = createResponseBean();
-                BeanCopyUtils.copyProperties(bean, responseBean);
-                return responseBean;
-            }).collect(Collectors.toList());
-
-        } catch (KRuntimeException e) {
-            throw e;
+            T entity = this.baseMapper.selectOne(query);
+            return queryInterceptor.queryByIdAfter(reqQueryById, entity);
         } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
+            throw exceptionExplainer.convert(e);
         }
     }
 
-    /**
-     * @param reqQuery
-     * @param baseEntity
-     * @return boolean
-     * @throws
-     * @title 支持逻辑删除，跳过非法数据
-     * @description
-     * @author BiJi'an
-     * @date 2021/11/8 8:26 下午
-     */
-    protected boolean skip(ReqQuery reqQuery, BaseEntity baseEntity) {
-        if (!reqQuery.isWithLogicDelData() && true == baseEntity.getSysDeleteFlag()) {
-            return true;
+    @Override
+    public List<Z> queryByIds(ReqQueryByIds reqQueryByIds) {
+        try {
+
+            this.queryInterceptor.queryByIdsBefore(reqQueryByIds);
+            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
+            query.eq(T::getId, reqQueryByIds.getIds());
+            if (!reqQueryByIds.isWithLogicDelData()) {
+                query.eq(T::getSysDeleteFlag, 0);
+            }
+            List<T> beans = this.baseMapper.selectList(query);
+            return this.queryInterceptor.queryByIdsAfter(reqQueryByIds, beans);
+
+        } catch (Exception e) {
+            throw exceptionExplainer.convert(e);
         }
-        return false;
     }
 
     @Override
     public boolean delete(ReqDelete reqDelete) {
-        checkRpcContext(reqDelete);
+        this.persistInterceptor.deleteBefore(reqDelete);
+        boolean success;
         if (reqDelete.isPhysical()) {
-            return this.removeByIds(reqDelete.getIds());
+            success = this.removeByIds(reqDelete.getIds());
         } else {
             List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
             datas.forEach(data -> {
                 data.setSysDeleteFlag(true);
-                ServiceDataHelper.setUpdateMsg(data, reqDelete);
+                ServiceDataHelper.setDefaultUpdateMsg(data, reqDelete);
                 this.baseMapper.updateById(data);
             });
-            return true;
-
+            success = true;
         }
+        return this.persistInterceptor.deleteAfter(reqDelete, success);
 
     }
 
     @Override
     public Z update(Y reqUpdate) {
         try {
-            checkRpcContext(reqUpdate);
-
-            if (saveInterceptor != null) {
-                saveInterceptor.before(reqUpdate);
-            }
-
             T t = this.getById(reqUpdate.getId());
             if (t == null) {
                 throw new DBException(ErrInfos.DB_NO_EXIST, "no body for id =" + reqUpdate.getId());
             }
-            BeanCopyUtils.copyProperties(reqUpdate, t);
-            ServiceDataHelper.setUpdateMsg(t, reqUpdate);
-            Z z;
+            t = persistInterceptor.updateBefore(reqUpdate, t);
             if (this.updateById(t)) {
-                z = this.findById(new ReqQueryById(t.getId()));
+                return persistInterceptor.updateAfter(reqUpdate, t);
             } else {
                 throw new DBException("update db error");
             }
-
-            if (saveInterceptor != null) {
-                saveInterceptor.after(reqUpdate);
-            }
-            return z;
         } catch (KRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
+            throw exceptionExplainer.convert(e);
         }
     }
 
@@ -244,20 +177,19 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     public BatchResp<Z> updateBatch(BatchReqUpdate<Y> batchReqUpdate) {
 
         BatchResp<Z> batchResp = new BatchResp<>();
-
         List<Y> data = batchReqUpdate.getBody();
         for (Y reqUpdate : data) {
-            if (reqUpdate != null) {
-                try {
-                    Z resp = this.update(reqUpdate);
-                    batchResp.addSingleResp(new BatchSingleResp<>(resp));
-                } catch (Exception e) {
-                    int code = ExceptionHelper.getErrCode(e);
-                    String msg = ExceptionHelper.getMessage(e);
-                    Z z = this.findById(new ReqQueryById(reqUpdate.getId()));
-                    batchResp.addSingleResp(new BatchSingleResp<>(code, msg, z));
-                }
+            try {
+                Z resp = this.update(reqUpdate);
+                batchResp.addSingleResp(resp);
+            } catch (Exception e) {
+                log.error("update batch error", e);
+                int code = ExceptionHelper.getErrCode(e);
+                String msg = ExceptionHelper.getMessage(e);
+                Z z = this.queryById(new ReqQueryById(reqUpdate.getId()));
+                batchResp.addSingleResp(code, msg, z);
             }
+
         }
         return batchResp;
     }
@@ -265,84 +197,13 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Override
     public PageData<Z> query(Q reqQueryPage) {
         try {
-
-            return this.query(reqQueryPage, queryWrapper(reqQueryPage));
-        } catch (KRuntimeException e) {
-            throw e;
+            QueryWrapper<T> queryWrapper = queryInterceptor.queryBefore(reqQueryPage);
+            Page<T> page = Page.of(reqQueryPage.getPn(), reqQueryPage.getPs());
+            Page<T> entities = this.baseMapper.selectPage(page, queryWrapper);
+            return queryInterceptor.queryAfter(reqQueryPage, entities);
         } catch (Exception e) {
-            throw DAOExceptionConverter.convert(e);
+            throw exceptionExplainer.convert(e);
         }
-    }
-
-    protected QueryWrapper<T> queryWrapper(Q q) {
-        QueryWrapper<T> wrapper = Wrappers.query();
-        if (q.isWithTenant()) {
-            wrapper.eq(SysCols.SYS_TENANT_ID, q.getTenantId());
-        }
-        if (!q.isWithLogicDelData()) {
-            wrapper.eq(SysCols.SYS_DELETE_FLAG, false);
-        }
-        sortComponent.writeToWrapper(wrapper, q);
-        filterComponent.writeToWrapper(wrapper, q);
-        return wrapper;
-    }
-
-    protected PageData<Z> query(Q q, QueryWrapper<T> wrapper) throws IllegalAccessException, InvocationTargetException {
-        Page<T> page = Page.of(q.getPn(), q.getPs());
-        Page<T> docDraftPage = this.getBaseMapper().selectPage(page, wrapper);
-        return assemblePageData(docDraftPage);
-    }
-
-    protected PageData<Z> assemblePageData(IPage<T> page) {
-        PageData<Z> pageData = new PageData<>();
-        pageData.setPn(page.getCurrent());
-        pageData.setPs(page.getSize());
-        pageData.setPages(page.getPages());
-        pageData.setTotal(page.getTotal());
-        for (T r : page.getRecords()) {
-            Z docDraftRespVo = createResponseBean();
-            BeanCopyUtils.copyProperties(r, docDraftRespVo);
-            pageData.getBody().add(docDraftRespVo);
-        }
-        return pageData;
-    }
-
-    public T createEntityBean() {
-        try {
-            ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-            Class modelClass = (Class) pt.getActualTypeArguments()[1];
-            return entityClass.newInstance();
-        } catch (Exception e) {
-            throw new DBException("getEntityBean error", e);
-        }
-    }
-
-    public Z createResponseBean() {
-        try {
-            ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-            Class responseBeanClass = (Class) pt.getActualTypeArguments()[4];
-            return (Z) responseBeanClass.newInstance();
-        } catch (Exception e) {
-            throw new DBException("getEntityBean error", e);
-        }
-    }
-
-    private void checkRpcContext(Req req) {
-        //        if (StringUtils.isEmpty(req.getCurrentUserId())) {
-        //            req.setCurrentUserId(RemoteContextHolder.get().getUserId());
-        //        }
-        //
-        //        if (StringUtils.isEmpty(req.getCurrentUserName())) {
-        //            req.setCurrentUserName(RemoteContextHolder.get().getUserName());
-        //        }
-        //
-        //        if (StringUtils.isEmpty(req.getTenantId())) {
-        //            req.setTenantId(RemoteContextHolder.get().getTenantId());
-        //        }
-        //        if (StringUtils.isEmpty(req.getCurrentAgentId())) {
-        //            req.setCurrentAgentId(RemoteContextHolder.get().getCurrentAgentId());
-        //        }
-
     }
 
 }

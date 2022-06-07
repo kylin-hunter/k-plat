@@ -36,9 +36,9 @@ public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y exte
 
     boolean delete(ReqDelete reqDelete);
 
-    Z findById(ReqQueryById reqQueryById);
+    Z queryById(ReqQueryById reqQueryById);
 
-    List<Z> findByIds(ReqQueryByIds reqQueryByIds);
+    List<Z> queryByIds(ReqQueryByIds reqQueryByIds);
 
     PageData<Z> query(Q reqQueryPage);
 

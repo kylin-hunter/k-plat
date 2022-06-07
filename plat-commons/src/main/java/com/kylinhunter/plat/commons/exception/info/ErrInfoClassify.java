@@ -11,7 +11,7 @@ import lombok.Setter;
  * @date 2022/1/1
  **/
 @Data
-public class ErrClassify {
+public class ErrInfoClassify {
     private final int code;
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)

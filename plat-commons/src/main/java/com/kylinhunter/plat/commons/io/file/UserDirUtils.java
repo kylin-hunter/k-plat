@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 
-import com.kylinhunter.plat.commons.exception.inner.CommonIOException;
+import com.kylinhunter.plat.commons.exception.inner.KIOException;
 
 /**
  * @author BiJi'an
@@ -53,7 +53,7 @@ public class UserDirUtils {
         File file = new File(USER_DIR, child);
         if (file.exists()) {
             if (file.isFile()) {
-                throw new CommonIOException("not a dir" + file.getAbsolutePath());
+                throw new KIOException("not a dir" + file.getAbsolutePath());
             }
         } else {
             if (create) {
@@ -79,7 +79,7 @@ public class UserDirUtils {
         File file = new File(USER_DIR, child);
         if (file.exists()) {
             if (file.isDirectory()) {
-                throw new CommonIOException("not a file" + file.getAbsolutePath());
+                throw new KIOException("not a file" + file.getAbsolutePath());
             }
         } else {
             if (!file.getParentFile().exists() && createParent) {

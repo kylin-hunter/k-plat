@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 
@@ -34,11 +35,11 @@ public class ReqDelete extends Req implements Serializable {
     private Collection<String> ids;
 
     public ReqDelete() {
-        super(VoType.DELETE);
+        super(VoType.DELETE, ReqType.DELETE);
     }
 
     public ReqDelete(Collection<String> ids) {
-        super(VoType.DELETE);
+        this();
         this.ids = ids;
     }
 
