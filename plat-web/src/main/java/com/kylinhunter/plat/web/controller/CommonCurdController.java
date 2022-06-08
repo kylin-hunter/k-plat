@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
@@ -31,8 +32,10 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @RequiredArgsConstructor
 @Slf4j
-public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,Q>, X extends ReqCreate, Y extends ReqUpdate,
+public abstract class CommonCurdController<S extends CommonService<T,X,Y,Z,V,Q>, X extends ReqCreate,
+        Y extends ReqUpdate,
         Z extends DefaultSysResp,
+        V extends VO,
         Q extends ReqQueryPage,T extends BaseEntity> {
 
     @Autowired

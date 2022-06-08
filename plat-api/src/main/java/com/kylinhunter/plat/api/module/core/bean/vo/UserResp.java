@@ -23,10 +23,13 @@ public class UserResp extends DefaultSysResp {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    private String userId;
+    private String userCode;
 
     @ApiModelProperty(value = "用户名")
     private String userName;
+
+    //    @ApiModelProperty(value = "密码")
+    //    private String password;
 
     @ApiModelProperty(value = "用户来源")
     private String source;

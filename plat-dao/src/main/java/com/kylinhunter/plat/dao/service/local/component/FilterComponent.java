@@ -27,14 +27,13 @@ public class FilterComponent {
     private final FilterCustoms filterCustoms;
 
     /**
-     * @param wrapper
-     * @param reqQueryPage
+     * @param wrapper      wrapper
+     * @param reqQueryPage reqQueryPage
      * @return void
-     * @throws
      * @title 写filter到wrapper
      * @description
      */
-    public <T> void writeToWrapper(QueryWrapper<T> wrapper, ReqQueryPage reqQueryPage) {
+    public <T> void filter(QueryWrapper<T> wrapper, ReqQueryPage reqQueryPage) {
         List<ReqFilter> filters = reqQueryPage.getFilters();
         if (filters != null && filters.size() > 0) {
             filters.forEach(filter -> {
@@ -43,7 +42,7 @@ public class FilterComponent {
                 String column = namePair.getSnake();
                 FilterCustom filterCustom = filterCustoms.getFilterCustom(field);
                 if (filterCustom != null) { // 特殊的 filter 处理
-                    filterCustom.writeToWrapper(wrapper, filter);
+                    filterCustom.filter(wrapper, filter);
                 } else {
                     List<String> values = Arrays.asList(filter.getValue().split(","));
                     wrapper.in(column, values);

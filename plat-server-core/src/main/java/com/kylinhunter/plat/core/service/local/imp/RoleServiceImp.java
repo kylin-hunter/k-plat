@@ -1,15 +1,16 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
+import org.springframework.stereotype.Service;
+
 import com.kylinhunter.plat.api.module.core.bean.entity.Role;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
-import com.kylinhunter.plat.core.service.local.RoleService;
+import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.core.dao.mapper.RoleMapper;
+import com.kylinhunter.plat.core.service.local.RoleService;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImp
         extends CommonServiceImpl<RoleMapper, Role,
         RoleReqCreate, RoleReqUpdate,
-        RoleResp, RoleReqQuery> implements RoleService {
-
+        RoleResp, RoleVO, RoleReqQuery> implements RoleService {
 
 }

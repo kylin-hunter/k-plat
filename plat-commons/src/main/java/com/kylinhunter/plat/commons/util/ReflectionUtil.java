@@ -101,4 +101,12 @@ public class ReflectionUtil {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (Exception e) {
+            throw new GeneralException("newInstance error", e);
+        }
+    }
 }

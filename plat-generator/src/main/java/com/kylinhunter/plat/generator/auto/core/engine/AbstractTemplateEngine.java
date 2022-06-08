@@ -242,18 +242,21 @@ public abstract class AbstractTemplateEngine {
             StrategyConfig strategyConfigVoUpdate = strategyConfigs.get(Template.VO_UPDATE);
             StrategyConfig strategyConfigVoQuery = strategyConfigs.get(Template.VO_REQ_QUREY);
             StrategyConfig strategyConfigVoResponse = strategyConfigs.get(Template.VO_RESPONSE);
+            StrategyConfig strategyConfigVo = strategyConfigs.get(Template.VO);
             StrategyConfig strategyConfigServiceImp = strategyConfigs.get(Template.SERVICE_LOCAL);
 
             objectMap.put("import_vo_create", pkgConfig.getImport(strategyConfigVoCreate, entityName));
             objectMap.put("import_vo_update", pkgConfig.getImport(strategyConfigVoUpdate, entityName));
             objectMap.put("import_vo_response", pkgConfig.getImport(strategyConfigVoResponse, entityName));
             objectMap.put("import_vo_query", pkgConfig.getImport(strategyConfigVoQuery, entityName));
+            objectMap.put("import_vo", pkgConfig.getImport(strategyConfigVo, entityName));
             objectMap.put("import_service_local", pkgConfig.getImport(strategyConfigServiceImp, entityName));
 
             objectMap.put("vo_create_class_name", strategyConfigVoCreate.getClassName(entityName));
             objectMap.put("vo_update_class_name", strategyConfigVoUpdate.getClassName(entityName));
             objectMap.put("vo_resp_class_name", strategyConfigVoResponse.getClassName(entityName));
             objectMap.put("vo_query_class_name", strategyConfigVoQuery.getClassName(entityName));
+            objectMap.put("vo_class_name", strategyConfigVo.getClassName(entityName));
             objectMap.put("service_local_class_name", strategyConfigServiceImp.getClassName(entityName));
 
             objectMap.put("pgk_parent", pkgConfig.getParentPackage());

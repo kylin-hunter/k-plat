@@ -23,7 +23,7 @@ public class UserReqUpdate extends ReqUpdate implements UserVO {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    private String userId;
+    private String userCode;
 
     @ApiModelProperty(value = "用户名")
     private String userName;

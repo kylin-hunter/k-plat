@@ -5,6 +5,7 @@ import ${import_vo_create};
 import ${import_vo_query};
 import ${import_vo_update};
 import ${import_vo_response};
+import ${import_vo};
 import com.kylinhunter.plat.api.service.local.CommonService;
 
 /**
@@ -17,6 +18,6 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  */
 public interface ${class_name} extends CommonService<${entity_name},
     ${vo_create_class_name}, ${vo_update_class_name},
-    ${vo_resp_class_name}, ${vo_query_class_name}>  {
+    ${vo_resp_class_name}, ${vo_class_name}, ${vo_query_class_name}>  {
 
 }

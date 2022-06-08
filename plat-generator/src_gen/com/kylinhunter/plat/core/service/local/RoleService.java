@@ -5,6 +5,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
+import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.api.service.local.CommonService;
 
 /**
@@ -13,10 +14,10 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-06
+ * @since 2022-06-09
  */
 public interface RoleService extends CommonService<Role,
     RoleReqCreate, RoleReqUpdate,
-    RoleResp, RoleReqQuery>  {
+    RoleResp, RoleVO, RoleReqQuery>  {
 
 }

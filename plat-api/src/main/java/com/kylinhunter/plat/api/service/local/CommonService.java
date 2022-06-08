@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
 import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
@@ -23,7 +24,7 @@ import com.kylinhunter.plat.api.page.PageData;
  * @since 2022-01-01
  */
 public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y extends ReqUpdate,
-        Z extends Resp, Q extends ReqQueryPage>
+        Z extends Resp, V extends VO, Q extends ReqQueryPage>
         extends IService<T> {
 
     Z save(X reqCreate);

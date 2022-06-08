@@ -1,13 +1,14 @@
 package com.kylinhunter.plat.commons.util.name;
 
+import com.kylinhunter.plat.commons.exception.inner.ParamException;
 
 import jodd.util.StringPool;
 import jodd.util.StringUtil;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-21 19:55
+ * @description
+ * @date 2022-01-21 19:55
  **/
 public class NamePairUtils {
 
@@ -24,7 +25,7 @@ public class NamePairUtils {
 
             return namePair;
         }
-        return null;
+        throw new ParamException("str is emtpty");
     }
 
 }

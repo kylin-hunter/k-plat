@@ -13,10 +13,10 @@ import com.kylinhunter.plat.dao.exception.DaoExplainCustomizer;
  * @date 2022-01-07 00:06
  **/
 @Configuration
-public class ComonConfiguration {
+public class DaoComonConfiguration {
 
     @Bean
-    public ExplainCustomizer exceptionExplainCustomizer() {
+    public ExplainCustomizer daoExplainCustomizer() {
         return new DaoExplainCustomizer();
     }
 

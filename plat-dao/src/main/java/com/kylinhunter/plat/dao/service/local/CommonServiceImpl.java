@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
@@ -30,7 +32,9 @@ import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
-import com.kylinhunter.plat.dao.service.helper.ServiceDataHelper;
+import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import com.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
+import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.NoArgsConstructor;
 
@@ -46,34 +50,52 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseEntity, X extends ReqCreate,
         Y extends ReqUpdate,
-        Z extends Resp, Q extends ReqQueryPage> extends ServiceImpl<M, T>
-        implements CommonService<T, X, Y, Z, Q> {
+        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends ServiceImpl<M, T>
+        implements CommonService<T, X, Y, Z, V, Q> {
+    protected Class<T> entityClass = currentEntityClass();
+    protected Class<Z> respClass = currentRespClass();
 
     @Autowired
     private ExceptionExplainer exceptionExplainer;
-    private PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor = new PersistInterceptor<>();
-    private QueryInterceptor<T, Q, Z> queryInterceptor = new QueryInterceptor<>();
+    @Autowired
+    private SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
+    @Autowired
+    private DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
+    @Autowired
+    private QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
 
-    public CommonServiceImpl(PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor) {
-        this.persistInterceptor = persistInterceptor;
+    @SuppressWarnings("unchecked")
+    protected Class<T> currentEntityClass() {
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), CommonServiceImpl.class, 1);
     }
 
-    public CommonServiceImpl(QueryInterceptor<T, Q, Z> queryInterceptor) {
-        this.queryInterceptor = queryInterceptor;
+    @SuppressWarnings("unchecked")
+    protected Class<Z> currentRespClass() {
+        return (Class<Z>) ReflectionKit.getSuperClassGenericType(this.getClass(), CommonServiceImpl.class, 4);
     }
 
-    public CommonServiceImpl(PersistInterceptor<T, X, Y, Z, ? extends VO> persistInterceptor,
-                             QueryInterceptor<T, Q, Z> queryInterceptor) {
-        this.persistInterceptor = persistInterceptor;
-        this.queryInterceptor = queryInterceptor;
+    protected T createEntity() {
+        try {
+            return entityClass.newInstance();
+        } catch (Exception e) {
+            throw new DBException("crete EntityBean error", e);
+        }
+    }
+
+    protected Z createResponse() {
+        try {
+            return respClass.newInstance();
+        } catch (Exception e) {
+            throw new DBException("getEntityBean error", e);
+        }
     }
 
     protected Z save(X reqCreate, boolean newData) {
         try {
-            T t = persistInterceptor.saveBefore(reqCreate);
+            T t = saveOrUpdateInterceptor.before(reqCreate, createEntity());
             if (this.save(t)) {
                 if (newData) {
-                    return persistInterceptor.saveAfter(reqCreate, t);
+                    return saveOrUpdateInterceptor.after(reqCreate, t, createResponse());
                 } else {
                     return null;
                 }
@@ -101,68 +123,15 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     }
 
     @Override
-    public Z queryById(ReqQueryById reqQueryById) {
-        try {
-            queryInterceptor.queryByIdBefore(reqQueryById);
-            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
-            query.eq(T::getId, reqQueryById.getId());
-            if (!reqQueryById.isWithLogicDelData()) {
-                query.eq(T::getSysDeleteFlag, 0);
-            }
-            T entity = this.baseMapper.selectOne(query);
-            return queryInterceptor.queryByIdAfter(reqQueryById, entity);
-        } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
-        }
-    }
-
-    @Override
-    public List<Z> queryByIds(ReqQueryByIds reqQueryByIds) {
-        try {
-
-            this.queryInterceptor.queryByIdsBefore(reqQueryByIds);
-            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
-            query.eq(T::getId, reqQueryByIds.getIds());
-            if (!reqQueryByIds.isWithLogicDelData()) {
-                query.eq(T::getSysDeleteFlag, 0);
-            }
-            List<T> beans = this.baseMapper.selectList(query);
-            return this.queryInterceptor.queryByIdsAfter(reqQueryByIds, beans);
-
-        } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
-        }
-    }
-
-    @Override
-    public boolean delete(ReqDelete reqDelete) {
-        this.persistInterceptor.deleteBefore(reqDelete);
-        boolean success;
-        if (reqDelete.isPhysical()) {
-            success = this.removeByIds(reqDelete.getIds());
-        } else {
-            List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
-            datas.forEach(data -> {
-                data.setSysDeleteFlag(true);
-                ServiceDataHelper.setDefaultUpdateMsg(data, reqDelete);
-                this.baseMapper.updateById(data);
-            });
-            success = true;
-        }
-        return this.persistInterceptor.deleteAfter(reqDelete, success);
-
-    }
-
-    @Override
     public Z update(Y reqUpdate) {
         try {
             T t = this.getById(reqUpdate.getId());
             if (t == null) {
-                throw new DBException(ErrInfos.DB_NO_EXIST, "no body for id =" + reqUpdate.getId());
+                throw new DBException(ErrInfos.DB_NO_EXIST, "no data for id =" + reqUpdate.getId());
             }
-            t = persistInterceptor.updateBefore(reqUpdate, t);
+            t = saveOrUpdateInterceptor.before(reqUpdate, t);
             if (this.updateById(t)) {
-                return persistInterceptor.updateAfter(reqUpdate, t);
+                return saveOrUpdateInterceptor.after(reqUpdate, t, createResponse());
             } else {
                 throw new DBException("update db error");
             }
@@ -195,12 +164,62 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     }
 
     @Override
+    public boolean delete(ReqDelete reqDelete) {
+        if (reqDelete.isPhysical()) {
+            return this.removeByIds(reqDelete.getIds());
+        } else {
+            List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
+            datas.forEach(data -> {
+                this.deleteInterceptor.before(reqDelete, data);
+                this.baseMapper.updateById(data);
+                this.deleteInterceptor.after(reqDelete, data);
+            });
+            return true;
+        }
+
+    }
+
+    @Override
+    public Z queryById(ReqQueryById reqQueryById) {
+        try {
+            queryInterceptor.before(reqQueryById);
+            QueryWrapper<T> query = Wrappers.query();
+            query.eq(SysCols.ID, reqQueryById.getId());
+            if (!reqQueryById.isWithLogicDelData()) {
+                query.eq(SysCols.SYS_DELETE_FLAG, "0");
+            }
+            T entity = this.baseMapper.selectOne(query);
+            return queryInterceptor.after(reqQueryById, entity, createResponse());
+        } catch (Exception e) {
+            throw exceptionExplainer.convert(e);
+        }
+    }
+
+    @Override
+    public List<Z> queryByIds(ReqQueryByIds reqQueryByIds) {
+        try {
+
+            this.queryInterceptor.before(reqQueryByIds);
+            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
+            query.eq(T::getId, reqQueryByIds.getIds());
+            if (!reqQueryByIds.isWithLogicDelData()) {
+                query.eq(T::getSysDeleteFlag, 0);
+            }
+            List<T> beans = this.baseMapper.selectList(query);
+            return this.queryInterceptor.after(reqQueryByIds, beans, respClass);
+
+        } catch (Exception e) {
+            throw exceptionExplainer.convert(e);
+        }
+    }
+
+    @Override
     public PageData<Z> query(Q reqQueryPage) {
         try {
-            QueryWrapper<T> queryWrapper = queryInterceptor.queryBefore(reqQueryPage);
+            QueryWrapper<T> queryWrapper = queryInterceptor.query(reqQueryPage);
             Page<T> page = Page.of(reqQueryPage.getPn(), reqQueryPage.getPs());
             Page<T> entities = this.baseMapper.selectPage(page, queryWrapper);
-            return queryInterceptor.queryAfter(reqQueryPage, entities);
+            return queryInterceptor.after(reqQueryPage, entities, respClass);
         } catch (Exception e) {
             throw exceptionExplainer.convert(e);
         }

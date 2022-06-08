@@ -3,7 +3,7 @@ package com.kylinhunter.plat.api.module.core.bean.vo;
 import com.kylinhunter.plat.api.bean.vo.VO;
 
 public interface UserVO  extends VO {
-    String getUserId();
+    String getUserCode();
 
     String getUserName();
 
@@ -17,7 +17,7 @@ public interface UserVO  extends VO {
 
     String getDescription();
 
-    void setUserId(final String userId);
+    void setUserCode(final String userCode);
 
     void setUserName(final String userName);
 

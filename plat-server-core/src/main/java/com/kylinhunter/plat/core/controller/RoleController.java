@@ -7,6 +7,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
+import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.core.service.local.RoleService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 
@@ -27,6 +28,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RoleController extends
         CommonCurdController<RoleService,RoleReqCreate,
-            RoleReqUpdate, RoleResp, RoleReqQuery,Role> {
+            RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery,Role> {
 
 }

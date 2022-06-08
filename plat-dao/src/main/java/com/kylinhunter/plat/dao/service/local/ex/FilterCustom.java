@@ -10,5 +10,5 @@ import com.kylinhunter.plat.api.bean.filter.ReqFilter;
  **/
 public interface FilterCustom {
 
-    <T> void writeToWrapper(QueryWrapper<T> wrapper, ReqFilter filter);
+    <T> void filter(QueryWrapper<T> wrapper, ReqFilter filter);
 }

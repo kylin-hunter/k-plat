@@ -23,7 +23,7 @@ import com.kylinhunter.plat.web.i18n.CskbLocaleResolver;
  **/
 
 @Configuration
-public class CommonConfiguration {
+public class WebCommonConfiguration {
 
     @Bean // 将区域信息对象注册到容器
     public LocaleResolver localeResolver() {
@@ -49,7 +49,7 @@ public class CommonConfiguration {
     }
 
     @Bean
-    public ExplainCustomizer exceptionExplainCustomizer() {
+    public ExplainCustomizer webExplainCustomizer() {
         return new WebExplainCustomizer();
     }
 
