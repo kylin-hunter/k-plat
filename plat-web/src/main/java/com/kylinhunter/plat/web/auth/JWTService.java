@@ -25,7 +25,7 @@ import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 @Component
 public class JWTService {
 
-    private static final String USER_ID = "userId";
+    private static final String USER_CODE = "userCode";
     private static final String USER_NAME = "userName";
     private static final String ADMIN = "admin";
     private static final String TYPE = "type";
@@ -45,7 +45,7 @@ public class JWTService {
             }
             return JWT.create()
                     //                .withHeader(map) // 添加头部
-                    .withClaim(USER_ID, tokenInfo.getUserId()) // 添加payload
+                    .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
                     .withClaim(USER_NAME, tokenInfo.getUserName())
                     .withClaim(ADMIN, tokenInfo.isAdmin())
                     .withClaim(TYPE, tokenInfo.getType())
@@ -66,12 +66,12 @@ public class JWTService {
             }
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
-            String userId = decodedJWT.getClaim(USER_ID).asString();
+            String userCode = decodedJWT.getClaim(USER_CODE).asString();
             String userName = decodedJWT.getClaim(USER_NAME).asString();
             boolean admin = decodedJWT.getClaim(ADMIN).asBoolean();
-            String type = decodedJWT.getClaim(TYPE).asString();
+            int type = decodedJWT.getClaim(TYPE).asInt();
             Date date = decodedJWT.getExpiresAt();
-            return new Token(userId, userName, admin, type, DateUtils.toLocalDateTime(date));
+            return new Token(userCode, userName, admin, type, DateUtils.toLocalDateTime(date));
         } catch (AuthException e) {
             throw e;
         } catch (TokenExpiredException e) {

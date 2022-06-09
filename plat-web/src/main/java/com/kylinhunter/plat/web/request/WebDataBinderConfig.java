@@ -92,7 +92,6 @@ public class WebDataBinderConfig {
                             String[] fieldAndValue = StringUtils.split(textArr, "@");
                             if (fieldAndValue != null && fieldAndValue.length == 2) {
                                 reqFilters.add(new ReqFilter(fieldAndValue[0], fieldAndValue[1]));
-
                             }
                         }
                         this.setValue(reqFilters);

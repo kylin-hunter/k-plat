@@ -21,7 +21,7 @@ import com.kylinhunter.plat.commons.exception.ExceptionHelper;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.i18n.I18nUtils;
-import com.kylinhunter.plat.web.request.RequestContexService;
+import com.kylinhunter.plat.web.request.RequestContext;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResponseService {
     private final TraceHandler traceHandler;
-    private final RequestContexService requestContexService;
+    private final RequestContext requestContext;
 
     /**
      * @param e
@@ -50,7 +50,7 @@ public class ResponseService {
      * @date 2021/8/1 4:00 上午
      */
     public DefaultResponse toResponse(KRuntimeException e) {
-        boolean debugMode = requestContexService.isDebugMode();
+        boolean debugMode = requestContext.isDebugMode();
 
         Trace trace = traceHandler.get();
         trace.setEndTime(System.currentTimeMillis());

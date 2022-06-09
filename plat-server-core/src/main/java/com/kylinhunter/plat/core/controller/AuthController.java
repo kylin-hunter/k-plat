@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kylinhunter.plat.web.auth.JWTService;
-import com.kylinhunter.plat.web.auth.Token;
+import com.kylinhunter.plat.core.service.local.AuthService;
+import com.kylinhunter.plat.web.auth.LoginForm;
 import com.kylinhunter.plat.web.controller.CommonController;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.trace.TraceHandler;
@@ -32,24 +32,20 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class AuthController extends CommonController {
 
-    private final JWTService jwtService;
     private final TraceHandler traceHandler;
-
+    private final AuthService authService;
 
     @PostMapping(value = "")
     @ApiOperation("创建token")
-    public DefaultResponse<String> create(@Validated @RequestBody Token token) {
-        return new DefaultResponse(jwtService.create(token));
+    public DefaultResponse<String> create(@Validated @RequestBody LoginForm loginForm) {
+        ;
+        return new DefaultResponse(authService.login(loginForm));
     }
 
     @PostMapping(value = "/verify")
     @ApiOperation("校验token")
     public DefaultResponse<String> verify() {
-        return new DefaultResponse(jwtService.verify(traceHandler.get().getToken()));
+        return new DefaultResponse(authService.verify(traceHandler.get().getToken()));
     }
-
-
-
-
 
 }

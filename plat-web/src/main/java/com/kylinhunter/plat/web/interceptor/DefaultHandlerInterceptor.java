@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j
-public class TraceHandlerInterceptor extends HandlerInterceptorAdapter {
+public class DefaultHandlerInterceptor extends HandlerInterceptorAdapter {
     private final TraceHandler traceHandler;
 
     @Override

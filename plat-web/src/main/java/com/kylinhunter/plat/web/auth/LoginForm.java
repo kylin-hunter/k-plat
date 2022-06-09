@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -19,25 +18,13 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class Token {
+public class LoginForm {
     @ApiModelProperty(value = "用户Code")
     @NotBlank
     private String userCode;
-
-    @ApiModelProperty(value = "用户姓名")
+    @ApiModelProperty(value = "密码")
     @NotBlank
-    private String userName;
+    private String password;
 
-    @ApiModelProperty(value = "是否是超级管理员")
-    @NotNull(message = " true|false")
-    private boolean admin;
-
-    @ApiModelProperty(value = "账户类型")
-    @NotBlank(message = "")
-    private int type;
-
-    @ApiModelProperty(value = "过期时间", hidden = true)
-    private LocalDateTime expireDate;
 
 }

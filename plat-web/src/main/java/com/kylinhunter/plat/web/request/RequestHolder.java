@@ -11,14 +11,5 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @date   2022-01-30 10:28
  **/
 public class RequestHolder {
-    public  static  HttpServletRequest get() {
-        ServletRequestAttributes requestAttributes =
-                (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
-        if (requestAttributes != null) {
-            return requestAttributes.getRequest();
-        }
-        return null;
-
-    }
 }

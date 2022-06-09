@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import com.kylinhunter.plat.commons.sys.KPlat;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
-import com.kylinhunter.plat.web.request.RequestContexService;
+import com.kylinhunter.plat.web.request.RequestContext;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     private final TraceHandler traceHandler;
-    private final RequestContexService requestContexService;
+    private final RequestContext requestContext;
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -60,7 +60,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         response.setDurationTime(trace.getDurationTime());
         response.setTraceId(trace.getId());
 
-        if (requestContexService.isDebugMode()) { // 更好地调试信息
+        if (requestContext.isDebugMode()) { // 更好地调试信息
             response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
             response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
         }
