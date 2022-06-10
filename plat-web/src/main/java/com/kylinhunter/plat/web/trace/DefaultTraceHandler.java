@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.web.log.LogHelper;
 import com.kylinhunter.plat.web.request.RequestContext;
-import com.kylinhunter.plat.web.trace.explain.DefaultExplain;
+import com.kylinhunter.plat.web.trace.explain.DefaultTraceExplain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class DefaultTraceHandler implements TraceHandler {
     private final RequestContext requestContext;
-    private static final Trace DUMMY_TRACE = new DummyTrace();
-
-    private ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> DUMMY_TRACE);
+    private static final DummyTrace DUMMY_TRACE = new DummyTrace();
+    private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> DUMMY_TRACE);
 
     @Override
     public Trace create() {
@@ -45,7 +44,6 @@ public class DefaultTraceHandler implements TraceHandler {
 
     /**
      * @return com.kylinhunter.plat.commons.trace.Trace
-     * @throws
      * @title 从request获取Trace信息
      * @description
      * @author BiJi'an
@@ -54,36 +52,19 @@ public class DefaultTraceHandler implements TraceHandler {
     private Trace tryCreateTraceFromRequest() {
         String traceId = requestContext.getTraceId();
         String token = requestContext.getToken();
-        String tenantId = requestContext.getTenantId();
-        Trace trace = new DefaulTrace(traceId, tenantId, tenantId, token);
-        trace.setExplain(this.tryCreateExplainFromRequest());
-        return trace;
-
-    }
-
-    /**
-     * @return com.kylinhunter.plat.commons.trace.Trace
-     * @throws
-     * @title 从header获取Trace信息
-     * @description
-     */
-    private Trace tryCreateTraceFromHeader() {
-        String traceId = requestContext.getTraceId();
-        String token = requestContext.getSimpleToken();
         Trace trace = new DefaulTrace(traceId, token);
-        trace.setExplain(this.tryCreateExplainFromRequest());
-        return trace;
 
-    }
-
-    private Explain tryCreateExplainFromRequest() {
         if (requestContext.isDebugMode()) {
-            DefaultExplain defaultExplain = new DefaultExplain();
+            DefaultTraceExplain defaultExplain = new DefaultTraceExplain();
             defaultExplain.setHeaders(requestContext.getHeaders());
             defaultExplain.setCookieInfos(requestContext.getCookieInfos());
-            return defaultExplain;
+            trace.setTraceExplain(defaultExplain);
+
+        }else{
+            trace.setTraceExplain(DUMMY_TRACE.getTraceExplain());
         }
-        return DummyTrace.DUMMY_EXPLAIN;
+        return trace;
+
     }
 
 }

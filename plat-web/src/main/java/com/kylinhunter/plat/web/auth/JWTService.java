@@ -13,6 +13,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.exception.AuthException;
 import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
@@ -20,11 +21,13 @@ import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-28 01:47
+ * @date 2022-01-01 01:47
  **/
 @Component
 public class JWTService {
 
+    private static final String USER_ID = "userId";
+    private static final String TENANT_ID = "tenantId";
     private static final String USER_CODE = "userCode";
     private static final String USER_NAME = "userName";
     private static final String ADMIN = "admin";
@@ -45,6 +48,8 @@ public class JWTService {
             }
             return JWT.create()
                     //                .withHeader(map) // 添加头部
+                    .withClaim(TENANT_ID, tokenInfo.getTenantId()) // 添加payload
+                    .withClaim(USER_ID, tokenInfo.getUserId()) // 添加payload
                     .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
                     .withClaim(USER_NAME, tokenInfo.getUserName())
                     .withClaim(ADMIN, tokenInfo.isAdmin())
@@ -66,12 +71,14 @@ public class JWTService {
             }
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            String tenantId = decodedJWT.getClaim(TENANT_ID).asString();
+            String userId = decodedJWT.getClaim(USER_ID).asString();
             String userCode = decodedJWT.getClaim(USER_CODE).asString();
             String userName = decodedJWT.getClaim(USER_NAME).asString();
             boolean admin = decodedJWT.getClaim(ADMIN).asBoolean();
             int type = decodedJWT.getClaim(TYPE).asInt();
             Date date = decodedJWT.getExpiresAt();
-            return new Token(userCode, userName, admin, type, DateUtils.toLocalDateTime(date));
+            return new Token(tenantId, userId, userCode, userName, admin, type, DateUtils.toLocalDateTime(date));
         } catch (AuthException e) {
             throw e;
         } catch (TokenExpiredException e) {

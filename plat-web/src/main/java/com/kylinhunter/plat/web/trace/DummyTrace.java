@@ -1,25 +1,21 @@
 package com.kylinhunter.plat.web.trace;
 
-import java.util.Collections;
-import java.util.List;
+import com.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
+import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
-import com.kylinhunter.plat.web.trace.explain.DummyExplain;
-
-import lombok.Data;
+import jodd.util.StringPool;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-30 11:43
+ * @description
+ * @date 2022-06-11 02:14
  **/
-@Data
 public class DummyTrace implements Trace {
-    public static final DummyExplain DUMMY_EXPLAIN = new DummyExplain();
-    private boolean dummy = true;
+    private final DummyTraceExplain dummyTraceExplain = new DummyTraceExplain();
 
     @Override
     public String getId() {
-        return "";
+        return StringPool.EMPTY;
     }
 
     @Override
@@ -28,28 +24,8 @@ public class DummyTrace implements Trace {
     }
 
     @Override
-    public String getAgentId() {
-        return "";
-    }
-
-    @Override
-    public void setAgentId(String agentId) {
-
-    }
-
-    @Override
-    public String getCurrentAgentId() {
-        return "";
-    }
-
-    @Override
-    public void setCurrentAgentId(String currentAgentId) {
-
-    }
-
-    @Override
     public String getToken() {
-        return null;
+        return StringPool.EMPTY;
     }
 
     @Override
@@ -58,33 +34,8 @@ public class DummyTrace implements Trace {
     }
 
     @Override
-    public String getUserId() {
-        return "";
-    }
-
-    @Override
-    public void setUserId(String userId) {
-
-    }
-
-    @Override
-    public String getUserName() {
-        return "";
-    }
-
-    @Override
-    public void setUserName(String userName) {
-
-    }
-
-    @Override
     public long getStartTime() {
         return 0;
-    }
-
-    @Override
-    public void setStartTime(long startTime) {
-
     }
 
     @Override
@@ -103,58 +54,17 @@ public class DummyTrace implements Trace {
     }
 
     @Override
-    public void setDurationTime(long durationTime) {
+    public void setTraceExplain(TraceExplain traceExplain) {
 
     }
 
     @Override
-    public void setExplain(Explain explain) {
-
+    public TraceExplain getTraceExplain() {
+        return dummyTraceExplain;
     }
 
     @Override
-    public Explain getExplain() {
-        return DUMMY_EXPLAIN;
-    }
-
-    @Override
-    public boolean isSuperuser() {
-        return false;
-    }
-
-    @Override
-    public void setSuperuser(boolean superuser) {
-
-    }
-
-    @Override
-    public List<String> getRoleIds() {
-        return Collections.EMPTY_LIST;
-    }
-
-    @Override
-    public void setRoleIds(List<String> roleIds) {
-
-    }
-
-    @Override
-    public List<String> getRoleCodes() {
-        return Collections.EMPTY_LIST;
-
-    }
-
-    @Override
-    public void setRoleCodes(List<String> roleCodes) {
-
-    }
-
-    @Override
-    public boolean isAgentCreator() {
-        return false;
-    }
-
-    @Override
-    public void setAgentCreator(boolean agentCreator) {
-
+    public boolean isDummy() {
+        return true;
     }
 }

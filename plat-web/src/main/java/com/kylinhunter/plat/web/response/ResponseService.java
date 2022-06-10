@@ -70,8 +70,8 @@ public class ResponseService {
             response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
         }
         response.setTraceId(trace.getId());
-        if (!trace.getExplain().isDummy()) {
-            response.setExplain(trace.getExplain());
+        if (!trace.getTraceExplain().isDummy()) {
+            response.setTraceExplain(trace.getTraceExplain());
         }
         return response;
 

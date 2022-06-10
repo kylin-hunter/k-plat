@@ -1,5 +1,6 @@
 package com.kylinhunter.plat.api.bean.vo.request;
 
+import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.bean.vo.BasicVO;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.constants.ReqType;

@@ -64,8 +64,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
             response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
             response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
         }
-        if (!trace.getExplain().isDummy()) {
-            response.setExplain(trace.getExplain());
+        if (!trace.getTraceExplain().isDummy()) {
+            response.setTraceExplain(trace.getTraceExplain());
         }
         log.info(req.getRequestURI() + "'s response:" + JsonUtils.toString(response, false));
 

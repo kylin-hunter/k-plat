@@ -5,23 +5,16 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import com.kylinhunter.plat.commons.codec.PasswordUtil;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.UserService;
 import com.kylinhunter.plat.core.service.local.component.assist.UserSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-import com.kylinhunter.plat.web.auth.JWTService;
-import com.kylinhunter.plat.web.auth.LoginForm;
-import com.kylinhunter.plat.web.auth.Token;
-import com.kylinhunter.plat.web.exception.AuthException;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

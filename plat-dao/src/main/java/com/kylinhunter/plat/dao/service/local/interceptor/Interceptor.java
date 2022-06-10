@@ -24,9 +24,9 @@ public class Interceptor<T extends BaseEntity, C extends ReqCreate, U extends Re
 
     protected void setUpdateMsg(Req u, T entity) {
         if (u.getUserContext() != null && !StringUtils
-                .isEmpty(u.getUserContext().getCurrentUserId())) { // 防止
-            entity.setSysUpdateUserId(u.getUserContext().getCurrentUserId());
-            entity.setSysUpdateUserName(u.getUserContext().getCurrentUserName());
+                .isEmpty(u.getUserContext().getUserId())) { // 防止
+            entity.setSysUpdateUserId(u.getUserContext().getUserId());
+            entity.setSysUpdateUserName(u.getUserContext().getUserName());
         }
         entity.setSysUpdateTime(LocalDateTime.now());
     }

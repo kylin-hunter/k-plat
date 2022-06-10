@@ -10,7 +10,7 @@ import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.AuthService;
 import com.kylinhunter.plat.web.auth.JWTService;
 import com.kylinhunter.plat.web.auth.LoginForm;
-import com.kylinhunter.plat.web.auth.Token;
+import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.web.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;
@@ -59,4 +59,16 @@ public class AuthServiceImp implements AuthService {
     public Token verify(String token) {
         return jwtService.verify(token);
     }
+
+    @Override
+    public String createTenantToken(String loginToken, String tenantId) {
+        Token token = this.verify(loginToken);
+        if (token.isAdmin()) {
+            token.setTenantId(tenantId);
+            return jwtService.create(token);
+        } else {
+            throw new AuthException("校验用户和租户关系失败" + token.getUserCode() + ":" + tenantId);
+        }
+    }
+
 }

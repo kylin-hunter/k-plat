@@ -27,7 +27,7 @@ public class LogHelper {
 
     public static void setContext(Trace trace) {
         MDC.put(MDC_TRACE_ID, trace.getId());
-        MDC.put(MDC_AGENT_ID, trace.getAgentId());
+        MDC.put(MDC_AGENT_ID, trace.getTenantId());
         MDC.put(MDC_USER_ID, trace.getUserId());
         MDC.put(MDC_USER_NAME, trace.getUserName());
     }

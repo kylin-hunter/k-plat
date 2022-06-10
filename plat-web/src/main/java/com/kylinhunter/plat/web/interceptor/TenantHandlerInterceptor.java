@@ -4,10 +4,13 @@ import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.kylinhunter.plat.api.context.UserContext;
+import com.kylinhunter.plat.web.context.UserContextHandler;
+import com.kylinhunter.plat.web.exception.AuthException;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
 import lombok.EqualsAndHashCode;
@@ -17,27 +20,33 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * trace拦截器
  *
- * @description
  * @author BiJi'an
- * @date   2022/01/01
+ * @description
+ * @date 2022/01/01
  **/
 @Component
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j
-public class DefaultHandlerInterceptor extends HandlerInterceptorAdapter {
+public class TenantHandlerInterceptor extends HandlerInterceptorAdapter {
     private final TraceHandler traceHandler;
+    private final UserContextHandler userContextHandler;
 
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) {
-        traceHandler.create();
+        UserContext userContext = userContextHandler.get();
+        String tenantId = userContext.getTenantId();
+        if (StringUtils.isEmpty(tenantId)) {
+            throw new AuthException("tenantId is empty");
+        }
+
         return true;
     }
 
     @Override
     public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
                                 @Nonnull Object handler, Exception ex) {
-        traceHandler.remove();
+        userContextHandler.remove();
     }
 }

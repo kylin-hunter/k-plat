@@ -55,21 +55,7 @@ public class RequestContext {
         return getHeader(RequestConst.HEADER_TRACE_ID);
     }
 
-    /**
-     * @return java.lang.String
-     * @throws
-     * @title getTraceId
-     * @description
-     * @author BiJi'an
-     * @date 2021/8/1 3:46 上午
-     */
-    public String getTenantId() {
-        String agentId = getHeader(RequestConst.HEADER_TENANT_ID);
-        if (StringUtils.isEmpty(agentId)) {
-            agentId = getParameter(RequestConst.PARAM_TENANT_ID);
-        }
-        return agentId;
-    }
+
 
     /**
      * @return java.lang.String

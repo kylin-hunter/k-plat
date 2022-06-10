@@ -14,9 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
- * @description 404 500 异常处理
  * @author BiJi'an
- * @date   2021/7/30
+ * @description 404 500 异常处理
+ * @date 2021/7/30
  **/
 @Controller
 @Slf4j
@@ -30,11 +30,11 @@ public class ErrorMessageController implements ErrorController {
     public Object error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
         if (status == HttpStatus.NOT_FOUND) {
-            return new DefaultResponse(404, "NOT_FOUND");
+            return new DefaultResponse<>(404, "NOT_FOUND");
         } else if (status == HttpStatus.FORBIDDEN) {
-            return new DefaultResponse(403, "FORBIDDEN");
+            return new DefaultResponse<>(403, "FORBIDDEN");
         } else {
-            return new DefaultResponse(500, "Internal Server Error");
+            return new DefaultResponse<>(500, "Internal Server Error");
         }
 
     }
@@ -45,10 +45,12 @@ public class ErrorMessageController implements ErrorController {
     }
 
     /**
-     * 获取servlet中的 错误码
-     *
-     * @param request
-     * @return
+     * @param request request
+     * @return org.springframework.http.HttpStatus
+     * @title getStatus
+     * @description
+     * @author BiJi'an
+     * @date 2022-06-10 22:52
      */
     protected HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");

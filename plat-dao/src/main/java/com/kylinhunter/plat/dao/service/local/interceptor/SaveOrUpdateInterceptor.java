@@ -42,10 +42,10 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
         BeanCopyUtils.copyProperties(c, entity, skipProperties);
         if (c.getUserContext() != null) {
 
-            entity.setSysCreatedUserId(c.getUserContext().getCurrentUserId());
-            entity.setSysCreatedUserName(c.getUserContext().getCurrentUserName());
-            entity.setSysUpdateUserId(c.getUserContext().getCurrentUserId());
-            entity.setSysUpdateUserName(c.getUserContext().getCurrentUserName());
+            entity.setSysCreatedUserId(c.getUserContext().getUserId());
+            entity.setSysCreatedUserName(c.getUserContext().getUserName());
+            entity.setSysUpdateUserId(c.getUserContext().getUserId());
+            entity.setSysUpdateUserName(c.getUserContext().getUserName());
         }
         entity.setSysDeleteFlag(false);
         entity.setSysCreatedTime(LocalDateTime.now());

@@ -30,12 +30,11 @@ public class GlobalExceptionHandler {
     private final ExceptionExplainer exceptionExplainer;
 
     /**
-     * @param req
-     * @param rsp
-     * @param globalException
-     * @param model
+     * @param req             req
+     * @param rsp             rsp
+     * @param globalException globalException
+     * @param model           model
      * @return java.lang.Object
-     * @throws
      * @title handler
      * @description
      * @author BiJi'an
@@ -46,7 +45,7 @@ public class GlobalExceptionHandler {
 
         try {
             log.error("global error", globalException);
-            DefaultResponse response = responseService.toResponse(exceptionExplainer.convert(globalException));
+            DefaultResponse<?> response = responseService.toResponse(exceptionExplainer.convert(globalException));
             String responseJson = JsonUtils.toString(response, false);
             log.error(req.getRequestURI() + "'s response:" + responseJson);
             responseService.writeJson(responseJson);

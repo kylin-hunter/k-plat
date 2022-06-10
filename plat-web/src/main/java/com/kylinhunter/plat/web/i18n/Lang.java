@@ -7,16 +7,16 @@ import com.kylinhunter.plat.commons.util.EnumUtil;
 import lombok.Getter;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-07 16:34
+ * @description
+ * @date 2022-01-07 16:34
  **/
 @Getter
 public enum Lang implements EnumUtil.EnumCode {
     ZH(1, "中文", Locale.CHINESE), EN(2, "英文", Locale.ENGLISH);
-    private int code;
-    private String name;
-    private Locale locale;
+    private final int code;
+    private final String name;
+    private final Locale locale;
 
     Lang(int code, String name, Locale locale) {
         this.code = code;

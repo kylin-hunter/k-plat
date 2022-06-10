@@ -19,7 +19,7 @@ import com.kylinhunter.plat.web.i18n.CskbLocaleResolver;
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-28 20:55
+ * @date 2022-01-01 20:55
  **/
 
 @Configuration

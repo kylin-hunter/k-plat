@@ -2,7 +2,7 @@ package com.kylinhunter.plat.web.response;
 
 import java.io.Serializable;
 
-import com.kylinhunter.plat.web.trace.Explain;
+import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
 /**
  * @description 返回响应
@@ -43,8 +43,8 @@ public interface Response<T> extends Serializable {
 
     void setTraceId(String traceId);
 
-    Explain getExplain();
+    TraceExplain getTraceExplain();
 
-    void setExplain(Explain explain);
+    void setTraceExplain(TraceExplain traceExplain);
 
 }

@@ -15,13 +15,24 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final DefaultHandlerInterceptor defaultHandlerInterceptor;
+    private final TraceHandlerInterceptor traceHandlerInterceptor;
+    private final TokenHandlerInterceptor tokenHandlerInterceptor;
+    private final TenantHandlerInterceptor tenantHandlerInterceptor;
+
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(defaultHandlerInterceptor)
+        registry.addInterceptor(traceHandlerInterceptor)
                 .addPathPatterns(PathPatterns.include(PathPatterns.API_V1))
                 .excludePathPatterns(PathPatterns.include(PathPatterns.SWAGGER));
+
+        registry.addInterceptor(tokenHandlerInterceptor)
+                .addPathPatterns(PathPatterns.include(PathPatterns.API_V1))
+                .addPathPatterns(PathPatterns.include(PathPatterns.AUTH));
+
+        registry.addInterceptor(tenantHandlerInterceptor)
+                .addPathPatterns(PathPatterns.include(PathPatterns.API_V1));
 
     }
 

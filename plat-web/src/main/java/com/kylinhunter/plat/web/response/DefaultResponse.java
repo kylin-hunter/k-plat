@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.kylinhunter.plat.commons.exception.info.ErrInfoManager;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
-import com.kylinhunter.plat.web.trace.Explain;
+import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,7 +41,7 @@ public class DefaultResponse<T> implements Response<T> {
     private String traceId;
     @ApiModelProperty(value = "详细细节", hidden = true)
     @JsonInclude(Include.NON_NULL)
-    private Explain explain;
+    private TraceExplain traceExplain;
 
     public DefaultResponse() {
         this(ErrInfos.CODE_SUCCESS, null, null);

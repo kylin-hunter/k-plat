@@ -13,10 +13,11 @@ import com.kylinhunter.plat.commons.util.EnumUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description
  * @author BiJi'an
- * @date   2022-01-21 19:50
+ * @description
+ * @date 2022-01-21 19:50
  **/
+@SuppressWarnings("NullableProblems")
 @Slf4j
 public class CskbLocaleResolver implements LocaleResolver {
 

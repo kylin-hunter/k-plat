@@ -9,6 +9,7 @@ dependencies {
     api project(':plat-commons')
     api project(':plat-dao')
     api("org.springframework.boot:spring-boot-starter-web")
+    api('org.springframework.boot:spring-boot-starter-aop')
     api(rootProject.dep['java-jwt'])
 
 }
