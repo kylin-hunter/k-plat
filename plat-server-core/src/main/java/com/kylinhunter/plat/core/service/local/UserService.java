@@ -7,7 +7,6 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.api.service.local.CommonService;
-import com.kylinhunter.plat.web.auth.LoginForm;
 
 /**
  * <p>

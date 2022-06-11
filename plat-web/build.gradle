@@ -1,6 +1,7 @@
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
     }
 }
 
@@ -10,6 +11,7 @@ dependencies {
     api project(':plat-dao')
     api("org.springframework.boot:spring-boot-starter-web")
     api('org.springframework.boot:spring-boot-starter-aop')
+    api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
     api(rootProject.dep['java-jwt'])
 
 }

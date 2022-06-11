@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.web.context.UserContextHandler;
+import com.kylinhunter.plat.web.log.LogHelper;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
@@ -34,7 +36,9 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) {
         Trace trace = traceHandler.get();
-        userContextHandler.create(trace);
+        UserContext userContext = userContextHandler.create(trace);
+        LogHelper.setTraceId(userContext.getUserId());
+
         return true;
     }
 

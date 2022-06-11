@@ -1,49 +1,39 @@
 package com.kylinhunter.plat.api.context;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
+public interface UserContext {
 
-import com.kylinhunter.plat.api.auth.Token;
+    String getTenantId();
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+    String getUserId();
 
-/**
- * @author BiJi'an
- * @description
- * @date 2022-05-11 02:55
- **/
-@Data
-public class UserContext implements Serializable {
+    String getUserCode();
 
-    @ApiModelProperty(value = "tenantId", hidden = true)
-    private String tenantId = "";
+    String getUserName();
 
-    @ApiModelProperty(value = "userId", hidden = true)
-    private String userId = "";
+    boolean isAdmin();
 
-    @ApiModelProperty(value = "userCode", hidden = true)
-    private String userCode = "";
+    int getType();
 
-    @ApiModelProperty(value = "userName", hidden = true)
-    private String userName = "";
+    List<String> getRoleIds();
 
-    @ApiModelProperty(value = "admin", hidden = true)
-    private boolean admin = false;
+    List<String> getRoleCodes();
 
-    @ApiModelProperty(value = "账户类型")
-    private int type;
+    void setTenantId(final String tenantId);
 
-    @ApiModelProperty(value = "roleIds", hidden = true)
-    private List<String> roleIds;
+    void setUserId(final String userId);
 
-    @ApiModelProperty(value = "roleCodes", hidden = true)
-    private List<String> roleCodes;
+    void setUserCode(final String userCode);
 
-    public UserContext(Token token) {
-        BeanUtils.copyProperties(token,this);
+    void setUserName(final String userName);
 
-    }
+    void setAdmin(final boolean admin);
+
+    void setType(final int type);
+
+    void setRoleIds(final List<String> roleIds);
+
+    void setRoleCodes(final List<String> roleCodes);
+
 }

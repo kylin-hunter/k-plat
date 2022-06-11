@@ -3,6 +3,7 @@ package com.kylinhunter.plat.web.config;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.Env;
@@ -21,43 +22,25 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 @ToString
+@RefreshScope
 public class WebConfig {
     @Value("${spring.application.name}")
     private String appName;
     @Value("${server.port}")
     private String serverPort;
-
     @Value("${app.devVersion:1.0}")
     private String devVersion;
     @Value("${app.productVersion:1.0}")
     private String productVersion;
 
-    @Value("${apollo.meta}")
-    private String apolloMeta;
-
-    @Value("${app.mybatis.table_prefix}")
-    private String tablePrefix;
-
     @Value("${app.threshold:0}")
     private int watchThreshold;
 
-    @Value("${app.ngd.version}")
-    private String ngdVersion;
-    @Value("${app.redis.namespace:com.baidu.cskb::}")
-    private String redisNS;
-
-    @Value("${app.db.show-sql:false}")
-    private boolean dbShowSql;
-
-    @Value("${app.code:common}")
-    private String appCode;
 
     @Value("${app.env:RELEASE}")
     private String envStr;
     private Env env;
 
-    @Value("${app.audit.bpm}")
-    private String bpmConfig;
 
     @PostConstruct
     private void init() {

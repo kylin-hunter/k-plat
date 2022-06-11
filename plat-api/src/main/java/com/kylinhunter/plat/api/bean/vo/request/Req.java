@@ -1,10 +1,10 @@
 package com.kylinhunter.plat.api.bean.vo.request;
 
-import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.bean.vo.BasicVO;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
+import com.kylinhunter.plat.api.context.UserContext;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

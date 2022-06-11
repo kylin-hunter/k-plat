@@ -6,5 +6,5 @@ package com.kylinhunter.plat.api;
  * @create: 2021-08-20 16:52
  **/
 public enum Env {
-    LOCAL, DEV, QA, RELEASE;
+    LOCAL, DEV, RELEASE;
 }

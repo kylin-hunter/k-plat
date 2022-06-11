@@ -25,6 +25,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(traceHandlerInterceptor)
                 .addPathPatterns(PathPatterns.include(PathPatterns.API_V1))
+                .addPathPatterns(PathPatterns.include(PathPatterns.AUTH))
                 .excludePathPatterns(PathPatterns.include(PathPatterns.SWAGGER));
 
         registry.addInterceptor(tokenHandlerInterceptor)

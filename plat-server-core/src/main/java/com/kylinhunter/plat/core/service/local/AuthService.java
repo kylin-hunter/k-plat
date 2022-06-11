@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.web.auth.LoginForm;
+import com.kylinhunter.plat.api.auth.ReqLogin;
 import com.kylinhunter.plat.api.auth.Token;
 
 /**
@@ -13,7 +13,7 @@ import com.kylinhunter.plat.api.auth.Token;
  */
 public interface AuthService {
 
-    String login(LoginForm loginForm);
+    String login(ReqLogin reqLogin);
 
     String createTenantToken(String token, String tenantId);
 

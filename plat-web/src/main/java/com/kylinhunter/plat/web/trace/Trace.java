@@ -1,6 +1,5 @@
 package com.kylinhunter.plat.web.trace;
 
-import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
 /**
@@ -18,10 +17,6 @@ public interface Trace {
     String getToken();
 
     void setToken(String token);
-
-    UserContext getUserContext();
-
-    void setUserContext(UserContext userContext);
 
     long getStartTime();
 

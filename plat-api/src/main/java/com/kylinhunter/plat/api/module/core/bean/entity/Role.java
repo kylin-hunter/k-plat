@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-06
+ * @since 2022-06-11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,13 +23,13 @@ public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "角色id")
-    private String roleId;
+    @ApiModelProperty(value = "code")
+    private String code;
 
-    @ApiModelProperty(value = "角色名")
-    private String roleName;
+    @ApiModelProperty(value = "name")
+    private String name;
 
-    @ApiModelProperty(value = "角色类型")
+    @ApiModelProperty(value = "类型")
     private Integer type;
 
     @ApiModelProperty(value = "角色状态，预留")

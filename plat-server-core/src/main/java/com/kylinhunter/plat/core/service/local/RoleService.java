@@ -14,8 +14,10 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-06
+ * @since 2022-06-11
  */
-public interface RoleService extends CommonService<Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery> {
+public interface RoleService extends CommonService<Role,
+    RoleReqCreate, RoleReqUpdate,
+    RoleResp, RoleVO, RoleReqQuery>  {
 
 }

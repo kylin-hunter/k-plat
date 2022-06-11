@@ -3,11 +3,11 @@ package com.kylinhunter.plat.core.controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kylinhunter.plat.core.service.local.AuthService;
-import com.kylinhunter.plat.web.auth.LoginForm;
+import com.kylinhunter.plat.api.auth.ReqLogin;
+import com.kylinhunter.plat.api.auth.ReqTenantToken;
 import com.kylinhunter.plat.web.controller.CommonController;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.trace.TraceHandler;
@@ -36,15 +36,16 @@ public class AuthController extends CommonController {
 
     @PostMapping(value = "/login")
     @ApiOperation("login")
-    public DefaultResponse<String> login(@Validated @RequestBody LoginForm loginForm) {
-        return new DefaultResponse(authService.login(loginForm));
+    public DefaultResponse<String> login(@Validated @RequestBody ReqLogin reqLogin) {
+        return new DefaultResponse(authService.login(reqLogin));
     }
 
     @PostMapping(value = "/auth/create_tenant_token")
     @ApiOperation("create_tenant_token")
-    public DefaultResponse<String> createTenantToken(String tenantId) {
+    public DefaultResponse<String> createTenantToken(@Validated @RequestBody ReqTenantToken reqTenantToken) {
 
-        return new DefaultResponse(authService.createTenantToken(tenantId, tenantId));
+        return new DefaultResponse(
+                authService.createTenantToken(traceHandler.get().getToken(), reqTenantToken.getTenantId()));
     }
 
     @PostMapping(value = "/auth/verify_token")

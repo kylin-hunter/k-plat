@@ -33,7 +33,10 @@ public class ControllerAspect {
         Object[] args = point.getArgs();
         if (args != null && args.length > 0) {
             Req req = (Req) Stream.of(args).filter(arg -> arg instanceof Req).findFirst().orElse(null);
-            req.setUserContext(userContextHandler.get());
+            if(req!=null){
+                req.setUserContext(userContextHandler.get());
+            }
+
         }
     }
 

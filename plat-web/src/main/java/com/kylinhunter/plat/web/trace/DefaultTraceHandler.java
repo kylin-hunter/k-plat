@@ -27,7 +27,7 @@ public class DefaultTraceHandler implements TraceHandler {
     public Trace create() {
         Trace trace = this.tryCreateTraceFromRequest();
         traces.set(trace);
-        LogHelper.setContext(trace);
+        LogHelper.setTraceId(trace.getId());
         return trace;
     }
 
@@ -60,7 +60,7 @@ public class DefaultTraceHandler implements TraceHandler {
             defaultExplain.setCookieInfos(requestContext.getCookieInfos());
             trace.setTraceExplain(defaultExplain);
 
-        }else{
+        } else {
             trace.setTraceExplain(DUMMY_TRACE.getTraceExplain());
         }
         return trace;
