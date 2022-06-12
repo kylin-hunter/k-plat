@@ -1,8 +1,5 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -15,10 +12,10 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.UserService;
+import com.kylinhunter.plat.core.service.local.interceptor.UserDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.UserSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,12 +32,11 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqCreate, UserReqUpdate,
         UserResp, UserVO, UserReqQuery> implements UserService {
-    @Autowired
-    private UserSaveOrUpdateInterceptor userSaveOrUpdateInterceptor;
 
-    @PostConstruct
-    public void init() {
-        this.setUserSaveOrUpdateInterceptor(userSaveOrUpdateInterceptor);
+    public UserServiceImp(UserSaveOrUpdateInterceptor userSaveOrUpdateInterceptor,
+                          UserDeleteInterceptor userDeleteInterceptor) {
+        this.saveOrUpdateInterceptor = userSaveOrUpdateInterceptor;
+        this.deleteInterceptor = userDeleteInterceptor;
     }
 
     @Override

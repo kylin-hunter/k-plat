@@ -18,10 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Order(value = 3)
 public class CoreApplicationRunner implements ApplicationRunner {
+    private final UserInitializer userInitializer;
     private final TenantInitializer tenantInitializer;
 
     @Override
     public void run(ApplicationArguments args) {
+        userInitializer.init();
         tenantInitializer.init();
 
     }

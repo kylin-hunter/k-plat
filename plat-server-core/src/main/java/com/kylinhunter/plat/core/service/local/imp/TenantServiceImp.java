@@ -12,7 +12,10 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.service.local.TenantService;
+import com.kylinhunter.plat.core.service.local.interceptor.TenantDeleteInterceptor;
+import com.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 /**
  * <p>
@@ -28,6 +31,12 @@ public class TenantServiceImp
         TenantReqCreate, TenantReqUpdate,
         TenantResp, TenantVO, TenantReqQuery> implements TenantService {
 
+    public TenantServiceImp(TenantSaveOrUpdateInterceptor tenantSaveOrUpdateInterceptor,
+                          TenantDeleteInterceptor tenantDeleteInterceptor) {
+        this.saveOrUpdateInterceptor = tenantSaveOrUpdateInterceptor;
+        this.deleteInterceptor = tenantDeleteInterceptor;
+    }
+    
     @Override
     public Tenant queryByCode(String code) {
         LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.lambdaQuery();

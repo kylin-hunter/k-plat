@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.kylinhunter.plat.api.auth.Token;
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,7 +45,12 @@ public class DefaultUserContext implements UserContext, Serializable {
 
     public DefaultUserContext(Token token) {
         BeanUtils.copyProperties(token, this);
+    }
 
+    public DefaultUserContext(User user) {
+        BeanUtils.copyProperties(user, this);
+        this.userId = user.getId();
+        this.admin = user.getType() == 1;
     }
 
     @Override

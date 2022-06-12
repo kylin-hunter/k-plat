@@ -63,11 +63,11 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Autowired
     private ExceptionExplainer exceptionExplainer;
 
-    private SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
+    protected SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
 
-    private DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
+    protected DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
 
-    private QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
+    protected QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
 
     @SuppressWarnings("unchecked")
     protected Class<T> currentEntityClass() {
@@ -170,17 +170,19 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
 
     @Override
     public boolean delete(ReqDelete reqDelete) {
-        if (reqDelete.isPhysical()) {
-            return this.removeByIds(reqDelete.getIds());
-        } else {
-            List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
-            datas.forEach(data -> {
-                this.deleteInterceptor.before(reqDelete, data);
+
+        List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
+        datas.forEach(data -> {
+
+            this.deleteInterceptor.before(reqDelete, data);
+            if (reqDelete.isPhysical()) {
+                this.baseMapper.deleteById(data.getId());
+            } else {
                 this.baseMapper.updateById(data);
-                this.deleteInterceptor.after(reqDelete, data);
-            });
-            return true;
-        }
+            }
+            this.deleteInterceptor.after(reqDelete, data);
+        });
+        return true;
 
     }
 
@@ -230,6 +232,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
         }
     }
 
+    @SuppressWarnings("unchecked")
     @PostConstruct
     public void init() {
         if (this.saveOrUpdateInterceptor == null) {

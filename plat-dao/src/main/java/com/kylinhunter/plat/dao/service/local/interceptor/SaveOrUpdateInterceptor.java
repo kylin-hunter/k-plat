@@ -21,7 +21,12 @@ import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
         Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
-    private final String[] skipProperties = new String[] {
+    private final String[] createSkipProperties = new String[] {
+            "sysTenantId", "sysCreatedUserId", "sysCreatedUserName", "sysCreatedTime",
+            "sysUpdateUserId", "sysUpdateUserName", "sysUpdateTime", "sysDeleteFlag", "sysOpLock"
+    };
+
+    private final String[] updateSkipProperties = new String[] {
             "id", "sysTenantId", "sysCreatedUserId", "sysCreatedUserName", "sysCreatedTime",
             "sysUpdateUserId", "sysUpdateUserName", "sysUpdateTime", "sysDeleteFlag", "sysOpLock"
     };
@@ -37,7 +42,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     @SuppressWarnings("unchecked")
     public T before(C c, T entity) {
         saveOrUpdateBefore((V) c);
-        BeanCopyUtils.copyProperties(c, entity, skipProperties);
+        BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
         this.setCreateMsg(c, entity);
         return entity;
     }
@@ -52,7 +57,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     @SuppressWarnings("unchecked")
     public T before(U u, T entity) {
         saveOrUpdateBefore((V) u);
-        BeanCopyUtils.copyProperties(u, entity, skipProperties);
+        BeanCopyUtils.copyProperties(u, entity, updateSkipProperties);
         this.setUpdateMsg(u, entity);
         return entity;
     }

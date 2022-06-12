@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.web.context.UserContextHandler;
+import com.kylinhunter.plat.web.auth.JWTService;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.web.log.LogHelper;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
@@ -30,13 +32,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
     private final TraceHandler traceHandler;
-    private final UserContextHandler userContextHandler;
+    private final UserContextHandler  userContextHandler;
+    private final JWTService jwtService;
 
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) {
         Trace trace = traceHandler.get();
-        UserContext userContext = userContextHandler.create(trace);
+        Token token = jwtService.verify(trace.getToken());
+
+        UserContext userContext = userContextHandler.create(token);
         LogHelper.setTraceId(userContext.getUserId());
 
         return true;

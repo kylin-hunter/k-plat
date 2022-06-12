@@ -2,6 +2,7 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 
 import org.springframework.stereotype.Component;
 
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
@@ -10,7 +11,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.init.TenantInitDatas;
-import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,23 +22,17 @@ import lombok.RequiredArgsConstructor;
  **/
 @Component
 @RequiredArgsConstructor
-public class TenantSaveOrUpdateInterceptor extends
-        SaveOrUpdateInterceptor<Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
+public class TenantDeleteInterceptor extends
+        DeleteInterceptor<Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
+
     private final TenantInitDatas tenantInitDatas;
 
     @Override
-    public void saveOrUpdateBefore(TenantVO vo) {
-
-        super.saveOrUpdateBefore(vo);
-
-    }
-
-    @Override
-    public Tenant before(TenantReqUpdate tenantReqUpdate, Tenant entity) {
-        if (!tenantInitDatas.canBeModified(entity.getCode())) {
-            throw new ParamException("invalid Tenant code:" + entity.getCode());
+    public void before(ReqDelete reqDelete, Tenant entity) {
+        super.before(reqDelete, entity);
+        if (!tenantInitDatas.canBeDeleted(entity.getCode())) {
+            throw new ParamException("can't delete ,for tenant code:" + entity.getCode());
         }
-
-        return super.before(tenantReqUpdate, entity);
     }
+
 }

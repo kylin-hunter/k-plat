@@ -64,6 +64,6 @@ public class DummyTraceExplain implements TraceExplain {
 
     @Override
     public boolean isDummy() {
-        return false;
+        return true;
     }
 }

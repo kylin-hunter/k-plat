@@ -22,8 +22,11 @@ public class DeleteInterceptor<T extends BaseEntity, C extends ReqCreate, U exte
         Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
     public void before(ReqDelete reqDelete, T entity) {
-        entity.setSysDeleteFlag(true);
-        setUpdateMsg(reqDelete, entity);
+        if (!reqDelete.isPhysical()) {
+            entity.setSysDeleteFlag(true);
+            setUpdateMsg(reqDelete, entity);
+        }
+
     }
 
     public boolean after(ReqDelete reqDelete, T entity) {

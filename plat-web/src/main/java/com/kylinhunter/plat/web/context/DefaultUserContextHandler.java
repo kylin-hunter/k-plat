@@ -7,8 +7,8 @@ import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.api.context.DefaultUserContext;
 import com.kylinhunter.plat.api.context.DummyUserContext;
 import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.web.auth.JWTService;
-import com.kylinhunter.plat.web.trace.Trace;
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,16 +22,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultUserContextHandler implements UserContextHandler {
-    private final JWTService jwtService;
 
     private static final UserContext DUMMY_USER_CONTEXT = new DummyUserContext();
 
     private final ThreadLocal<UserContext> userContexts = InheritableThreadLocal.withInitial(() -> DUMMY_USER_CONTEXT);
 
     @Override
-    public UserContext create(Trace trace) {
-        Token token = jwtService.verify(trace.getToken());
+    public UserContext create(Token token) {
         DefaultUserContext defaultUserContext = new DefaultUserContext(token);
+        userContexts.set(defaultUserContext);
+        return defaultUserContext;
+    }
+
+    @Override
+    public UserContext create(User user) {
+        DefaultUserContext defaultUserContext = new DefaultUserContext(user);
         userContexts.set(defaultUserContext);
         return defaultUserContext;
     }

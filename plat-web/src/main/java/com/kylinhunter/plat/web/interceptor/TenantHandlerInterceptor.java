@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.web.context.UserContextHandler;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.web.exception.AuthException;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 

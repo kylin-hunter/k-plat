@@ -8,8 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.bean.vo.request.Req;
-import com.kylinhunter.plat.web.context.UserContextHandler;
-import com.kylinhunter.plat.web.trace.Trace;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

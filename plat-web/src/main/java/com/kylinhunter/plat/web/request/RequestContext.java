@@ -67,9 +67,9 @@ public class RequestContext {
      */
     public String getToken() {
         // 获取请求头信息authorization信息
-        final String authHeader = request.getHeader(RequestConst.AUTH_HEADER_KEY);
+        final String authHeader = request.getHeader(RequestConst.HEADER_AUTH);
         log.info("## authHeader= {}", authHeader);
-        if (!StringUtils.isBlank(authHeader) && authHeader.startsWith(RequestConst.TOKEN_PREFIX)) {
+        if (!StringUtils.isBlank(authHeader) && authHeader.startsWith(RequestConst.BEARER)) {
             String token = authHeader.substring(7);
             if (!StringUtils.isBlank(token)) {
                 return token;
@@ -85,7 +85,7 @@ public class RequestContext {
      * @return
      */
     public String getSimpleToken() {
-        final String authHeader = request.getHeader(RequestConst.AUTH_HEADER_KEY);
+        final String authHeader = request.getHeader(RequestConst.HEADER_AUTH);
         log.info("## authHeader= {}", authHeader);
         return StringUtils.defaultString(authHeader);
     }
@@ -99,7 +99,7 @@ public class RequestContext {
      * @date 2021/8/1 3:46 上午
      */
     public boolean isDebugMode() {
-        return BooleanUtils.toBoolean(this.getParameter(RequestConst.PARAM_DEBUG));
+        return BooleanUtils.toBoolean(this.getHeader(RequestConst.HEADER_DEBUG));
     }
 
     /**
