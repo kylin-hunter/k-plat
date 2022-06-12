@@ -19,21 +19,19 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private final TokenHandlerInterceptor tokenHandlerInterceptor;
     private final TenantHandlerInterceptor tenantHandlerInterceptor;
 
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(traceHandlerInterceptor)
-                .addPathPatterns(PathPatterns.include(PathPatterns.API_V1))
-                .addPathPatterns(PathPatterns.include(PathPatterns.AUTH))
-                .excludePathPatterns(PathPatterns.include(PathPatterns.SWAGGER));
+                .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
+                .addPathPatterns(PathPatterns.of(PathPatterns.AUTH));
 
         registry.addInterceptor(tokenHandlerInterceptor)
-                .addPathPatterns(PathPatterns.include(PathPatterns.API_V1))
-                .addPathPatterns(PathPatterns.include(PathPatterns.AUTH));
+                .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
+                .addPathPatterns(PathPatterns.of(PathPatterns.AUTH));
 
         registry.addInterceptor(tenantHandlerInterceptor)
-                .addPathPatterns(PathPatterns.include(PathPatterns.API_V1));
+                .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
+                .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANT));
 
     }
 

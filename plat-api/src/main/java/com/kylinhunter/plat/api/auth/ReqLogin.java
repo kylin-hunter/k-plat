@@ -23,4 +23,7 @@ public class ReqLogin {
     @NotBlank
     private String password;
 
+    @ApiModelProperty(value = "tenantId")
+    private String tenantId;
+
 }

@@ -92,4 +92,9 @@ public class DummyUserContext implements UserContext, Serializable {
     public void setRoleCodes(List<String> roleCodes) {
 
     }
+
+    @Override
+    public boolean isDummy() {
+        return true;
+    }
 }

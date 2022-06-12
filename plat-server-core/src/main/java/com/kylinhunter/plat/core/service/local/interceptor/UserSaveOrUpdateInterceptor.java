@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.core.service.local.component.assist;
+package com.kylinhunter.plat.core.service.local.interceptor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

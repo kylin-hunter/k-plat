@@ -24,9 +24,6 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "DefaultSysResp", description = "DefaultSysResp")
 public class DefaultSysResp extends Resp {
 
-    @ApiModelProperty(value = "sysTenantId", hidden = true)
-    private String sysTenantId;
-
     @ApiModelProperty(value = "sysCreatedUserId", hidden = true)
     private String sysCreatedUserId;
 

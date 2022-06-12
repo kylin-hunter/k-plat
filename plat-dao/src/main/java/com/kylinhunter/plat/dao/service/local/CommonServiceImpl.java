@@ -3,7 +3,10 @@ package com.kylinhunter.plat.dao.service.local;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -56,12 +59,14 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     protected Class<Z> respClass = currentRespClass();
 
     @Autowired
+    private ApplicationContext applicationContext;
+    @Autowired
     private ExceptionExplainer exceptionExplainer;
-    @Autowired
+
     private SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
-    @Autowired
+
     private DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
-    @Autowired
+
     private QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
 
     @SuppressWarnings("unchecked")
@@ -222,6 +227,21 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             return queryInterceptor.after(reqQueryPage, entities, respClass);
         } catch (Exception e) {
             throw exceptionExplainer.convert(e);
+        }
+    }
+
+    @PostConstruct
+    public void init() {
+        if (this.saveOrUpdateInterceptor == null) {
+            this.saveOrUpdateInterceptor = this.applicationContext.getBean(SaveOrUpdateInterceptor.class);
+        }
+
+        if (this.deleteInterceptor == null) {
+            this.deleteInterceptor = this.applicationContext.getBean(DeleteInterceptor.class);
+        }
+
+        if (this.queryInterceptor == null) {
+            this.queryInterceptor = this.applicationContext.getBean(QueryInterceptor.class);
         }
     }
 

@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant` (
   `code` varchar(64) NOT NULL DEFAULT '' COMMENT 'code',
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT 'name',
   `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '类型',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '角色状态，预留',
+  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态，预留',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_tenant_code` (`code`) COMMENT '唯一的code'

@@ -2,6 +2,7 @@ package com.kylinhunter.plat.api.bean.vo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 
 import io.swagger.annotations.ApiModel;
@@ -23,9 +24,10 @@ public class BasicVO implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
 
     @ApiModelProperty(value = "voType", hidden = true)
+    @JsonIgnore
     private final VoType voType;
 
-    @ApiModelProperty(value = "tenantId")
-    protected String tenantId = "";
+    @ApiModelProperty(value = "sysTenantId")
+    protected String sysTenantId = "";
 
 }

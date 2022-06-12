@@ -34,7 +34,7 @@ import com.kylinhunter.plat.dao.service.local.component.SortComponent;
 @Component
 @Primary
 public class QueryInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends Interceptor<T, C, U, Z, V, Q> {
+        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
     @Autowired
     private SortComponent sortComponent;
@@ -71,7 +71,7 @@ public class QueryInterceptor<T extends BaseEntity, C extends ReqCreate, U exten
     public QueryWrapper<T> query(Q q) {
         QueryWrapper<T> wrapper = Wrappers.query();
         if (q.isWithTenant()) {
-            wrapper.eq(SysCols.SYS_TENANT_ID, q.getTenantId());
+            wrapper.eq(SysCols.SYS_TENANT_ID, q.getSysTenantId());
         }
         if (!q.isWithLogicDelData()) {
             wrapper.eq(SysCols.SYS_DELETE_FLAG, "0");

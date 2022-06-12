@@ -5,6 +5,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
@@ -13,7 +15,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.UserService;
-import com.kylinhunter.plat.core.service.local.component.assist.UserSaveOrUpdateInterceptor;
+import com.kylinhunter.plat.core.service.local.interceptor.UserSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import lombok.Data;
@@ -29,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2022-01-01
  */
 @Service
-@Data
 @Slf4j
 @EqualsAndHashCode(callSuper = false)
 public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqCreate, UserReqUpdate,
@@ -42,5 +43,11 @@ public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqC
         this.setUserSaveOrUpdateInterceptor(userSaveOrUpdateInterceptor);
     }
 
-
+    @Override
+    public User queryByUserCode(String userCode) {
+        LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(User::getSysDeleteFlag, false);
+        queryWrapper.eq(User::getUserCode, userCode);
+        return this.baseMapper.selectOne(queryWrapper);
+    }
 }

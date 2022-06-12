@@ -46,4 +46,9 @@ public class DefaultUserContext implements UserContext, Serializable {
         BeanUtils.copyProperties(token, this);
 
     }
+
+    @Override
+    public boolean isDummy() {
+        return false;
+    }
 }

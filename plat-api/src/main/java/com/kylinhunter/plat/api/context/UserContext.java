@@ -36,4 +36,5 @@ public interface UserContext {
 
     void setRoleCodes(final List<String> roleCodes);
 
+    boolean isDummy();
 }

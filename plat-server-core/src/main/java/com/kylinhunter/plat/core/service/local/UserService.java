@@ -17,5 +17,6 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * @since 2022-01-01
  */
 public interface UserService extends CommonService<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
+    User queryByUserCode(String userCode);
 
 }

@@ -1,7 +1,5 @@
 package com.kylinhunter.plat.dao.service.local.interceptor;
 
-import java.time.LocalDateTime;
-
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,7 @@ import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 @Component
 @Primary
 public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends Interceptor<T, C, U, Z, V, Q> {
+        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
     private final String[] skipProperties = new String[] {
             "id", "sysTenantId", "sysCreatedUserId", "sysCreatedUserName", "sysCreatedTime",
@@ -40,16 +38,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     public T before(C c, T entity) {
         saveOrUpdateBefore((V) c);
         BeanCopyUtils.copyProperties(c, entity, skipProperties);
-        if (c.getUserContext() != null) {
-
-            entity.setSysCreatedUserId(c.getUserContext().getUserId());
-            entity.setSysCreatedUserName(c.getUserContext().getUserName());
-            entity.setSysUpdateUserId(c.getUserContext().getUserId());
-            entity.setSysUpdateUserName(c.getUserContext().getUserName());
-        }
-        entity.setSysDeleteFlag(false);
-        entity.setSysCreatedTime(LocalDateTime.now());
-        entity.setSysUpdateTime(LocalDateTime.now());
+        this.setCreateMsg(c, entity);
         return entity;
     }
 
@@ -64,7 +53,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     public T before(U u, T entity) {
         saveOrUpdateBefore((V) u);
         BeanCopyUtils.copyProperties(u, entity, skipProperties);
-        setUpdateMsg(u, entity);
+        this.setUpdateMsg(u, entity);
         return entity;
     }
 
