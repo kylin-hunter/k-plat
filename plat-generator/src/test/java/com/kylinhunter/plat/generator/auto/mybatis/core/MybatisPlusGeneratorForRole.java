@@ -10,8 +10,7 @@ public class MybatisPlusGeneratorForRole extends CoreMybatisPlusGenerator {
     }
 
     public static void main(String[] args) {
-        MybatisPlusGeneratorForRole mybatisPlusGeneratorForRole = new MybatisPlusGeneratorForRole();
-        mybatisPlusGeneratorForRole.exec();
+        new MybatisPlusGeneratorForRole().exec();
     }
 
 }

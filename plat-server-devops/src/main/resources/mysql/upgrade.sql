@@ -2,3 +2,5 @@ ALTER TABLE `kplat_user` CHANGE COLUMN `user_id` `user_code` varchar(64) CHARACT
     NOT NULL COMMENT '用户code';
 ALTER TABLE `kplat_user` ADD COLUMN `password` varchar(64) NOT NULL  COMMENT '密码';
 ALTER TABLE `kplat_user` ADD UNIQUE `uniq_user_code` (`user_code`) comment '唯一的user code';
+
+ALTER TABLE `kplat_tenant_user` ADD INDEX `idx_userId` USING BTREE (`userId`) comment '';

@@ -8,31 +8,28 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * TenantReqUpdate 代码工具自动生成，按需扩展
+ * TenantUserReqUpdate 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-06-12
+ * @since 2022-06-14
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantReqUpdate对象", description = "TenantReqUpdate")
-public class TenantReqUpdate extends ReqUpdate  implements TenantVO {
+@ApiModel(value = "TenantUserReqUpdate对象", description = "TenantUserReqUpdate")
+public class TenantUserReqUpdate extends ReqUpdate  implements TenantUserVO {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "code")
-    private String code;
-
     @ApiModelProperty(value = "描述")
     private String description;
 
-    @ApiModelProperty(value = "类型")
-    private Integer type;
+    @ApiModelProperty(value = "userId")
+    private String userid;
 
-    @ApiModelProperty(value = "name")
-    private String name;
+    @ApiModelProperty(value = "tenantId")
+    private String tenantid;
 
-    @ApiModelProperty(value = "角色状态，预留")
+    @ApiModelProperty(value = "状态，预留")
     private Integer status;
 
 

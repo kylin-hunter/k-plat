@@ -1,6 +1,5 @@
 package com.kylinhunter.plat.generator.auto.kplat.core;
 
-import com.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForRole;
 import com.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForTenant;
 import com.kylinhunter.plat.generator.common.Module;
 
@@ -18,8 +17,8 @@ public class KPlatCodeGenneratorForTenant extends CoreKPlatCodeGennerator {
     }
 
     public static void main(String[] args) {
-        KPlatCodeGenneratorForTenant kPlatCodeGenneratorForTenant = new KPlatCodeGenneratorForTenant();
-        kPlatCodeGenneratorForTenant.exec();
-        kPlatCodeGenneratorForTenant.copy();
+        CoreKPlatCodeGennerator platCodeGennerator = new KPlatCodeGenneratorForTenant();
+        platCodeGennerator.exec();
+        platCodeGennerator.copy();
     }
 }
