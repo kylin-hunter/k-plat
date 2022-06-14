@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReflectionUtil {
 
-    private static final Map<String, Map<String, Field>> ALL_DECLARED_FIELDS = Maps.newHashMap();
+    private static final Map<String, Map<String, Field>> CLASS_FIELDS_CACHE = Maps.newHashMap();
 
     /**
      * @param clazz     clazz
@@ -37,15 +37,15 @@ public class ReflectionUtil {
     public static Map<String, Field> getAllDeclaredFields(@NonNull Class<?> clazz, boolean withSuper) {
 
         String key = clazz.getName() + withSuper;
-        Map<String, Field> classFields = ALL_DECLARED_FIELDS.get(key);
+        Map<String, Field> classFields = CLASS_FIELDS_CACHE.get(key);
         if (classFields == null) {
             synchronized(ReflectionUtil.class) {
-                classFields = ALL_DECLARED_FIELDS.get(key);
+                classFields = CLASS_FIELDS_CACHE.get(key);
                 if (classFields == null) {
                     List<Field> declaredFields = getDeclaredFields(clazz, withSuper);
                     classFields =
                             declaredFields.stream().collect(Collectors.toMap(Field::getName, e -> e, (k, v) -> v));
-                    ALL_DECLARED_FIELDS.put(key, classFields);
+                    CLASS_FIELDS_CACHE.put(key, classFields);
                 }
                 return classFields;
             }
@@ -77,7 +77,7 @@ public class ReflectionUtil {
             return (Class<T>) ((ParameterizedType) superClass).getActualTypeArguments()[index];
 
         } catch (Exception e) {
-            throw new GeneralException("getEntityBean error", e);
+            throw new GeneralException("getSuperClassGenericType error", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class ReflectionUtil {
             return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[index];
 
         } catch (Exception e) {
-            throw new GeneralException("getEntityBean error", e);
+            throw new GeneralException("getGenericType error", e);
         }
     }
 
@@ -97,11 +97,10 @@ public class ReflectionUtil {
         try {
             return ClassLoaderUtil.loadClass(clazz);
         } catch (Exception e) {
-            throw new GeneralException("getEntityBean error", e);
+            throw new GeneralException("loadClass error", e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<T> clazz) {
         try {
             return clazz.newInstance();

@@ -3,7 +3,6 @@ package com.kylinhunter.plat.generator.kplat.engine;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +23,6 @@ import com.kylinhunter.plat.generator.kplat.configuration.TemplateConfig;
 import com.kylinhunter.plat.generator.kplat.configuration.TemplateType;
 import com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo;
 
-import jodd.util.StringPool;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -96,12 +94,11 @@ public abstract class AbstractTemplateEngine {
                 if (templateConfig.isEnabled(template)) {
                     for (OutputInfo outputInfo : codeContext.getOutputInfos(template)) {
                         Map<String, Object> objectMap = getObjectMap(outputInfo, template);
-                        Path packagePath = outputInfo.getPackagePath();
-                        Path filePath =
-                                Paths.get(packagePath.toString(), outputInfo.getClassName() + fileSuffix());
+                        Path distFilePath = outputInfo.getDistFilePath();
+
                         String pathTemplate = pathTemplate(templateConfig.getTemplate(template));
-                        if (isCreate(filePath) && StringUtils.isNotBlank(pathTemplate)) {
-                            writer(objectMap, pathTemplate, filePath);
+                        if (isCreate(distFilePath) && StringUtils.isNotBlank(pathTemplate)) {
+                            writer(objectMap, pathTemplate, distFilePath);
                         }
 
                     }
@@ -123,17 +120,6 @@ public abstract class AbstractTemplateEngine {
      * @date 2021/8/5 1:02 上午
      */
     public abstract String pathTemplate(String path);
-
-    /**
-     * @return java.lang.String
-     * @title 文件后缀
-     * @description
-     * @author BiJi'an
-     * @date 2021/8/5 1:02 上午
-     */
-    protected String fileSuffix() {
-        return StringPool.DOT_JAVA;
-    }
 
     /**
      * @param path path

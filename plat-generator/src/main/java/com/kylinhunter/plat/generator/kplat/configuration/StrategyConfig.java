@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.generator.kplat.configuration;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 
 import org.apache.commons.lang3.ClassUtils;
@@ -7,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Sets;
 
+import jodd.util.StringPool;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -19,6 +22,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class StrategyConfig {
     private final Template template;
+    private final GlobalConfig globalConfig;
+    private final PackageConfig packageConfig;
     private boolean filedSwagger2 = true;
     private boolean lombok = false; /*是否为lombok模型（默认 false*/
     private boolean lombokChainModel = false; /*是否为链式模型（默认 false）*/
@@ -69,8 +74,22 @@ public class StrategyConfig {
         if (StringUtils.isNotBlank(classNamePattern)) {
             return String.format(classNamePattern, entityName);
         } else {
-            return template.getName(entityName);
+            return template.getName(entityName, false);
         }
+    }
+
+    public Path getDistFilePath(Template template, String entityName) {
+        Path outputDir = globalConfig.getOutputDir(template);
+        String packageRelativePath = getDistFileRelativePath(template, entityName);
+        return outputDir.resolve(packageRelativePath);
+    }
+
+    public String getDistFileRelativePath(Template template, String entityName) {
+        String packageName = packageConfig.getPackage(template);
+        String packageRelativePath = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+        String classRelatviePath =
+                packageRelativePath + File.separator + this.getClassName(entityName) + "." + template.getExtension();
+        return classRelatviePath;
     }
 
 }

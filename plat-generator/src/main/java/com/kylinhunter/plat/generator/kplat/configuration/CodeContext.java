@@ -28,7 +28,7 @@ public class CodeContext {
 
     private TemplateConfig templateConfig = new TemplateConfig(); /*模板路径配置信息*/
 
-    private StrategyConfigs strategyConfigs = new StrategyConfigs();  /*策略配置*/
+    private StrategyConfigs strategyConfigs = new StrategyConfigs(globalConfig, packageConfig);  /*策略配置*/
 
     private Map<Template, List<OutputInfo>> allOutputInfos = Maps.newHashMap();/*output信息*/
 

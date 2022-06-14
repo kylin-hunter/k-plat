@@ -1,16 +1,18 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
-import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserMapper;
+import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -26,4 +28,13 @@ public class TenantUserServiceImp
         TenantUserReqCreate, TenantUserReqUpdate,
         TenantUserResp, TenantUserVO, TenantUserReqQuery> implements TenantUserService {
 
+    @Override
+    public boolean hasPermission(String tenantId, String userId) {
+
+        LambdaQueryWrapper<TenantUser> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(TenantUser::getSysDeleteFlag, false);
+        queryWrapper.eq(TenantUser::getTenantId, tenantId);
+        queryWrapper.eq(TenantUser::getUserId, userId);
+        return this.baseMapper.selectOne(queryWrapper) != null;
+    }
 }

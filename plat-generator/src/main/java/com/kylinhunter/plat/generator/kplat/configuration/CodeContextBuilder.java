@@ -80,6 +80,7 @@ public class CodeContextBuilder {
         // 处理包
         outputInfo.setPackageName(packageConfig.getPackage(template));
         outputInfo.setPackagePath(packageConfig.getPackagePath(template));
+        outputInfo.setDistFilePath(strategyConfig.getDistFilePath(template, entityName));
 
         if (globalConfig.isSwagger2()) {
             outputInfo.addImportPackages(ApiModel.class.getCanonicalName());

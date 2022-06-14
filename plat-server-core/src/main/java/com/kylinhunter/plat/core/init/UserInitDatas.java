@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
 
 import lombok.Getter;
@@ -15,39 +16,41 @@ import lombok.Getter;
  **/
 @Component
 @Getter
-public class UserInitDatas implements InitData {
-    private static final String ADMIN_CODE = "admin";
-    private static final String ADMIN_NAME = "admin";
-    private UserReqCreate admin = createAdmin();
+public class UserInitDatas extends BasicInitData<UserReqCreate, User> {
+    public static final String USER_ADMIN_CODE = "admin";
+    public static final String USER_TEST_CODE = "test";
 
-    private UserReqCreate createAdmin() {
+    private UserReqCreate userAdmin = createUserAdmin();
+    private UserReqCreate userTest = createUserTest();
+
+    private UserReqCreate createUserAdmin() {
 
         UserReqCreate userReqCreate = new UserReqCreate();
         userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
-        userReqCreate.setUserCode(ADMIN_CODE);
-        userReqCreate.setUserName(ADMIN_NAME);
-        userReqCreate.setPassword(ADMIN_CODE);
+        userReqCreate.setUserCode(USER_ADMIN_CODE);
+        userReqCreate.setUserName(USER_ADMIN_CODE);
+        userReqCreate.setPassword(USER_ADMIN_CODE);
         userReqCreate.setSource("0");
         userReqCreate.setType(1);
         userReqCreate.setStatus(0);
-        userReqCreate.setDescription(ADMIN_NAME);
-
+        userReqCreate.setDescription(USER_ADMIN_CODE);
+        this.addCreateData(userReqCreate.getUserCode(), userReqCreate);
         return userReqCreate;
     }
 
-    @Override
-    public boolean canBeModified(String code) {
-        if (ADMIN_CODE.equalsIgnoreCase(code)) {
-            return false;
-        }
-        return true;
+    private UserReqCreate createUserTest() {
+
+        UserReqCreate userReqCreate = new UserReqCreate();
+        userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
+        userReqCreate.setUserCode(USER_TEST_CODE);
+        userReqCreate.setUserName(USER_TEST_CODE);
+        userReqCreate.setPassword(USER_TEST_CODE);
+        userReqCreate.setSource("0");
+        userReqCreate.setType(0);
+        userReqCreate.setStatus(0);
+        userReqCreate.setDescription(USER_TEST_CODE);
+        this.addCreateData(userReqCreate.getUserCode(), userReqCreate);
+        return userReqCreate;
     }
 
-    @Override
-    public boolean canBeDeleted(String code) {
-        if (ADMIN_CODE.equalsIgnoreCase(code)) {
-            return false;
-        }
-        return true;
-    }
 }

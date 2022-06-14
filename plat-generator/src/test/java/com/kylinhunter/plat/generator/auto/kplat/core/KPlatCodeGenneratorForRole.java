@@ -19,6 +19,5 @@ public class KPlatCodeGenneratorForRole extends CoreKPlatCodeGennerator {
     public static void main(String[] args) {
         CoreKPlatCodeGennerator platCodeGennerator = new KPlatCodeGenneratorForRole();
         platCodeGennerator.exec();
-        platCodeGennerator.copy();
     }
 }

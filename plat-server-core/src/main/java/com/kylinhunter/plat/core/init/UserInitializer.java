@@ -31,14 +31,22 @@ public class UserInitializer implements Initializer {
 
     @Override
     public void init() {
-        UserReqCreate adminCreate = userInitDatas.getAdmin();
+        UserReqCreate adminCreate = userInitDatas.getUserAdmin();
         initUserContext(adminCreate);
-        if (userService.queryByUserCode(adminCreate.getUserCode()) != null) {
-            log.info("default user(admin) exist");
-        } else {
-            userService.save(adminCreate);
-            log.info("default user(admin) created");
-        }
+
+        userInitDatas.getCreateDatas().values().forEach(userCreate -> {
+
+            final String userCode = userCreate.getUserCode();
+            final User user = userService.queryByUserCode(userCode);
+            if (user != null) {
+                log.info("default userCreate {} exist", userCode);
+                userInitDatas.addDbData(userCode, user);
+            } else {
+                userService.save(userCreate);
+                log.info("default userCreate {} created", userCode);
+                userInitDatas.addDbData(userCode, userService.queryByUserCode(userCode));
+            }
+        });
 
     }
 

@@ -20,11 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 public class CoreApplicationRunner implements ApplicationRunner {
     private final UserInitializer userInitializer;
     private final TenantInitializer tenantInitializer;
+    private final TenantUserInitializer tenantUserInitializer;
 
     @Override
     public void run(ApplicationArguments args) {
         userInitializer.init();
         tenantInitializer.init();
+        tenantUserInitializer.init();
 
     }
 }

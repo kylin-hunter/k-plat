@@ -34,6 +34,7 @@ public class OutputInfo {
     private Set<String> importPackages = Sets.newTreeSet();/* 引入的包*/
     @EqualsAndHashCode.Include
     private String className; /*类名*/
+    private Path distFilePath;/* 类路径*/
 
     private List<EntityField> entityFields = Lists.newArrayList(); /*entity的Field*/
 

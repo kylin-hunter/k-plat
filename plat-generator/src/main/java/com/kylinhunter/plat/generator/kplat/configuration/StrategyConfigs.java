@@ -25,8 +25,9 @@ public class StrategyConfigs {
     private Map<Class<?>, Class<?>> mapperClasses = Maps.newHashMap();
     private FieldConvert fieldConvert = new DefaultFieldConvert();
 
-    public StrategyConfigs() {
-        Arrays.stream(Template.values()).forEach(t -> setStrategyConfig(t, new StrategyConfig(t)));
+    public StrategyConfigs(GlobalConfig globalConfig, PackageConfig packageConfig) {
+        Arrays.stream(Template.values()).forEach(t -> setStrategyConfig(t, new StrategyConfig(t,
+                globalConfig, packageConfig)));
     }
 
     /**

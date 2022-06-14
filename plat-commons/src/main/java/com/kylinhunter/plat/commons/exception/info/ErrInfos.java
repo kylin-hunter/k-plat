@@ -19,6 +19,7 @@ public class ErrInfos {
     public static final ErrInfo IO = new ErrInfo(BASE);
     public static final ErrInfo PARAM = new ErrInfo(BASE);
     public static final ErrInfo GENERAL = new ErrInfo(BASE);
+    public static final ErrInfo SYSTEM = new ErrInfo(BASE);
 
 
     private static final ErrInfoClassify CLASSIFY_BIZ = new ErrInfoClassify(10001);

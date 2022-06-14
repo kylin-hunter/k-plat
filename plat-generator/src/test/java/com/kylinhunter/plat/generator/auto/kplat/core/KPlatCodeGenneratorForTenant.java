@@ -19,6 +19,5 @@ public class KPlatCodeGenneratorForTenant extends CoreKPlatCodeGennerator {
     public static void main(String[] args) {
         CoreKPlatCodeGennerator platCodeGennerator = new KPlatCodeGenneratorForTenant();
         platCodeGennerator.exec();
-        platCodeGennerator.copy();
     }
 }

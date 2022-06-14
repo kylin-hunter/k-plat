@@ -17,7 +17,8 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * @since 2022-06-15
  */
 public interface TenantUserService extends CommonService<TenantUser,
-    TenantUserReqCreate, TenantUserReqUpdate,
-    TenantUserResp, TenantUserVO, TenantUserReqQuery>  {
+        TenantUserReqCreate, TenantUserReqUpdate,
+        TenantUserResp, TenantUserVO, TenantUserReqQuery> {
 
+    boolean hasPermission(String tenantId, String userId);
 }

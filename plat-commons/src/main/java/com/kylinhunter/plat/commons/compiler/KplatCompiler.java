@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
@@ -24,23 +25,29 @@ import lombok.extern.slf4j.Slf4j;
  * @description
  * @date 2022-06-14 00:28
  **/
+@Slf4j
 @Getter
 @Setter
-@Slf4j
 public class KplatCompiler {
 
+
     private List<File> sources = Lists.newArrayList();
-    private File compile;
+
+    private File output;
+
+    public void addSources(Collection<File> sourceFiles) {
+        this.sources.addAll(sourceFiles);
+    }
 
     public void compile() throws IOException {
 
         JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
         StandardJavaFileManager fileManager = javaCompiler.getStandardFileManager(null, null, null);
         Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(sources.toArray(new File[0]));
-        List<String> options = Arrays.asList("-d", compile.getAbsolutePath());
+        List<String> options = Arrays.asList("-d", output.getAbsolutePath());
         JavaCompiler.CompilationTask cTask = javaCompiler.getTask(null, fileManager, null, options, null, fileObjects);
         Boolean success = cTask.call();
-        log.info("compile result={}", success);
+        log.info("output result={}", success);
         fileManager.close();
 
     }

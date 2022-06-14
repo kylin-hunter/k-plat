@@ -72,6 +72,11 @@ public class PackageConfig {
     public String getParentPackage() {
         return String.format(this.parentPattern, globalConfig.getModuleName());
     }
+    public String getParentPackageRelativePath() {
+        String packageName = this.getParentPackage();
+        String packageRelativePath = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+        return packageRelativePath;
+    }
 
     /**
      * @param template template
@@ -83,8 +88,14 @@ public class PackageConfig {
      */
     public Path getPackagePath(Template template) {
         Path outputDir = globalConfig.getOutputDir(template);
-        String packageName = this.getPackage(template);
-        String packagePath = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
-        return outputDir.resolve(packagePath);
+        String packageRelativePath = getPackageRelativePath(template);
+        return outputDir.resolve(packageRelativePath);
     }
+
+    public String getPackageRelativePath(Template template) {
+        String packageName = this.getPackage(template);
+        String packageRelativePath = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+        return packageRelativePath;
+    }
+
 }

@@ -27,7 +27,7 @@ class KplatCompilerTest {
         File compile = UserDirUtils.getTmpDir();
 
         kplatCompiler.getSources().add(source);
-        kplatCompiler.setCompile(compile);
+        kplatCompiler.setOutput(compile);
 
         kplatCompiler.compile();
     }

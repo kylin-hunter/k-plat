@@ -13,6 +13,7 @@ import com.kylinhunter.plat.commons.codec.PasswordUtil;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.AuthService;
+import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.web.auth.JWTService;
 import com.kylinhunter.plat.web.exception.AuthException;
 
@@ -31,6 +32,7 @@ public class AuthServiceImp implements AuthService {
     private final UserMapper userMapper;
     private final TenantMapper tenantMapper;
     private final JWTService jwtService;
+    private final TenantUserService tenantUserService;
 
     @Override
     public String login(ReqLogin reqLogin) {
@@ -88,7 +90,10 @@ public class AuthServiceImp implements AuthService {
             throw new AuthException("tenant no exist");
         }
         if (!token.isAdmin()) {
-            throw new AuthException("校验用户和租户关系失败" + token.getUserId() + ":" + tenant.getId());
+            if (!tenantUserService.hasPermission(tenantId, token.getUserId())) {
+                throw new AuthException("校验用户和租户关系失败" + token.getUserId() + ":" + tenant.getId());
+
+            }
         }
 
     }

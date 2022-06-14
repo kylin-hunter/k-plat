@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.commons.classloader.KPlatClassLoaderUtil;
 import com.kylinhunter.plat.commons.util.ReflectionUtil;
 
 import lombok.Data;
@@ -37,15 +38,23 @@ public class Module {
     }
 
     public Module addTable(String table) {
-        this.tables.add(table);
+        if (!this.tables.contains(table)) {
+            this.tables.add(table);
+        }
         return this;
     }
 
     public void loadClasses() {
         entityClassNames.forEach(e -> {
-            entityClasses.add(ReflectionUtil.loadClass(e));
+
+            entityClasses.add(KPlatClassLoaderUtil.loadClass(e));
+
+            //            entityClasses.add(ReflectionUtil.loadClass(e));
         });
         mapperClassNames.forEach((k, v) -> {
+
+            mapperClasses.put(KPlatClassLoaderUtil.loadClass(k), KPlatClassLoaderUtil.loadClass(v));
+
             mapperClasses.put(ReflectionUtil.loadClass(k), ReflectionUtil.loadClass(v));
         });
 

@@ -2,6 +2,7 @@ package com.kylinhunter.plat.core.init;
 
 import org.springframework.stereotype.Component;
 
+import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import com.kylinhunter.plat.core.service.local.TenantService;
 
@@ -29,11 +30,17 @@ public class TenantInitializer implements Initializer {
     public void init() {
 
         TenantReqCreate defaultTenant = tenantInitDatas.getDefaultTenant();
-        if (tenantService.queryByCode(defaultTenant.getCode()) != null) {
+        String code = defaultTenant.getCode();
+        Tenant tenant = tenantService.queryByCode(code);
+        if (tenant != null) {
             log.info("default agent exist");
+            tenantInitDatas.addDbData(code, tenant);
+
         } else {
             tenantService.save(defaultTenant);
             log.info("default agent created");
+            tenantInitDatas.addDbData(code, tenantService.queryByCode(code));
+
         }
     }
 

@@ -15,7 +15,5 @@ public class DefaultMyPlusGeneratorConfigHelper {
         return MyPlusGeneratorCustomizer.customize(module, e -> {
             module.getEntityClassNames().forEach(System.out::println);
         });
-
     }
-
 }
