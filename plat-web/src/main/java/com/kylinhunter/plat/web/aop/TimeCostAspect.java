@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.web.config.WebConfig;
+import com.kylinhunter.plat.web.config.AppConfig;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class TimeCostAspect {
-    public final WebConfig webConfig;
+    public final AppConfig appConfig;
     private final TraceHandler traceHandler;
 
     @Pointcut("execution(* com.kylinhunter.plat..*Controller.*(..))")
@@ -48,7 +48,7 @@ public class TimeCostAspect {
         long startTime = System.currentTimeMillis();
         Object obj = pjp.proceed();
         long cost = System.currentTimeMillis() - startTime;
-        if (cost > webConfig.getWatchThreshold()) {
+        if (cost > appConfig.getWatchThreshold()) {
             log.info("process {}.{} with cost:{}ms", className, methodName, cost);
         }
         traceHandler.get().getTraceExplain().addTimeCost(timerKey, cost);

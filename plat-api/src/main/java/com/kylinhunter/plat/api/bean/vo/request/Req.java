@@ -30,6 +30,9 @@ public class Req extends BasicVO implements VO {
     @ApiModelProperty(value = "debug", hidden = true)
     private boolean debug = false;
 
+    @ApiModelProperty(value = "checkTenant", hidden = true)
+    private boolean checkTenant = true;
+
     @ApiModelProperty(value = "reqType", hidden = true)
     private ReqType reqType;
 

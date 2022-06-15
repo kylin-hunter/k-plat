@@ -27,7 +27,4 @@ public class BasicVO implements Serializable {
     @JsonIgnore
     private final VoType voType;
 
-    @ApiModelProperty(value = "sysTenantId")
-    protected String sysTenantId = "";
-
 }

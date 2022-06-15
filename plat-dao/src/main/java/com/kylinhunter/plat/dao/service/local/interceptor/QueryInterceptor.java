@@ -71,7 +71,7 @@ public class QueryInterceptor<T extends BaseEntity, C extends ReqCreate, U exten
     public QueryWrapper<T> query(Q q) {
         QueryWrapper<T> wrapper = Wrappers.query();
         if (q.isWithTenant()) {
-            wrapper.eq(SysCols.SYS_TENANT_ID, q.getSysTenantId());
+            wrapper.eq(SysCols.SYS_TENANT_ID, q.getUserContext().getTenantId());
         }
         if (!q.isWithLogicDelData()) {
             wrapper.eq(SysCols.SYS_DELETE_FLAG, "0");

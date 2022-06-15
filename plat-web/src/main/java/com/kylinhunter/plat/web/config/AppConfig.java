@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @RefreshScope
-public class WebConfig {
+public class AppConfig {
     @Value("${spring.application.name}")
     private String appName;
     @Value("${server.port}")
@@ -36,11 +36,12 @@ public class WebConfig {
     @Value("${app.threshold:0}")
     private int watchThreshold;
 
+    @Value("${app.initialize:false}")
+    private boolean initialize;
 
     @Value("${app.env:RELEASE}")
     private String envStr;
     private Env env;
-
 
     @PostConstruct
     private void init() {

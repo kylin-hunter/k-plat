@@ -34,7 +34,9 @@ public class Token {
     private boolean admin = false;
 
     @ApiModelProperty(value = "账户类型")
-    private int type;
+    private int userType;
+
+    private TokenType type;
 
     @ApiModelProperty(value = "过期时间", hidden = true)
     private LocalDateTime expireDate;

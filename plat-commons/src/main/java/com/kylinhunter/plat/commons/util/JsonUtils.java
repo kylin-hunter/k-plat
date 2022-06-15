@@ -91,7 +91,7 @@ public class JsonUtils {
 
     /**
      * @param data          data
-     * @param type          type
+     * @param type          userType
      * @param throwIfFailed throwIfFailed
      * @return T
      * @title toObject

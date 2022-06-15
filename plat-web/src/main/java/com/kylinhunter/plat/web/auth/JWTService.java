@@ -31,7 +31,7 @@ public class JWTService {
     private static final String USER_CODE = "userCode";
     private static final String USER_NAME = "userName";
     private static final String ADMIN = "admin";
-    private static final String TYPE = "type";
+    private static final String TYPE = "userType";
     private static final String SECRET = "cskb";
 
     public String create(Token tokenInfo) {
@@ -53,7 +53,7 @@ public class JWTService {
                     .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
                     .withClaim(USER_NAME, tokenInfo.getUserName())
                     .withClaim(ADMIN, tokenInfo.isAdmin())
-                    .withClaim(TYPE, tokenInfo.getType())
+                    .withClaim(TYPE, tokenInfo.getUserType())
                     .withExpiresAt(DateUtils.toDate(tokenInfo.getExpireDate())) // 设置过期时间
                     .sign(Algorithm.HMAC256(SECRET));
         } catch (AuthException e) {

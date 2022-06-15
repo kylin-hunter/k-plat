@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
+import javax.validation.constraints.NotBlank;
+
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +23,7 @@ public class TenantReqUpdate extends ReqUpdate  implements TenantVO {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "code")
+    @NotBlank
     private String code;
 
     @ApiModelProperty(value = "描述")
@@ -30,6 +33,7 @@ public class TenantReqUpdate extends ReqUpdate  implements TenantVO {
     private Integer type;
 
     @ApiModelProperty(value = "name")
+    @NotBlank
     private String name;
 
     @ApiModelProperty(value = "角色状态，预留")

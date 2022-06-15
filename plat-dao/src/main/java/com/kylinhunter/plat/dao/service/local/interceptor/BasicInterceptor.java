@@ -35,6 +35,7 @@ public class BasicInterceptor<T extends BaseEntity, C extends ReqCreate, U exten
             throw new DBException(" no user content");
         }
 
+        entity.setSysTenantId(userContext.getTenantId());
         entity.setSysCreatedUserId(userContext.getUserId());
         entity.setSysCreatedUserName(userContext.getUserName());
         entity.setSysCreatedTime(LocalDateTime.now());

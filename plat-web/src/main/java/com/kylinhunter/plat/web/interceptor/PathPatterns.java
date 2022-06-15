@@ -21,6 +21,8 @@ public class PathPatterns {
 
     public static final PathPattern API_V1_TENANT = PathPattern.builder().build()
             .add("/api/v1/core/tenant/**");
+    public static final PathPattern API_V1_USER = PathPattern.builder().build()
+            .add("/api/v1/core/user/**");
 
     public static final PathPattern API_V1 = PathPattern.builder().build()
             .add("/api/v1/**");

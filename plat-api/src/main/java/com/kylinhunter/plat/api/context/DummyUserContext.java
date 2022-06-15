@@ -97,4 +97,14 @@ public class DummyUserContext implements UserContext, Serializable {
     public boolean isDummy() {
         return true;
     }
+
+    @Override
+    public void setCheckTenant(boolean checkTenant) {
+
+    }
+
+    @Override
+    public boolean isCheckTenant() {
+        return true;
+    }
 }

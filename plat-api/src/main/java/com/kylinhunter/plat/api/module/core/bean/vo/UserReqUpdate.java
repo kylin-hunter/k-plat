@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
+import javax.validation.constraints.NotBlank;
+
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 
 import io.swagger.annotations.ApiModel;
@@ -23,12 +25,15 @@ public class UserReqUpdate extends ReqUpdate implements UserVO {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
+    @NotBlank
     private String userCode;
 
     @ApiModelProperty(value = "用户名")
+    @NotBlank
     private String userName;
 
     @ApiModelProperty(value = "密码")
+    @NotBlank
     private String password;
 
     @ApiModelProperty(value = "用户来源")

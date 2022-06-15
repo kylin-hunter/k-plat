@@ -1,9 +1,10 @@
-package com.kylinhunter.plat.core.init;
+package com.kylinhunter.plat.core.init.data;
 
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import com.kylinhunter.plat.api.module.core.constants.TenantType;
 
 import lombok.Getter;
 
@@ -14,7 +15,7 @@ import lombok.Getter;
  **/
 @Component
 @Getter
-public class TenantInitDatas extends BasicInitData<TenantReqCreate, Tenant> {
+public class TenantInitData extends BasicInitData<TenantReqCreate, Tenant> {
     public static final String DEFAULT_CODE = "default";
     public static final String DEFAULT_NAME = "DEFAULT";
     private TenantReqCreate defaultTenant = createDefaultTenant();
@@ -24,10 +25,10 @@ public class TenantInitDatas extends BasicInitData<TenantReqCreate, Tenant> {
         TenantReqCreate tenant = new TenantReqCreate();
         tenant.setCode(DEFAULT_CODE);
         tenant.setName(DEFAULT_NAME);
-        tenant.setType(1);
+        tenant.setType(TenantType.SYS.getCode());
         tenant.setStatus(0);
         tenant.setDescription("默认租户");
-        this.addCreateData(tenant.getCode(), tenant);
+        this.addInitData(tenant.getCode(), tenant);
         return tenant;
     }
 

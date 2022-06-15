@@ -10,7 +10,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.UserInitDatas;
+import com.kylinhunter.plat.core.init.data.UserInitData;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -25,12 +25,12 @@ import lombok.RequiredArgsConstructor;
 public class UserDeleteInterceptor extends
         DeleteInterceptor<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
-    private final UserInitDatas userInitDatas;
+    private final UserInitData userInitData;
 
     @Override
     public void before(ReqDelete reqDelete, User entity) {
         super.before(reqDelete, entity);
-        if (!userInitDatas.canBeDeleted(entity.getUserCode())) {
+        if (!userInitData.canBeDeleted(entity.getUserCode())) {
             throw new ParamException("can't delete ,for user code:" + entity.getUserCode());
         }
     }

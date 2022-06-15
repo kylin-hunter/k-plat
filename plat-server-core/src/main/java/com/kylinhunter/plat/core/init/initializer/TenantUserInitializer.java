@@ -1,10 +1,12 @@
-package com.kylinhunter.plat.core.init;
+package com.kylinhunter.plat.core.init.initializer;
 
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
+import com.kylinhunter.plat.core.init.data.TenantInitData;
+import com.kylinhunter.plat.core.init.data.UserInitData;
 import com.kylinhunter.plat.core.service.local.TenantService;
 import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.core.service.local.UserService;
@@ -24,21 +26,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
-public class TenantUserInitializer implements Initializer {
+public class TenantUserInitializer extends BasicInitializer {
 
     private final TenantService tenantService;
-    private final TenantInitDatas tenantInitDatas;
+    private final TenantInitData tenantInitData;
 
     private final UserService userService;
-    private final UserInitDatas userInitDatas;
+    private final UserInitData userInitData;
 
     private final TenantUserService tenantUserService;
 
     @Override
+    public int order() {
+        return 4;
+    }
+
+    @Override
     public void init() {
 
-        Tenant defaultTenant = tenantInitDatas.getDbData(TenantInitDatas.DEFAULT_CODE);
-        User user = userInitDatas.getDbData(UserInitDatas.USER_TEST_CODE);
+        Tenant defaultTenant = tenantInitData.getDbData(TenantInitData.DEFAULT_CODE);
+        User user = userInitData.getDbData(UserInitData.USER_TEST_CODE);
 
         final String tenantId = defaultTenant.getId();
         final String userId = user.getId();

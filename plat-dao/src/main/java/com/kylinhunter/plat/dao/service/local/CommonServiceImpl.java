@@ -195,6 +195,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             if (!reqQueryById.isWithLogicDelData()) {
                 query.eq(SysCols.SYS_DELETE_FLAG, "0");
             }
+
             T entity = this.baseMapper.selectOne(query);
             return queryInterceptor.after(reqQueryById, entity, createResponse());
         } catch (Exception e) {

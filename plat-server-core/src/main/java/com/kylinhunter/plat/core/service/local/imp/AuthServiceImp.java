@@ -9,6 +9,7 @@ import com.kylinhunter.plat.api.auth.ReqLogin;
 import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
+import com.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.commons.codec.PasswordUtil;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
@@ -46,10 +47,10 @@ public class AuthServiceImp implements AuthService {
                 log.info("login user success {}={}", user.getUserCode(), user.getUserName());
                 Token token = new Token();
                 token.setUserId(user.getId());
-                token.setType(user.getType());
+                token.setUserType(user.getType());
                 token.setUserCode(reqLogin.getUserCode());
                 token.setUserName(user.getUserName());
-                token.setAdmin(user.getType() == 1);
+                token.setAdmin(UserType.isAdmin(user.getType()));
                 token.setTenantId(reqLogin.getTenantId());
                 if (!StringUtils.isEmpty(token.getTenantId())) {
                     checkTenant(token);

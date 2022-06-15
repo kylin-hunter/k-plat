@@ -1,9 +1,10 @@
-package com.kylinhunter.plat.core.init;
+package com.kylinhunter.plat.core.init.initializer;
 
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import com.kylinhunter.plat.core.init.data.TenantInitData;
 import com.kylinhunter.plat.core.service.local.TenantService;
 
 import lombok.Getter;
@@ -21,25 +22,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
-public class TenantInitializer implements Initializer {
+public class TenantInitializer extends BasicInitializer {
 
     private final TenantService tenantService;
-    private final TenantInitDatas tenantInitDatas;
+    private final TenantInitData tenantInitData;
+
+    @Override
+    public int order() {
+        return 3;
+    }
 
     @Override
     public void init() {
 
-        TenantReqCreate defaultTenant = tenantInitDatas.getDefaultTenant();
+        TenantReqCreate defaultTenant = tenantInitData.getDefaultTenant();
         String code = defaultTenant.getCode();
         Tenant tenant = tenantService.queryByCode(code);
         if (tenant != null) {
             log.info("default agent exist");
-            tenantInitDatas.addDbData(code, tenant);
+            tenantInitData.addDbData(code, tenant);
 
         } else {
             tenantService.save(defaultTenant);
             log.info("default agent created");
-            tenantInitDatas.addDbData(code, tenantService.queryByCode(code));
+            tenantInitData.addDbData(code, tenantService.queryByCode(code));
 
         }
     }

@@ -24,8 +24,7 @@ import lombok.Setter;
 public class ReqQuery extends Req implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
 
-    @ApiModelProperty(value = "withTenant", hidden = true)
-    private boolean withTenant = true;
+
 
     @ApiModelProperty(value = "withLogicDelData", hidden = true)
     private boolean withLogicDelData = false;
