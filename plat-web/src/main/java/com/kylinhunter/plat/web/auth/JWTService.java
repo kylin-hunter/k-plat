@@ -30,8 +30,7 @@ public class JWTService {
     private static final String TENANT_ID = "tenantId";
     private static final String USER_CODE = "userCode";
     private static final String USER_NAME = "userName";
-    private static final String ADMIN = "admin";
-    private static final String TYPE = "userType";
+    private static final String USER_TYPE = "userType";
     private static final String SECRET = "cskb";
 
     public String create(Token tokenInfo) {
@@ -52,8 +51,7 @@ public class JWTService {
                     .withClaim(USER_ID, tokenInfo.getUserId()) // 添加payload
                     .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
                     .withClaim(USER_NAME, tokenInfo.getUserName())
-                    .withClaim(ADMIN, tokenInfo.isAdmin())
-                    .withClaim(TYPE, tokenInfo.getUserType())
+                    .withClaim(USER_TYPE, tokenInfo.getUserType())
                     .withExpiresAt(DateUtils.toDate(tokenInfo.getExpireDate())) // 设置过期时间
                     .sign(Algorithm.HMAC256(SECRET));
         } catch (AuthException e) {
@@ -75,10 +73,9 @@ public class JWTService {
             String userId = decodedJWT.getClaim(USER_ID).asString();
             String userCode = decodedJWT.getClaim(USER_CODE).asString();
             String userName = decodedJWT.getClaim(USER_NAME).asString();
-            boolean admin = decodedJWT.getClaim(ADMIN).asBoolean();
-            int type = decodedJWT.getClaim(TYPE).asInt();
+            int userType = decodedJWT.getClaim(USER_TYPE).asInt();
             Date date = decodedJWT.getExpiresAt();
-            return new Token(tenantId, userId, userCode, userName, admin, type, DateUtils.toLocalDateTime(date));
+            return new Token(tenantId, userId, userCode, userName, userType, DateUtils.toLocalDateTime(date));
         } catch (AuthException e) {
             throw e;
         } catch (TokenExpiredException e) {

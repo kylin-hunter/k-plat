@@ -12,9 +12,7 @@ public interface UserContext {
 
     String getUserName();
 
-    boolean isAdmin();
-
-    int getType();
+    int getUserType();
 
     List<String> getRoleIds();
 
@@ -28,9 +26,7 @@ public interface UserContext {
 
     void setUserName(final String userName);
 
-    void setAdmin(final boolean admin);
-
-    void setType(final int type);
+    void setUserType(final int type);
 
     void setRoleIds(final List<String> roleIds);
 

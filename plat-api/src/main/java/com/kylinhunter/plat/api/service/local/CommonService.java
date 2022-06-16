@@ -8,9 +8,9 @@ import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqById;
+import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
@@ -24,7 +24,7 @@ import com.kylinhunter.plat.api.page.PageData;
  * @since 2022-01-01
  */
 public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage>
+        Z extends Resp, V extends VO, Q extends ReqPage>
         extends IService<T> {
 
     Z save(X reqCreate);
@@ -37,9 +37,9 @@ public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y exte
 
     boolean delete(ReqDelete reqDelete);
 
-    Z queryById(ReqQueryById reqQueryById);
+    Z queryById(ReqById reqById);
 
-    List<Z> queryByIds(ReqQueryByIds reqQueryByIds);
+    List<Z> queryByIds(ReqByIds reqByIds);
 
     PageData<Z> query(Q reqQueryPage);
 

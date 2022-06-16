@@ -33,11 +33,11 @@ public class TenantSaveOrUpdateInterceptor extends
     }
 
     @Override
-    public Tenant before(TenantReqUpdate tenantReqUpdate, Tenant entity) {
+    public Tenant before(TenantReqUpdate tenantReqUpdate, boolean tenantSupported, Tenant entity) {
         if (!tenantInitData.canBeModified(entity.getCode())) {
             throw new ParamException("invalid Tenant code:" + entity.getCode());
         }
 
-        return super.before(tenantReqUpdate, entity);
+        return super.before(tenantReqUpdate, tenantSupported, entity);
     }
 }

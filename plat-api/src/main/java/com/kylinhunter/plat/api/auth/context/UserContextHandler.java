@@ -37,6 +37,8 @@ public interface UserContextHandler {
      */
     UserContext get();
 
+    UserContext get(boolean check);
+
     /**
      * @return void
      * @title remove
@@ -45,4 +47,5 @@ public interface UserContextHandler {
      * @date 2022-06-11 00:41
      */
     void remove();
+
 }

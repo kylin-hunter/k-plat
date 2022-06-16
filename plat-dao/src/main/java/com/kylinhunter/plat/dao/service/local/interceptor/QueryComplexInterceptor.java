@@ -1,9 +1,5 @@
 package com.kylinhunter.plat.dao.service.local.interceptor;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -15,9 +11,7 @@ import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
@@ -33,52 +27,28 @@ import com.kylinhunter.plat.dao.service.local.component.SortComponent;
  **/
 @Component
 @Primary
-public class QueryInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
+public class QueryComplexInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
+        Z extends Resp, V extends VO, Q extends ReqPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
     @Autowired
     private SortComponent sortComponent;
     @Autowired
     private FilterComponent filterComponent;
 
-    public void before(ReqQueryById reqQueryById) {
-    }
+    public QueryWrapper<T> before(Q q, boolean tenantSupported) {
+        QueryWrapper<T> query = Wrappers.query();
 
-    public Z after(ReqQueryById reqQueryById, T enity, Z responseBean) {
-        if (enity != null) {
-            BeanCopyUtils.copyProperties(enity, responseBean);
-            return responseBean;
+        if (tenantSupported) {
+            this.checkTenant();
+            query.eq(SysCols.SYS_TENANT_ID, userContextHandler.get(true).getTenantId());
         }
-        return null;
 
-    }
-
-    public void before(ReqQueryByIds reqQueryByIds) {
-    }
-
-    public List<Z> after(ReqQueryByIds reqQueryByIds, List<T> entities, Class<Z> respClass) {
-        if (entities != null) {
-            return entities.stream().map(bean -> {
-                Z response = ReflectionUtil.newInstance(respClass);
-                BeanCopyUtils.copyProperties(bean, response);
-                return response;
-            }).collect(Collectors.toList());
-        }
-        return Collections.emptyList();
-
-    }
-
-    public QueryWrapper<T> query(Q q) {
-        QueryWrapper<T> wrapper = Wrappers.query();
-        if (q.isWithTenant()) {
-            wrapper.eq(SysCols.SYS_TENANT_ID, q.getUserContext().getTenantId());
-        }
         if (!q.isWithLogicDelData()) {
-            wrapper.eq(SysCols.SYS_DELETE_FLAG, "0");
+            query.eq(SysCols.SYS_DELETE_FLAG, "0");
         }
-        sortComponent.sort(wrapper, q);
-        filterComponent.filter(wrapper, q);
-        return wrapper;
+        sortComponent.sort(query, q);
+        filterComponent.filter(query, q);
+        return query;
     }
 
     public PageData<Z> after(Q reqQueryPage, Page<T> page, Class<Z> respClass) {

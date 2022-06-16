@@ -3,8 +3,10 @@ package com.kylinhunter.plat.core.init.initializer;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
+import com.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.core.init.data.TenantInitData;
 import com.kylinhunter.plat.core.init.data.UserInitData;
 import com.kylinhunter.plat.core.service.local.TenantService;
@@ -45,22 +47,29 @@ public class TenantUserInitializer extends BasicInitializer {
     public void init() {
 
         Tenant defaultTenant = tenantInitData.getDbData(TenantInitData.DEFAULT_CODE);
-        User user = userInitData.getDbData(UserInitData.USER_TEST_CODE);
 
-        final String tenantId = defaultTenant.getId();
+        addTenantUser(defaultTenant, UserInitData.USER_TEST, UserType.TENANT_USER);
+        addTenantUser(defaultTenant, UserInitData.USER_ADMIN, UserType.TENANT_ADMIN);
+
+    }
+
+    private void addTenantUser(Tenant tenant, String userCode, UserType userType) {
+        User user = userInitData.getDbData(userCode);
+
+        final String tenantId = tenant.getId();
         final String userId = user.getId();
-        if (!tenantUserService.hasPermission(tenantId, userId)) {
+        TenantUser tenantUser = tenantUserService.findByTenantAndUser(tenantId, userId);
+        if (tenantUser == null) {
             TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
             tenantUserReqCreate.setTenantId(tenantId);
             tenantUserReqCreate.setUserId(userId);
             tenantUserReqCreate.setStatus(0);
+            tenantUserReqCreate.setType(userType.getCode());
             tenantUserService.save(tenantUserReqCreate);
-            log.info("create permission tenantId={},user={}", defaultTenant.getCode(), user.getUserCode());
-
+            log.info("create tenant user tenant={},user={},type={}", tenant.getCode(), userCode, userType);
         } else {
-            log.info("exist  permission tenantId={},user={}", defaultTenant.getCode(), user.getUserCode());
+            log.info("exist tenant user tenant={},user={},type={}", tenant.getCode(), userCode, tenantUser.getType());
         }
-
     }
 
 }

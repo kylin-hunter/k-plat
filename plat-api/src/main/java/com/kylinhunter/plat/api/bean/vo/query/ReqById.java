@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
-import com.kylinhunter.plat.api.bean.vo.query.ReqQuery;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,17 +17,21 @@ import lombok.NoArgsConstructor;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = " ReqQueryById 对象", description = "公用的查询ID对象")
+@ApiModel(value = " ReqById 对象", description = "公用的查询ID对象")
 @NoArgsConstructor
-public class ReqQueryById extends ReqQuery implements Serializable {
+public class ReqById extends ReqQuery implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
 
     @ApiModelProperty(value = "主键")
     @NotBlank
     private String id;
 
-    public ReqQueryById(String id) {
+    public ReqById(String id) {
         this.id = id;
+    }
+
+    public static ReqById of(String id) {
+        return new ReqById(id);
     }
 
 }

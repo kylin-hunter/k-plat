@@ -1,14 +1,17 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 import com.kylinhunter.plat.api.bean.vo.VO;
-public interface  TenantUserVO  extends VO {
+public interface  TenantRoleVO  extends VO {
+    String getCode();
+    void setCode (String code);
+
     String getDescription();
     void setDescription (String description);
 
-    String getUserId();
-    void setUserId (String userId);
+    Integer getType();
+    void setType (Integer type);
 
-    String getTenantId();
-    void setTenantId (String tenantId);
+    String getName();
+    void setName (String name);
 
     Integer getStatus();
     void setStatus (Integer status);

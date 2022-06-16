@@ -20,5 +20,5 @@ public interface TenantUserService extends CommonService<TenantUser,
         TenantUserReqCreate, TenantUserReqUpdate,
         TenantUserResp, TenantUserVO, TenantUserReqQuery> {
 
-    boolean hasPermission(String tenantId, String userId);
+    TenantUser findByTenantAndUser(String tenantId, String userId);
 }

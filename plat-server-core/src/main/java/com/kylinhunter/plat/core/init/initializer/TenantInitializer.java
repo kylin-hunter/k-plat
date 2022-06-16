@@ -2,8 +2,11 @@ package com.kylinhunter.plat.core.init.initializer;
 
 import org.springframework.stereotype.Component;
 
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
+import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import com.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.core.init.data.TenantInitData;
 import com.kylinhunter.plat.core.service.local.TenantService;
 
@@ -26,6 +29,7 @@ public class TenantInitializer extends BasicInitializer {
 
     private final TenantService tenantService;
     private final TenantInitData tenantInitData;
+    private final UserContextHandler userContextHandler;
 
     @Override
     public int order() {
@@ -45,9 +49,15 @@ public class TenantInitializer extends BasicInitializer {
         } else {
             tenantService.save(defaultTenant);
             log.info("default agent created");
-            tenantInitData.addDbData(code, tenantService.queryByCode(code));
+
+            tenant = tenantService.queryByCode(code);
+            tenantInitData.addDbData(code, tenant);
 
         }
+
+        UserContext userContext = userContextHandler.get();
+        userContext.setTenantId(tenant.getId());
+        userContext.setUserType(UserType.TENANT_ADMIN.getCode());
     }
 
 }

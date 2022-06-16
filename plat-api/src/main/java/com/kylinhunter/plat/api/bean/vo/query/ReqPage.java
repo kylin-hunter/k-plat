@@ -24,10 +24,10 @@ import lombok.NoArgsConstructor;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-@ApiModel(value = "ReqQueryPage 对象", description = "ReqQueryPage")
+@ApiModel(value = "ReqPage 对象", description = "ReqPage")
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReqQueryPage extends ReqQuery implements Serializable {
+public class ReqPage extends ReqQuery implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
 
     @ApiModelProperty(value = "开启分页，（注意，关闭分页可能带来严重性能问题！！）", hidden = true)

@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "TenantReqQuery对象", description = "TenantReqQuery")
-public class TenantReqQuery extends ReqQueryPage {
+public class TenantReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;
 

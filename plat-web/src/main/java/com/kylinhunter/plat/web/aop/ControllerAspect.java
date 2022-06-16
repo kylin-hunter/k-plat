@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
-import com.kylinhunter.plat.api.context.UserContext;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +33,8 @@ public class ControllerAspect {
         if (args != null && args.length > 0) {
             Req req = (Req) Stream.of(args).filter(arg -> arg instanceof Req).findFirst().orElse(null);
             if (req != null) {
-                UserContext userContext = userContextHandler.get();
-                req.setUserContext(userContext);
+                //                UserContext userContext = userContextHandler.get();
+                //                req.setUserContext(userContext);
 
             }
 

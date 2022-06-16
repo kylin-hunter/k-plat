@@ -29,6 +29,9 @@ public class TenantUser extends BaseEntity {
     @ApiModelProperty(value = "userId")
     private String userId;
 
+    @ApiModelProperty(value = "用户类型，预留 默认0")
+    private Integer type;
+
     @ApiModelProperty(value = "状态，预留")
     private Integer status;
 

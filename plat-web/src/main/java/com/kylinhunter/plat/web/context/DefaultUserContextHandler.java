@@ -9,6 +9,8 @@ import com.kylinhunter.plat.api.context.DummyUserContext;
 import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.auth.context.UserContextHandler;
+import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
+import com.kylinhunter.plat.web.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,17 @@ public class DefaultUserContextHandler implements UserContextHandler {
     @Override
     public UserContext get() {
         return userContexts.get();
+    }
+    @Override
+    public UserContext get(boolean check) {
+
+        final UserContext userContext = userContexts.get();
+        if(check){
+            if (userContext == null || userContext.isDummy()) {
+                throw new AuthException(" no user content");
+            }
+        }
+        return userContext;
     }
 
     @Override

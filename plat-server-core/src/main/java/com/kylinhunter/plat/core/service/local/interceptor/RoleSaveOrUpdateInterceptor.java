@@ -27,10 +27,10 @@ public class RoleSaveOrUpdateInterceptor extends
     private final RoleInitData roleInitData;
 
     @Override
-    public Role before(RoleReqUpdate roleReqUpdate, Role entity) {
+    public Role before(RoleReqUpdate roleReqUpdate, boolean tenantSupported, Role entity) {
         if (!roleInitData.canBeModified(entity.getCode())) {
             throw new ParamException("invalid  code:" + entity.getCode());
         }
-        return super.before(roleReqUpdate, entity);
+        return super.before(roleReqUpdate, tenantSupported, entity);
     }
 }

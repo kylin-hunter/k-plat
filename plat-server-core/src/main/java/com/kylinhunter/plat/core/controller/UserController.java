@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
  * @description
  * @date 2022-01-06 22:29
  **/
-@RequestMapping("/api/v1/core/user")
+@RequestMapping("/api/v1/core/users")
 @Api(value = "User相关接口")
 @RequiredArgsConstructor
 @RestController

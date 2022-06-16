@@ -34,12 +34,7 @@ public class DummyUserContext implements UserContext, Serializable {
     }
 
     @Override
-    public boolean isAdmin() {
-        return false;
-    }
-
-    @Override
-    public int getType() {
+    public int getUserType() {
         return 0;
     }
 
@@ -74,12 +69,7 @@ public class DummyUserContext implements UserContext, Serializable {
     }
 
     @Override
-    public void setAdmin(boolean admin) {
-
-    }
-
-    @Override
-    public void setType(int type) {
+    public void setUserType(int type) {
 
     }
 

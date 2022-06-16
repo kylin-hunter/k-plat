@@ -28,8 +28,8 @@ public class TenantDeleteInterceptor extends
     private final TenantInitData tenantInitData;
 
     @Override
-    public void before(ReqDelete reqDelete, Tenant entity) {
-        super.before(reqDelete, entity);
+    public void before(ReqDelete reqDelete, boolean tenantSupported, Tenant entity) {
+        super.before(reqDelete, tenantSupported, entity);
         if (!tenantInitData.canBeDeleted(entity.getCode())) {
             throw new ParamException("can't delete ,for tenant code:" + entity.getCode());
         }

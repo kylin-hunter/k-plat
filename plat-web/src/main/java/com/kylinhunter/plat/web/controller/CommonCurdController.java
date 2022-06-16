@@ -1,20 +1,26 @@
 package com.kylinhunter.plat.web.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqById;
+import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
@@ -36,7 +42,7 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
         Y extends ReqUpdate,
         Z extends DefaultSysResp,
         V extends VO,
-        Q extends ReqQueryPage, T extends BaseEntity> {
+        Q extends ReqPage, T extends BaseEntity> {
 
     @Autowired
     private S service;
@@ -46,7 +52,7 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
         log.info("init controller {} ok", this.getClass().getName());
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新建")
 
@@ -55,25 +61,42 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
         return new DefaultResponse<>(service.save(reqCreate));
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改")
     public DefaultResponse<Z> update(@RequestBody @Validated Y reqUpdate) {
         return new DefaultResponse<>(service.update(reqUpdate));
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{ids}", method = RequestMethod.DELETE)
     @ResponseBody
     @ApiOperation("删除")
-    public DefaultResponse<Boolean> delete(@RequestBody @Validated ReqDelete commonreqDelete) {
-        return new DefaultResponse<>(service.delete(commonreqDelete));
+    public DefaultResponse<Boolean> delete(@Validated @NotBlank @PathVariable("ids") String ids) {
+        return new DefaultResponse<>(service.delete(ReqDelete.of(ids)));
     }
 
-    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/batch", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ApiOperation("删除(多个)")
+    public DefaultResponse<Boolean> batchDelete(@Validated @NotBlank @RequestParam("ids")  String ids) {
+        return new DefaultResponse<>(service.delete(ReqDelete.of(ids)));
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查看详情")
-    public DefaultResponse<Z> detail(@Validated ReqQueryById reqQueryById) {
-        return new DefaultResponse<>(this.service.queryById(reqQueryById));
+    public DefaultResponse<Z> get(@PathVariable("id") String id) {
+
+        return new DefaultResponse<>(this.service.queryById(ReqById.of(id)));
+
+    }
+
+    @RequestMapping(value = "/batch", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation("查看详情")
+    public DefaultResponse<List<Z>> batchGet(@Validated @NotBlank @RequestParam("ids") String ids) {
+
+        return new DefaultResponse<>(this.service.queryByIds(ReqByIds.of(ids)));
 
     }
 

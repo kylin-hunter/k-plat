@@ -8,9 +8,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.auth.ReqLogin;
 import com.kylinhunter.plat.api.auth.Token;
 import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
+import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import com.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.commons.codec.PasswordUtil;
+import com.kylinhunter.plat.commons.util.EnumUtil;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.AuthService;
@@ -50,7 +53,6 @@ public class AuthServiceImp implements AuthService {
                 token.setUserType(user.getType());
                 token.setUserCode(reqLogin.getUserCode());
                 token.setUserName(user.getUserName());
-                token.setAdmin(UserType.isAdmin(user.getType()));
                 token.setTenantId(reqLogin.getTenantId());
                 if (!StringUtils.isEmpty(token.getTenantId())) {
                     checkTenant(token);
@@ -90,11 +92,28 @@ public class AuthServiceImp implements AuthService {
         if (tenant == null) {
             throw new AuthException("tenant no exist");
         }
-        if (!token.isAdmin()) {
-            if (!tenantUserService.hasPermission(tenantId, token.getUserId())) {
+
+        TenantUser tenantUser = tenantUserService.findByTenantAndUser(tenantId, token.getUserId());
+        if (tenantUser != null) {
+            token.setUserType(tenantUser.getType());
+        } else {
+
+            UserType userType = EnumUtil.fromCode(UserType.class, token.getUserType());
+            if (userType == UserType.SUPER_ADMIN) {
+                TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
+                tenantUserReqCreate.setTenantId(tenantId);
+                tenantUserReqCreate.setUserId(token.getUserId());
+                tenantUserReqCreate.setStatus(0);
+                tenantUserReqCreate.setType(UserType.TENANT_ADMIN.getCode());
+                tenantUserService.save(tenantUserReqCreate);
+                log.info("create tenant admin tenantId={},user={}", tenant.getCode(), token.getUserCode());
+
+                token.setUserType(tenantUserReqCreate.getType());
+            } else {
                 throw new AuthException("校验用户和租户关系失败" + token.getUserId() + ":" + tenant.getId());
 
             }
+
         }
 
     }

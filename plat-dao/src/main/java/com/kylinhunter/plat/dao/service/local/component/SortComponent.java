@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.sort.Order;
 import com.kylinhunter.plat.api.bean.sort.ReqSort;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.commons.util.name.NamePair;
 import com.kylinhunter.plat.commons.util.name.NamePairUtils;
 
@@ -22,15 +22,15 @@ public class SortComponent {
 
     /**
      * @param wrapper      wrapper
-     * @param reqQueryPage reqQueryPage
+     * @param reqPage reqPage
      * @return void
      * @title 写sort到wrapper
      * @description
      * @author BiJi'an
      * @date 2021/11/11 3:45 下午
      */
-    public <T> void sort(QueryWrapper<T> wrapper, ReqQueryPage reqQueryPage) {
-        List<ReqSort> sorts = reqQueryPage.getSorts();
+    public <T> void sort(QueryWrapper<T> wrapper, ReqPage reqPage) {
+        List<ReqSort> sorts = reqPage.getSorts();
         if (sorts != null && sorts.size() > 0) {
             sorts.forEach(sort -> {
                 NamePair namePair = NamePairUtils.toNamePair(sort.getField());

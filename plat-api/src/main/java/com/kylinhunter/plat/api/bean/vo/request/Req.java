@@ -4,7 +4,6 @@ import com.kylinhunter.plat.api.bean.vo.BasicVO;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
-import com.kylinhunter.plat.api.context.UserContext;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,14 +23,8 @@ import lombok.Setter;
 public class Req extends BasicVO implements VO {
     private static final long serialVersionUID = -8450405452557433712L;
 
-    @ApiModelProperty(value = "userContext", hidden = true)
-    private UserContext userContext;
-
     @ApiModelProperty(value = "debug", hidden = true)
     private boolean debug = false;
-
-    @ApiModelProperty(value = "checkTenant", hidden = true)
-    private boolean checkTenant = true;
 
     @ApiModelProperty(value = "reqType", hidden = true)
     private ReqType reqType;
@@ -42,7 +35,6 @@ public class Req extends BasicVO implements VO {
     }
 
     public void copyFrom(Req req) {
-        this.userContext = req.userContext;
         this.debug = req.debug;
     }
 

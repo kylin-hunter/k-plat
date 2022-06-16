@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
@@ -21,9 +19,9 @@ import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryByIds;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqById;
+import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
@@ -36,7 +34,8 @@ import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
 import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
-import com.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
+import com.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
+import com.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.NoArgsConstructor;
@@ -53,7 +52,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseEntity, X extends ReqCreate,
         Y extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends ServiceImpl<M, T>
+        Z extends Resp, V extends VO, Q extends ReqPage> extends ServiceImpl<M, T>
         implements CommonService<T, X, Y, Z, V, Q> {
     protected Class<T> entityClass = currentEntityClass();
     protected Class<Z> respClass = currentRespClass();
@@ -67,7 +66,11 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
 
     protected DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
 
-    protected QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
+    protected QueryComplexInterceptor<T, X, Y, Z, V, Q> queryComplexInterceptor;
+
+    protected QueryAccurateInterceptor<T, X, Y, Z, V, Q> queryAccurateInterceptor;
+
+    protected boolean tenantSupported = true;
 
     @SuppressWarnings("unchecked")
     protected Class<T> currentEntityClass() {
@@ -97,7 +100,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
 
     protected Z save(X reqCreate, boolean newData) {
         try {
-            T t = saveOrUpdateInterceptor.before(reqCreate, createEntity());
+            T t = saveOrUpdateInterceptor.before(reqCreate, this.tenantSupported, createEntity());
             if (this.save(t)) {
                 if (newData) {
                     return saveOrUpdateInterceptor.after(reqCreate, t, createResponse());
@@ -134,7 +137,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             if (t == null) {
                 throw new DBException(ErrInfos.DB_NO_EXIST, "no data for id =" + reqUpdate.getId());
             }
-            t = saveOrUpdateInterceptor.before(reqUpdate, t);
+            t = saveOrUpdateInterceptor.before(reqUpdate, this.tenantSupported, t);
             if (this.updateById(t)) {
                 return saveOrUpdateInterceptor.after(reqUpdate, t, createResponse());
             } else {
@@ -160,7 +163,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
                 log.error("update batch error", e);
                 int code = ExceptionHelper.getErrCode(e);
                 String msg = ExceptionHelper.getMessage(e);
-                Z z = this.queryById(new ReqQueryById(reqUpdate.getId()));
+                Z z = this.queryById(new ReqById(reqUpdate.getId()));
                 batchResp.addSingleResp(code, msg, z);
             }
 
@@ -174,7 +177,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
         List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
         datas.forEach(data -> {
 
-            this.deleteInterceptor.before(reqDelete, data);
+            this.deleteInterceptor.before(reqDelete, this.tenantSupported, data);
             if (reqDelete.isPhysical()) {
                 this.baseMapper.deleteById(data.getId());
             } else {
@@ -187,34 +190,25 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     }
 
     @Override
-    public Z queryById(ReqQueryById reqQueryById) {
+    public Z queryById(ReqById reqById) {
         try {
-            queryInterceptor.before(reqQueryById);
-            QueryWrapper<T> query = Wrappers.query();
-            query.eq(SysCols.ID, reqQueryById.getId());
-            if (!reqQueryById.isWithLogicDelData()) {
-                query.eq(SysCols.SYS_DELETE_FLAG, "0");
-            }
-
+            QueryWrapper<T> query = queryAccurateInterceptor.before(reqById, this.tenantSupported);
+            query.eq(SysCols.ID, reqById.getId());
             T entity = this.baseMapper.selectOne(query);
-            return queryInterceptor.after(reqQueryById, entity, createResponse());
+            return queryAccurateInterceptor.after(reqById, entity, createResponse());
         } catch (Exception e) {
             throw exceptionExplainer.convert(e);
         }
     }
 
     @Override
-    public List<Z> queryByIds(ReqQueryByIds reqQueryByIds) {
+    public List<Z> queryByIds(ReqByIds reqByIds) {
         try {
 
-            this.queryInterceptor.before(reqQueryByIds);
-            LambdaQueryWrapper<T> query = Wrappers.lambdaQuery();
-            query.eq(T::getId, reqQueryByIds.getIds());
-            if (!reqQueryByIds.isWithLogicDelData()) {
-                query.eq(T::getSysDeleteFlag, 0);
-            }
+            QueryWrapper<T> query = this.queryAccurateInterceptor.before(reqByIds, this.tenantSupported);
+            query.in(SysCols.ID, reqByIds.getIds());
             List<T> beans = this.baseMapper.selectList(query);
-            return this.queryInterceptor.after(reqQueryByIds, beans, respClass);
+            return this.queryAccurateInterceptor.after(reqByIds, beans, respClass);
 
         } catch (Exception e) {
             throw exceptionExplainer.convert(e);
@@ -224,10 +218,10 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Override
     public PageData<Z> query(Q reqQueryPage) {
         try {
-            QueryWrapper<T> queryWrapper = queryInterceptor.query(reqQueryPage);
+            QueryWrapper<T> queryWrapper = queryComplexInterceptor.before(reqQueryPage, tenantSupported);
             Page<T> page = Page.of(reqQueryPage.getPn(), reqQueryPage.getPs());
             Page<T> entities = this.baseMapper.selectPage(page, queryWrapper);
-            return queryInterceptor.after(reqQueryPage, entities, respClass);
+            return queryComplexInterceptor.after(reqQueryPage, entities, respClass);
         } catch (Exception e) {
             throw exceptionExplainer.convert(e);
         }
@@ -244,9 +238,13 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             this.deleteInterceptor = this.applicationContext.getBean(DeleteInterceptor.class);
         }
 
-        if (this.queryInterceptor == null) {
-            this.queryInterceptor = this.applicationContext.getBean(QueryInterceptor.class);
+        if (this.queryComplexInterceptor == null) {
+            this.queryComplexInterceptor = this.applicationContext.getBean(QueryComplexInterceptor.class);
         }
+        if (this.queryAccurateInterceptor == null) {
+            this.queryAccurateInterceptor = this.applicationContext.getBean(QueryAccurateInterceptor.class);
+        }
+
     }
 
 }

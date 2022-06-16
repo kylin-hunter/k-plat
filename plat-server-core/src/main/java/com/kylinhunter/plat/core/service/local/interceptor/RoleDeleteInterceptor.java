@@ -28,8 +28,8 @@ public class RoleDeleteInterceptor extends
     private final RoleInitData roleInitData;
 
     @Override
-    public void before(ReqDelete reqDelete, Role entity) {
-        super.before(reqDelete, entity);
+    public void before(ReqDelete reqDelete, boolean tenantSupported, Role entity) {
+        super.before(reqDelete, tenantSupported, entity);
         if (!roleInitData.canBeDeleted(entity.getCode())) {
             throw new ParamException("can't delete ,for  code:" + entity.getCode());
         }

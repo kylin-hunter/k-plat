@@ -13,23 +13,26 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-15
+ * @since 2022-06-17
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("kplat_tenant_user")
-@ApiModel(value="TenantUser对象", description="")
-public class TenantUser extends BaseEntity {
+@TableName("kplat_tenant_role")
+@ApiModel(value="TenantRole对象", description="")
+public class TenantRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "tenantId")
-    private String tenantId;
+    @ApiModelProperty(value = "code")
+    private String code;
 
-    @ApiModelProperty(value = "userId")
-    private String userId;
+    @ApiModelProperty(value = "name")
+    private String name;
 
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "类型")
+    private Integer type;
+
+    @ApiModelProperty(value = "角色状态，预留")
     private Integer status;
 
     @ApiModelProperty(value = "描述")

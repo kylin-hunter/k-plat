@@ -20,9 +20,11 @@ public class PathPatterns {
             .add("/auth/**");
 
     public static final PathPattern API_V1_TENANT = PathPattern.builder().build()
-            .add("/api/v1/core/tenant/**");
+            .add("/api/v1/core/tenants/**");
     public static final PathPattern API_V1_USER = PathPattern.builder().build()
-            .add("/api/v1/core/user/**");
+            .add("/api/v1/core/users/**");
+    public static final PathPattern API_V1_ROLES = PathPattern.builder().build()
+            .add("/api/v1/core/roles/**");
 
     public static final PathPattern API_V1 = PathPattern.builder().build()
             .add("/api/v1/**");

@@ -13,13 +13,19 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UserType implements EnumUtil.EnumCode {
-    DEFAULT(0, "DEFAULT"),
-    ADMIN(1, "ADMIN");
+    USER(0, "USER"),
+    SUPER_ADMIN(1, "SUPER_ADMIN"),
+    TENANT_USER(2, "TENANT_USER"),
+    TENANT_ADMIN(3, "TENANT_ADMIN");
     private final int code;
     private final String name;
 
-    public static boolean isAdmin(int type) {
+    public static boolean isSuperAdmin(int type) {
         return type == 1;
+    }
+
+    public static boolean isTenantAdmin(int type) {
+        return type == 3;
     }
 
 }

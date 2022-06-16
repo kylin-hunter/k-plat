@@ -19,8 +19,8 @@ import lombok.Getter;
 @Component
 @Getter
 public class UserInitData extends BasicInitData<UserReqCreate, User> {
-    public static final String USER_ADMIN_CODE = "admin";
-    public static final String USER_TEST_CODE = "test";
+    public static final String USER_ADMIN = "admin";
+    public static final String USER_TEST = "test";
 
     private UserReqCreate userAdmin = createUserAdmin();
     private UserReqCreate userTest = createUserTest();
@@ -29,13 +29,13 @@ public class UserInitData extends BasicInitData<UserReqCreate, User> {
 
         UserReqCreate userReqCreate = new UserReqCreate();
         userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
-        userReqCreate.setUserCode(USER_ADMIN_CODE);
-        userReqCreate.setUserName(USER_ADMIN_CODE);
-        userReqCreate.setPassword(USER_ADMIN_CODE);
+        userReqCreate.setUserCode(USER_ADMIN);
+        userReqCreate.setUserName(USER_ADMIN);
+        userReqCreate.setPassword(USER_ADMIN);
         userReqCreate.setSource("0");
-        userReqCreate.setType(UserType.ADMIN.getCode());
+        userReqCreate.setType(UserType.SUPER_ADMIN.getCode());
         userReqCreate.setStatus(UserStatus.NORMAL.getCode());
-        userReqCreate.setDescription(USER_ADMIN_CODE);
+        userReqCreate.setDescription(USER_ADMIN);
         this.addInitData(userReqCreate.getUserCode(), userReqCreate);
         return userReqCreate;
     }
@@ -44,13 +44,13 @@ public class UserInitData extends BasicInitData<UserReqCreate, User> {
 
         UserReqCreate userReqCreate = new UserReqCreate();
         userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
-        userReqCreate.setUserCode(USER_TEST_CODE);
-        userReqCreate.setUserName(USER_TEST_CODE);
-        userReqCreate.setPassword(USER_TEST_CODE);
+        userReqCreate.setUserCode(USER_TEST);
+        userReqCreate.setUserName(USER_TEST);
+        userReqCreate.setPassword(USER_TEST);
         userReqCreate.setSource("0");
-        userReqCreate.setType(UserType.DEFAULT.getCode());
+        userReqCreate.setType(UserType.USER.getCode());
         userReqCreate.setStatus(UserStatus.NORMAL.getCode());
-        userReqCreate.setDescription(USER_TEST_CODE);
+        userReqCreate.setDescription(USER_TEST);
         this.addInitData(userReqCreate.getUserCode(), userReqCreate);
         return userReqCreate;
     }

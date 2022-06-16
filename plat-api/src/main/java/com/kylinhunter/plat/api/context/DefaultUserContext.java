@@ -31,12 +31,8 @@ public class DefaultUserContext implements UserContext, Serializable {
 
     @ApiModelProperty(value = "userName", hidden = true)
     private String userName = "";
-
-    @ApiModelProperty(value = "admin", hidden = true)
-    private boolean admin = false;
-
     @ApiModelProperty(value = "账户类型")
-    private int type;
+    private int userType;
 
     @ApiModelProperty(value = "账户类型")
     private boolean checkTenant;
@@ -53,8 +49,8 @@ public class DefaultUserContext implements UserContext, Serializable {
 
     public DefaultUserContext(User user) {
         BeanUtils.copyProperties(user, this);
+        this.userType=user.getType();
         this.userId = user.getId();
-        this.admin = UserType.isAdmin(user.getType());
     }
 
     @Override

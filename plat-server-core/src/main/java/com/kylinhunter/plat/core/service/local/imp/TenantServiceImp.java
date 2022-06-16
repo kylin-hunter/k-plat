@@ -35,6 +35,7 @@ public class TenantServiceImp
                           TenantDeleteInterceptor tenantDeleteInterceptor) {
         this.saveOrUpdateInterceptor = tenantSaveOrUpdateInterceptor;
         this.deleteInterceptor = tenantDeleteInterceptor;
+        this.tenantSupported = false;
     }
     
     @Override

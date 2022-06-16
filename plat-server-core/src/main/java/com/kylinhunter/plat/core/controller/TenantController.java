@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2022-06-12
  */
 @RestController
-@RequestMapping("/api/v1/core/tenant")
+@RequestMapping("/api/v1/core/tenants")
 @Api(value = "Tenant相关接口")
 @RequiredArgsConstructor
 public class TenantController extends

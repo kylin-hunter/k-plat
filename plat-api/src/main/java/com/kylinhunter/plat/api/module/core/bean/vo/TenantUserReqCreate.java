@@ -26,6 +26,8 @@ public class TenantUserReqCreate extends ReqCreate implements TenantUserVO {
     private String userId;
     @ApiModelProperty(value = "tenantId")
     private String tenantId;
+    @ApiModelProperty(value = "用户类型，预留 默认0")
+    private Integer type;
     @ApiModelProperty(value = "状态，预留")
     private Integer status;
 

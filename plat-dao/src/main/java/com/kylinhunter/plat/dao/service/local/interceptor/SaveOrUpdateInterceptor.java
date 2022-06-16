@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
@@ -19,7 +19,7 @@ import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
 @Component
 @Primary
 public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, U extends ReqUpdate,
-        Z extends Resp, V extends VO, Q extends ReqQueryPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
+        Z extends Resp, V extends VO, Q extends ReqPage> extends BasicInterceptor<T, C, U, Z, V, Q> {
 
     private final String[] createSkipProperties = new String[] {
             "sysTenantId", "sysCreatedUserId", "sysCreatedUserName", "sysCreatedTime",
@@ -40,7 +40,10 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     }
 
     @SuppressWarnings("unchecked")
-    public T before(C c, T entity) {
+    public T before(C c, boolean tenantSupported, T entity) {
+        if (tenantSupported) {
+            this.checkTenant();
+        }
         saveOrUpdateBefore((V) c);
         BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
         this.setCreateMsg(c, entity);
@@ -55,7 +58,10 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     }
 
     @SuppressWarnings("unchecked")
-    public T before(U u, T entity) {
+    public T before(U u, boolean tenantSupported, T entity) {
+        if (tenantSupported) {
+            checkTenant(entity);
+        }
         saveOrUpdateBefore((V) u);
         BeanCopyUtils.copyProperties(u, entity, updateSkipProperties);
         this.setUpdateMsg(u, entity);

@@ -29,12 +29,12 @@ public class TenantUserServiceImp
         TenantUserResp, TenantUserVO, TenantUserReqQuery> implements TenantUserService {
 
     @Override
-    public boolean hasPermission(String tenantId, String userId) {
+    public TenantUser findByTenantAndUser(String tenantId, String userId) {
 
         LambdaQueryWrapper<TenantUser> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(TenantUser::getSysDeleteFlag, false);
         queryWrapper.eq(TenantUser::getTenantId, tenantId);
         queryWrapper.eq(TenantUser::getUserId, userId);
-        return this.baseMapper.selectOne(queryWrapper) != null;
+        return this.baseMapper.selectOne(queryWrapper);
     }
 }

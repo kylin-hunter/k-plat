@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2022-06-11
  */
 @RestController
-@RequestMapping("/api/v1/core/role")
+@RequestMapping("/api/v1/core/roles")
 @Api(value = "Role相关接口")
 @RequiredArgsConstructor
 public class RoleController extends

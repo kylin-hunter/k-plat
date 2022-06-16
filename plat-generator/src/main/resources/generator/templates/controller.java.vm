@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  * @since ${date}
  */
 @RestController
-@RequestMapping("/api/v1/${sys_module_name}/${output.entitySnakeName}")
+@RequestMapping("/api/v1/${sys_module_name}/${output.entitySnakeName}s")
 @Api(value = "${entity_name}相关接口")
 @RequiredArgsConstructor
 public class ${entity_name}Controller extends

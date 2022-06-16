@@ -2,9 +2,13 @@ package com.kylinhunter.plat.api.bean.vo.delete;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.collect.Lists;
 import com.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import com.kylinhunter.plat.api.bean.vo.constants.VoType;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
@@ -41,6 +45,17 @@ public class ReqDelete extends Req implements Serializable {
     public ReqDelete(Collection<String> ids) {
         this();
         this.ids = ids;
+    }
+
+    public static ReqDelete of(String idArr) {
+        List<String> allIds = Lists.newArrayList();
+        String[] ids = StringUtils.split(idArr, ',');
+        for (String id : ids) {
+            if (!StringUtils.isEmpty(id)) {
+                allIds.add(id);
+            }
+        }
+        return new ReqDelete(allIds);
     }
 
 }

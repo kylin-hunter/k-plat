@@ -1,13 +1,12 @@
 package com.kylinhunter.plat.api.module.core.bean.vo;
 
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -21,7 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @ApiModel(value = "UserReqQuery", description = "")
 @NoArgsConstructor
-public class UserReqQuery extends ReqQueryPage {
+public class UserReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;
 

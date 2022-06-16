@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqQueryPage;
+import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
@@ -88,7 +88,7 @@ public class Configurations {
                 } else if (template == Template.VO_RESPONSE) {
                     strategyConfig.setSuperClassName(DefaultSysResp.class);
                 } else if (template == Template.VO_REQ_QUREY) {
-                    strategyConfig.setSuperClassName(ReqQueryPage.class);
+                    strategyConfig.setSuperClassName(ReqPage.class);
                     strategyConfig.setFiledSwagger2(false);
                 } else if (template == Template.VO) {
 

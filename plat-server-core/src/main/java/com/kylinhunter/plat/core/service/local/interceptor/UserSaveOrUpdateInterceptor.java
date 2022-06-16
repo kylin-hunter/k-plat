@@ -42,10 +42,10 @@ public class UserSaveOrUpdateInterceptor extends
     }
 
     @Override
-    public User before(UserReqUpdate userReqUpdate, User entity) {
+    public User before(UserReqUpdate userReqUpdate, boolean tenantSupported, User entity) {
         if (!userInitData.canBeModified(entity.getUserCode())) {
             throw new ParamException("invalid user code:" + entity.getUserCode());
         }
-        return super.before(userReqUpdate, entity);
+        return super.before(userReqUpdate, tenantSupported, entity);
     }
 }

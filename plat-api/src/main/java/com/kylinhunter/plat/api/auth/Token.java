@@ -30,13 +30,8 @@ public class Token {
     @ApiModelProperty(value = "userName", hidden = true)
     private String userName = "";
 
-    @ApiModelProperty(value = "admin", hidden = true)
-    private boolean admin = false;
-
     @ApiModelProperty(value = "账户类型")
     private int userType;
-
-    private TokenType type;
 
     @ApiModelProperty(value = "过期时间", hidden = true)
     private LocalDateTime expireDate;
