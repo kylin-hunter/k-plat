@@ -12,7 +12,7 @@ public interface BranchBuilder<P, T> {
 
     /**
      * @param factory
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.Branch<P, T>
+     * @return   com.kylinhunter.plat.commons.tools.select.Branch<P, T>
      * @throws
      * @title 使用一个值工厂构造出一个分支
      * @description
@@ -23,7 +23,7 @@ public interface BranchBuilder<P, T> {
 
     /**
      * @param value
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.Branch<P, T>
+     * @return   com.kylinhunter.plat.commons.tools.select.Branch<P, T>
      * @throws
      * @title 从值构建出一个分支
      * @description
@@ -36,7 +36,7 @@ public interface BranchBuilder<P, T> {
 
     /**
      * @param tester
-     * @return com.kylinhunter.plat.generator.cskb.convertor.select.BranchBuilder<P, T>
+     * @return   com.kylinhunter.plat.commons.tools.select.BranchBuilder<P, T>
      * @throws
      * @title 工厂函数，用于创建分支构建者
      * @description

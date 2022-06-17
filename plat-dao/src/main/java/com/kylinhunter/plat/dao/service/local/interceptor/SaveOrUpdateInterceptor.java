@@ -28,7 +28,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
 
     private final String[] updateSkipProperties = new String[] {
             "id", "sysTenantId", "sysCreatedUserId", "sysCreatedUserName", "sysCreatedTime",
-            "sysUpdateUserId", "sysUpdateUserName", "sysUpdateTime", "sysDeleteFlag", "sysOpLock"
+            "sysUpdateUserId", "sysUpdateUserName", "sysUpdateTime", "sysDeleteFlag", "sysOpLock", "code"
     };
 
     protected void saveOrUpdateBefore(V vo) {

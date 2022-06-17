@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.vo.VO;
@@ -58,9 +59,11 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     protected Class<Z> respClass = currentRespClass();
 
     @Autowired
-    private ApplicationContext applicationContext;
+    protected ApplicationContext applicationContext;
     @Autowired
-    private ExceptionExplainer exceptionExplainer;
+    protected ExceptionExplainer exceptionExplainer;
+    @Autowired
+    protected UserContextHandler userContextHandler;
 
     protected SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
 
@@ -185,7 +188,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             }
             this.deleteInterceptor.after(reqDelete, data);
         });
-        return true;
+        return datas.size() > 0;
 
     }
 

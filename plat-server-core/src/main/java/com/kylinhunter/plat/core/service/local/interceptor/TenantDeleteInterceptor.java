@@ -10,7 +10,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.data.TenantInitData;
+import com.kylinhunter.plat.core.init.data.TenantInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class TenantDeleteInterceptor extends
         DeleteInterceptor<Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
 
-    private final TenantInitData tenantInitData;
+    private final TenantInitDatas tenantInitData;
 
     @Override
     public void before(ReqDelete reqDelete, boolean tenantSupported, Tenant entity) {

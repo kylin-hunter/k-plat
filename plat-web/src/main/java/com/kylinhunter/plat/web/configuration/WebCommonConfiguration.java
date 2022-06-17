@@ -14,7 +14,7 @@ import com.kylinhunter.plat.commons.exception.explain.ExplainCustomizer;
 import com.kylinhunter.plat.commons.util.date.DatePatterns;
 import com.kylinhunter.plat.web.error.WebExplainCustomizer;
 import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
-import com.kylinhunter.plat.web.i18n.CskbLocaleResolver;
+import com.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 
 /**
  * @author BiJi'an
@@ -27,7 +27,7 @@ public class WebCommonConfiguration {
 
     @Bean // 将区域信息对象注册到容器
     public LocaleResolver localeResolver() {
-        return new CskbLocaleResolver();
+        return new KplatLocaleResolver();
     }
 
     @Bean

@@ -1,0 +1,1 @@
+select * from kplat_tenant_catalog

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -278,11 +279,25 @@ public class JsonUtils {
 
     }
 
-    @SuppressWarnings("unused")
+//    @SuppressWarnings("unused")
+//    public static <T> List<T> toList(String content, Class<T> clazz, boolean throwIfFailed) {
+//        try {
+//            return objectMapperCommon.readValue(content, new TypeReference<List<T>>() {
+//            });
+//        } catch (JsonProcessingException e) {
+//            if (throwIfFailed) {
+//                throw new FormatException("json readValue error", e);
+//            } else {
+//                log.error("json readValue error", e);
+//            }
+//        }
+//        return null;
+//    }
+
     public static <T> List<T> toList(String content, Class<T> clazz, boolean throwIfFailed) {
         try {
-            return objectMapperCommon.readValue(content, new TypeReference<List<T>>() {
-            });
+            JavaType javaType = objectMapperCommon.getTypeFactory().constructCollectionType(List.class, clazz);
+            return objectMapperCommon.readValue(content, javaType);
         } catch (JsonProcessingException e) {
             if (throwIfFailed) {
                 throw new FormatException("json readValue error", e);
@@ -292,4 +307,6 @@ public class JsonUtils {
         }
         return null;
     }
+
+
 }

@@ -4,12 +4,11 @@ package com.kylinhunter.plat.web.context;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.auth.Token;
+import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.api.context.DefaultUserContext;
 import com.kylinhunter.plat.api.context.DummyUserContext;
 import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
-import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
 import com.kylinhunter.plat.web.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;
@@ -45,13 +44,14 @@ public class DefaultUserContextHandler implements UserContextHandler {
 
     @Override
     public UserContext get() {
-        return userContexts.get();
+        return this.get(true);
     }
+
     @Override
     public UserContext get(boolean check) {
 
         final UserContext userContext = userContexts.get();
-        if(check){
+        if (check) {
             if (userContext == null || userContext.isDummy()) {
                 throw new AuthException(" no user content");
             }

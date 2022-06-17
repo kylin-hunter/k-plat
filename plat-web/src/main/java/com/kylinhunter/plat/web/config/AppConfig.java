@@ -36,7 +36,7 @@ public class AppConfig {
     @Value("${app.threshold:0}")
     private int watchThreshold;
 
-    @Value("${app.initialize:false}")
+    @Value("${app.initialize.enabled:false}")
     private boolean initialize;
 
     @Value("${app.env:RELEASE}")

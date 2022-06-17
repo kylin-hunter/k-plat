@@ -4,3 +4,17 @@ ALTER TABLE `kplat_user` ADD COLUMN `password` varchar(64) NOT NULL  COMMENT '�
 ALTER TABLE `kplat_user` ADD UNIQUE `uniq_user_code` (`user_code`) comment '唯一的user code';
 
 ALTER TABLE `kplat_tenant_user` ADD INDEX `idx_userId` USING BTREE (`userId`) comment '';
+
+
+ALTER TABLE `kplat_tenant_catalog` DROP COLUMN `path1`;
+ALTER TABLE `kplat_tenant_catalog` DROP COLUMN `path`;
+
+ALTER TABLE `kplat_tenant_catalog` ADD COLUMN `path` varchar(1024) NOT NULL DEFAULT '' COMMENT 'path' after
+    `description`;
+
+
+ALTER TABLE `kplat_tenant_catalog` MODIFY COLUMN `path` varchar(1024) NOT NULL DEFAULT '' COMMENT 'path' after
+    `description`;
+
+
+

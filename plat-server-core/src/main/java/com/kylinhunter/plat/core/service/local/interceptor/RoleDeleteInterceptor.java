@@ -10,7 +10,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.data.RoleInitData;
+import com.kylinhunter.plat.core.init.data.RoleInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class RoleDeleteInterceptor extends
         DeleteInterceptor<Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery> {
 
-    private final RoleInitData roleInitData;
+    private final RoleInitDatas roleInitData;
 
     @Override
     public void before(ReqDelete reqDelete, boolean tenantSupported, Role entity) {

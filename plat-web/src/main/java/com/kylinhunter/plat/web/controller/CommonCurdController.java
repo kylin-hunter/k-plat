@@ -45,7 +45,7 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
         Q extends ReqPage, T extends BaseEntity> {
 
     @Autowired
-    private S service;
+    protected S service;
 
     @PostConstruct
     private void init() {

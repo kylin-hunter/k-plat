@@ -44,7 +44,7 @@ public class CodeContext {
 
     /**
      * @param template template
-     * @return java.util.List<com.kylinhunter.plat.generator.cskb.pojo.GenerateFileInfo>
+     * @return java.util.List<com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo>
      * @title 获取即将生成的代码文件的信息
      * @description
      * @author BiJi'an

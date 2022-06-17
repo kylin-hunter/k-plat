@@ -1,8 +1,7 @@
 package com.kylinhunter.plat.generator.auto.kplat.core;
 
+import com.kylinhunter.plat.generator.auto.mybatis.DefaultMybatisPlusGenerator;
 import com.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForTenantRole;
-import com.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForTenantUser;
-import com.kylinhunter.plat.generator.common.Module;
 
 /**
  * @author BiJi'an
@@ -12,12 +11,11 @@ import com.kylinhunter.plat.generator.common.Module;
 public class KPlatCodeGenneratorForTenantRole extends CoreKPlatCodeGennerator {
 
     @Override
-    public Module initModule() {
-        return new MybatisPlusGeneratorForTenantRole().getConfig().getModule();
+    public Class<? extends DefaultMybatisPlusGenerator> getMybatisPlusGenerator() {
+        return MybatisPlusGeneratorForTenantRole.class;
     }
 
     public static void main(String[] args) {
-        CoreKPlatCodeGennerator coreKPlatCodeGennerator = new KPlatCodeGenneratorForTenantRole();
-        coreKPlatCodeGennerator.exec(true);
+        new KPlatCodeGenneratorForTenantRole().exec(true);
     }
 }

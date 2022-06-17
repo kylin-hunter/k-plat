@@ -11,7 +11,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.commons.codec.PasswordUtil;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.data.UserInitData;
+import com.kylinhunter.plat.core.init.data.UserInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class UserSaveOrUpdateInterceptor extends
         SaveOrUpdateInterceptor<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
-    private final UserInitData userInitData;
+    private final UserInitDatas userInitData;
 
     @Override
     public void saveOrUpdateBefore(UserVO vo) {
@@ -42,10 +42,10 @@ public class UserSaveOrUpdateInterceptor extends
     }
 
     @Override
-    public User before(UserReqUpdate userReqUpdate, boolean tenantSupported, User entity) {
+    public User before(UserReqUpdate reqUpdate, boolean tenantSupported, User entity) {
         if (!userInitData.canBeModified(entity.getUserCode())) {
             throw new ParamException("invalid user code:" + entity.getUserCode());
         }
-        return super.before(userReqUpdate, tenantSupported, entity);
+        return super.before(reqUpdate, tenantSupported, entity);
     }
 }

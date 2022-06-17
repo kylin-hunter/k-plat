@@ -9,7 +9,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.data.RoleInitData;
+import com.kylinhunter.plat.core.init.data.RoleInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -24,13 +24,13 @@ import lombok.RequiredArgsConstructor;
 public class RoleSaveOrUpdateInterceptor extends
         SaveOrUpdateInterceptor<Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery> {
 
-    private final RoleInitData roleInitData;
+    private final RoleInitDatas roleInitData;
 
     @Override
-    public Role before(RoleReqUpdate roleReqUpdate, boolean tenantSupported, Role entity) {
+    public Role before(RoleReqUpdate reqUpdate, boolean tenantSupported, Role entity) {
         if (!roleInitData.canBeModified(entity.getCode())) {
             throw new ParamException("invalid  code:" + entity.getCode());
         }
-        return super.before(roleReqUpdate, tenantSupported, entity);
+        return super.before(reqUpdate, tenantSupported, entity);
     }
 }

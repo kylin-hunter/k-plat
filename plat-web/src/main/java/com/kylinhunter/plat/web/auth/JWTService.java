@@ -31,7 +31,7 @@ public class JWTService {
     private static final String USER_CODE = "userCode";
     private static final String USER_NAME = "userName";
     private static final String USER_TYPE = "userType";
-    private static final String SECRET = "cskb";
+    private static final String SECRET = "kplat";
 
     public String create(Token tokenInfo) {
         try {

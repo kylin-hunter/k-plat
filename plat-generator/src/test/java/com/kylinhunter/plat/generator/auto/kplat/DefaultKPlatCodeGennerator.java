@@ -6,8 +6,10 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import com.kylinhunter.plat.commons.exception.inner.GeneralException;
+import com.kylinhunter.plat.commons.exception.inner.InitException;
 import com.kylinhunter.plat.commons.exception.inner.KIOException;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
+import com.kylinhunter.plat.generator.auto.mybatis.DefaultMybatisPlusGenerator;
 import com.kylinhunter.plat.generator.common.Module;
 import com.kylinhunter.plat.generator.kplat.KPlatCodeGennerator;
 import com.kylinhunter.plat.generator.kplat.configuration.Configurations;
@@ -23,7 +25,7 @@ public abstract class DefaultKPlatCodeGennerator {
     }
 
     public void exec(boolean copy) {
-        Module module = initModule();
+        Module module = getModule();
         KPlatCodeGennerator kPlatCodeGennerator = new KPlatCodeGennerator();
         Configurations config = DefaultCodeGenneratorConfigHelper.getConfig(module);
         kPlatCodeGennerator.withConfigurations(config).execute();
@@ -33,7 +35,15 @@ public abstract class DefaultKPlatCodeGennerator {
 
     }
 
-    public abstract Module initModule();
+    public Module getModule() {
+        try {
+            return getMybatisPlusGenerator().newInstance().getConfig().getModule();
+        } catch (Exception e) {
+            throw new InitException("init module error", e);
+        }
+    }
+
+    public abstract Class<? extends DefaultMybatisPlusGenerator> getMybatisPlusGenerator();
 
     private void copy(Configurations config) {
         try {

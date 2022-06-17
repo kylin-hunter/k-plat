@@ -18,7 +18,14 @@ public abstract class BasicInitializer implements Initializer, InitializingBean 
 
     private final static Set<Integer> orders = Sets.newHashSet();
 
-    public abstract int order();
+    public int order() {
+        String orderStr = this.getClass().getSimpleName().substring(5, 7);
+        try {
+            return Integer.parseInt(orderStr);
+        } catch (NumberFormatException e) {
+            throw new InitException("invalid order" + orderStr);
+        }
+    }
 
     public void afterPropertiesSet() {
         this.order = order();

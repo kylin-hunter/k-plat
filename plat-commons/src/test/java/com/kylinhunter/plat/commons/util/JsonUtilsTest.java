@@ -1,12 +1,14 @@
 package com.kylinhunter.plat.commons.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
@@ -106,6 +108,16 @@ public class JsonUtilsTest {
         String text = JsonUtils.toString(Lists.newArrayList(testBean));
         Assertions.assertEquals("keyValue",
                 Objects.requireNonNull(JsonUtils.toList(text, Map.class, true)).get(0).get("key"));
+    }
+
+    @Test
+    public void testToLis() throws KRuntimeException, JsonProcessingException {
+        String text = JsonUtils.toString(Lists.newArrayList(testBean));
+        System.out.println("text:" + text);
+        List<TestBean> testBeans = JsonUtils.toList(text, TestBean.class, false);
+        System.out.println("testBeans:" + testBeans);
+
+        Assertions.assertEquals(true, testBeans.get(0) instanceof TestBean);
     }
 
 }

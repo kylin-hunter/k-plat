@@ -1,0 +1,38 @@
+[
+  {
+    "code": "xuexi",
+    "name": "学习",
+    "children": [
+      {
+        "code": "java",
+        "name": "java",
+        "children": [
+        ]
+      },
+      {
+        "code": "go",
+        "name": "go",
+        "children": [
+        ]
+      }
+    ]
+  },
+  {
+    "code": "yule",
+    "name": "娱乐",
+    "children": [
+      {
+        "code": "jackie_chan",
+        "name": "成龙",
+        "children": [
+        ]
+      },
+      {
+        "code": "jet_lee",
+        "name": "李连杰",
+        "children": [
+        ]
+      }
+    ]
+  }
+]

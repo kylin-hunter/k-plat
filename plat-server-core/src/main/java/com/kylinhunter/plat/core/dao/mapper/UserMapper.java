@@ -18,4 +18,6 @@ import com.kylinhunter.plat.api.module.core.bean.entity.User;
 @Repository
 public interface UserMapper extends BaseMapper<User> {
 
+
+
 }

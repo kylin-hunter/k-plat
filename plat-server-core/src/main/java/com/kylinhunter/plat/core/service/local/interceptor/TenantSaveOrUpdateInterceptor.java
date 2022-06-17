@@ -9,7 +9,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.core.init.data.TenantInitData;
+import com.kylinhunter.plat.core.init.data.TenantInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TenantSaveOrUpdateInterceptor extends
         SaveOrUpdateInterceptor<Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
-    private final TenantInitData tenantInitData;
+    private final TenantInitDatas tenantInitData;
 
     @Override
     public void saveOrUpdateBefore(TenantVO vo) {
@@ -33,11 +33,11 @@ public class TenantSaveOrUpdateInterceptor extends
     }
 
     @Override
-    public Tenant before(TenantReqUpdate tenantReqUpdate, boolean tenantSupported, Tenant entity) {
+    public Tenant before(TenantReqUpdate reqUpdate, boolean tenantSupported, Tenant entity) {
         if (!tenantInitData.canBeModified(entity.getCode())) {
             throw new ParamException("invalid Tenant code:" + entity.getCode());
         }
 
-        return super.before(tenantReqUpdate, tenantSupported, entity);
+        return super.before(reqUpdate, tenantSupported, entity);
     }
 }
