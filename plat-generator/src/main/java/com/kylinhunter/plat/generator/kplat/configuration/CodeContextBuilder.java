@@ -83,19 +83,19 @@ public class CodeContextBuilder {
         outputInfo.setDistFilePath(strategyConfig.getDistFilePath(template, entityName));
 
         if (globalConfig.isSwagger2()) {
-            outputInfo.addImportPackages(ApiModel.class.getCanonicalName());
+            outputInfo.addImportPackageForReq(ApiModel.class.getCanonicalName());
 
         }
         if (strategyConfig.isFiledSwagger2()) {
-            outputInfo.addImportPackages(ApiModelProperty.class.getCanonicalName());
+            outputInfo.addImportPackageForReq(ApiModelProperty.class.getCanonicalName());
         }
         if (strategyConfig.isLombok()) {
-            outputInfo.addImportPackages(Data.class.getCanonicalName());
-            outputInfo.addImportPackages(EqualsAndHashCode.class.getCanonicalName());
+            outputInfo.addImportPackageForReq(Data.class.getCanonicalName());
+            outputInfo.addImportPackageForReq(EqualsAndHashCode.class.getCanonicalName());
 
         }
         if (strategyConfig.isLombokChainModel()) {
-            outputInfo.addImportPackages(Accessors.class.getCanonicalName());
+            outputInfo.addImportPackageForReq(Accessors.class.getCanonicalName());
         }
 
         // 处理类名
@@ -103,10 +103,10 @@ public class CodeContextBuilder {
 
         // 处理父类
         if (StringUtils.isNotBlank(strategyConfig.getSuperClassName())) {
-            outputInfo.addImportPackages(strategyConfig.getSuperClassName());
+            outputInfo.addImportPackageForReq(strategyConfig.getSuperClassName());
         } else {
             if (strategyConfig.isSerializable()) {
-                outputInfo.addImportPackages(Serializable.class.getCanonicalName());
+                outputInfo.addImportPackageForReq(Serializable.class.getCanonicalName());
             }
         }
 
@@ -116,7 +116,8 @@ public class CodeContextBuilder {
             EntityField entityField = fieldConvert.convert(strategyConfig, entityClass, field);
             if (entityField != null) {
                 if (!entityField.isPrimitive() && !entityField.getClassName().startsWith("java.lang")) {
-                    outputInfo.addImportPackages(entityField.getClassName());
+                    outputInfo.addImportPackageForReq(entityField.getClassName());
+                    outputInfo.addImportPackageForVO(entityField.getClassName());
                 }
                 outputInfo.addEntityField(entityField);
             }

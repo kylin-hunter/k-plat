@@ -10,7 +10,6 @@ import com.kylinhunter.plat.commons.classloader.KPlatClassLoaderUtil;
 import com.kylinhunter.plat.commons.compiler.KplatCompiler;
 import com.kylinhunter.plat.commons.exception.inner.SystemException;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
-import com.kylinhunter.plat.generator.auto.mybatis.DefaultMyPlusGeneratorConfigHelper;
 import com.kylinhunter.plat.generator.common.Module;
 import com.kylinhunter.plat.generator.mybatis.MyPlusGenerator;
 import com.kylinhunter.plat.generator.mybatis.MyPlusGeneratorConfig;
@@ -39,14 +38,14 @@ public abstract class DefaultMybatisPlusGenerator {
     }
 
     public MyPlusGeneratorConfig getConfig() {
-        Module module = new Module(getModuleName());
+        Module module = getModule();
         init(module);
         return DefaultMyPlusGeneratorConfigHelper.getConfig(module);
     }
 
     public abstract void init(Module module);
 
-    public abstract String getModuleName();
+    public abstract Module getModule();
 
     private void compile(MyPlusGeneratorConfig config) {
         try {

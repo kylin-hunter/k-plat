@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.generator.auto.mybatis.core;
 
 import com.kylinhunter.plat.generator.auto.mybatis.DefaultMybatisPlusGenerator;
+import com.kylinhunter.plat.generator.common.Module;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class CoreMybatisPlusGenerator extends DefaultMybatisPlusGenerator {
 
     @Override
-    public String getModuleName() {
-        return "core";
+    public Module getModule() {
+        Module module = new Module("core");
+        module.setTablePrefix("kplat_");
+        return module;
     }
 }

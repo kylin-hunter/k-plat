@@ -1,7 +1,7 @@
-package com.kylinhunter.plat.core.dao.mapper;
+package com.kylinhunter.plat.kb.dao.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
+import com.kylinhunter.plat.api.module.kb.bean.entity.Doc;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,10 +10,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-18
+ * @since 2022-06-19
  */
 @Mapper
 @Repository
-public interface TenantUserMapper extends BaseMapper<TenantUser> {
+public interface DocMapper extends BaseMapper<Doc> {
 
 }

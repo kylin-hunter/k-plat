@@ -31,7 +31,8 @@ public class OutputInfo {
     private String packageName;/* 包名*/
     private Path packagePath;/* 包路径*/
 
-    private Set<String> importPackages = Sets.newTreeSet();/* 引入的包*/
+    private Set<String> importPackagesForReq = Sets.newTreeSet();/* 引入的包*/
+    private Set<String> importPackagesForVO = Sets.newTreeSet();/* 引入的包*/
     @EqualsAndHashCode.Include
     private String className; /*类名*/
     private Path distFilePath;/* 类路径*/
@@ -59,8 +60,13 @@ public class OutputInfo {
      * @author BiJi'an
      * @date 2022/01/01 4:46 下午
      */
-    public OutputInfo addImportPackages(String pkg) {
-        importPackages.add(pkg);
+    public OutputInfo addImportPackageForReq(String pkg) {
+        importPackagesForReq.add(pkg);
+        return this;
+    }
+
+    public OutputInfo addImportPackageForVO(String pkg) {
+        importPackagesForVO.add(pkg);
         return this;
     }
 

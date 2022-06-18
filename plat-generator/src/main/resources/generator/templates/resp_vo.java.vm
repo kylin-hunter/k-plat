@@ -1,6 +1,6 @@
 package ${package};
 
-#foreach($pkg in ${imports})
+#foreach($pkg in ${imports_for_req})
 import ${pkg};
 #end
 

@@ -23,6 +23,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Module {
     private String name;
+    private String tablePrefix;
     private List<String> tables = Lists.newArrayList();
     private List<String> entityClassNames = Lists.newArrayList();
     private List<Class<?>> entityClasses = Lists.newArrayList();

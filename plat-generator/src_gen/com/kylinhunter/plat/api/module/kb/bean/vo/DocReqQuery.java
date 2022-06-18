@@ -1,22 +1,23 @@
-package com.kylinhunter.plat.api.module.core.bean.vo;
+package com.kylinhunter.plat.api.module.kb.bean.vo;
 
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.swagger.annotations.ApiModel;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * TenantUserReqQuery 代码工具自动生成，按需扩展
+ * DocReqQuery 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-06-18
+ * @since 2022-06-19
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantUserReqQuery对象", description = "TenantUserReqQuery")
-public class TenantUserReqQuery extends ReqPage {
+@ApiModel(value = "DocReqQuery对象", description = "DocReqQuery")
+public class DocReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;
 

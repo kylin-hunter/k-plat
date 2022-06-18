@@ -62,7 +62,7 @@ public class MyPlusGeneratorConfig {
     private String getEntityClass(String table) {
         String parentPkg = packageConfig.getParent();
         String entityPkg = packageConfig.getEntity();
-        table = table.replace("kplat_", "");
+        table = table.replace(module.getTablePrefix(), "");
         String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
         return parentPkg + "." + entityPkg + "." + entityName;
 
@@ -71,7 +71,7 @@ public class MyPlusGeneratorConfig {
     private String getMapperClass(String table) {
         String parentPkg = packageConfig.getParent();
         String mapperPkg = packageConfig.getMapper();
-        table = table.replace("kplat_", "");
+        table = table.replace(module.getTablePrefix(), "");
         String entityName = NamingConvertors.convert(NCStrategy.SNAKE_TO_CAMEL_UP_FIRST, table);
         return parentPkg + "." + mapperPkg + "." + entityName + "Mapper";
     }
@@ -90,8 +90,10 @@ public class MyPlusGeneratorConfig {
 
     public DataSourceConfig initDataSourceConfig() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/kp?serverTimezone=Asia/Shanghai&useUnicode=true&allowPublicKeyRetrieval=true"
-                + "&characterEncoding=utf8&useSSL=false");
+        dataSourceConfig
+                .setUrl("jdbc:mysql://localhost:3306/kp?serverTimezone=Asia/Shanghai&useUnicode=true"
+                        + "&allowPublicKeyRetrieval=true"
+                        + "&characterEncoding=utf8&useSSL=false");
         dataSourceConfig.setSchemaName("kp");
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setUsername("root");

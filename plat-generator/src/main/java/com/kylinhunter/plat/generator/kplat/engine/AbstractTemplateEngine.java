@@ -196,7 +196,8 @@ public abstract class AbstractTemplateEngine {
         Map<String, Object> objectMap = Maps.newLinkedHashMap();
 
         objectMap.put("package", outputInfo.getPackageName());
-        objectMap.put("imports", outputInfo.getImportPackages());
+        objectMap.put("imports_for_req", outputInfo.getImportPackagesForReq());
+        objectMap.put("imports_for_vo", outputInfo.getImportPackagesForVO());
         objectMap.put("class_name", outputInfo.getClassName());
         objectMap.put("class_comment", outputInfo.getClassName());
         objectMap.put("date", DateUtils.formatDate());
