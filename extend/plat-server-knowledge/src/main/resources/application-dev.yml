@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.31.122:8021
+      discovery:
+        server-addr: 192.168.31.122:8021
+

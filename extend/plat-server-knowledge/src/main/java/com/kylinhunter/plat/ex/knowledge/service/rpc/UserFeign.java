@@ -1,6 +1,7 @@
-package com.kylinhunter.plat.admin.service.rpc;
+package com.kylinhunter.plat.ex.knowledge.service.rpc;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,8 +14,8 @@ import com.kylinhunter.plat.web.response.DefaultResponse;
 @FeignClient(value = "plat-server-core", fallback = EchoServiceFallback.class)
 public interface UserFeign {
 
-    @RequestMapping(value = "/api/v1/core/user", method = RequestMethod.GET)
-    DefaultResponse<PageData<UserResp>> userQuery(@RequestParam UserReqQuery reqQueryPage);
+    @RequestMapping(value = "/api/v1/core/users", method = RequestMethod.GET)
+    DefaultResponse<PageData<UserResp>> userQuery( @SpringQueryMap UserReqQuery reqQueryPage);
 }
 
 

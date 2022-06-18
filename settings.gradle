@@ -6,7 +6,11 @@ include 'plat-dao'
 include 'plat-web'
 include 'plat-generator'
 include 'plat-server-core'
-include 'plat-server-admin'
-include 'plat-server-eureka'
+
+file('extend').eachDir { dir ->
+    include dir.name
+    project(":${dir.name}").projectDir = dir
+}
+
 
 

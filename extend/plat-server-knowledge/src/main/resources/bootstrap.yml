@@ -1,28 +1,30 @@
 spring:
-  application:
-    name: plat-server-admin
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   cloud:
     nacos:
       config:
-        #        server-addr: 47.94.98.98:8021
-        server-addr: 192.168.31.122:8021
+#        server-addr: 47.94.98.98:8021
+#        server-addr: 192.168.31.122:8021
+        server-addr: 127.0.0.1:8848
       discovery:
         #        server-addr: 47.94.98.98:8021
-        server-addr: 192.168.31.122:8021
+#        server-addr: 192.168.31.122:8021
+        server-addr: 127.0.0.1:8848
     #        ip: 100.103.74.205
 
     sentinel:
       transport:
         port: 8719
-        #        dashboard:  localhost:8080
-        #        dashboard:  47.94.98.98:8022
+        #        dashboard:  localhost:8080#
         dashboard:  192.168.31.122:8022
       #        client-ip: 100.103.74.205
       datasource:
         ds:
           nacos:
-            #        server-addr: 47.94.98.98:8021
-            server-addr: 192.168.31.122:8021
+            server-addr: 127.0.0.1:8848
             dataId: ${spring.application.name}-sentinel
             groupId: DEFAULT_GROUP
             rule-type: flow
