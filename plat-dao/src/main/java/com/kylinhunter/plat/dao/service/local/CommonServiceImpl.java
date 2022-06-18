@@ -20,6 +20,7 @@ import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import com.kylinhunter.plat.api.bean.vo.query.ReqById;
 import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
@@ -40,6 +41,7 @@ import com.kylinhunter.plat.dao.service.local.interceptor.QueryComplexIntercepto
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -51,6 +53,7 @@ import lombok.NoArgsConstructor;
  */
 @Transactional(rollbackFor = Exception.class)
 @NoArgsConstructor
+@Slf4j
 public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseEntity, X extends ReqCreate,
         Y extends ReqUpdate,
         Z extends Resp, V extends VO, Q extends ReqPage> extends ServiceImpl<M, T>
@@ -177,17 +180,34 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     @Override
     public boolean delete(ReqDelete reqDelete) {
 
-        List<T> datas = this.baseMapper.selectBatchIds(reqDelete.getIds());
-        datas.forEach(data -> {
+        T data = this.baseMapper.selectById(reqDelete.getId());
+        this.deleteInterceptor.before(reqDelete, this.tenantSupported, data);
+        if (reqDelete.isPhysical()) {
+            this.baseMapper.deleteById(data.getId());
+        } else {
+            this.baseMapper.updateById(data);
+        }
+        this.deleteInterceptor.after(reqDelete, data);
 
-            this.deleteInterceptor.before(reqDelete, this.tenantSupported, data);
-            if (reqDelete.isPhysical()) {
+        return data != null;
+
+    }
+
+    @Override
+    public boolean delete(ReqDeletes reqDeletes) {
+
+        List<T> datas = this.baseMapper.selectBatchIds(reqDeletes.getIds());
+        this.deleteInterceptor.before(reqDeletes, this.tenantSupported, datas);
+
+        datas.forEach(data -> {
+            if (reqDeletes.isPhysical()) {
                 this.baseMapper.deleteById(data.getId());
             } else {
                 this.baseMapper.updateById(data);
             }
-            this.deleteInterceptor.after(reqDelete, data);
         });
+        this.deleteInterceptor.after(reqDeletes, datas);
+
         return datas.size() > 0;
 
     }

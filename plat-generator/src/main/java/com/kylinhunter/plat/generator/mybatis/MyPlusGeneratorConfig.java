@@ -90,7 +90,7 @@ public class MyPlusGeneratorConfig {
 
     public DataSourceConfig initDataSourceConfig() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/kp?serverTimezone=Asia/Shanghai&useUnicode=true"
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/kp?serverTimezone=Asia/Shanghai&useUnicode=true&allowPublicKeyRetrieval=true"
                 + "&characterEncoding=utf8&useSSL=false");
         dataSourceConfig.setSchemaName("kp");
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");

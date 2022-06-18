@@ -298,7 +298,7 @@ public class JsonUtils {
         try {
             JavaType javaType = objectMapperCommon.getTypeFactory().constructCollectionType(List.class, clazz);
             return objectMapperCommon.readValue(content, javaType);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             if (throwIfFailed) {
                 throw new FormatException("json readValue error", e);
             } else {

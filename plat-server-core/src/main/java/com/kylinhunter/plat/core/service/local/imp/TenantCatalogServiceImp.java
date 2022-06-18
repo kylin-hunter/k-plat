@@ -1,15 +1,16 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
@@ -19,11 +20,13 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogTree;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
-import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantCatalogService;
+import com.kylinhunter.plat.core.service.local.component.TenantCatalogTreeComponent;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -34,10 +37,14 @@ import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
  * @since 2022-06-17
  */
 @Service
+@Slf4j
 public class TenantCatalogServiceImp
         extends CommonServiceImpl<TenantCatalogMapper, TenantCatalog,
         TenantCatalogReqCreate, TenantCatalogReqUpdate,
         TenantCatalogResp, TenantCatalogVO, TenantCatalogReqQuery> implements TenantCatalogService {
+
+    @Autowired
+    private TenantCatalogTreeComponent tenantCatalogTreeComponent;
 
     public TenantCatalogServiceImp(TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,
                                    TenantCatalogDeleteInterceptor tenantCatalogDeleteInterceptor) {
@@ -64,35 +71,43 @@ public class TenantCatalogServiceImp
         queryWrapper.eq(TenantCatalog::getType, type);
         queryWrapper.orderByAsc(TenantCatalog::getLevel);
         List<TenantCatalog> tenantCatalogs = this.baseMapper.selectList(queryWrapper);
-        return tree(tenantCatalogs);
+        return tenantCatalogTreeComponent.tree(tenantCatalogs);
     }
 
-    private TenantCatalogTree tree(List<TenantCatalog> tenantCatalogs) {
-        TenantCatalogTree root = new TenantCatalogTree();
+    @Override
+    public boolean delete(ReqDelete reqDelete) {
 
-        Map<String, TenantCatalogTree> allCatalogs =
-                tenantCatalogs.stream().collect(Collectors.toMap(e -> e.getId(), e -> {
-                    TenantCatalogTree tmpTreeNode = new TenantCatalogTree();
-                    BeanUtils.copyProperties(e, tmpTreeNode);
+        boolean ok = super.delete(reqDelete);
+        log.info("delete catalog id:{}", reqDelete.getId());
+        List<TenantCatalog> allChildren = Lists.newArrayList();
+        fetchAllChildren(reqDelete.getId(), allChildren);
+        if (allChildren.size() > 0) {
+            List<String> ids = allChildren.stream().map(e -> {
+                log.info("delete child id={},name={}", e.getId(), e.getName());
 
-                    return tmpTreeNode;
-                }, (o, n) -> n, LinkedHashMap::new));
-
-        for (Map.Entry<String, TenantCatalogTree> en : allCatalogs.entrySet()) {
-            TenantCatalogTree curTreeNode = en.getValue();
-            if (TenantCatalogInitDatas.DEFAULT_CODE.equals(curTreeNode.getCode())) {
-                root = curTreeNode;
-            } else {
-                TenantCatalogTree parentNode = allCatalogs.get(curTreeNode.getParentId());
-                if (parentNode != null) {
-                    parentNode.addChild(curTreeNode);
-
-                } else {
-                    throw new ParamException("invalid parentId:" + curTreeNode.getParentId());
-                }
-            }
+                return e.getId();
+            }).collect(Collectors.toList());
+            ok = this.baseMapper.deleteBatchIds(ids) > 0;
 
         }
-        return root;
+
+        throw new ParamException("回滚");
+
+    }
+
+    public void fetchAllChildren(String parentId, List<TenantCatalog> allChildren) {
+        List<TenantCatalog> curChildren = this.baseMapper.selectByParentId(parentId);
+        if (curChildren != null && curChildren.size() > 0) {
+            curChildren.forEach(child -> {
+                allChildren.add(child);
+                fetchAllChildren(child.getId(), allChildren);
+            });
+        }
+
+    }
+
+    @Override
+    public boolean delete(ReqDeletes reqDeletes) {
+        throw new ParamException("Batch delete operation is not supported");
     }
 }

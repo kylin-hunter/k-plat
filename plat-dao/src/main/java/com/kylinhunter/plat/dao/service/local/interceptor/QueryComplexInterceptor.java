@@ -39,8 +39,8 @@ public class QueryComplexInterceptor<T extends BaseEntity, C extends ReqCreate, 
         QueryWrapper<T> query = Wrappers.query();
 
         if (tenantSupported) {
-            this.checkTenant();
-            query.eq(SysCols.SYS_TENANT_ID, userContextHandler.get(true).getTenantId());
+            final String tenantId = this.checkAndGetTenantId();
+            query.eq(SysCols.SYS_TENANT_ID, tenantId);
         }
 
         if (!q.isWithLogicDelData()) {

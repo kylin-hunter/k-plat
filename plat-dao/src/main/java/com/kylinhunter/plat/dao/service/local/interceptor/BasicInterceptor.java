@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.dao.service.local.interceptor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -50,26 +51,29 @@ public class BasicInterceptor<T extends BaseEntity, C extends ReqCreate, U exten
         entity.setSysUpdateTime(LocalDateTime.now());
     }
 
-    protected void checkTenant(T entity) {
+    protected void checkTenantData(String tenantId, T entity) {
+        if (!tenantId.equals(entity.getSysTenantId())) {
+            throw new DBException("check tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
 
-        String tenantId = userContextHandler.get(true).getTenantId();
-        if (StringUtils.isEmpty(tenantId)) {
-            throw new DBException("tenantId is emtpy");
-        } else {
-            if (!tenantId.equals(entity.getSysTenantId())) {
-                throw new DBException("check tenantId   invalid");
-
-            }
         }
-
     }
 
-    protected void checkTenant() {
+    protected void checkTenantData(String tenantId, List<T> entities) {
+
+        entities.forEach(entity -> {
+            if (!tenantId.equals(entity.getSysTenantId())) {
+                throw new DBException("check tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
+            }
+        });
+    }
+
+    protected String checkAndGetTenantId() {
 
         String tenantId = userContextHandler.get(true).getTenantId();
         if (StringUtils.isEmpty(tenantId)) {
             throw new DBException("tenantId is emtpy");
         }
+        return tenantId;
 
     }
 

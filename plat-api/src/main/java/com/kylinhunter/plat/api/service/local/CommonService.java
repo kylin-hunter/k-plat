@@ -8,6 +8,7 @@ import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import com.kylinhunter.plat.api.bean.vo.query.ReqById;
 import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
@@ -36,6 +37,8 @@ public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y exte
     BatchResp<Z> updateBatch(BatchReqUpdate<Y> batchReqUpdate);
 
     boolean delete(ReqDelete reqDelete);
+
+    boolean delete(ReqDeletes reqDeletes);
 
     Z queryById(ReqById reqById);
 

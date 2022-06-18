@@ -15,7 +15,7 @@ public class CodeGenerateForTenantUser {
 
     public static void main(String[] args) {
         new MybatisPlusGeneratorForTenantUser().exec();
-        new KPlatCodeGenneratorForTenantUser().exec();
+        new KPlatCodeGenneratorForTenantUser().exec(false);
 
     }
 

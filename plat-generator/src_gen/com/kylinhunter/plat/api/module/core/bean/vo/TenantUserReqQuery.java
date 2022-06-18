@@ -7,16 +7,16 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * TenantCatalogReqQuery 代码工具自动生成，按需扩展
+ * TenantUserReqQuery 代码工具自动生成，按需扩展
  * </p>
  *
  * @author biji'an
- * @since 2022-06-17
+ * @since 2022-06-18
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantCatalogReqQuery对象", description = "TenantCatalogReqQuery")
-public class TenantCatalogReqQuery extends ReqPage {
+@ApiModel(value = "TenantUserReqQuery对象", description = "TenantUserReqQuery")
+public class TenantUserReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;
 

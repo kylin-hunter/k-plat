@@ -16,6 +16,6 @@ public class KPlatCodeGenneratorForTenantCatalog extends CoreKPlatCodeGennerator
     }
 
     public static void main(String[] args) {
-        new KPlatCodeGenneratorForTenantCatalog().exec(true);
+        new KPlatCodeGenneratorForTenantCatalog().exec(false);
     }
 }

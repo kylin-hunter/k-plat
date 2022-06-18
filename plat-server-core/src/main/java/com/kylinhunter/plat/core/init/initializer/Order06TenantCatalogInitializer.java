@@ -8,14 +8,12 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import com.kylinhunter.plat.commons.exception.inner.InitException;
 import com.kylinhunter.plat.commons.io.ResourceHelper;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
-import com.kylinhunter.plat.core.init.data.TenantInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantCatalogService;
 
 import lombok.Getter;
@@ -35,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 public class Order06TenantCatalogInitializer extends BasicInitializer {
-    private final TenantInitDatas tenantInitData;
+
     private final TenantCatalogInitDatas tenantCatalogInitData;
     private final TenantCatalogService tenantCatalogService;
 
@@ -45,7 +43,8 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
         tenantCatalogInitData.getInitDatas().values().forEach(tenantRoleCreate -> {
 
             final String code = tenantRoleCreate.getCode();
-            final TenantCatalog tenantRole = tenantCatalogService.queryByCode(TenantCatalogInitDatas.DEFAULT_TYPE, code);
+            final TenantCatalog tenantRole =
+                    tenantCatalogService.queryByCode(TenantCatalogInitDatas.DEFAULT_TYPE, code);
             if (tenantRole != null) {
                 log.info("default role {} exist", code);
                 tenantCatalogInitData.addDbData(code, tenantRole);
@@ -56,9 +55,6 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
                         tenantCatalogService.queryByCode(TenantCatalogInitDatas.DEFAULT_TYPE, code));
             }
         });
-
-        Tenant defaultTenant = tenantInitData.getDbData(TenantInitDatas.DEFAULT_CODE);
-
         try (InputStream inputStream = ResourceHelper.getInputStreamInClassPath("/init/tenant_catalog.json")) {
             String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
 
@@ -66,7 +62,7 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
 
             log.info("init catalog:" + catalogInfos);
             catalogInfos.forEach(catalogInfo -> {
-                traversal(defaultTenant, catalogInfo, TenantCatalogInitDatas.DEFAULT_CODE);
+                traversal(catalogInfo, TenantCatalogInitDatas.DEFAULT_CODE);
             });
         } catch (IOException e) {
             throw new InitException("init catalog error", e);
@@ -74,22 +70,22 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
 
     }
 
-    private void traversal(Tenant tenant, CatalogInfo curtCatalog, String parentCode) {
+    private void traversal(CatalogInfo curtCatalog, String parentCode) {
         curtCatalog.setParentCode(parentCode);
         log.info(" catalog code={},name={},level={},parentCode={}", curtCatalog.code, curtCatalog.getName(),
                 curtCatalog.getLevel(), curtCatalog.getParentCode());
 
-        init(tenant, curtCatalog);
+        init(curtCatalog);
         List<CatalogInfo> children = curtCatalog.children;
         if (children != null && children.size() > 0) {
             children.forEach(child -> {
                 child.setLevel(curtCatalog.getLevel() + 1);
-                traversal(tenant, child, curtCatalog.code);
+                traversal(child, curtCatalog.code);
             });
         }
     }
 
-    private void init(Tenant tenant, CatalogInfo catalogInfo) {
+    private void init(CatalogInfo catalogInfo) {
         TenantCatalog parent = tenantCatalogService.queryByCode(catalogInfo.type, catalogInfo.parentCode);
 
         if (parent != null) {
@@ -106,7 +102,7 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
                 tenantCatalogReqCreate.setName(catalogInfo.name);
                 tenantCatalogReqCreate.setLevel(catalogInfo.level);
                 tenantCatalogReqCreate.setPath(parent.getPath() + "_" + parent.getId());
-                tenantCatalogReqCreate.setParentId(parent.getParentId());
+                tenantCatalogReqCreate.setParentId(parent.getId());
                 tenantCatalogService.save(tenantCatalogReqCreate);
                 log.info("save catalog {}", tenantCatalogReqCreate);
             }

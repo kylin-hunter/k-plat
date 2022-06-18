@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import com.kylinhunter.plat.api.bean.vo.query.ReqById;
 import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
@@ -68,18 +68,18 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
         return new DefaultResponse<>(service.update(reqUpdate));
     }
 
-    @RequestMapping(value = "/{ids}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     @ApiOperation("删除")
-    public DefaultResponse<Boolean> delete(@Validated @NotBlank @PathVariable("ids") String ids) {
-        return new DefaultResponse<>(service.delete(ReqDelete.of(ids)));
+    public DefaultResponse<Boolean> delete(@Validated @NotBlank @PathVariable("id") String id) {
+        return new DefaultResponse<>(service.delete(ReqDelete.of(id)));
     }
 
     @RequestMapping(value = "/batch", method = RequestMethod.DELETE)
     @ResponseBody
     @ApiOperation("删除(多个)")
-    public DefaultResponse<Boolean> batchDelete(@Validated @NotBlank @RequestParam("ids")  String ids) {
-        return new DefaultResponse<>(service.delete(ReqDelete.of(ids)));
+    public DefaultResponse<Boolean> batchDelete(@Validated ReqDeletes reqDeletes) {
+        return new DefaultResponse<>(service.delete(reqDeletes));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -94,9 +94,9 @@ public abstract class CommonCurdController<S extends CommonService<T, X, Y, Z, V
     @RequestMapping(value = "/batch", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查看详情")
-    public DefaultResponse<List<Z>> batchGet(@Validated @NotBlank @RequestParam("ids") String ids) {
+    public DefaultResponse<List<Z>> batchGet(@Validated ReqByIds reqByIds) {
 
-        return new DefaultResponse<>(this.service.queryByIds(ReqByIds.of(ids)));
+        return new DefaultResponse<>(this.service.queryByIds(reqByIds));
 
     }
 

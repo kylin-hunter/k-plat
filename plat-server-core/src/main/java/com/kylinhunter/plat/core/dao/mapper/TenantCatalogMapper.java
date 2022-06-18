@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.core.dao.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -23,6 +25,6 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
     @Select("SELECT *  FROM  kplat_tenant_catalog  WHERE"
             + "  parent_id = #{parentId} "
             + " and sys_delete_flag=0 ")
-    TenantCatalog selectByParentId(@Param("parentId") String parentId);
+    List<TenantCatalog> selectByParentId(@Param("parentId") String parentId);
 
 }

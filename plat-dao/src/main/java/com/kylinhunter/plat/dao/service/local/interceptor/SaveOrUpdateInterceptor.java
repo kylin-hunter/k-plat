@@ -42,7 +42,7 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     @SuppressWarnings("unchecked")
     public T before(C c, boolean tenantSupported, T entity) {
         if (tenantSupported) {
-            this.checkTenant();
+            this.checkAndGetTenantId();
         }
         saveOrUpdateBefore((V) c);
         BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
@@ -60,7 +60,8 @@ public class SaveOrUpdateInterceptor<T extends BaseEntity, C extends ReqCreate, 
     @SuppressWarnings("unchecked")
     public T before(U u, boolean tenantSupported, T entity) {
         if (tenantSupported) {
-            checkTenant(entity);
+            final String tenantId = this.checkAndGetTenantId();
+            checkTenantData(tenantId, entity);
         }
         saveOrUpdateBefore((V) u);
         BeanCopyUtils.copyProperties(u, entity, updateSkipProperties);

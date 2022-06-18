@@ -34,8 +34,8 @@ public class QueryAccurateInterceptor<T extends BaseEntity, C extends ReqCreate,
     public QueryWrapper<T> before(ReqById reqById, boolean tenantSupported) {
         QueryWrapper<T> query = Wrappers.query();
         if (tenantSupported) {
-            this.checkTenant();
-            query.eq(SysCols.SYS_TENANT_ID, userContextHandler.get(true).getTenantId());
+            final String tenantId = this.checkAndGetTenantId();
+            query.eq(SysCols.SYS_TENANT_ID, tenantId);
         }
         if (!reqById.isWithLogicDelData()) {
             query.eq(SysCols.SYS_DELETE_FLAG, "0");
@@ -56,8 +56,8 @@ public class QueryAccurateInterceptor<T extends BaseEntity, C extends ReqCreate,
     public QueryWrapper<T> before(ReqByIds reqByIds, boolean tenantSupported) {
         QueryWrapper<T> query = Wrappers.query();
         if (tenantSupported) {
-            this.checkTenant();
-            query.eq(SysCols.SYS_TENANT_ID, userContextHandler.get(true).getTenantId());
+            final String tenantId = this.checkAndGetTenantId();
+            query.eq(SysCols.SYS_TENANT_ID, tenantId);
         }
         if (!reqByIds.isWithLogicDelData()) {
             query.eq(SysCols.SYS_DELETE_FLAG, "0");
