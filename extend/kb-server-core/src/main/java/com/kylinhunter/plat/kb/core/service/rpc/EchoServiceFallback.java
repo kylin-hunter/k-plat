@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.ex.knowledge.service.rpc;
+package com.kylinhunter.plat.kb.core.service.rpc;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;

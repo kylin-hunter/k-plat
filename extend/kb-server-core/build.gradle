@@ -6,7 +6,7 @@ dependencyManagement {
 }
 
 dependencies {
-
+    api project(':kb-api')
     api project(':plat-web')
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"

@@ -1,6 +1,5 @@
-package com.kylinhunter.plat.ex.knowledge.controller;
+package com.kylinhunter.plat.kb.core.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.ex.knowledge.service.rpc.UserFeign;
+import com.kylinhunter.plat.kb.core.service.rpc.UserFeign;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 
 import io.swagger.annotations.Api;

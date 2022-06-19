@@ -3,6 +3,8 @@ package com.kylinhunter.plat.generator.auto.kplat;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+
 import com.kylinhunter.plat.commons.exception.inner.GeneralException;
 import com.kylinhunter.plat.commons.exception.inner.InitException;
 import com.kylinhunter.plat.commons.exception.inner.KIOException;
@@ -100,7 +102,7 @@ public abstract class DefaultKPlatCodeGennerator {
         if (from.exists() && to.exists()) {
             System.out.println("copy from " + from.getAbsolutePath());
             System.out.println("copy to   " + to.getAbsolutePath());
-            //            FileUtils.copyDirectory(from, to);
+            FileUtils.copyDirectory(from, to);
         } else {
             throw new KIOException("dir no exist" + from.getAbsolutePath() + ":" + to.getAbsolutePath());
         }
