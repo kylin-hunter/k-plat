@@ -46,10 +46,10 @@ public class MyPlusGeneratorConfig {
         this.setStrategyConfig(initStrategyConfig(module));
         this.setTemplateConfig(initTemplateConfig());
         this.module = module;
-        init();
+
     }
 
-    private void init() {
+    public void init() {
         List<String> entityClasses =
                 this.module.getTables().stream().map(this::getEntityClass).collect(Collectors.toList());
         module.setEntityClassNames(entityClasses);

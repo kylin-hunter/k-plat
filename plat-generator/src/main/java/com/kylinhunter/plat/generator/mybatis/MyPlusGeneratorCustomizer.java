@@ -12,7 +12,7 @@ public class MyPlusGeneratorCustomizer {
 
     public static MyPlusGeneratorConfig customize(Module module, MyPlusGeneratorCustomize myPlusGeneratorCustomize) {
         MyPlusGeneratorConfig myPlusGeneratorConfig = new MyPlusGeneratorConfig(module);
-        myPlusGeneratorCustomize.customize(myPlusGeneratorConfig);
+        myPlusGeneratorCustomize.customize(module, myPlusGeneratorConfig);
         return myPlusGeneratorConfig;
     }
 }

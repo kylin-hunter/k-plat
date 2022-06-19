@@ -1,9 +1,8 @@
-package com.kylinhunter.plat.generator.auto.mybatis.knowledge;
+package com.kylinhunter.plat.generator.auto.mybatis.kb.core;
 
-import com.kylinhunter.plat.generator.auto.mybatis.core.CoreMybatisPlusGenerator;
 import com.kylinhunter.plat.generator.common.Module;
 
-public class MybatisPlusGeneratorForDoc extends KnowledgeMybatisPlusGenerator {
+public class MybatisPlusGeneratorForDoc extends CoreMybatisPlusGenerator {
 
     @Override
     public void init(Module module) {

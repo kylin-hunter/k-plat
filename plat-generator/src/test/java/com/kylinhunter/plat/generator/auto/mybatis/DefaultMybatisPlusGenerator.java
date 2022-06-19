@@ -13,6 +13,8 @@ import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 import com.kylinhunter.plat.generator.common.Module;
 import com.kylinhunter.plat.generator.mybatis.MyPlusGenerator;
 import com.kylinhunter.plat.generator.mybatis.MyPlusGeneratorConfig;
+import com.kylinhunter.plat.generator.mybatis.MyPlusGeneratorCustomize;
+import com.kylinhunter.plat.generator.mybatis.MyPlusGeneratorCustomizer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +32,7 @@ public abstract class DefaultMybatisPlusGenerator {
     public void exec(boolean clear, boolean compile) {
         MyPlusGenerator myPlusGenerator = new MyPlusGenerator();
         MyPlusGeneratorConfig config = getConfig();
+
         myPlusGenerator.setMyPlusGeneratorConfig(config);
         myPlusGenerator.exec(clear);
         if (compile) {
@@ -40,12 +43,20 @@ public abstract class DefaultMybatisPlusGenerator {
     public MyPlusGeneratorConfig getConfig() {
         Module module = getModule();
         init(module);
-        return DefaultMyPlusGeneratorConfigHelper.getConfig(module);
+        MyPlusGeneratorCustomize myPlusGeneratorCustomize = getMyPlusGeneratorCustomize();
+        MyPlusGeneratorConfig myPlusGeneratorConfig =
+                MyPlusGeneratorCustomizer.customize(module, myPlusGeneratorCustomize);
+        myPlusGeneratorConfig.init();
+        return myPlusGeneratorConfig;
     }
 
     public abstract void init(Module module);
 
     public abstract Module getModule();
+
+    public MyPlusGeneratorCustomize getMyPlusGeneratorCustomize() {
+        return new DefaultMyPlusGeneratorCustomize();
+    }
 
     private void compile(MyPlusGeneratorConfig config) {
         try {

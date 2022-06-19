@@ -48,7 +48,6 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    println "$rootProject.rootDir/script/gradle-script/ext-func-subprojects.gradle"
     apply from: "$rootProject.rootDir/script/gradle-script/ext-func-subprojects.gradle"
 
 

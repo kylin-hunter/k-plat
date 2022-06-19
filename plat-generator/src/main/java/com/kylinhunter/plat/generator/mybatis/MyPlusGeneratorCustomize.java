@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.generator.mybatis;
 
+import com.kylinhunter.plat.generator.common.Module;
+
 /**
  * @author BiJi'an
  * @description
@@ -7,5 +9,5 @@ package com.kylinhunter.plat.generator.mybatis;
  **/
 @FunctionalInterface
 public interface MyPlusGeneratorCustomize {
-    void customize(MyPlusGeneratorConfig myPlusGeneratorConfig);
+    void customize(Module module, MyPlusGeneratorConfig myPlusGeneratorConfig);
 }

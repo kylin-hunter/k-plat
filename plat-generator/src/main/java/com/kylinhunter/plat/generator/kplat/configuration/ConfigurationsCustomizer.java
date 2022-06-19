@@ -12,7 +12,7 @@ public class ConfigurationsCustomizer {
 
     public static Configurations customize(Module module, ConfigurationsCustomize configurationsCustomize) {
         Configurations configurations = new Configurations(module);
-        configurationsCustomize.configure(configurations);
+        configurationsCustomize.customize(module, configurations);
         return configurations;
     }
 }

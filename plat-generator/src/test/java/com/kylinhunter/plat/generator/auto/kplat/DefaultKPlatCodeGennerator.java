@@ -3,8 +3,6 @@ package com.kylinhunter.plat.generator.auto.kplat;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
-
 import com.kylinhunter.plat.commons.exception.inner.GeneralException;
 import com.kylinhunter.plat.commons.exception.inner.InitException;
 import com.kylinhunter.plat.commons.exception.inner.KIOException;
@@ -13,6 +11,8 @@ import com.kylinhunter.plat.generator.auto.mybatis.DefaultMybatisPlusGenerator;
 import com.kylinhunter.plat.generator.common.Module;
 import com.kylinhunter.plat.generator.kplat.KPlatCodeGennerator;
 import com.kylinhunter.plat.generator.kplat.configuration.Configurations;
+import com.kylinhunter.plat.generator.kplat.configuration.ConfigurationsCustomize;
+import com.kylinhunter.plat.generator.kplat.configuration.ConfigurationsCustomizer;
 
 /**
  * @author BiJi'an
@@ -27,10 +27,12 @@ public abstract class DefaultKPlatCodeGennerator {
     public void exec(boolean copy) {
         Module module = getModule();
         KPlatCodeGennerator kPlatCodeGennerator = new KPlatCodeGennerator();
-        Configurations config = DefaultCodeGenneratorConfigHelper.getConfig(module);
-        kPlatCodeGennerator.withConfigurations(config).execute();
+
+        Configurations configurations =
+                ConfigurationsCustomizer.customize(module, getConfigurationsCustomize());
+        kPlatCodeGennerator.withConfigurations(configurations).execute();
         if (copy) {
-            copy(config);
+            copy(configurations);
         }
 
     }
@@ -44,6 +46,10 @@ public abstract class DefaultKPlatCodeGennerator {
     }
 
     public abstract Class<? extends DefaultMybatisPlusGenerator> getMybatisPlusGenerator();
+
+    public ConfigurationsCustomize getConfigurationsCustomize() {
+        return new DefaultConfigurationsCustomize();
+    }
 
     private void copy(Configurations config) {
         try {
@@ -68,7 +74,7 @@ public abstract class DefaultKPlatCodeGennerator {
         return from;
     }
 
-    private File getToApiDir(Configurations config, String prefix) {
+    protected File getToApiDir(Configurations config, String prefix) {
         File apiSource = UserDirUtils.getDir("plat-api/src/main/java");
         String parentPackageRelativePath =
                 config.getCodeContext().getPackageConfig().getParentPackageRelativePath();
@@ -76,7 +82,7 @@ public abstract class DefaultKPlatCodeGennerator {
         return to;
     }
 
-    private File getToModuleDir(Configurations config, String module) {
+    protected File getToModuleDir(Configurations config, String module) {
         File apiSource = UserDirUtils.getDir("plat-server-" + module + "/src/main/java");
         String parentPackageRelativePath =
                 config.getCodeContext().getPackageConfig().getParentPackageRelativePath();
@@ -85,7 +91,8 @@ public abstract class DefaultKPlatCodeGennerator {
     }
 
     private void copyModule(Configurations config) throws IOException {
-        copy(getFromDir(config, "core"), getToModuleDir(config, "core"));
+        Module module = getModule();
+        copy(getFromDir(config, module.getName()), getToModuleDir(config, module.getName()));
 
     }
 
@@ -93,7 +100,7 @@ public abstract class DefaultKPlatCodeGennerator {
         if (from.exists() && to.exists()) {
             System.out.println("copy from " + from.getAbsolutePath());
             System.out.println("copy to   " + to.getAbsolutePath());
-            FileUtils.copyDirectory(from, to);
+            //            FileUtils.copyDirectory(from, to);
         } else {
             throw new KIOException("dir no exist" + from.getAbsolutePath() + ":" + to.getAbsolutePath());
         }
