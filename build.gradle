@@ -62,8 +62,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
 
 
-        implementation(rootProject.dep['springfox-swagger2'])
-        implementation(rootProject.dep['springfox-swagger-ui'])
+
 
 
         testImplementation("org.projectlombok:lombok")

@@ -8,7 +8,7 @@ class TestEncryptionAES {
 
     public static void main(String[] args) {
 
-        AesCrypt aesCrypt = AesCrypt.getInstance();
+        AESCrypt aesCrypt = AESCrypt.getInstance();
 
         SecretKey key = aesCrypt.generateKey();
         String keyStr = aesCrypt.stringKey(key);

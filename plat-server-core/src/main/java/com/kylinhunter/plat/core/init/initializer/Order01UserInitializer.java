@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
-import com.kylinhunter.plat.commons.codec.PasswordUtil;
+import com.kylinhunter.plat.web.auth.PasswordUtil;
 import com.kylinhunter.plat.core.init.data.UserInitDatas;
 import com.kylinhunter.plat.core.service.local.UserService;
 

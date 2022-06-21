@@ -9,7 +9,7 @@ import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import com.kylinhunter.plat.commons.codec.PasswordUtil;
+import com.kylinhunter.plat.web.auth.PasswordUtil;
 import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.init.data.UserInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;

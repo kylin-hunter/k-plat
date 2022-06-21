@@ -12,7 +12,7 @@ import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import com.kylinhunter.plat.api.module.core.constants.UserType;
-import com.kylinhunter.plat.commons.codec.PasswordUtil;
+import com.kylinhunter.plat.web.auth.PasswordUtil;
 import com.kylinhunter.plat.commons.util.EnumUtil;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;

@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.commons.codec;
+package com.kylinhunter.plat.web.auth;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,6 +12,10 @@ public class PasswordUtil {
 
     public static String encode(String pass) {
         return bCryptPasswordEncoder.encode(pass);
+    }
+
+    public PasswordUtil() {
+        super();
     }
 
     public static boolean matches(CharSequence rawPassword, String encodedPassword) {

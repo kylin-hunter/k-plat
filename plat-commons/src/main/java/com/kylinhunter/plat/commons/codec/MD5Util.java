@@ -10,15 +10,13 @@ import org.apache.commons.codec.digest.Md5Crypt;
  * @description
  * @date 2022-06-07 00:47
  **/
-public class Md5Util {
+public class MD5Util {
 
     public static String md5(String text) {
-        String encode = DigestUtils.md5Hex(text);
-        return encode;
+        return DigestUtils.md5Hex(text.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String md5(String text, String salt) {
-        String encode = Md5Crypt.md5Crypt(text.getBytes(StandardCharsets.UTF_8), salt);
-        return encode;
+        return Md5Crypt.md5Crypt(text.getBytes(StandardCharsets.UTF_8), salt);
     }
 }

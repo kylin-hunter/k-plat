@@ -1,7 +1,6 @@
 package com.kylinhunter.plat.commons.codec;
 
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -11,7 +10,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import com.kylinhunter.plat.commons.exception.inner.GeneralException;
-import com.kylinhunter.plat.commons.exception.inner.InitException;
 
 /**
  * AES算法
@@ -19,85 +17,37 @@ import com.kylinhunter.plat.commons.exception.inner.InitException;
  * @author bijian
  */
 // @Slf4j
-public class AesCrypt  {
-    private SecretKey defaultKey;
-    private ThreadLocal<Cipher> defaultEnCipher;
-    private ThreadLocal<Cipher> defaultDeCipher;
-    private ThreadLocal<Cipher> enCipher;
-    private ThreadLocal<Cipher> deCipher;
+public class AESCrypt {
+    private final SecretKey defaultKey;
+    private static final CodecType CODE_TYPE = CodecType.AES;
+
     private static final String DEFAULT_SEED = "kplat";
 
-    private static final AesCrypt singletin = new AesCrypt();
+    private static final AESCrypt singletin = new AESCrypt();
+    private final CipherManager cipherManager;
 
-    public static AesCrypt getInstance() {
+    public static AESCrypt getInstance() {
         return singletin;
     }
 
-    private AesCrypt() {
-        this.init(this.generateKey());
+    private AESCrypt() {
+        this.defaultKey = this.generateKey();
+        this.cipherManager = new CipherManager(CODE_TYPE, this.defaultKey);
     }
 
-    public AesCrypt(String defaultKey) {
-        this.init(this.restoreKey(defaultKey));
+    public AESCrypt(String defaultKey) {
+        this.defaultKey = this.restoreKey(defaultKey);
+        this.cipherManager = new CipherManager(CODE_TYPE, this.defaultKey);
     }
 
-    private void init(SecretKey defaultKey) {
-        this.defaultKey = defaultKey;
-        this.defaultEnCipher = this.initCipher(Cipher.ENCRYPT_MODE, defaultKey);
-        this.defaultDeCipher = this.initCipher(Cipher.DECRYPT_MODE, defaultKey);
-        this.enCipher = this.initCipher(Cipher.ENCRYPT_MODE, null);
-        this.deCipher = this.initCipher(Cipher.DECRYPT_MODE, null);
-
-    }
-
-    private ThreadLocal<Cipher> initCipher(int mode, SecretKey key) {
-        return ThreadLocal.withInitial(() -> {
-
-            try {
-                Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding"); // 创建密码器
-                if (key != null) {
-                    cipher.init(mode, key);// 初始化为加密模式的密码器
-                }
-                return cipher;
-            } catch (Exception e) {
-                throw new InitException("init AesCrypt  error", e);
-            }
-        });
-    }
-
-    public Cipher getEnCipher(SecretKey key) {
-
-        try {
-            Cipher cipher = this.enCipher.get();
-            cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化为加密模式的密码器
-            return cipher;
-        } catch (InvalidKeyException e) {
-            throw new InitException("getEnCipher error", e);
-        }
-
-    }
-
-    public Cipher getDeCipher(SecretKey key) {
-        try {
-            Cipher cipher = this.deCipher.get();
-            cipher.init(Cipher.DECRYPT_MODE, key);// 初始化为解密模式的密码器
-            return cipher;
-        } catch (InvalidKeyException e) {
-            throw new InitException("getDeCipher error", e);
-        }
-    }
-
-    
     public SecretKey getDefaultKey() {
         return defaultKey;
     }
 
-    
     public SecretKey generateKey() {
         return generateKey(DEFAULT_SEED);
     }
 
-    
     public SecretKey generateKey(String seed) {
         // TODO Auto-generated method stub
 
@@ -124,31 +74,26 @@ public class AesCrypt  {
         }
     }
 
-    
     public SecretKey restoreKey(String key) {
-        return SecretKeyUtil.restoreKey(key);
+        return new SecretKeySpec(Base64Util.toBytes(key), "AES");
     }
 
-    
     public String stringKey(SecretKey key) {
-        return SecretKeyUtil.keyString(key);
+        return Base64Util.toString(key.getEncoded());
     }
 
-    
     public String encrypt(String text) {
-        return encrypt(text, this.defaultEnCipher.get());
+        return encrypt(text, cipherManager.getDefaultEnCipher());
     }
 
-    
     public String encrypt(String text, String keyStr) {
         return encrypt(text, restoreKey(keyStr));
     }
 
-    
     public String encrypt(String text, SecretKey key) {
         // TODO Auto-generated method stub
 
-        return encrypt(text, this.getEnCipher(key));
+        return encrypt(text, cipherManager.getEnCipher(key));
 
     }
 
@@ -184,21 +129,18 @@ public class AesCrypt  {
 
     }
 
-    
     public String decrypt(String text) {
-        return decrypt(text, this.defaultDeCipher.get());
+        return decrypt(text, cipherManager.getDefaultDeCipher());
     }
 
-    
     public String decrypt(String text, String keyStr) {
         return decrypt(text, restoreKey(keyStr));
     }
 
-    
     public String decrypt(String decryptText, SecretKey key) {
         // TODO Auto-generated method stub
         // log.info("密文：" + decryptText);
-        return decrypt(decryptText, this.getDeCipher(key));
+        return decrypt(decryptText, cipherManager.getDeCipher(key));
     }
 
     private String decrypt(String decryptText, Cipher cipher) {

@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.commons.exception.info;
 
+import org.apache.commons.codec.digest.Crypt;
+
 /**
  * @author BiJi'an
  * @description
@@ -20,6 +22,8 @@ public class ErrInfos {
     public static final ErrInfo PARAM = new ErrInfo(BASE);
     public static final ErrInfo GENERAL = new ErrInfo(BASE);
     public static final ErrInfo SYSTEM = new ErrInfo(BASE);
+    public static final ErrInfo CRYPT = new ErrInfo(BASE);
+
 
 
     private static final ErrInfoClassify CLASSIFY_BIZ = new ErrInfoClassify(10001);

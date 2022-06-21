@@ -3,6 +3,8 @@ dependencies {
 //    api("jakarta.validation:jakarta.validation-api")
     api 'org.hibernate.validator:hibernate-validator:7.0.4.Final'
     api(rootProject.dep['mybatis-plus'])
+    api(rootProject.dep['springfox-swagger2'])
+    api(rootProject.dep['springfox-swagger-ui'])
 }
 jar.enabled = true
 bootJar.enabled = false
