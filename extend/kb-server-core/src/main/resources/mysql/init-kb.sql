@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `kb_doc` (
     `sys_update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后编辑时间',
     `sys_delete_flag` tinyint  NOT NULL DEFAULT 0 COMMENT '0 未删除 1删除',
     `sys_op_lock` int NULL COMMENT '乐观锁',
-    `type` tinyint NOT NULL DEFAULT 0 COMMENT '类型',
+    `type` tinyint NOT NULL DEFAULT 0 COMMENT '类型 0 普通文本  1 富文本 ',
     `title` varchar(256) NOT NULL DEFAULT '' COMMENT 'title',
     `content` MEDIUMTEXT NOT NULL  COMMENT 'content',
     `summary` varchar(1024) NOT NULL DEFAULT '' COMMENT 'summary',

@@ -181,14 +181,15 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     public boolean delete(ReqDelete reqDelete) {
 
         T data = this.baseMapper.selectById(reqDelete.getId());
-        this.deleteInterceptor.before(reqDelete, this.tenantSupported, data);
-        if (reqDelete.isPhysical()) {
-            this.baseMapper.deleteById(data.getId());
-        } else {
-            this.baseMapper.updateById(data);
+        if (data != null) {
+            this.deleteInterceptor.before(reqDelete, this.tenantSupported, data);
+            if (reqDelete.isPhysical()) {
+                this.baseMapper.deleteById(data.getId());
+            } else {
+                this.baseMapper.updateById(data);
+            }
+            this.deleteInterceptor.after(reqDelete, data);
         }
-        this.deleteInterceptor.after(reqDelete, data);
-
         return data != null;
 
     }

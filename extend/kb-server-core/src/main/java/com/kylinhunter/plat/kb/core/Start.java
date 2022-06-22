@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"com.kylinhunter.plat"})
-@MapperScan("com.kylinhunter.plat.dao")
+@MapperScan("com.kylinhunter.plat.kb.core.dao")
 @EnableFeignClients
 public class Start {
     public static void main(String[] args) {
