@@ -8,6 +8,8 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantUserConfigService;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserConfigMapper;
+import com.kylinhunter.plat.core.service.local.interceptor.SysUserConfigSaveOrUpdateInterceptor;
+import com.kylinhunter.plat.core.service.local.interceptor.TenantUserConfigSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;
@@ -26,4 +28,7 @@ public class TenantUserConfigServiceImp
         TenantUserConfigReqCreate, TenantUserConfigReqUpdate,
         TenantUserConfigResp, TenantUserConfigVO, TenantUserConfigReqQuery> implements TenantUserConfigService {
 
+    public TenantUserConfigServiceImp(TenantUserConfigSaveOrUpdateInterceptor tenantUserConfigSaveOrUpdateInterceptor) {
+        this.saveOrUpdateInterceptor = tenantUserConfigSaveOrUpdateInterceptor;
+    }
 }

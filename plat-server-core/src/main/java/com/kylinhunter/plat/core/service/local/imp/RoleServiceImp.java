@@ -34,7 +34,6 @@ public class RoleServiceImp
                           RoleDeleteInterceptor RoleDeleteInterceptor) {
         this.saveOrUpdateInterceptor = RoleSaveOrUpdateInterceptor;
         this.deleteInterceptor = RoleDeleteInterceptor;
-        this.tenantSupported = false;
     }
 
     @Override

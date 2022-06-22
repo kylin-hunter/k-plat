@@ -49,12 +49,17 @@ public class DefaultUserContext implements UserContext, Serializable {
 
     public DefaultUserContext(User user) {
         BeanUtils.copyProperties(user, this);
-        this.userType=user.getType();
+        this.userType = user.getType();
         this.userId = user.getId();
     }
 
     @Override
     public boolean isDummy() {
         return false;
+    }
+
+    @Override
+    public boolean isSuperAdmin() {
+        return UserType.isSuperAdmin(this.userType);
     }
 }

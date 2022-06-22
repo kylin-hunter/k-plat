@@ -1,5 +1,7 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -15,7 +17,6 @@ import com.kylinhunter.plat.core.service.local.TenantService;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 /**
  * <p>
@@ -32,12 +33,17 @@ public class TenantServiceImp
         TenantResp, TenantVO, TenantReqQuery> implements TenantService {
 
     public TenantServiceImp(TenantSaveOrUpdateInterceptor tenantSaveOrUpdateInterceptor,
-                          TenantDeleteInterceptor tenantDeleteInterceptor) {
+                            TenantDeleteInterceptor tenantDeleteInterceptor) {
         this.saveOrUpdateInterceptor = tenantSaveOrUpdateInterceptor;
         this.deleteInterceptor = tenantDeleteInterceptor;
+    }
+
+    @PostConstruct
+    @Override
+    public void init() {
+        super.init();
         this.tenantSupported = false;
     }
-    
     @Override
     public Tenant queryByCode(String code) {
         LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.lambdaQuery();

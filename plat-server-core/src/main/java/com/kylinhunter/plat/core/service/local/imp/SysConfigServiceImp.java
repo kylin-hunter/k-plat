@@ -1,16 +1,16 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
+import org.springframework.stereotype.Service;
+
 import com.kylinhunter.plat.api.module.core.bean.entity.SysConfig;
 import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqCreate;
 import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigVO;
-import com.kylinhunter.plat.core.service.local.SysConfigService;
 import com.kylinhunter.plat.core.dao.mapper.SysConfigMapper;
+import com.kylinhunter.plat.core.service.local.SysConfigService;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-
-import org.springframework.stereotype.Service;
 
 /**
  * <p>

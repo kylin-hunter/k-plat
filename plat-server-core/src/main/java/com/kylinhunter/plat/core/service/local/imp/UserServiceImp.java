@@ -37,7 +37,6 @@ public class UserServiceImp extends CommonServiceImpl<UserMapper, User, UserReqC
                           UserDeleteInterceptor userDeleteInterceptor) {
         this.saveOrUpdateInterceptor = userSaveOrUpdateInterceptor;
         this.deleteInterceptor = userDeleteInterceptor;
-        this.tenantSupported = false;
     }
 
     @Override

@@ -268,6 +268,12 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             this.queryAccurateInterceptor = this.applicationContext.getBean(QueryAccurateInterceptor.class);
         }
 
+        if (this.getClass().getSimpleName().startsWith("Tenant")) {
+            this.tenantSupported = true;
+        } else {
+            this.tenantSupported = false;
+        }
+
     }
 
 }
