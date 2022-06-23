@@ -28,7 +28,8 @@ plugins {
 
 allprojects {
     group 'com.kylinhunter.plat'
-    version '1.0.1-SNAPSHOT'
+//    version '1.0.0-SNAPSHOT'
+    version '1.0.0'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     repositories {
@@ -88,7 +89,7 @@ subprojects {
     }
 
     test {
-//        exclude 'com/kylinhunter/plat/**/Suite**'
+//        exclude 'com/kylinhunter/**/Suite**'
         useJUnitPlatform()
         testLogging {
             outputs.upToDateWhen { false }
@@ -122,15 +123,15 @@ subprojects {
             version true
         }
     }
-    if (project.name != 'plat-server-eureka') {
-        publishing {
-            publications {
-                mavenJava(MavenPublication) {
-                    from components.java
-                }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
             }
         }
     }
+
 
 
 }

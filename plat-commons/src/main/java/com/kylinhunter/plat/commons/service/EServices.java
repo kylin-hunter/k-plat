@@ -58,7 +58,7 @@ public class EServices {
      * @author BiJi'an
      * @date 2022-01-01 23:49
      */
-    protected static <T extends Enum<T>, R> R register(Enum<T> e, Class<R> clazz) {
+    public static <T extends Enum<T>, R> R register(Enum<T> e, Class<R> clazz) {
 
         try {
             if (clazz == null) {

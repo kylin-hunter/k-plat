@@ -7,7 +7,6 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.15'
     implementation 'org.springframework:spring-beans'
     implementation 'org.springframework:spring-context'
-
     api(rootProject.dep['commons-lang3'])
     api(rootProject.dep['commons-io'])
 

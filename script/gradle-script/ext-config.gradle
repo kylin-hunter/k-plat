@@ -1,5 +1,5 @@
 ext {
-    profile = "dev-local"
+    profile = "local"
     //   profile="dev-k8s-share"
     DEV_DUBBO_GROUP = "bijian"
     //DEV_DUBBO_HOST="192.168.31.154"
