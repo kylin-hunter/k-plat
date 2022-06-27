@@ -3,9 +3,11 @@ include 'plat-commons'
 include 'plat-api'
 include 'plat-core'
 include 'plat-dao'
+include 'plat-file'
 include 'plat-web'
 include 'plat-generator'
 include 'plat-server-core'
+include 'plat-server-storage'
 
 file('extend').eachDir { dir ->
     include dir.name

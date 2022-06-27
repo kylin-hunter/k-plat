@@ -1,8 +1,8 @@
 spring:
   application:
-    name: plat-server-core
+    name: plat-server-storage
   profiles:
-    active: local
+    active: ali
   messages:
     basename: static/i18n/messages
   datasource:

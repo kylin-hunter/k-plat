@@ -1,0 +1,18 @@
+dependencies {
+    api project(':plat-api')
+    api project(':plat-commons')
+    implementation(rootProject.dep['jodconverter-local'])
+    implementation(rootProject.dep['jodconverter-spring-boot-starter'])
+    implementation "org.springframework.boot:spring-boot-starter-web"
+//    implementation "org.springframework.boot:spring-boot-devtools"
+}
+jar.enabled = true
+bootJar.enabled(false)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+
