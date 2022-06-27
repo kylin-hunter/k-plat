@@ -15,10 +15,10 @@ import com.kylinhunter.plat.commons.exception.info.ErrInfoManager;
 @Component
 public class StorageErrInfoCustomizer implements ErrInfoCustomizer {
 
-    private static final ErrInfoClassify CLASSIFY_STORAGE = new ErrInfoClassify(30001);
+    private static final ErrInfoClassify CLASSIFY_STORAGE = new ErrInfoClassify(40001);
 
     public static final ErrInfo STORAGE_ERROR = new ErrInfo(CLASSIFY_STORAGE);
-    ;
+
 
     @Override
     public void customize(ErrInfoManager errInfoManager) {

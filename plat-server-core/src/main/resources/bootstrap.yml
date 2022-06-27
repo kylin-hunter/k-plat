@@ -1,26 +1,20 @@
 spring:
-  mvc:
-    hiddenmethod:
-      filter:
-        enabled: true
   cloud:
     nacos:
       config:
-#        server-addr: 47.94.98.98:8021
-#        server-addr: 192.168.31.122:8021
         server-addr: 127.0.0.1:8848
         file-extension: yaml
+        shared-configs[0]:
+          data-id: plat-common.yaml
+          group: DEFAULT_GROUP
+          refresh: true
       discovery:
-        #        server-addr: 47.94.98.98:8021
-#        server-addr: 192.168.31.122:8021
         server-addr: 127.0.0.1:8848
-    #        ip: 100.103.74.205
-
+        # ip: 100.103.74.205
     sentinel:
       transport:
         port: 8719
-        #        dashboard:  localhost:8080#
-        dashboard:  192.168.31.122:8022
+        dashboard: 192.168.31.122:8022
       #        client-ip: 100.103.74.205
       datasource:
         ds:
@@ -29,6 +23,3 @@ spring:
             dataId: ${spring.application.name}-sentinel
             groupId: DEFAULT_GROUP
             rule-type: flow
-feign:
-  sentinel:
-    enabled: true

@@ -3,28 +3,11 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
-
       discovery:
-
         server-addr: 127.0.0.1:8848
-
+      server-addr: 127.0.0.1:8848
     sentinel:
       datasource:
         ds:
           nacos:
             server-addr: 127.0.0.1:8848
-app:
-  initialize:
-    enabled: true
-
-logging:
-  level:
-    org.springframework.transaction: debug
-    org.springframework.jdbc: debug
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-s3:
-  url: "http://47.94.98.98:9000"
-  accessKey: "bijian"
-  secretKey: "bja0925bja"

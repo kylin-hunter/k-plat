@@ -11,7 +11,7 @@ import lombok.Data;
  * @date 2022-06-27 01:24
  **/
 @Data
-@ConfigurationProperties(prefix = "s3")
+@ConfigurationProperties(prefix = "kplat.storage.s3")
 @Component
 public class S3Config {
     private String url;
