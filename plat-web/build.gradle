@@ -11,6 +11,9 @@ dependencies {
     api project(':plat-dao')
     api("org.springframework.boot:spring-boot-starter-web")
     api('org.springframework.boot:spring-boot-starter-aop')
+
+    api('org.springframework.boot:spring-boot-starter-actuator')
+    api('io.micrometer:micrometer-registry-prometheus')
     api(rootProject.dep['java-jwt'])
 
     api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"

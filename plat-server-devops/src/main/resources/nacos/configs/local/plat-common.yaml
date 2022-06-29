@@ -13,3 +13,29 @@ spring:
 feign:
   sentinel:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  #      base-path: "/manage"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      enabled: true
+    conditions:
+      enabled: true
+    info:
+      enabled: true
+    beans:
+      enabled: true
+    auditevents:
+      enabled: true
+    prometheus:
+      enabled: true
+    mappings:
+      enabled: true
+    shutdown:
+      enabled: true
