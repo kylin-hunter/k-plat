@@ -137,7 +137,7 @@ public class EnumUtil {
             log.error("fromName  error", e);
         }
         if (throwIfFailed) {
-            throw new ParamException("invalid enum name1:" + name);
+            throw new ParamException("invalid enum name:" + name);
         } else {
             return null;
         }

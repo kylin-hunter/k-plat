@@ -1,8 +1,6 @@
 package com.kylinhunter.plat.storage.minio.service;
 
-import java.io.File;
-
-import com.kylinhunter.plat.storage.service.local.imp.StorageService;
+import com.kylinhunter.plat.storage.service.local.StorageService;
 
 /**
  * @author BiJi'an
