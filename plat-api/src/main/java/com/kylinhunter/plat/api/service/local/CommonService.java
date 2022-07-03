@@ -42,6 +42,8 @@ public interface CommonService<T extends BaseEntity, X extends ReqCreate, Y exte
 
     Z queryById(ReqById reqById);
 
+    T getById(String id);
+
     List<Z> queryByIds(ReqByIds reqByIds);
 
     PageData<Z> query(Q reqQueryPage);

@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.storage.configuration;
+package com.kylinhunter.plat.storage.minio.configuration;
 
 import java.util.concurrent.TimeUnit;
 
@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.cloud.commons.httpclient.DefaultOkHttpClientFactory;
 import org.springframework.cloud.commons.httpclient.OkHttpClientFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 import com.kylinhunter.plat.storage.config.S3Config;
+import com.kylinhunter.plat.storage.config.StorageConfig;
 
 import io.minio.MinioClient;
 import okhttp3.OkHttpClient;
@@ -25,10 +25,11 @@ import okhttp3.OkHttpClient;
 public class MinioConfiguration {
 
     @Autowired
-    private S3Config s3Config;
+    private StorageConfig storageConfig;
 
     @Bean
     public OkHttpClient httpClient() {
+        final S3Config s3Config = storageConfig.getS3();
         OkHttpClientFactory okHttpClientFactory = new DefaultOkHttpClientFactory(new OkHttpClient().newBuilder());
         return okHttpClientFactory.createBuilder(true)
                 .retryOnConnectionFailure(true)
@@ -39,6 +40,7 @@ public class MinioConfiguration {
 
     @Bean
     public MinioClient minioClient() {
+        final S3Config s3Config = storageConfig.getS3();
         OkHttpClient client = httpClient();
         return MinioClient
                 .builder().httpClient(client)

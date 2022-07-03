@@ -7,6 +7,7 @@ package com.kylinhunter.plat.commons.util.date;
  **/
 public class DatePatterns {
     public static final String DATE = "yyyy-MM-dd";
+    public static final String DATE_SLASH = "yyyy/MM/dd";
     public static final String DATE_NO_SEP = "yyyyMMdd";
     public static final String HOUR = "yyyy-MM-dd HH";
     public static final String HOUR_NO_SEP = "yyyyMMddHH";

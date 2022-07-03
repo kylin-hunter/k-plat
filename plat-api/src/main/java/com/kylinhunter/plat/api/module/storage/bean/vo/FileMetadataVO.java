@@ -10,11 +10,20 @@ public interface  FileMetadataVO  extends VO {
     Integer getType();
     void setType (Integer type);
 
+    String getBucket();
+    void setBucket (String bucket);
+
     String getPath();
     void setPath (String path);
 
+    Long getSize();
+    void setSize (Long size);
+
     String getName();
     void setName (String name);
+
+    String getRefPath();
+    void setRefPath (String refPath);
 
     String getRefId();
     void setRefId (String refId);

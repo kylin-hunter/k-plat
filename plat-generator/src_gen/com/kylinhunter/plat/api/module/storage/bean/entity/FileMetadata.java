@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-30
+ * @since 2022-07-03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -35,17 +35,26 @@ public class FileMetadata extends BaseEntity {
     @ApiModelProperty(value = "扩展名")
     private String extension;
 
+    @ApiModelProperty(value = "size")
+    private Long size;
+
     @ApiModelProperty(value = "描述")
     private String description;
 
     @ApiModelProperty(value = "md5")
     private String md5;
 
+    @ApiModelProperty(value = "bucket")
+    private String bucket;
+
     @ApiModelProperty(value = "地址")
     private String path;
 
     @ApiModelProperty(value = "重复id")
     private String refId;
+
+    @ApiModelProperty(value = "重复path")
+    private String refPath;
 
 
 }

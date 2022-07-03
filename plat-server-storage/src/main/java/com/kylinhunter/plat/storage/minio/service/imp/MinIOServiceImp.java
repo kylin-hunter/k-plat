@@ -1,19 +1,12 @@
 package com.kylinhunter.plat.storage.minio.service.imp;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.UUID;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
-import com.kylinhunter.plat.commons.codec.MD5Util;
-import com.kylinhunter.plat.storage.config.StorageConfig;
 import com.kylinhunter.plat.storage.exception.StorageException;
 import com.kylinhunter.plat.storage.minio.service.MinIOService;
 import com.kylinhunter.plat.storage.service.local.imp.AbstractStorageService;
@@ -23,6 +16,7 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author BiJi'an
@@ -32,9 +26,9 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 @ConditionalOnExpression("'${kplat.storage.type}' == 'minio'")
+@Slf4j
 public class MinIOServiceImp extends AbstractStorageService implements MinIOService {
     private final MinioClient minioClient;
-    private final StorageConfig storageConfig;
     public static final int DEFAULT_PART_SIZE = 5 * 1024 * 1024;
     public static final int MIDDLE_SIZE = 512 * 1024 * 1024;
     public static final int MIDDLE_PART_SIZE = 10 * 1024 * 1024;
@@ -50,30 +44,22 @@ public class MinIOServiceImp extends AbstractStorageService implements MinIOServ
      * @date 2022-06-30 01:59
      */
     private long calPartSzie(long objectSize) {
-        int partSize = -1;
-        if (objectSize < 0) {
-            partSize = DEFAULT_PART_SIZE;
-        } else if (objectSize > MIDDLE_SIZE && objectSize < LARGE_SIZE) {
+        int partSize = DEFAULT_PART_SIZE;
+        if (objectSize > MIDDLE_SIZE && objectSize < LARGE_SIZE) {
             partSize = MIDDLE_PART_SIZE;
-        } else if (objectSize >= LARGE_SIZE) {
+        } else if (objectSize > LARGE_SIZE) {
             partSize = LARGE_PART_SIZE;
         }
         return partSize;
     }
 
-    @Override
-    public void upload(String bucket, String path, long objectSize, InputStream inputStream) {
+    private void upload(String bucket, String path, long objectSize, InputStream inputStream) {
         try {
-
-
-            if (StringUtils.isEmpty(bucket)) {
-                bucket = storageConfig.getS3().getBucket();
-            }
             long partSize = calPartSzie(objectSize);
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(bucket)
                     .object(path)
-                    .stream(inputStream, objectSize, partSize)
+                    .stream(inputStream, objectSize <= 0 ? -1 : objectSize, partSize)
                     .build());
         } catch (Exception e) {
             throw new StorageException("upload error", e);
@@ -81,57 +67,36 @@ public class MinIOServiceImp extends AbstractStorageService implements MinIOServ
     }
 
     @Override
-    public void upload(String path, long objectSize, InputStream inputStream) {
-        this.upload(null, path, objectSize, inputStream);
-    }
-
-    @Override
-    public void upload(String path, File file) {
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            this.upload(path, file.length(), fileInputStream);
-        } catch (Exception e) {
-            throw new StorageException("upload error", e);
-        }
+    public void upload(FileMetadataReqCreate fileMetadataReqCreate, InputStream inputStream) {
+        final String path = fileMetadataReqCreate.getPath();
+        final Long size = fileMetadataReqCreate.getSize();
+        final String bucket = fileMetadataReqCreate.getBucket();
+        this.upload(bucket, path, size, inputStream);
 
     }
 
     @Override
-    public void upload(String path, InputStream inputStream) {
-        this.upload(path, -1, inputStream);
-    }
-
-    @Override
-    public void upload(MultipartFile multipartFile) {
-
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            String md5 = MD5Util.md5(multipartFile.getBytes());
-            FileMetadataReqCreate fileMetadataReqCreate = new FileMetadataReqCreate();
-            fileMetadataReqCreate.setMd5(md5);
-            fileMetadataReqCreate.setPath(UUID.randomUUID().toString());
-            fileMetadataReqCreate.setContentType(multipartFile.getContentType());
-            fileMetadataReqCreate.setName(multipartFile.getOriginalFilename());
-            fileMetadataReqCreate.setExtension(FilenameUtils.getExtension(multipartFile.getOriginalFilename()));
-
-            //            this.upload(path, multipartFile.getSize(), inputStream);
-        } catch (Exception e) {
-            throw new StorageException("upload error", e);
-        }
-    }
-
-    public InputStream download(String bucket, String path) {
+    public boolean delete(FileMetadata fileMetadata) {
         try {
+            final String bucket = fileMetadata.getBucket();
+            final String path = fileMetadata.getPath();
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucket).object(path).build());
+            return true;
+        } catch (Exception e) {
+            log.error("delete error", e);
+        }
+        return false;
+    }
+
+    @Override
+    public InputStream getDownloadInputStream(FileMetadata fileMetadata) {
+        try {
+            final String bucket = fileMetadata.getBucket();
+            final String path = fileMetadata.getPath();
             return minioClient.getObject(GetObjectArgs.builder().bucket(bucket).object(path).build());
         } catch (Exception e) {
             e.printStackTrace();
             throw new StorageException("download error", e);
-        }
-    }
-
-    public void delete(String repository, String path, String fileName) {
-        try {
-            minioClient.removeObject(RemoveObjectArgs.builder().bucket(repository).object(path + fileName).build());
-        } catch (Exception e) {
-            throw new StorageException("delete error", e);
         }
     }
 

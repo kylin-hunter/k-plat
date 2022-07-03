@@ -17,10 +17,12 @@ CREATE TABLE IF NOT EXISTS `kplat_file_metadata`
     `content_type`          varchar(255) NOT NULL DEFAULT '' COMMENT 'content-type',
     `name`                  varchar(255) NOT NULL DEFAULT '' COMMENT '文件名',
     `extension`             varchar(255) NOT NULL DEFAULT '' COMMENT '扩展名',
+    `size`                  bigint(20)   NOT NULL DEFAULT 0 COMMENT 'size',
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     `md5`                   varchar(64)  NOT NULL DEFAULT '' COMMENT 'md5',
+    `bucket`                varchar(64)  NOT NULL DEFAULT '' COMMENT 'bucket',
     `path`                  varchar(256) NOT NULL DEFAULT '' COMMENT '地址',
     `ref_id`                varchar(64)  NOT NULL DEFAULT '' COMMENT '重复id',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uniq_md5` (`md5`) COMMENT ''
+    `ref_path`              varchar(256) NOT NULL DEFAULT '' COMMENT '重复path',
+    PRIMARY KEY (`id`)
 );

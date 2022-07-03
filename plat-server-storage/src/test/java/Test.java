@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import com.kylinhunter.plat.commons.io.ResourceHelper;
 
 import io.minio.MinioClient;
+import io.minio.ObjectWriteResponse;
 import io.minio.PutObjectArgs;
 import io.minio.errors.ErrorResponseException;
 import io.minio.errors.InsufficientDataException;
@@ -27,11 +28,14 @@ public class Test {
             NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException {
 
         String name = "admin";
-        String pass = "admin123";
+        String pass = "bjaby09250520";
         String bucket = "bijian";
+        String endpoint = "http://47.94.98.98:9000";
+//        endpoint = "http://10.233.28.42:8200";
+        //         name = "admin";
+        //         pass = "admin123";
         final MinioClient minioClient =
-                MinioClient.builder().endpoint("http://10.233.28.42:8200").credentials(name, pass).build();
-
+                MinioClient.builder().endpoint(endpoint).credentials(name, pass).build();
 
         minioClient.listBuckets().forEach(e -> {
             System.out.println(e.name());
@@ -40,11 +44,18 @@ public class Test {
         File file = ResourceHelper.getFileInClassPath("test.docx");
 
         FileInputStream inputStream = new FileInputStream(file);
-        minioClient.putObject(PutObjectArgs.builder()
+        final ObjectWriteResponse objectWriteResponse = minioClient.putObject(PutObjectArgs.builder()
                 .bucket(bucket)
-                .object("test.docx")
+                .object("1/1/tes1t   2.docx")
                 .stream(inputStream, file.length(), -1)
                 .build());
+        System.out.println(objectWriteResponse);
+        System.out.println(objectWriteResponse.object());
+        System.out.println(objectWriteResponse.versionId());
+        System.out.println(objectWriteResponse.etag());
+        System.out.println(objectWriteResponse.bucket());
+        System.out.println(objectWriteResponse.region());
+
 
     }
 }

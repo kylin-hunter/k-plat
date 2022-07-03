@@ -1,16 +1,18 @@
 package com.kylinhunter.plat.storage.service.local.imp;
 
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuery;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
-import com.kylinhunter.plat.storage.service.local.FileMetadataService;
-import com.kylinhunter.plat.storage.dao.mapper.FileMetadataMapper;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-
-import org.springframework.stereotype.Service;
+import com.kylinhunter.plat.storage.dao.mapper.FileMetadataMapper;
+import com.kylinhunter.plat.storage.service.local.FileMetadataService;
 
 /**
  * <p>
@@ -26,4 +28,12 @@ public class FileMetadataServiceImp
         FileMetadataReqCreate, FileMetadataReqUpdate,
         FileMetadataResp, FileMetadataVO, FileMetadataReqQuery> implements FileMetadataService {
 
+    @Override
+    public FileMetadata findByMd5(String md5) {
+        final LambdaQueryWrapper<FileMetadata> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(FileMetadata::getMd5, md5);
+        queryWrapper.last("limit 1");
+        queryWrapper.orderByAsc(FileMetadata::getSysCreatedTime);
+        return this.baseMapper.selectOne(queryWrapper);
+    }
 }

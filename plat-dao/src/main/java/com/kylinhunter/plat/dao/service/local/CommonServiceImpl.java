@@ -240,6 +240,11 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
     }
 
     @Override
+    public T getById(String id) {
+        return this.baseMapper.selectById(id);
+    }
+
+    @Override
     public PageData<Z> query(Q reqQueryPage) {
         try {
             QueryWrapper<T> queryWrapper = queryComplexInterceptor.before(reqQueryPage, tenantSupported);

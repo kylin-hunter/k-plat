@@ -16,6 +16,6 @@ public class KPlatCodeGenneratorForFileMetadata extends StorageKPlatCodeGennerat
     }
 
     public static void main(String[] args) {
-        new KPlatCodeGenneratorForFileMetadata().exec(true);
+        new KPlatCodeGenneratorForFileMetadata().exec(false);
     }
 }

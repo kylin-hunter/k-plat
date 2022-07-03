@@ -11,6 +11,7 @@ import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.response.ResponseService;
+import com.kylinhunter.plat.web.response.ResponseWriter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
     private final ResponseService responseService;
+
+    private final ResponseWriter responseWriter;
 
     private final ExceptionExplainer exceptionExplainer;
 
@@ -48,7 +51,7 @@ public class GlobalExceptionHandler {
             DefaultResponse<?> response = responseService.toResponse(exceptionExplainer.convert(globalException));
             String responseJson = JsonUtils.toString(response, false);
             log.error(req.getRequestURI() + "'s response:" + responseJson);
-            responseService.writeJson(responseJson);
+            responseWriter.writeJson(responseJson);
         } catch (Exception e) {
             log.error("global_exception_handler_error", e);
         }

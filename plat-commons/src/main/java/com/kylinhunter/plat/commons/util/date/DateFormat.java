@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 
-import org.apache.commons.lang3.StringUtils;
+import com.kylinhunter.plat.commons.exception.inner.ParamException;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +33,8 @@ public class DateFormat {
             this.dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
 
         }
-        this.parseByLocalDate = pattern.equals(DatePatterns.DATE) || pattern.equals(DatePatterns.DATE_NO_SEP);
+        this.parseByLocalDate = pattern.equals(DatePatterns.DATE) || pattern.equals(DatePatterns.DATE_SLASH) || pattern
+                .equals(DatePatterns.DATE_NO_SEP);
 
     }
 
@@ -41,10 +42,8 @@ public class DateFormat {
         try {
             return dateTimeFormatter.format(temporal);
         } catch (Exception e) {
-            log.error("format error:" + temporal, e);
+            throw new ParamException("format error:" + temporal, e);
         }
-        return StringUtils.EMPTY;
-
     }
 
     public LocalDateTime parse(CharSequence text) {
@@ -56,8 +55,8 @@ public class DateFormat {
             }
 
         } catch (Exception e) {
-            log.error("parse error:" + text, e);
+            throw new ParamException("parse error:" + text, e);
+
         }
-        return null;
     }
 }

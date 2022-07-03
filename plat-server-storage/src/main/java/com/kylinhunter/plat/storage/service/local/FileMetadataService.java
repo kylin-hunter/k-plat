@@ -17,7 +17,8 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * @since 2022-06-30
  */
 public interface FileMetadataService extends CommonService<FileMetadata,
-    FileMetadataReqCreate, FileMetadataReqUpdate,
-    FileMetadataResp, FileMetadataVO, FileMetadataReqQuery>  {
+        FileMetadataReqCreate, FileMetadataReqUpdate,
+        FileMetadataResp, FileMetadataVO, FileMetadataReqQuery> {
 
+    FileMetadata findByMd5(String md5);
 }
