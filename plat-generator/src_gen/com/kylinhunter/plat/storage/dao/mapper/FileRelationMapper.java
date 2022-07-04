@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.storage.dao.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import com.kylinhunter.plat.api.module.storage.bean.entity.FileRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -10,10 +10,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-04
+ * @since 2022-07-05
  */
 @Mapper
 @Repository
-public interface FileMetadataMapper extends BaseMapper<FileMetadata> {
+public interface FileRelationMapper extends BaseMapper<FileRelation> {
 
 }

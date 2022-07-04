@@ -36,4 +36,14 @@ public class FileMetadataServiceImp
         queryWrapper.orderByAsc(FileMetadata::getSysCreatedTime);
         return this.baseMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public FileMetadata findByMd5AndName(String md5, String name) {
+        final LambdaQueryWrapper<FileMetadata> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(FileMetadata::getMd5, md5);
+        queryWrapper.eq(FileMetadata::getName, name);
+        queryWrapper.last("limit 1");
+        queryWrapper.orderByAsc(FileMetadata::getSysCreatedTime);
+        return this.baseMapper.selectOne(queryWrapper);
+    }
 }

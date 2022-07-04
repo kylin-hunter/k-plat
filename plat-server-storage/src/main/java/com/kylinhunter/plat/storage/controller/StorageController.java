@@ -28,7 +28,7 @@ public class StorageController extends CommonController {
 
     private final StorageService storageService;
 
-    @ApiOperation(value = "upload", notes = "上传")
+    @ApiOperation(value = "needUpload", notes = "上传")
     @PostMapping(value = "/upload")
     String upload(@RequestParam(value = "file") final MultipartFile multipartFile) throws Exception {
         return storageService.upload(multipartFile);

@@ -62,7 +62,7 @@ public class MinIOServiceImp extends AbstractStorageService implements MinIOServ
                     .stream(inputStream, objectSize <= 0 ? -1 : objectSize, partSize)
                     .build());
         } catch (Exception e) {
-            throw new StorageException("upload error", e);
+            throw new StorageException("needUpload error", e);
         }
     }
 

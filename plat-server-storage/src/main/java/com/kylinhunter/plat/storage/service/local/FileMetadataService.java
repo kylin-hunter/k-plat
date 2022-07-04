@@ -21,4 +21,6 @@ public interface FileMetadataService extends CommonService<FileMetadata,
         FileMetadataResp, FileMetadataVO, FileMetadataReqQuery> {
 
     FileMetadata findByMd5(String md5);
+    FileMetadata findByMd5AndName(String md5,String name);
+
 }
