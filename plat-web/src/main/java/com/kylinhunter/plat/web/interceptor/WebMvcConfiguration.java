@@ -33,7 +33,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
                 .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_USER))
                 .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_ROLES))
-                .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANT));
+                .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANT))
+                .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_STORAGE));
 
     }
 

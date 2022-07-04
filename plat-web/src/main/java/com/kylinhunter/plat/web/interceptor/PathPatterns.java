@@ -25,6 +25,8 @@ public class PathPatterns {
             .add("/api/v1/core/users/**");
     public static final PathPattern API_V1_ROLES = PathPattern.builder().build()
             .add("/api/v1/core/roles/**");
+    public static final PathPattern API_V1_STORAGE = PathPattern.builder().build()
+            .add("/api/v1/storage/**");
 
     public static final PathPattern API_V1 = PathPattern.builder().build()
             .add("/api/v1/**");

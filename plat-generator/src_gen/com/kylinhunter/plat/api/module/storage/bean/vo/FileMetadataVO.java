@@ -1,6 +1,5 @@
 package com.kylinhunter.plat.api.module.storage.bean.vo;
 import com.kylinhunter.plat.api.bean.vo.VO;
-
 public interface  FileMetadataVO  extends VO {
     String getExtension();
     void setExtension (String extension);

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `kplat_file_metadata`
     `md5`                   varchar(64)  NOT NULL DEFAULT '' COMMENT 'md5',
     `bucket`                varchar(64)  NOT NULL DEFAULT '' COMMENT 'bucket',
     `path`                  varchar(256) NOT NULL DEFAULT '' COMMENT '地址',
-    `ref_id`                varchar(64)  NOT NULL DEFAULT '' COMMENT '重复id',
-    `ref_path`              varchar(256) NOT NULL DEFAULT '' COMMENT '重复path',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uniq_md5` (`md5`) COMMENT '唯一的标志'
+
 );

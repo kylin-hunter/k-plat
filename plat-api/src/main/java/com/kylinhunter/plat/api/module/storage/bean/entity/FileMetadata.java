@@ -1,7 +1,8 @@
 package com.kylinhunter.plat.api.module.storage.bean.entity;
 
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-06-30
+ * @since 2022-07-04
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -49,12 +50,6 @@ public class FileMetadata extends BaseEntity {
 
     @ApiModelProperty(value = "地址")
     private String path;
-
-    @ApiModelProperty(value = "重复id")
-    private String refId;
-
-    @ApiModelProperty(value = "重复path")
-    private String refPath;
 
 
 }

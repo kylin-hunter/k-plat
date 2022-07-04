@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-03
+ * @since 2022-07-04
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -49,12 +49,6 @@ public class FileMetadata extends BaseEntity {
 
     @ApiModelProperty(value = "地址")
     private String path;
-
-    @ApiModelProperty(value = "重复id")
-    private String refId;
-
-    @ApiModelProperty(value = "重复path")
-    private String refPath;
 
 
 }

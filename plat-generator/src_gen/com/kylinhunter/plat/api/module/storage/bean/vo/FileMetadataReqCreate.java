@@ -1,7 +1,6 @@
 package com.kylinhunter.plat.api.module.storage.bean.vo;
 
 import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

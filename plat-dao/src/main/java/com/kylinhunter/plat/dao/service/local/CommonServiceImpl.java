@@ -189,8 +189,9 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
                 this.baseMapper.updateById(data);
             }
             this.deleteInterceptor.after(reqDelete, data);
+            return true;
         }
-        return data != null;
+        return false;
 
     }
 
@@ -274,11 +275,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             this.queryAccurateInterceptor = this.applicationContext.getBean(QueryAccurateInterceptor.class);
         }
 
-        if (this.getClass().getSimpleName().startsWith("Tenant")) {
-            this.tenantSupported = true;
-        } else {
-            this.tenantSupported = false;
-        }
+        this.tenantSupported = this.getClass().getSimpleName().startsWith("Tenant");
 
     }
 

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,13 +43,17 @@ public abstract class AbstractStorageService implements StorageService {
     public String upload(MultipartFile multipartFile) {
         FileMetadataReqCreate fileMetadataReqCreate = FileMetadataHelper.createFileMetadataReqCreate(multipartFile);
         fileMetadataReqCreate.setBucket(storageConfig.getS3().getBucket());
-        this.checkExist(fileMetadataReqCreate);
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            this.upload(fileMetadataReqCreate, inputStream);
-            final FileMetadataResp save = this.fileMetadataService.save(fileMetadataReqCreate);
-            return save.getId();
-        } catch (IOException e) {
-            throw new KIOException("upload error ", e);
+        final String id = this.checkExist(fileMetadataReqCreate);
+        if (StringUtils.isEmpty(id)) {
+            try (InputStream inputStream = multipartFile.getInputStream()) {
+                this.upload(fileMetadataReqCreate, inputStream);
+                final FileMetadataResp save = this.fileMetadataService.save(fileMetadataReqCreate);
+                return save.getId();
+            } catch (IOException e) {
+                throw new KIOException("upload error ", e);
+            }
+        } else {
+            return id;
         }
 
     }
@@ -57,13 +62,17 @@ public abstract class AbstractStorageService implements StorageService {
     public String upload(String path, File file) {
         FileMetadataReqCreate fileMetadataReqCreate = FileMetadataHelper.createFileMetadataReqCreate(file);
         fileMetadataReqCreate.setBucket(storageConfig.getS3().getBucket());
-        this.checkExist(fileMetadataReqCreate);
-        try (InputStream inputStream = new FileInputStream(file)) {
-            this.upload(fileMetadataReqCreate, inputStream);
-            final FileMetadataResp save = this.fileMetadataService.save(fileMetadataReqCreate);
-            return save.getId();
-        } catch (Exception e) {
-            throw new StorageException("upload error", e);
+        final String id = this.checkExist(fileMetadataReqCreate);
+        if (StringUtils.isEmpty(id)) {
+            try (InputStream inputStream = new FileInputStream(file)) {
+                this.upload(fileMetadataReqCreate, inputStream);
+                final FileMetadataResp save = this.fileMetadataService.save(fileMetadataReqCreate);
+                return save.getId();
+            } catch (Exception e) {
+                throw new StorageException("upload error", e);
+            }
+        } else {
+            return id;
         }
 
     }
@@ -84,14 +93,14 @@ public abstract class AbstractStorageService implements StorageService {
 
     public abstract void upload(FileMetadataReqCreate fileMetadataReqCreate, InputStream inputStream);
 
-    private void checkExist(FileMetadataReqCreate fileMetadataReqCreate) {
+    private String checkExist(FileMetadataReqCreate fileMetadataReqCreate) {
         FileMetadata fileMetadata = this.fileMetadataService.findByMd5(fileMetadataReqCreate.getMd5());
         if (fileMetadata != null) {
             String name = fileMetadataReqCreate.getName();
             log.error("same file :" + name + "/" + fileMetadata.getName() + "/md5=" + fileMetadata.getMd5());
-            fileMetadataReqCreate.setRefId(fileMetadata.getId());
-            fileMetadataReqCreate.setRefPath(fileMetadata.getRefPath());
-            fileMetadataReqCreate.setPath(fileMetadata.getPath());
+            return fileMetadata.getId();
+        } else {
+            return null;
         }
     }
 
