@@ -29,6 +29,11 @@ public class TemplateConfig {
     private static final String DEFAULT_TEMPLATE_RESP_VO = "/generator/templates/vo.java";
     private static final String DEFAULT_TEMPLATE_SERVICE_LOCAL = "/generator/templates/service_local.java";
     private static final String DEFAULT_TEMPLATE_SERVICE_LOCAL_IMP = "/generator/templates/service_local_imp.java";
+
+    private static final String DEFAULT_SERVICE_INTERCEPTOR_SAVE_UPDATE =
+            "/generator/templates/service_interceptor_save_update.java";
+    private static final String DEFAULT_SERVICE_INTERCEPTOR_DELETE = "/generator/templates/service_interceptor_delete"
+            + ".java";
     private static final String DEFAULT_TEMPLATE_SERVICE_RPC = "/generator/templates/service_rpc.java";
     private static final String DEFAULT_TEMPLATE_SERVICE_RPC_IMP = "/generator/templates/service_rpc_imp.java";
     private static final String DEFAULT_TEMPLATE_CONTROLLER = "/generator/templates/controller.java";
@@ -48,12 +53,15 @@ public class TemplateConfig {
         setTemplate(Template.VO, DEFAULT_TEMPLATE_RESP_VO);
         setTemplate(Template.SERVICE_LOCAL, DEFAULT_TEMPLATE_SERVICE_LOCAL);
         setTemplate(Template.SERVICE_LOCAL_IMP, DEFAULT_TEMPLATE_SERVICE_LOCAL_IMP);
+        setTemplate(Template.SERVICE_INTERCEPTOR_SAVE_UPDATE, DEFAULT_SERVICE_INTERCEPTOR_SAVE_UPDATE);
+        setTemplate(Template.SERVICE_INTERCEPTOR_DELETE, DEFAULT_SERVICE_INTERCEPTOR_DELETE);
         //        setTemplate(Template.SERVICE_RPC, DEFAULT_TEMPLATE_SERVICE_RPC);
         //        setTemplate(Template.SERVICE_RPC_IMP, DEFAULT_TEMPLATE_SERVICE_RPC_IMP);
         setTemplate(Template.CONTROLLER, DEFAULT_TEMPLATE_CONTROLLER);
         setEnabled(TemplateType.VO, true);
         setEnabled(TemplateType.SERVICE, true);
         setEnabled(TemplateType.CONTROLLER, true);
+        setEnabled(TemplateType.SERVICE_INTERCEPTOR, true);
     }
 
     public void setTemplate(@NonNull Template templateInst, @NonNull String template) {
@@ -101,5 +109,20 @@ public class TemplateConfig {
      */
     public boolean isEnabled(Template template) {
         return templateStates.getOrDefault(template, false);
+    }
+
+    /**
+     * @param templateType templateType
+     * @return boolean
+     * @title 检查模板是否开启
+     * @description
+     * @author BiJi'an
+     * @date 2022/01/01 4:43 下午
+     */
+    public boolean isEnabled(TemplateType templateType) {
+        return templateStates.entrySet().stream()
+                .filter(t -> t.getKey().getType() == templateType && t.getValue() == true)
+                .findAny().isPresent();
+
     }
 }

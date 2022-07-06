@@ -1,0 +1,26 @@
+package ${package};
+
+import ${import_entity_class};
+import ${import_vo_create};
+import ${import_vo_query};
+import ${import_vo_update};
+import ${import_vo_response};
+import ${import_vo};
+import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import org.springframework.stereotype.Component;
+
+
+/**
+ * <p>
+ * $!{class_comment} 代码工具自动生成，按需扩展
+ * </p>
+ *
+ * @author ${sys_author}
+ * @since ${date}
+ */
+@Component
+public class ${class_name} extends DeleteInterceptor<${entity_name},
+    ${vo_create_class_name}, ${vo_update_class_name},
+    ${vo_resp_class_name}, ${vo_class_name}, ${vo_query_class_name}>  {
+
+}

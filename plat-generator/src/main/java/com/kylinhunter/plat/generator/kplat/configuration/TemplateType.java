@@ -11,6 +11,7 @@ import lombok.Getter;
 public enum TemplateType {
     VO,
     SERVICE,
+    SERVICE_INTERCEPTOR,
     CONTROLLER
 }
 

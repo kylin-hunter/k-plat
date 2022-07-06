@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Maps;
+import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 import com.kylinhunter.plat.commons.exception.inner.InternalException;
 import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.commons.util.date.DateUtils;
@@ -106,7 +107,7 @@ public abstract class AbstractTemplateEngine {
             }
 
         } catch (Exception e) {
-            log.error("无法创建文件，请检查配置信息！", e);
+            throw new KRuntimeException("无法创建文件，请检查配置信息！", e);
         }
         return this;
     }
@@ -158,11 +159,12 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
+     * @param outputDir outputDir
      * @return void
-     * @title 打开生成的代码目录
+     * @title open
      * @description
      * @author BiJi'an
-     * @date 2021/8/4 8:14 下午
+     * @date 2022-07-06 17:56
      */
     public void open(String outputDir) {
         if (codeContext.getGlobalConfig().isOpen()
@@ -208,8 +210,16 @@ public abstract class AbstractTemplateEngine {
 
         final TemplateType templateType = template.getType();
         objectMap.put("template_type", templateType);
+        GlobalConfig globalConfig = codeContext.getGlobalConfig();
 
-        StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
+        objectMap.put("sys_author", globalConfig.getAuthor());
+        objectMap.put("sys_is_swagger2", globalConfig.isSwagger2());
+        objectMap.put("sys_module_name", globalConfig.getModuleName());
+
+        TemplateConfig templateConfig = codeContext.getTemplateConfig();
+        objectMap.put("intercepter_enabled", templateConfig.isEnabled(TemplateType.SERVICE_INTERCEPTOR));
+
+                StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
         StrategyConfig strategyConfig = strategyConfigs.get(template);
         objectMap.put("strategy_is_lombok", strategyConfig.isLombok());
         objectMap.put("strategy_is_lombok_chain_model", strategyConfig.isLombokChainModel());
@@ -223,7 +233,8 @@ public abstract class AbstractTemplateEngine {
 
         PackageConfig pkgConfig = codeContext.getPackageConfig();
 
-        if (templateType == TemplateType.SERVICE || templateType == TemplateType.CONTROLLER) {
+        if (templateType == TemplateType.SERVICE || templateType == TemplateType.CONTROLLER
+                || templateType == TemplateType.SERVICE_INTERCEPTOR) {
 
             StrategyConfig strategyConfigVoCreate = strategyConfigs.get(Template.VO_CREATE);
             StrategyConfig strategyConfigVoUpdate = strategyConfigs.get(Template.VO_UPDATE);
@@ -231,6 +242,9 @@ public abstract class AbstractTemplateEngine {
             StrategyConfig strategyConfigVoResponse = strategyConfigs.get(Template.VO_RESPONSE);
             StrategyConfig strategyConfigVo = strategyConfigs.get(Template.VO);
             StrategyConfig strategyConfigServiceImp = strategyConfigs.get(Template.SERVICE_LOCAL);
+            StrategyConfig strategyConfigInterceptorSaveUpdate =
+                    strategyConfigs.get(Template.SERVICE_INTERCEPTOR_SAVE_UPDATE);
+            StrategyConfig strategyConfigInterceptorDelete = strategyConfigs.get(Template.SERVICE_INTERCEPTOR_DELETE);
 
             objectMap.put("import_vo_create", pkgConfig.getImport(strategyConfigVoCreate, entityName));
             objectMap.put("import_vo_update", pkgConfig.getImport(strategyConfigVoUpdate, entityName));
@@ -238,6 +252,10 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("import_vo_query", pkgConfig.getImport(strategyConfigVoQuery, entityName));
             objectMap.put("import_vo", pkgConfig.getImport(strategyConfigVo, entityName));
             objectMap.put("import_service_local", pkgConfig.getImport(strategyConfigServiceImp, entityName));
+            objectMap.put("import_service_interceptor_save_update",
+                    pkgConfig.getImport(strategyConfigInterceptorSaveUpdate, entityName));
+            objectMap.put("import_service_interceptor_delete", pkgConfig.getImport(strategyConfigInterceptorDelete,
+                    entityName));
 
             objectMap.put("vo_create_class_name", strategyConfigVoCreate.getClassName(entityName));
             objectMap.put("vo_update_class_name", strategyConfigVoUpdate.getClassName(entityName));
@@ -246,16 +264,16 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("vo_class_name", strategyConfigVo.getClassName(entityName));
             objectMap.put("service_local_class_name", strategyConfigServiceImp.getClassName(entityName));
 
+            objectMap.put("service_interceptor_save_update_class_name",
+                    strategyConfigInterceptorSaveUpdate.getClassName(entityName));
+            objectMap.put("service_interceptor_delete_class_name",
+                    strategyConfigInterceptorDelete.getClassName(entityName));
+
             objectMap.put("pgk_parent", pkgConfig.getParentPackage());
         } else if (templateType == TemplateType.VO) {
             StrategyConfig strategyConfigVO = strategyConfigs.get(Template.VO);
             objectMap.put("vo", strategyConfigVO.getClassName(entityName));
         }
-
-        GlobalConfig globalConfig = codeContext.getGlobalConfig();
-        objectMap.put("sys_author", globalConfig.getAuthor());
-        objectMap.put("sys_is_swagger2", globalConfig.isSwagger2());
-        objectMap.put("sys_module_name", globalConfig.getModuleName());
 
         log.info(JsonUtils.toString(objectMap, false));
         return objectMap;

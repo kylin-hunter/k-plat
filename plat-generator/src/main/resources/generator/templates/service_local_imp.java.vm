@@ -8,6 +8,12 @@ import ${import_vo_response};
 import ${import_vo};
 import ${import_service_local};
 import ${import_mapper_class};
+#if(${intercepter_enabled})
+import ${import_service_interceptor_save_update};
+import ${import_service_interceptor_delete};
+#end
+
+
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;
@@ -25,5 +31,15 @@ public class ${class_name}
         extends CommonServiceImpl<${entity_name}Mapper, ${entity_name},
         ${vo_create_class_name}, ${vo_update_class_name},
         ${vo_resp_class_name}, ${vo_class_name}, ${vo_query_class_name}> implements ${service_local_class_name} {
+
+#if(${intercepter_enabled})
+    public ${class_name}(${service_interceptor_save_update_class_name} saveOrUpdateInterceptor,
+        ${service_interceptor_delete_class_name} deleteInterceptor) {
+        this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
+        this.deleteInterceptor = deleteInterceptor;
+    }
+#end
+
+
 
 }

@@ -62,6 +62,11 @@ public class Configurations {
         //        packageConfig.setPackagePattern(Template.SERVICE_RPC, "api.module.%s.service.rpc");
         packageConfig.setPackagePattern(Template.SERVICE_LOCAL_IMP, "%s.service.local.imp");
         //        packageConfig.setPackagePattern(Template.SERVICE_RPC_IMP, "%s.service.rpc");
+
+        packageConfig.setPackagePattern(Template.SERVICE_INTERCEPTOR_SAVE_UPDATE, "%s.service.local.interceptor");
+        packageConfig.setPackagePattern(Template.SERVICE_INTERCEPTOR_DELETE, "%s.service.local.interceptor");
+
+
         packageConfig.setPackagePattern(Template.CONTROLLER, "%s.controller");
 
     }

@@ -19,6 +19,9 @@ public enum Template {
     VO(TemplateType.VO, "", "VO", FileExtensions.JAVA),
     SERVICE_LOCAL(TemplateType.SERVICE, "", "Service", FileExtensions.JAVA),
     SERVICE_LOCAL_IMP(TemplateType.SERVICE, "", "ServiceImp", FileExtensions.JAVA),
+    SERVICE_INTERCEPTOR_SAVE_UPDATE(TemplateType.SERVICE_INTERCEPTOR, "", "SaveOrUpdateInterceptor",
+            FileExtensions.JAVA),
+    SERVICE_INTERCEPTOR_DELETE(TemplateType.SERVICE_INTERCEPTOR, "", "DeleteInterceptor", FileExtensions.JAVA),
     //    SERVICE_RPC(TemplateType.SERVICE, "Rpc", "Service"),
     //    SERVICE_RPC_IMP(TemplateType.SERVICE, "Rpc", "ServiceImp"),
     CONTROLLER(TemplateType.CONTROLLER, "", "Controller", FileExtensions.JAVA);

@@ -22,6 +22,7 @@ import lombok.experimental.Accessors;
 public class PackageConfig {
     private static final String DEFAULT_VO = "vo";
     private static final String DEFAULT_SERVICE = "service";
+    private static final String DEFAULT_INTERCEPTER = "interceptor";
     private static final String DEFAULT_ONTROLLER = "controller";
 
     private final GlobalConfig globalConfig;
@@ -37,6 +38,8 @@ public class PackageConfig {
         setPackagePattern(Template.VO, DEFAULT_VO);
         setPackagePattern(Template.SERVICE_LOCAL, DEFAULT_SERVICE);
         setPackagePattern(Template.SERVICE_LOCAL_IMP, DEFAULT_SERVICE);
+        setPackagePattern(Template.SERVICE_INTERCEPTOR_SAVE_UPDATE, DEFAULT_INTERCEPTER);
+        setPackagePattern(Template.SERVICE_INTERCEPTOR_DELETE, DEFAULT_INTERCEPTER);
         //        setPackagePattern(Template.SERVICE_RPC, DEFAULT_SERVICE);
         //        setPackagePattern(Template.SERVICE_RPC_IMP, DEFAULT_SERVICE);
         setPackagePattern(Template.CONTROLLER, DEFAULT_ONTROLLER);
