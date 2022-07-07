@@ -9,57 +9,73 @@ import org.junit.jupiter.api.Test;
 import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 class EnumUtilTest {
 
     @Test
+    void testFromLabel() {
+        TestEnumLabel testEnumTag = EnumUtil.fromLabel(TestEnumLabel.class, "1");
+        assertEquals(TestEnumLabel.TEST1, testEnumTag);
+        testEnumTag = EnumUtil.fromLabel(TestEnumLabel.class, "2");
+        assertEquals(TestEnumLabel.TEST2, testEnumTag);
+
+        TestEnumLabel[] testEnumTags = EnumUtil.fromLabel(TestEnumLabel.class, new String[] {"1", "2"});
+
+        assertEquals(TestEnumLabel.TEST1, testEnumTags[0]);
+        assertEquals(TestEnumLabel.TEST2, testEnumTags[1]);
+
+    }
+
+    @Test
     void testFromCode() {
-        TestEnum testEnum = EnumUtil.fromCode(TestEnum.class, 1);
-        assertEquals(TestEnum.TEST1, testEnum);
-        testEnum = EnumUtil.fromCode(TestEnum.class, 2);
-        assertEquals(TestEnum.TEST2, testEnum);
+        TestEnumCode testEnumCode = EnumUtil.fromCode(TestEnumCode.class, 1);
+        assertEquals(TestEnumCode.TEST1, testEnumCode);
+        testEnumCode = EnumUtil.fromCode(TestEnumCode.class, 2);
+        assertEquals(TestEnumCode.TEST2, testEnumCode);
 
-        TestEnum[] testEnums = EnumUtil.fromCode(TestEnum.class, new int[] {1, 2});
+        TestEnumCode[] testEnumCodes = EnumUtil.fromCode(TestEnumCode.class, new int[] {1, 2});
 
-        assertEquals(TestEnum.TEST1, testEnums[0]);
-        assertEquals(TestEnum.TEST2, testEnums[1]);
+        assertEquals(TestEnumCode.TEST1, testEnumCodes[0]);
+        assertEquals(TestEnumCode.TEST2, testEnumCodes[1]);
 
     }
 
     @Test
     void testFromName() {
-        TestEnum testEnum = EnumUtil.fromName(TestEnum.class, "TEST1");
-        assertEquals(TestEnum.TEST1, testEnum);
-        testEnum = EnumUtil.fromName(TestEnum.class, "TEST2");
-        assertEquals(TestEnum.TEST2, testEnum);
+        TestEnumCode testEnumCode = EnumUtil.fromName(TestEnumCode.class, "TEST1");
+        assertEquals(TestEnumCode.TEST1, testEnumCode);
+        testEnumCode = EnumUtil.fromName(TestEnumCode.class, "TEST2");
+        assertEquals(TestEnumCode.TEST2, testEnumCode);
 
-        TestEnum[] testEnums = EnumUtil.fromName(TestEnum.class, new String[] {"TEST1", "TEST2"});
+        TestEnumCode[] testEnumCodes = EnumUtil.fromName(TestEnumCode.class, new String[] {"TEST1", "TEST2"});
 
-        assertEquals(TestEnum.TEST1, testEnums[0]);
-        assertEquals(TestEnum.TEST2, testEnums[1]);
+        assertEquals(TestEnumCode.TEST1, testEnumCodes[0]);
+        assertEquals(TestEnumCode.TEST2, testEnumCodes[1]);
 
     }
 
     @Test
     void testThrows() {
 
-        Assertions.assertThrows(KRuntimeException.class, () -> EnumUtil.fromCode(TestEnum.class, 7, true));
+        Assertions.assertThrows(KRuntimeException.class, () -> EnumUtil.fromCode(TestEnumCode.class, 7, true));
 
-        assertNull(EnumUtil.fromCode(TestEnum.class, 7, false));
+        assertNull(EnumUtil.fromCode(TestEnumCode.class, 7, false));
         Assertions
-                .assertThrows(KRuntimeException.class, () -> EnumUtil.fromCode(TestEnum.class, new int[] {1, 7}, true));
-        assertNull(EnumUtil.fromCode(TestEnum.class, new int[] {1, 7}, false));
+                .assertThrows(KRuntimeException.class,
+                        () -> EnumUtil.fromCode(TestEnumCode.class, new int[] {1, 7}, true));
+        assertNull(EnumUtil.fromCode(TestEnumCode.class, new int[] {1, 7}, false));
 
-        Assertions.assertThrows(KRuntimeException.class, () -> EnumUtil.fromName(TestEnum.class, "test", true));
+        Assertions.assertThrows(KRuntimeException.class, () -> EnumUtil.fromName(TestEnumCode.class, "test", true));
 
-        assertNull(EnumUtil.fromName(TestEnum.class, "test", false));
+        assertNull(EnumUtil.fromName(TestEnumCode.class, "test", false));
         Assertions.assertThrows(KRuntimeException.class,
-                () -> EnumUtil.fromName(TestEnum.class, new String[] {"TEST1", "TEST21"}, true));
-        assertNull(EnumUtil.fromName(TestEnum.class, new String[] {"TEST1", "TEST21"}, false));
+                () -> EnumUtil.fromName(TestEnumCode.class, new String[] {"TEST1", "TEST21"}, true));
+        assertNull(EnumUtil.fromName(TestEnumCode.class, new String[] {"TEST1", "TEST21"}, false));
 
     }
 
-    public enum TestEnum implements EnumUtil.EnumCode {
+    public enum TestEnumCode implements EnumUtil.EnumCode {
         TEST1(1),
 
         TEST2(2);
@@ -67,9 +83,20 @@ class EnumUtilTest {
         @Getter
         private final int code;
 
-        TestEnum(int code) {
+        TestEnumCode(int code) {
             this.code = code;
         }
+
+    }
+
+    @RequiredArgsConstructor
+    public enum TestEnumLabel implements EnumUtil.EnumLabel {
+        TEST1("1"),
+
+        TEST2("2");
+
+        @Getter
+        private final String label;
 
     }
 }

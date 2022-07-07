@@ -16,6 +16,95 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EnumUtil {
     private static final Map<Class<?>, EnumCode[]> ENUM_DATAS = new HashMap<>();
+    private static final Map<Class<?>, EnumLabel[]> ENUM_TAGSS = new HashMap<>();
+
+    /**
+     * @param enumType enumType
+     * @param tag     tag
+     * @return T
+     * @title get enum from code
+     * @description
+     * @author BiJi'an
+     * @date 2022/1/1 1:19
+     */
+    public static <T extends Enum<T>, V extends EnumLabel> T fromLabel(Class<V> enumType, String  tag) {
+        return fromLabel(enumType, tag, true);
+    }
+
+    /**
+     * @param enumType      enumType
+     * @param tag          tag
+     * @param throwIfFailed throwIfFailed
+     * @return T
+     * @title fromCode
+     * @description
+     * @author BiJi'an
+     * @date 2022/1/1 1:23
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends Enum<T>, V extends EnumLabel> T fromLabel(Class<V> enumType, String  tag,
+                                                                       boolean throwIfFailed) {
+        try {
+            EnumLabel[] enumLabels = ENUM_TAGSS.get(enumType);
+            if (enumLabels == null) {
+                enumLabels = enumType.getEnumConstants();
+                if (enumLabels != null) {
+                    ENUM_TAGSS.put(enumType, enumLabels);
+                }
+            }
+            if (enumLabels != null) {
+                for (EnumLabel enumlabel : enumLabels) {
+                    if (enumlabel.getLabel().equals(tag)) {
+                        return (T) enumlabel;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+
+            log.error("fromCode  error", e);
+        }
+        if (throwIfFailed) {
+            throw new ParamException("invalid enum tag:" + tag);
+        } else {
+            return null;
+        }
+
+    }
+
+    public static <T extends Enum<T>, V extends EnumLabel> T[] fromLabel(Class<V> enumType, String[] tags) {
+
+        return fromLabel(enumType, tags, true);
+    }
+
+    /**
+     * @param enumType enumType
+     * @param tags    tags
+     * @return T[]
+     * @title fromCode
+     * @description
+     * @author BiJi'an
+     * @date 2022/1/1 1:30
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends Enum<T>, V extends EnumLabel> T[] fromLabel(Class<V> enumType, String[] tags,
+                                                                         boolean throwIfFailed) {
+        if (tags != null && tags.length > 0) {
+
+            T[] ts = (T[]) Array.newInstance(enumType, tags.length);
+            for (int i = 0; i < tags.length; i++) {
+                T t = fromLabel(enumType, tags[i], throwIfFailed);
+                if (t == null) {
+                    return null;
+                }
+                ts[i] = t;
+            }
+            return ts;
+        }
+        return null;
+
+    }
+
 
     /**
      * @param enumType enumType
@@ -104,6 +193,7 @@ public class EnumUtil {
 
     }
 
+
     /**
      * @param enumType enumType
      * @param name     name1
@@ -178,5 +268,10 @@ public class EnumUtil {
     public interface EnumCode {
         int getCode();
     }
+
+    public interface EnumLabel {
+        String getLabel();
+    }
+
 
 }
