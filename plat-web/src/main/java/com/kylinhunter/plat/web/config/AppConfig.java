@@ -28,18 +28,19 @@ public class AppConfig {
     private String appName;
     @Value("${server.port}")
     private String serverPort;
-    @Value("${app.devVersion:1.0}")
+
+    @Value("${kplat.devVersion:1.0}")
     private String devVersion;
-    @Value("${app.productVersion:1.0}")
+    @Value("${kplat.productVersion:1.0}")
     private String productVersion;
 
-    @Value("${app.threshold:0}")
+    @Value("${kplat.threshold:0}")
     private int watchThreshold;
 
-    @Value("${app.initialize.enabled:false}")
+    @Value("${kplat.initialize.enabled:false}")
     private boolean initialize;
 
-    @Value("${app.env:RELEASE}")
+    @Value("${kplat.env:RELEASE}")
     private String envStr;
     private Env env;
 
