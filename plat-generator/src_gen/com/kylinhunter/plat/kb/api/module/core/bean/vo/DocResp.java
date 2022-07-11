@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-06
+ * @since 2022-07-11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,7 +33,7 @@ public class DocResp extends DefaultSysResp {
     @ApiModelProperty(value = "title")
     private String title;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "类型 0 普通文本  1 富文本 ")
     private Integer type;
 
     @ApiModelProperty(value = "版本号")
@@ -44,6 +44,12 @@ public class DocResp extends DefaultSysResp {
 
     @ApiModelProperty(value = "tags")
     private String tags;
+
+    @ApiModelProperty(value = "cat_id")
+    private String catId;
+
+    @ApiModelProperty(value = "secondary_cat_id")
+    private String secondaryCatId;
 
     @ApiModelProperty(value = "状态")
     private Integer status;

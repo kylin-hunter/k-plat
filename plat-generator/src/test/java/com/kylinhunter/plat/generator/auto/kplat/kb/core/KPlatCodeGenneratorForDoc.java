@@ -17,6 +17,6 @@ public class KPlatCodeGenneratorForDoc extends KBPlatCodeGennerator {
     }
 
     public static void main(String[] args) {
-        new KPlatCodeGenneratorForDoc().exec(true);
+        new KPlatCodeGenneratorForDoc().exec(false);
     }
 }

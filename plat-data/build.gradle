@@ -1,0 +1,13 @@
+dependencies {
+    api project(':plat-api')
+    api project(':plat-commons')
+}
+jar.enabled = true
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

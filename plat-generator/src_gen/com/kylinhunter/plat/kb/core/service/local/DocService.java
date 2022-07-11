@@ -14,7 +14,7 @@ import com.kylinhunter.plat.api.service.local.CommonService;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-06
+ * @since 2022-07-11
  */
 public interface DocService extends CommonService<Doc,
     DocReqCreate, DocReqUpdate,

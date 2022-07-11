@@ -2,7 +2,6 @@ package com.kylinhunter.plat.kb.api.module.core.bean.vo;
 
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.swagger.annotations.ApiModel;
-import java.math.BigDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-06
+ * @since 2022-07-11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

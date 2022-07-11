@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author biji'an
- * @since 2022-07-06
+ * @since 2022-07-11
  */
 @Service
 public class DocServiceImp
@@ -30,11 +30,11 @@ public class DocServiceImp
         DocReqCreate, DocReqUpdate,
         DocResp, DocVO, DocReqQuery> implements DocService {
 
-public DocServiceImp(DocSaveOrUpdateInterceptor saveOrUpdateInterceptor,
+    public DocServiceImp(DocSaveOrUpdateInterceptor saveOrUpdateInterceptor,
         DocDeleteInterceptor deleteInterceptor) {
         this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
         this.deleteInterceptor = deleteInterceptor;
-        }
+    }
 
 
 

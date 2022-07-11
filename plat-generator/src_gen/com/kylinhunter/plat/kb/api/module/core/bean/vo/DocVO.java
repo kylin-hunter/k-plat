@@ -26,6 +26,12 @@ public interface  DocVO  extends VO {
     String getTags();
     void setTags (String tags);
 
+    String getCatId();
+    void setCatId (String catId);
+
+    String getSecondaryCatId();
+    void setSecondaryCatId (String secondaryCatId);
+
     Integer getStatus();
     void setStatus (Integer status);
 

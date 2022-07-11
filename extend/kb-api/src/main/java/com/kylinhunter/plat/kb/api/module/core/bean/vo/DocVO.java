@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.kb.api.module.core.bean.vo;
 import com.kylinhunter.plat.api.bean.vo.VO;
 import java.math.BigDecimal;
+
 public interface  DocVO  extends VO {
     String getSummary();
     void setSummary (String summary);
@@ -25,6 +26,12 @@ public interface  DocVO  extends VO {
 
     String getTags();
     void setTags (String tags);
+
+    String getCatId();
+    void setCatId (String catId);
+
+    String getSecondaryCatId();
+    void setSecondaryCatId (String secondaryCatId);
 
     Integer getStatus();
     void setStatus (Integer status);
