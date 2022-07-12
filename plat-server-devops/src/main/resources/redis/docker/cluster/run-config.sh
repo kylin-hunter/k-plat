@@ -19,3 +19,6 @@ cluster-announce-bus-port 1736${port}
 appendonly yes
 TTT
 done
+
+
+

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  **/
 
 @Configuration
-@ConditionalOnProperty(prefix = "app", value = "data.redis.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "app", value = "data.redis.enabled", havingValue = "true")
 public class RedissonConfiguration {
 
 }

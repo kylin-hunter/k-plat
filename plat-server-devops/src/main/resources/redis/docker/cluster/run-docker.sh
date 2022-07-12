@@ -7,3 +7,9 @@ docker run --privileged=true --name redis-node${port} --restart=always \
 -v /opt/redis/node-${port}/conf/redis.conf:/etc/redis/redis.conf \
 -d redis:6.2.2 redis-server /etc/redis/redis.conf
 done
+
+
+
+
+
+
