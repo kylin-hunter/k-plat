@@ -1,0 +1,20 @@
+docker pull mongo:4.4.15
+
+docker run -d --name mongodb -v /Users/bijian/software/mongo/data:/data/db -p 27017:27017 --privileged=true mongo:4.4.15 --auth
+docker run -d --name mongodb -v /opt/mongo/data:/data/db -p 27017:27017 --privileged=true mongo:4.4.15 --auth
+
+
+docker exec -it mongodb mongo admin
+
+db.createUser({ user:'admin',pwd:'admin123456',roles:[ { role:'userAdminAnyDatabase', db: 'admin'}]});
+db.auth('admin', 'admin123456')
+
+
+===========
+
+
+$ docker run -itd --name mongo -p 27017:27017 mongo --auth
+
+docker run --name mymongo -v /mymongo/data:/data/db -d mongo
+
+docker run -d --name mongodb -v /mydata/mongodb/datadb:/data/db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin --privileged=true mongo:4

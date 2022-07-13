@@ -1,0 +1,13 @@
+docker run \
+--name minio \
+-d --restart=always \
+-p 9000:9000 \
+-p 9001:9001 \
+-e "MINIO_PROMETHEUS_AUTH_TYPE=public" \
+-e "MINIO_ROOT_USER=admin" \
+-e "MINIO_ROOT_PASSWORD=bjaby09250520" \
+-v /opt/minio/data:/data \
+-v /opt/minio/config:/root/.minio \
+ minio/minio server /data \
+--console-address ":9001" \
+-address ":9000"

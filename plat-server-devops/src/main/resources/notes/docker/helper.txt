@@ -1,0 +1,13 @@
+一、Docker在容器未启动的情况下修改容器中的文件
+
+This application is already running (Or delete /opt/cmak/RUNNING_PID file).
+❯ docker inspect kafka-manager
+
+"MergedDir": "/var/lib/docker/overlay2/57e309e8a9b8f4c2055184170fc4c0913d346a87132e392ded8cd039442cbfd4/merged",
+"UpperDir": "/var/lib/docker/overlay2/57e309e8a9b8f4c2055184170fc4c0913d346a87132e392ded8cd039442cbfd4/diff",
+"WorkDir": "/var/lib/docker/overlay2/57e309e8a9b8f4c2055184170fc4c0913d346a87132e392ded8cd039442cbfd4/work"
+
+mac下
+docker run -it --rm --privileged --pid=host justincormack/nsenter1
+rm -rf  /var/lib/docker/overlay2/57e309e8a9b8f4c2055184170fc4c0913d346a87132e392ded8cd039442cbfd4/diff/opt/cmak/RUNNING_PID
+
