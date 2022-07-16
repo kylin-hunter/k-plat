@@ -26,6 +26,7 @@ public class OpenOfficeTest {
             JodConverter.convert(source).to(dist).execute();
 
             System.out.println("convert ok " + dist.getAbsolutePath());
+            manager.stop();
         } catch (OfficeException e) {
             e.printStackTrace();
         }

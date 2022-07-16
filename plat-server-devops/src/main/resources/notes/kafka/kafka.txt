@@ -12,7 +12,7 @@ docker run -d  --privileged=true \
 -v /Users/bijian/software/kafka/config:/bitnami/kafka/config \
 bitnami/kafka:2.7.0
 
-local===
+local-home ===
 
 docker run -d  --privileged=true \
 --name kafka -p 9092:9092 \
@@ -23,6 +23,22 @@ docker run -d  --privileged=true \
 -e ALLOW_PLAINTEXT_LISTENER=yes \
 -v /Users/bijian/software/kafka/data:/bitnami/kafka/data \
 bitnami/kafka:2.7.0
+
+
+
+local-fz ===
+
+docker run -d  --privileged=true \
+--name kafka -p 9092:9092 \
+-e KAFKA_BROKER_ID=1 \
+-e KAFKA_CFG_ZOOKEEPER_CONNECT=host.docker.internal:2181 \
+-e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092 \
+-e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://172.25.96.130:9092 \
+-e ALLOW_PLAINTEXT_LISTENER=yes \
+-v /Users/bijian/software/kafka/data:/bitnami/kafka/data \
+bitnami/kafka:2.7.0
+
+
 
 ali==>
 docker run -d  --privileged=true \

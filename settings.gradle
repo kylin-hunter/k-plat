@@ -1,5 +1,6 @@
 rootProject.name = 'k-plat'
 include 'plat-commons'
+include 'plat-algorithm'
 include 'plat-api'
 include 'plat-core'
 include 'plat-dao'
