@@ -1,11 +1,13 @@
-package com.kylinhunter.plat.algorithm.sort;
+package com.kylinhunter.plat.algorithm.sort.imp;
+
+import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-07-16 23:32
  **/
-public class SortBubble implements Sort {
+public class SortBubble extends AbstractSort {
     @Override
     public void sort(int[] arr) {
 
@@ -17,12 +19,6 @@ public class SortBubble implements Sort {
             }
         }
 
-    }
-
-    private void swap(int arr[], int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
     }
 
 }

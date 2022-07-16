@@ -19,6 +19,7 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import com.kylinhunter.plat.algorithm.sort.data.SortSimpleData;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 import com.kylinhunter.plat.commons.service.EServices;
 
@@ -42,9 +43,9 @@ public class SortBenchmark {
 
         Sort sort = EServices.get(SortType.Bubble);
 
-        int[] arr = SortData.getUnSorted();
+        int[] arr = SortSimpleData.getUnSorted();
         sort.sort(arr);
-        Assertions.assertArrayEquals(arr, SortData.SORTED);
+        Assertions.assertArrayEquals(arr, SortSimpleData.SORTED);
     }
 
     public static void main(String[] args) throws RunnerException {

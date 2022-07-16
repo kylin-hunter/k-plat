@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import com.kylinhunter.plat.algorithm.sort.data.SortSimpleData;
 import com.kylinhunter.plat.commons.service.EServices;
 
-public class SortBubbleTest {
-
+class SortQuickSortTest {
     private static Sort sort;
 
     @BeforeAll
     static void beforeAll() {
-         EServices.get(SortType.Bubble);
+
+        sort = EServices.get(SortType.QuickSort);
     }
 
     @Test
