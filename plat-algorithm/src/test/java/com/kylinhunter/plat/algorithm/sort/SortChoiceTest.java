@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 
 import com.kylinhunter.plat.commons.service.EServices;
 
-class SortQuickSortTest extends SortCommonTest {
+public class SortChoiceTest extends SortCommonTest {
+
     private static Sort sort;
 
     @BeforeAll
     static void beforeAll() {
-
-        sort = EServices.get(SortType.QuickSort);
+        sort = EServices.get(SortType.Choice);
     }
 
     @Test
     public void sort() {
-
         this.sort(sort);
     }
+
 }
