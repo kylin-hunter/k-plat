@@ -1,17 +1,19 @@
-package com.kylinhunter.plat.algorithm.sort;
+package com.kylinhunter.plat.algorithm.sort.imp;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.kylinhunter.plat.algorithm.sort.Sort;
+import com.kylinhunter.plat.algorithm.sort.SortType;
 import com.kylinhunter.plat.commons.service.EServices;
 
-class SortMergeTest extends SortCommonTest {
+class SortQuickSortTest extends AbstractCommonSortTest {
     private static Sort sort;
 
     @BeforeAll
     static void beforeAll() {
 
-        sort = EServices.get(SortType.Merge);
+        sort = EServices.get(SortType.QuickSort);
     }
 
     @Test

@@ -11,7 +11,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
  **/
 public class SortInsertion extends AbstractSort {
     @Override
-    public void sort(int[] arr) {
+    public void doSort(int[] arr) {
 
         for (int i = 1; i < arr.length; i++) {
             for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {

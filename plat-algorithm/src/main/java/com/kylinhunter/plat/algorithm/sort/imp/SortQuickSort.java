@@ -5,6 +5,8 @@ import java.util.Random;
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
+ * 快速排序
+ *
  * @author BiJi'an
  * @description
  * @date 2022-07-16 23:32
@@ -13,7 +15,7 @@ public class SortQuickSort extends AbstractSort {
     private final Random r = new Random();
 
     @Override
-    public void sort(int[] arr) {
+    public void doSort(int[] arr) {
         sort(arr, 0, arr.length - 1);
     }
 

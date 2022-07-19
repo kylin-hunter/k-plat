@@ -11,7 +11,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
  **/
 public class SortBubble extends AbstractSort {
     @Override
-    public void sort(int[] arr) {
+    public void doSort(int[] arr) {
 
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {

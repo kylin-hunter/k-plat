@@ -9,10 +9,19 @@ import com.kylinhunter.plat.algorithm.sort.Sort;
  **/
 public abstract class AbstractSort implements Sort {
 
+    @Override
+    public void sort(int[] arr) {
+        if (arr != null && arr.length > 1) {
+            doSort(arr);
+        }
+    }
+
     protected void swap(int arr[], int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
     }
+
+    public abstract void doSort(int[] arr);
 
 }

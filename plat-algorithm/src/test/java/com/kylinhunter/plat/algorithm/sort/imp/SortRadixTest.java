@@ -1,21 +1,24 @@
-package com.kylinhunter.plat.algorithm.sort;
+package com.kylinhunter.plat.algorithm.sort.imp;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.kylinhunter.plat.algorithm.sort.Sort;
+import com.kylinhunter.plat.algorithm.sort.SortType;
 import com.kylinhunter.plat.commons.service.EServices;
 
-public class SortChoiceTest extends SortCommonTest {
-
+class SortRadixTest extends AbstractCommonSortTest {
     private static Sort sort;
 
     @BeforeAll
     static void beforeAll() {
-        sort = EServices.get(SortType.Choice);
+
+        sort = EServices.get(SortType.Radix);
     }
 
     @Test
     public void sort() {
+
         this.sort(sort);
     }
 

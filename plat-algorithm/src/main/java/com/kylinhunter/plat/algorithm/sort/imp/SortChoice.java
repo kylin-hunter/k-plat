@@ -3,7 +3,7 @@ package com.kylinhunter.plat.algorithm.sort.imp;
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
- * 插入排序
+ * 选择排序
  *
  * @author BiJi'an
  * @description
@@ -11,7 +11,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
  **/
 public class SortChoice extends AbstractSort {
     @Override
-    public void sort(int[] arr) {
+    public void doSort(int[] arr) {
 
         for (int i = 0; i < arr.length; i++) {
             int minIndex = i;

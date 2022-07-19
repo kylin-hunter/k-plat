@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.algorithm.sort;
+package com.kylinhunter.plat.algorithm.sort.imp;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +18,7 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import com.kylinhunter.plat.algorithm.sort.SortType;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 import com.kylinhunter.plat.commons.service.EServices;
 
@@ -35,7 +36,7 @@ import com.kylinhunter.plat.commons.service.EServices;
 @State(value = Scope.Benchmark)
 // 统计结果的时间单元
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class SortBenchmark extends SortCommonTest {
+public class BenchmarkSort extends AbstractCommonSortTest {
 
     @Benchmark
     public void sortBubble() {
@@ -65,7 +66,7 @@ public class SortBenchmark extends SortCommonTest {
     public static void main(String[] args) throws RunnerException {
 
         Options opt = new OptionsBuilder()
-                .include(SortBenchmark.class.getSimpleName())
+                .include(BenchmarkSort.class.getSimpleName())
                 //                .output(UserDirUtils.getTmpFile("sort_jmh_output.json").getAbsolutePath())
                 .result(UserDirUtils.getTmpFile("sort_jmh_result.json").getAbsolutePath())
                 .resultFormat(ResultFormatType.JSON).build();

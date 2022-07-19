@@ -3,7 +3,7 @@ package com.kylinhunter.plat.algorithm.sort.imp;
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
- * 插入排序
+ * 合并排序
  *
  * @author BiJi'an
  * @description
@@ -11,7 +11,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
  **/
 public class SortMerge extends AbstractSort {
     @Override
-    public void sort(int[] arr) {
+    public void doSort(int[] arr) {
         int[] tmp = new int[arr.length];
         mergeSort(arr, 0, arr.length - 1, tmp);
     }
