@@ -4,6 +4,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 选择排序
+ * 从i开始遍历。选出最小的值，放入位置i
  *
  * @author BiJi'an
  * @description

@@ -4,6 +4,13 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 合并排序
+ * 大数组切成2个小数组
+ * 每个小数组不断地再次切成更小的数组
+ * 但数组变成1的时候，终止切分。
+ * 然后开始逐级向上合并数组，即合并left->right这一段小数组，即merge方法。
+ * merge的时候，会依赖一个临时数组
+ * 临时数组里存储了合并后的排序。
+ * 临时存储存储到原来的数组中left->right这个数组片段中去。
  *
  * @author BiJi'an
  * @description

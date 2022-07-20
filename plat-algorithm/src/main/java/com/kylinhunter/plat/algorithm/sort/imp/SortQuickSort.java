@@ -6,7 +6,10 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 快速排序
- *
+ * 递归的思路
+ * 第一步：在start\end中间找一个折中点 mid ，mid左侧都比它小，mid右侧都比它大
+ * 第二步 mid左侧和mid右侧作为两个新的数组，重复上面的逻辑，不断分裂小数组
+ * 直到小数组变为1结束
  * @author BiJi'an
  * @description
  * @date 2022-07-16 23:32

@@ -1,11 +1,14 @@
 package com.kylinhunter.plat.algorithm.sort.imp;
 
-import java.util.Arrays;
-
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 计数排序 空间换时间
+ * 构建一个大数组
+ * 数组的下标就是待排序的数，数组的值就是这个排序数出现的次数
+ * 从小到大遍历M
+ * 输出所有排序数出现次数>0的下标，次数是N就输出N次下标
+ * 下标就是最终的排序
  *
  * @author BiJi'an
  * @description
@@ -28,7 +31,7 @@ public class SortCounter extends AbstractSort {
         for (int i = 0; i < arr.length; i++) {
             countArr[arr[i] - min]++;
         }
-        System.out.println(String.format("%-20s  %s", "countArr:", Arrays.toString(countArr)));
+        //        System.out.println(String.format("%-20s  %s", "countArr:", Arrays.toString(countArr)));
 
         int index = 0;
         for (int i = 0; i < countArr.length; i++) {

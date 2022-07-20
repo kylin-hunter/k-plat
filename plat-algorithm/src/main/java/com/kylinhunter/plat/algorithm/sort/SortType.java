@@ -3,6 +3,7 @@ package com.kylinhunter.plat.algorithm.sort;
 import com.kylinhunter.plat.algorithm.sort.imp.SortBubble;
 import com.kylinhunter.plat.algorithm.sort.imp.SortChoice;
 import com.kylinhunter.plat.algorithm.sort.imp.SortCounter;
+import com.kylinhunter.plat.algorithm.sort.imp.SortHeap;
 import com.kylinhunter.plat.algorithm.sort.imp.SortInsertion;
 import com.kylinhunter.plat.algorithm.sort.imp.SortMerge;
 import com.kylinhunter.plat.algorithm.sort.imp.SortQuickSort;
@@ -26,6 +27,7 @@ public enum SortType implements EService<Sort> {
     Choice(SortChoice.class),
     Radix(SortRadix.class),
     Counter(SortCounter.class),
+    Heap(SortHeap.class),
     QuickSort(SortQuickSort.class);
     public final Class<? extends Sort> clazz;
 }

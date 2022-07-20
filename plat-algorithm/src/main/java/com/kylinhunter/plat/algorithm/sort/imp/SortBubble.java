@@ -4,7 +4,7 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 冒泡排序
- *
+ * 基础排序，双层循环，遍历 两两比较
  * @author BiJi'an
  * @description
  * @date 2022-07-16 23:32

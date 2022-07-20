@@ -3,7 +3,12 @@ package com.kylinhunter.plat.algorithm.sort.imp;
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
- * 基数
+ * 基数排序
+ * 先计算位数 N
+ * 然后生成10个桶，每个桶存储对应的数值
+ * 从最低的一位开始计算，把数组放到10个桶里，按照从小到大输出桶数，即完成第一位排序
+ * 然后计算第二位，同理
+ * 直至计算到最高位，结束
  *
  * @author BiJi'an
  * @description
