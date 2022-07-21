@@ -21,9 +21,20 @@ public class TreeDataGenerator {
                     null, null, null, null, null, null, null, null, null, null, null, null,
                     9, null, null, null};
 
-    public static BinaryTree<Integer> getTree() {
+    public static Integer[] TRAVERSAL_LEVEL = new Integer[] {1, 2, 5, 3, 6, 7, 4, 8, 9};
+    public static Integer[] TRAVERSAL_PRE = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    public static Integer[] TRAVERSAL_POST = new Integer[] {7, 8, 9, 5, 6, 1, 3, 4, 2};
+    public static Integer[] TRAVERSAL_IN = new Integer[] {2, 4, 3, 1, 6, 5, 9, 8, 7};
+
+    public static TreeData<Integer> initTree() {
         final BinaryInitializer<Integer> binaryInitializer = binaryTreeOprator.getBinaryInitializer();
-        return binaryInitializer.init(INIT_DATA_LEVEL, Traversal.LEVEL);
+        BinaryTree<Integer> binaryTree = binaryInitializer.init(INIT_DATA_LEVEL, Traversal.LEVEL);
+        TreeData<Integer> treeData = new TreeData<>(binaryTree);
+        treeData.setTraverseIn(TRAVERSAL_IN);
+        treeData.setTraversePost(TRAVERSAL_POST);
+        treeData.setTraversePre(TRAVERSAL_PRE);
+        treeData.setTraverseLevel(TRAVERSAL_LEVEL);
+        return treeData;
     }
 
 }

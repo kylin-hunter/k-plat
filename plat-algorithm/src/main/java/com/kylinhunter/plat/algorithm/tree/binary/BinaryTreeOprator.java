@@ -1,7 +1,11 @@
 package com.kylinhunter.plat.algorithm.tree.binary;
 
-import com.kylinhunter.plat.algorithm.tree.AbstractTreeOprator;
+import java.util.List;
+
 import com.kylinhunter.plat.algorithm.tree.binary.init.BinaryInitializer;
+import com.kylinhunter.plat.algorithm.tree.common.AbstractTreeOprator;
+import com.kylinhunter.plat.algorithm.tree.common.TreeVisitor;
+import com.kylinhunter.plat.algorithm.tree.constants.Traversal;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,33 +17,29 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class BinaryTreeOprator<N> extends AbstractTreeOprator<BinaryTree<N>, N> {
+public class BinaryTreeOprator<N> extends AbstractTreeOprator<BinaryTree<N>, N, List<N>> {
 
     private BinaryInitializer<N> binaryInitializer = new BinaryInitializer<>();
+    private BinaryTreeTranversal<N, List<N>> binaryTreeTranversal = new BinaryTreeTranversal<>();
 
-    public void preOrder(BinaryTree<N> node) {
-        if (node != null) {
-            System.out.print(" " + node.getData());
-            this.preOrder(node.left);
-            this.preOrder(node.right);
+    public List<N> traverse(BinaryTree<N> node, TreeVisitor<BinaryTree<N>, N, List<N>> treeVisitor) {
+        Traversal traversal = treeVisitor.getTraversal();
+        switch (traversal) {
+            case IN:
+                binaryTreeTranversal.traverseIN(node, treeVisitor);
+                break;
+            case PRE:
+                binaryTreeTranversal.traversePre(node, treeVisitor);
+                break;
+            case POST:
+                binaryTreeTranversal.traversePost(node, treeVisitor);
+                break;
+            case LEVEL:
+                binaryTreeTranversal.traverseLevel(node, treeVisitor);
+                break;
         }
-    }
+        return treeVisitor.getResult();
 
-    public void inOrder(BinaryTree<N> node) {
-        if (node != null) {
-            this.inOrder(node.left);
-            System.out.print(" " + node.getData());
-            this.inOrder(node.right);
-        }
-    }
-
-    public void postOrder(BinaryTree<N> node) {
-        if (node != null) {
-            this.postOrder(node.right);
-            System.out.print(" " + node.getData());
-            this.postOrder(node.left);
-
-        }
     }
 
 }

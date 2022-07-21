@@ -4,6 +4,7 @@ import com.kylinhunter.plat.algorithm.tree.binary.BinaryTree;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author BiJi'an
@@ -12,8 +13,11 @@ import lombok.RequiredArgsConstructor;
  **/
 @RequiredArgsConstructor
 @Getter
-public class TreeData {
-    private final BinaryTree<?> data;
-    private final BinaryTree<?> rightData;
-
+@Setter
+public class TreeData<T> {
+    private final BinaryTree<T> data;
+    private T[] traverseLevel;
+    private T[] traversePre;
+    private T[] traversePost;
+    private T[] traverseIn;
 }
