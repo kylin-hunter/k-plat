@@ -1,6 +1,7 @@
 package com.kylinhunter.plat.algorithm.sort;
 
 import com.kylinhunter.plat.algorithm.sort.imp.SortBubble;
+import com.kylinhunter.plat.algorithm.sort.imp.SortBucket;
 import com.kylinhunter.plat.algorithm.sort.imp.SortChoice;
 import com.kylinhunter.plat.algorithm.sort.imp.SortCounter;
 import com.kylinhunter.plat.algorithm.sort.imp.SortHeap;
@@ -28,6 +29,7 @@ public enum SortType implements EService<Sort> {
     Radix(SortRadix.class),
     Counter(SortCounter.class),
     Heap(SortHeap.class),
+    Bucket(SortBucket.class),
     QuickSort(SortQuickSort.class);
     public final Class<? extends Sort> clazz;
 }

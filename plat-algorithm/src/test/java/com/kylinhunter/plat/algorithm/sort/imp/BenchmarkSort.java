@@ -44,11 +44,6 @@ public class BenchmarkSort extends AbstractCommonSortTest {
     }
 
     @Benchmark
-    public void sortQuickSort() {
-        this.sortBeanchmark(EServices.get(SortType.QuickSort));
-    }
-
-    @Benchmark
     public void sortInsertion() {
         this.sortBeanchmark(EServices.get(SortType.Insertion));
     }
@@ -61,6 +56,26 @@ public class BenchmarkSort extends AbstractCommonSortTest {
     @Benchmark
     public void sortChoice() {
         this.sortBeanchmark(EServices.get(SortType.Choice));
+    }
+
+    @Benchmark
+    public void sortRadix() {
+        this.sortBeanchmark(EServices.get(SortType.Radix));
+    }
+
+    @Benchmark
+    public void sortCounter() {
+        this.sortBeanchmark(EServices.get(SortType.Counter));
+    }
+
+    @Benchmark
+    public void sortHeap() {
+        this.sortBeanchmark(EServices.get(SortType.Heap));
+    }
+
+    @Benchmark
+    public void sortQuickSort() {
+        this.sortBeanchmark(EServices.get(SortType.QuickSort));
     }
 
     public static void main(String[] args) throws RunnerException {

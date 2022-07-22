@@ -1,11 +1,14 @@
 package com.kylinhunter.plat.algorithm.sort.imp;
 
-import java.util.Arrays;
-
 import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
 
 /**
  * 堆排序
+ * 1、构造一个最大堆
+ * 2、将堆顶与最后一个值替换
+ * 3、从把最后一个值，从堆移除。
+ * 4、重新调整堆顶。
+ * 5、依此类推，直到堆中只剩一个数，结束
  *
  * @author BiJi'an
  * @description
@@ -13,39 +16,24 @@ import com.kylinhunter.plat.algorithm.sort.common.AbstractSort;
  **/
 public class SortHeap extends AbstractSort {
 
-    int RADIX = 10;
-
     @Override
     public void doSort(int[] arr) {
-
         buildMaxHeap(arr);
-        int len = arr.length;
-
-        while (len > 0) {
-            swap(arr, 0, len - 1);
-            len--;
-            ajust(arr, 0, len);
-            System.out.println("--------------------" + Arrays.toString(arr));
-
+        for (int i = arr.length - 1; i > 0; i--) {
+            swap(arr, 0, i);
+            ajust(arr, 0, i);
         }
-
     }
 
     private void buildMaxHeap(int[] arr) {
         int len = arr.length;
-        for (int i = (int) Math.floor(len / 2); i >= 0; i--) {
-            System.out.println("adjust1 :" + i + ":" + len);
-
+        for (int i = len / 2 - 1; i >= 0; i--) {
             ajust(arr, i, len);
         }
-
-        System.out.println("构造完成最大堆" + Arrays.toString(arr));
 
     }
 
     private void ajust(int[] arr, int i, int len) {
-        System.out.println("adjust==>:" + i + ":" + len);
-        System.out.println("22" + Arrays.toString(arr));
 
         int maxIndex = i;
 
