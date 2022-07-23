@@ -36,7 +36,7 @@ public abstract class AbstractSortTest {
     public void sortBeanchmark(Sort sort) {
 
         final SortData sortData = SortDataGenerator.get(10000);
-        final int[] data = sortData.getData();
+        final int[] data = sortData.getData(); // 重写了此方法，每次都拿到一份新的待排序数据
         final int[] rightData = sortData.getRightData();
 
         //        System.out.println("data:\t" + Arrays.toString(data));

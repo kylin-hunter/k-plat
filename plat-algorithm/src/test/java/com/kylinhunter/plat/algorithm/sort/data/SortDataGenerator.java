@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.algorithm.sort.imp.SortInsertion;
+import com.kylinhunter.plat.algorithm.sort.imp.SortBubble;
 
 /**
  * @author BiJi'an
@@ -31,7 +31,7 @@ public class SortDataGenerator {
                 unsorted[i] = (int) (num * random.nextDouble() + 1);
             }
             int[] sorted = Arrays.copyOf(unsorted, unsorted.length);
-            new SortInsertion().sort(sorted);
+            new SortBubble().sort(sorted);
             return new SortData(unsorted, sorted);
         });
 

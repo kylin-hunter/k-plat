@@ -27,7 +27,7 @@ import com.kylinhunter.plat.commons.service.EServices;
 @Warmup(iterations = 1, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 // 本例是一次运行4秒，总共运行3次，在性能对比时候，采用默认1秒即可
 //@Measurement(iterations = 3, time = 4)
-@Measurement(iterations = 1, time = 1)
+@Measurement(iterations = 3, time = 4)
 // 配置同时起多少个线程执行
 @Threads(1)
 //代表启动多个单独的进程分别测试每个方法，这里指定为每个方法启动一个进程
@@ -71,6 +71,11 @@ public class BenchmarkSort extends AbstractSortTest {
     @Benchmark
     public void sortHeap() {
         this.sortBeanchmark(EServices.get(SortType.Heap));
+    }
+
+    @Benchmark
+    public void sortShell() {
+        this.sortBeanchmark(EServices.get(SortType.Shell));
     }
 
     @Benchmark
