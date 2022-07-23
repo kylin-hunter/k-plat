@@ -7,19 +7,11 @@ import com.kylinhunter.plat.algorithm.sort.Sort;
 import com.kylinhunter.plat.algorithm.sort.SortType;
 import com.kylinhunter.plat.commons.service.EServices;
 
-class SortInsertionTest extends AbstractCommonSortTest {
-    private static Sort sort;
-
-    @BeforeAll
-    static void beforeAll() {
-
-        sort = EServices.get(SortType.Insertion);
-    }
+class SortInsertionTest extends AbstractSortTest {
 
     @Test
     public void sort() {
-
-        this.sort(sort);
+        this.sort(SortType.Insertion);
     }
 
 }

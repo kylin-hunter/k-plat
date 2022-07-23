@@ -36,7 +36,7 @@ import com.kylinhunter.plat.commons.service.EServices;
 @State(value = Scope.Benchmark)
 // 统计结果的时间单元
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class BenchmarkSort extends AbstractCommonSortTest {
+public class BenchmarkSort extends AbstractSortTest {
 
     @Benchmark
     public void sortBubble() {

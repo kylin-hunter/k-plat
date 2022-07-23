@@ -5,22 +5,27 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 
 import com.kylinhunter.plat.algorithm.sort.Sort;
+import com.kylinhunter.plat.algorithm.sort.SortType;
 import com.kylinhunter.plat.algorithm.sort.data.SortData;
 import com.kylinhunter.plat.algorithm.sort.data.SortDataGenerator;
+import com.kylinhunter.plat.commons.service.EServices;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-07-18 01:30
  **/
-public  abstract class AbstractCommonSortTest {
+public abstract class AbstractSortTest {
 
-    public void sort(Sort sort) {
+    public void sort(SortType sortType) {
+
+        Sort sort = EServices.get(sortType);
 
         final SortData sortData = SortDataGenerator.get();
         final int[] data = sortData.getData();
         final int[] rightData = sortData.getRightData();
 
+        System.out.println(String.format("%-20s  start", sortType.clazz.getName()));
         System.out.println(String.format("%-20s  %s", "sort_before:", Arrays.toString(data)));
         System.out.println(String.format("%-20s  %s", "expect:", Arrays.toString(rightData)));
         sort.sort(data);

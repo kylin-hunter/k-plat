@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import com.kylinhunter.plat.algorithm.sort.SortType;
 
-class SortCounterTest extends AbstractSortTest {
+class SortShellTest extends AbstractSortTest {
 
     @Test
     public void sort() {
-        this.sort(SortType.Counter);
-    }
 
+        this.sort(SortType.Shell);
+    }
 }
