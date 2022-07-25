@@ -48,9 +48,4 @@ public class Solution0070_ClimbStairs3 {
 
     }
 
-    public static void main(String[] args) {
-        Solution0070_ClimbStairs3 climbStairs = new Solution0070_ClimbStairs3();
-        int n = climbStairs.climbStairs(45);
-        System.out.println(n);
-    }
 }

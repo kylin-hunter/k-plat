@@ -54,9 +54,4 @@ public class Solution0070_ClimbStairs2 {
         }
     }
 
-    public static void main(String[] args) {
-        Solution0070_ClimbStairs2 climbStairs = new Solution0070_ClimbStairs2();
-        int n = climbStairs.climbStairs(10);
-        System.out.println(n);
-    }
 }
