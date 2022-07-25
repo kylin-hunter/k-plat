@@ -14,6 +14,15 @@ package com.kylinhunter.plat.algorithm.leecode;
  **/
 public class Solution0509_Fibonacci1 {
 
+    /**
+     * @param n
+     * @return int
+     * @throws
+     * @title fib
+     * @description 解题思路：递归
+     * @author BiJi'an
+     * @date 2022-07-25 19:09
+     */
     public int fib(int n) {
 
         if (n == 0) {
