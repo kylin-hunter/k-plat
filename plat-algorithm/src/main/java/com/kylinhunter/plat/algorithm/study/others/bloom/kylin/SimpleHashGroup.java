@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.algorithm.study.others.bloom;
+package com.kylinhunter.plat.algorithm.study.others.bloom.kylin;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,16 +12,16 @@ import lombok.Setter;
 public class SimpleHashGroup implements BloomHashGroup {
     private static final int[] SEEDS = new int[] {3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
     private BloomHash[] bloomHashes;
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     @Override
     public BloomHash[] generate(int m, int k) {
-        if (bloomHashes != null) {
-            return bloomHashes;
+        if (this.bloomHashes != null) {
+            return this.bloomHashes;
         } else {
             synchronized(lock) {
-                if (bloomHashes != null) {
-                    return bloomHashes;
+                if (this.bloomHashes != null) {
+                    return this.bloomHashes;
                 }
 
                 int size = Math.min(SEEDS.length, k);
@@ -29,7 +29,8 @@ public class SimpleHashGroup implements BloomHashGroup {
                 for (int i = 0; i < size; i++) {
                     bloomHashes[i] = new SimpleHash(m, SEEDS[i]);
                 }
-                return bloomHashes;
+                this.bloomHashes = bloomHashes;
+                return this.bloomHashes;
             }
         }
     }
@@ -50,7 +51,9 @@ class SimpleHash implements BloomHash {
     private final int seed;
 
     public int hash(Object value) {
-        return (cap - 1) & (seed * value.hashCode());
+        String str = String.valueOf(value);
+        return Math.abs(str.hashCode() % cap);
+
     }
 
 }

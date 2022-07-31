@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 public class BinaryTree<T> extends Tree<T> {
     @EqualsAndHashCode.Include
     protected BinaryTree<T> left;

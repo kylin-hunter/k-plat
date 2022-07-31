@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.algorithm.study.others.bloom;
+package com.kylinhunter.plat.algorithm.study.others.bloom.kylin;
 
 /**
  * @author BiJi'an
