@@ -15,9 +15,9 @@ package com.kylinhunter.plat.algorithm.study.leecode.basic;
  **/
 public class Solution0053_MissNumber2 {
 
-    public int missNumber(int[] nums) {
+    public int missingNumber(int[] nums) {
 
-        return missNumber(nums, 0, nums.length - 1);
+        return missingNumber(nums, 0, nums.length);
 
     }
 
@@ -37,22 +37,29 @@ public class Solution0053_MissNumber2 {
      * @author BiJi'an
      * @date 2022-07-26 15:01
      */
-    public int missNumber(int[] nums, int start, int end) {
+    public int missingNumber(int[] nums, int start, int end) {
         //        System.out.println(start + ":" + end);
         if (end >= start) {
             int l = start + (end - start) / 2;
             if (l == nums[l]) { // 找右侧
-                return missNumber(nums, l + 1, end);
+                if (l + 1 == end) {
+                    return l + 1;
+                }
+                return missingNumber(nums, l + 1, end);
             } else {
+                if (l == 0) {
+                    return 0;
+                }
                 if (l - 1 == nums[l - 1]) {
                     return l;
                 } else { // 找左侧
-                    return missNumber(nums, start, l - 1);
+                    return missingNumber(nums, start, l - 1);
                 }
             }
         } else {
-            return -1;
-        }
 
+            return -1;
+
+        }
     }
 }

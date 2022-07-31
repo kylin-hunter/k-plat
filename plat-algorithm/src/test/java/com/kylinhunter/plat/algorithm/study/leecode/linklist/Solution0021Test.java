@@ -15,7 +15,7 @@ public class Solution0021Test {
         ListNode list1 = ListOperator.init(arr1);
         ListNode list2 = ListOperator.init(arr2);
         ListNode list3 = ListOperator.init(arr3);
-        ListNode result = mergeTwoSortedList1.mergeTwoSortedList(list1, list2);
+        ListNode result = mergeTwoSortedList1.mergeTwoLists(list1, list2);
 
         ListOperator.print(list3);
         ListOperator.print(result);

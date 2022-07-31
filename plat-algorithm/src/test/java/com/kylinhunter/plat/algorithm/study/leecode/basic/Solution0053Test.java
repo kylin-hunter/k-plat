@@ -18,17 +18,17 @@ public class Solution0053Test {
     @Test
     public void test1() {
         Solution0053_MissNumber1 missNumber = new Solution0053_MissNumber1();
-        Assertions.assertEquals(expect1, missNumber.missNumber(Arrays.copyOf(numsOri1, numsOri1.length)));
-        Assertions.assertEquals(expect2, missNumber.missNumber(Arrays.copyOf(numsOri2, numsOri2.length)));
-        Assertions.assertEquals(expect3, missNumber.missNumber(Arrays.copyOf(numsOri3, numsOri3.length)));
+        Assertions.assertEquals(expect1, missNumber.missingNumber(Arrays.copyOf(numsOri1, numsOri1.length)));
+        Assertions.assertEquals(expect2, missNumber.missingNumber(Arrays.copyOf(numsOri2, numsOri2.length)));
+        Assertions.assertEquals(expect3, missNumber.missingNumber(Arrays.copyOf(numsOri3, numsOri3.length)));
     }
 
     @Test
     public void test2() {
         Solution0053_MissNumber2 missNumber = new Solution0053_MissNumber2();
-        Assertions.assertEquals(expect1, missNumber.missNumber(Arrays.copyOf(numsOri1, numsOri1.length)));
-        Assertions.assertEquals(expect2, missNumber.missNumber(Arrays.copyOf(numsOri2, numsOri2.length)));
-        Assertions.assertEquals(expect3, missNumber.missNumber(Arrays.copyOf(numsOri3, numsOri3.length)));
+        Assertions.assertEquals(expect1, missNumber.missingNumber(Arrays.copyOf(numsOri1, numsOri1.length)));
+        Assertions.assertEquals(expect2, missNumber.missingNumber(Arrays.copyOf(numsOri2, numsOri2.length)));
+        Assertions.assertEquals(expect3, missNumber.missingNumber(Arrays.copyOf(numsOri3, numsOri3.length)));
     }
 
 }

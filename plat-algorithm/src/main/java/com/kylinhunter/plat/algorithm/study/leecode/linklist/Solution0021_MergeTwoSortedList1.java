@@ -13,35 +13,35 @@ import com.kylinhunter.plat.algorithm.study.leecode.linklist.common.ListOperator
 public class Solution0021_MergeTwoSortedList1 {
 
     /**
-     * @param l1 l1
-     * @param l2 l2
+     * @param list1 list1
+     * @param list2 list2
      * @return com.kylinhunter.plat.algorithm.study.leecode.linklist.ListNode
      * @title mergeTwoSortedList
      * @description 注意比对两个链表的最小值，解决
      * @author BiJi'an
      * @date 2022-07-26 19:46
      */
-    public ListNode mergeTwoSortedList(ListNode l1, ListNode l2) {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
         ListNode rootNode = new ListNode(0);
         ListNode preNode = rootNode;
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                preNode.next = l1;
-                l1 = l1.next;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                preNode.next = list1;
+                list1 = list1.next;
             } else {
-                preNode.next = l2;
-                l2 = l2.next;
+                preNode.next = list2;
+                list2 = list2.next;
             }
             preNode = preNode.next;
         }
 
-        if (l1 != null) {
-            preNode.next = l1;
+        if (list1 != null) {
+            preNode.next = list1;
         }
 
-        if (l2 != null) {
-            preNode.next = l2;
+        if (list2 != null) {
+            preNode.next = list2;
         }
         return rootNode.next;
     }

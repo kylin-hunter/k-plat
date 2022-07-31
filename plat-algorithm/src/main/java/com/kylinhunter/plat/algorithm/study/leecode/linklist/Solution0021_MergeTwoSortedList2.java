@@ -13,26 +13,25 @@ import com.kylinhunter.plat.algorithm.study.leecode.linklist.common.ListOperator
 public class Solution0021_MergeTwoSortedList2 extends Solution0021_MergeTwoSortedList1 {
 
     @Override
-    public ListNode mergeTwoSortedList(ListNode l1, ListNode l2) {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
-        ListNode rootNode = new ListNode(0);
-
-        if (l1 == null) {
-            return l1;
+        if (list1 == null) {
+            return list2;
         }
-        if (l2 == null) {
-            return l2;
+        if (list2 == null) {
+            return list1;
         }
 
-        if (l1.val < l2.val) {
-            l1.next = mergeTwoSortedList(l1.next, l2);
+        if (list1.val < list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
         } else {
 
-            l2.next = mergeTwoSortedList(l1, l2.next);
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
 
         }
 
-        return rootNode.next;
     }
 
     public static void main(String[] args) {

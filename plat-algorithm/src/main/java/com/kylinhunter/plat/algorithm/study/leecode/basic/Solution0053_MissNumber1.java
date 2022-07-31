@@ -25,12 +25,17 @@ public class Solution0053_MissNumber1 {
      * @author BiJi'an
      * @date 2022-07-26 15:00
      */
-    public int missNumber(int[] nums) {
+    public int missingNumber(int[] nums) {
 
-        for (int i = 0; i < nums.length; i++) {
+        int i = 0;
+        for (i = 0; i < nums.length; i++) {
             if (i != nums[i]) {
                 return i;
             }
+        }
+
+        if (i == nums.length) {//照顾最后一个值
+            return nums.length;
         }
 
         return -1;
