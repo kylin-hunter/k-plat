@@ -11,23 +11,21 @@ package com.kylinhunter.plat.algorithm.study.leecode.linklist;
 public class Solution0206_reverseList1 {
 
     public ListNode reverseList(ListNode head) {
+        ListNode preNode = null;
         ListNode node = head;
-        ListNode result = head;
 
-        ListNode nextNode = node.next;
+        while (node != null) {
 
-        while (nextNode != null) {
+            ListNode tmp = node.next;
+            node.next = preNode;
 
-            ListNode tmp = result;
-            result = nextNode;
+            preNode = node;
 
-            nextNode = nextNode.next;
-
-            result.next = tmp;
+            node = tmp;
 
         }
 
-        return node;
+        return preNode;
     }
 
 }
