@@ -22,7 +22,7 @@ public class DefaultBinaryTreeVisitor<N> implements TreeVisitor<BinaryTree<N>, N
 
     @Override
     public void visit(BinaryTree<N> binaryTree) {
-        result.add(binaryTree.getData());
+        result.add(binaryTree.getVal());
     }
 
     public static <T> DefaultBinaryTreeVisitor<T> create(Class<T> dataClazz, Traversal traversal) {

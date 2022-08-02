@@ -35,7 +35,7 @@ public class BinaryTree<T> extends Tree<T> {
             return false;
         }
         BinaryTree<?> that = (BinaryTree<?>) o;
-        if (!this.data.equals(that.data)) {
+        if (!this.val.equals(that.val)) {
             return false;
         }
         return Objects.equals(getLeft(), that.getLeft()) && Objects.equals(getRight(), that.getRight());

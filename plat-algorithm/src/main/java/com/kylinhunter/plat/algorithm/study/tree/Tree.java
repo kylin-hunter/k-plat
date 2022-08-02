@@ -12,6 +12,10 @@ import lombok.Setter;
 @Setter
 public class Tree<T> {
     @EqualsAndHashCode.Include
-    protected T data;
+    protected T val;
+
+    public T val() {
+        return val;
+    }
 
 }

@@ -19,7 +19,7 @@ class BinaryInitializerTest {
         final BinaryTree<Integer> binaryTree2 = binaryInitializer.init(TreeDataGenerator.INIT_DATA_PRE, Traversal.PRE);
 
         Assertions.assertTrue(binaryTree1.equals(binaryTree2));
-        binaryTree1.setData(2);
+        binaryTree1.setVal(2);
         Assertions.assertFalse(binaryTree1.equals(binaryTree2));
 
     }
