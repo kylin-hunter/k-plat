@@ -1,68 +1,49 @@
 package com.kylinhunter.plat.web.error;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kylinhunter.plat.web.response.DefaultResponse;
 
 import lombok.extern.slf4j.Slf4j;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author BiJi'an
  * @description 404 500 异常处理
  * @date 2021/7/30
  **/
-@Controller
 @Slf4j
-@ApiIgnore
-public class ErrorMessageController implements ErrorController {
+@RequestMapping("${server.error.path:${error.path:/error}}")
+public class ErrorMessageController extends BasicErrorController {
 
-    private static final String ERROR_PATH = "/error";
-
-    @RequestMapping(value = ERROR_PATH)
-    @ResponseBody
-    public Object error(HttpServletRequest request) {
-        HttpStatus status = getStatus(request);
-        if (status == HttpStatus.NOT_FOUND) {
-            return new DefaultResponse<>(404, "NOT_FOUND");
-        } else if (status == HttpStatus.FORBIDDEN) {
-            return new DefaultResponse<>(403, "FORBIDDEN");
-        } else {
-            return new DefaultResponse<>(500, "Internal Server Error");
-        }
-
+    public ErrorMessageController(ErrorAttributes errorAttributes,
+                                  ErrorProperties errorProperties,
+                                  List<ErrorViewResolver> errorViewResolvers) {
+        super(errorAttributes, errorProperties, errorViewResolvers);
     }
 
+    @RequestMapping
     @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
-    }
-
-    /**
-     * @param request request
-     * @return org.springframework.http.HttpStatus
-     * @title getStatus
-     * @description
-     * @author BiJi'an
-     * @date 2022-06-10 22:52
-     */
-    protected HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+    public ResponseEntity error(HttpServletRequest request) {
+        HttpStatus status = getStatus(request);
+        DefaultResponse<?> defaultResponse;
+        if (status == HttpStatus.NOT_FOUND) {
+            defaultResponse = new DefaultResponse<>(404, "NOT_FOUND");
+        } else if (status == HttpStatus.FORBIDDEN) {
+            defaultResponse = new DefaultResponse<>(403, "FORBIDDEN");
+        } else {
+            defaultResponse = new DefaultResponse<>(500, "Internal Server Error");
         }
-        try {
-            return HttpStatus.valueOf(statusCode);
-        } catch (Exception ex) {
-            log.error("INTERNAL_SERVER_ERROR", ex);
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+        return new ResponseEntity<>(defaultResponse, status);
     }
 
 }

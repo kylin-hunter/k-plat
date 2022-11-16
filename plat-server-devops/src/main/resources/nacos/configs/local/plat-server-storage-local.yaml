@@ -7,7 +7,11 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 kplat:
   storage:
+    type: minio
     s3:
+      bucket: bijian
       url: "http://47.94.98.98:9000"
       accessKey: "bijian"
       secretKey: "bja0925bja"
+      connectTimeout: 100000
+      readTimeOut: 600000

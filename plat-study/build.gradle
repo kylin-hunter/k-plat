@@ -2,6 +2,7 @@ dependencies {
     api project(':plat-commons')
 }
 jar.enabled = true
+bootJarMainClassName.enabled=false
 bootJar.enabled(false)
 
 test {

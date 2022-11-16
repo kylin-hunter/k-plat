@@ -3,14 +3,12 @@ package com.kylinhunter.plat.commons.compiler;
 import java.io.File;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-
 import com.google.common.collect.Sets;
 import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 
 class KplatCompilerTest {
 
-    @Test
+    //    @Test
     public void compile() throws Exception {
         KplatCompiler kplatCompiler = new KplatCompiler();
 

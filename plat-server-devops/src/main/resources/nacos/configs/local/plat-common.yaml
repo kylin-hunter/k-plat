@@ -1,3 +1,6 @@
+erver:
+  servlet:
+    context-path: /k-plat
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -5,6 +8,8 @@ spring:
     username: root
     password: root
   mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
     hiddenmethod:
       filter:
         enabled: true
