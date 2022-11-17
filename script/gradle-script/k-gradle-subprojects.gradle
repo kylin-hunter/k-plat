@@ -1,8 +1,6 @@
-
-
 ext {
     changeActiveProfile = { profile ->
-
+        println("@@ change active profile ==> " + "$buildDir/resources/main/application.yml")
         File applicaitonFile = new File("$buildDir/resources/main/application.yml")
         if (applicaitonFile.exists()&&applicaitonFile.getAbsolutePath().indexOf("server")>0) {
             def list = []
