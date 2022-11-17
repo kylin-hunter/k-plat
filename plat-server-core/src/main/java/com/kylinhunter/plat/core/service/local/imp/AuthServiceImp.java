@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;

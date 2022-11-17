@@ -4,6 +4,7 @@ dependencies {
     testAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
 }
 jar.enabled = true
+bootJarMainClassName.enabled=false
 bootJar.enabled(false)
 
 test {
