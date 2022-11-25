@@ -120,6 +120,7 @@ subprojects {
                 artifactId project.name
                 version project.version
                 from components.java
+                artifact bootJar
                 pom {
 
                     name = "${KYLIN_MVN_CONFIG.name}"

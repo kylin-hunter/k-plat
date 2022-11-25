@@ -3,6 +3,7 @@ dependencies {
     implementation 'org.redisson:redisson-spring-boot-starter:3.14.1'
 }
 jar.enabled = true
+bootJar.enabled(false)
 
 test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
