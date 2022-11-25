@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kylinhunter.plat.core.service.local.AuthService;
-import com.kylinhunter.plat.api.auth.ReqLogin;
-import com.kylinhunter.plat.api.auth.ReqTenantToken;
+import io.github.kylinhunter.plat.api.auth.ReqLogin;
+import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
 import com.kylinhunter.plat.web.controller.CommonController;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.trace.TraceHandler;

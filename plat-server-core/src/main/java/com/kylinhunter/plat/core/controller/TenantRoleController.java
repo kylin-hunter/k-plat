@@ -2,12 +2,12 @@ package com.kylinhunter.plat.core.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
 import com.kylinhunter.plat.core.service.local.TenantRoleService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 

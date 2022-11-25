@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.storage.service.local.dto;
 
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
 
 import lombok.Data;
 

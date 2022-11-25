@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
-import com.kylinhunter.plat.api.bean.sort.Order;
-import com.kylinhunter.plat.api.bean.sort.ReqSort;
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
+import io.github.kylinhunter.plat.api.bean.sort.Order;
+import io.github.kylinhunter.plat.api.bean.sort.ReqSort;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 
 import io.github.kylinhunter.commons.name.NamePair;
 import io.github.kylinhunter.commons.name.NamePairUtils;

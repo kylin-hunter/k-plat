@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.storage.dao.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileRelation;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

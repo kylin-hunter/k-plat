@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.kb.api.module.core.bean.vo;
 
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

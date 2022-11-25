@@ -7,8 +7,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
-import com.kylinhunter.plat.api.bean.vo.request.Req;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

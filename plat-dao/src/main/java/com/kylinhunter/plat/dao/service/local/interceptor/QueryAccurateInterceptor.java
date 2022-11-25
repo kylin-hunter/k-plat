@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
-import com.kylinhunter.plat.api.bean.vo.VO;
-import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqById;
-import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
-import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
+import io.github.kylinhunter.plat.api.bean.vo.VO;
+import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqById;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqByIds;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
+import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 
 import io.github.kylinhunter.commons.bean.BeanCopyUtils;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;

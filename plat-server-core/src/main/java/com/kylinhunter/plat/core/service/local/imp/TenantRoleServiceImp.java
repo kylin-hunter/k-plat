@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantRoleMapper;
 import com.kylinhunter.plat.core.service.local.TenantRoleService;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantRoleDeleteInterceptor;

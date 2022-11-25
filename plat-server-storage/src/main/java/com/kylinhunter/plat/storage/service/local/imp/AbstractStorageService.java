@@ -8,10 +8,10 @@ import java.io.InputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import com.kylinhunter.plat.storage.config.StorageConfig;
 import com.kylinhunter.plat.storage.exception.StorageException;
 import com.kylinhunter.plat.storage.service.local.FileMetadataService;

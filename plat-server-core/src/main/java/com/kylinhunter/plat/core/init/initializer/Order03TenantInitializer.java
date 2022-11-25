@@ -2,11 +2,11 @@ package com.kylinhunter.plat.core.init.initializer;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
-import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
-import com.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.core.init.data.TenantInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantService;
 

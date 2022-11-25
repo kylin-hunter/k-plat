@@ -1,11 +1,11 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantConfigVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantConfigService;
 import com.kylinhunter.plat.core.dao.mapper.TenantConfigMapper;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;

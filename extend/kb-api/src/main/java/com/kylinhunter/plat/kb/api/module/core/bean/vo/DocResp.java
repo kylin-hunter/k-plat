@@ -1,6 +1,6 @@
 package com.kylinhunter.plat.kb.api.module.core.bean.vo;
 
-import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
+import io.github.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;

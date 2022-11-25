@@ -3,12 +3,12 @@ package com.kylinhunter.plat.dao.service.local.interceptor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.vo.VO;
-import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
-import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.vo.VO;
+import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
+import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 
 import io.github.kylinhunter.commons.bean.BeanCopyUtils;
 

@@ -2,12 +2,12 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;

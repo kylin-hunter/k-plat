@@ -1,5 +1,5 @@
 package com.kylinhunter.plat.kb.api.module.core.bean.vo;
-import com.kylinhunter.plat.api.bean.vo.VO;
+import io.github.kylinhunter.plat.api.bean.vo.VO;
 import java.math.BigDecimal;
 public interface  DocVO  extends VO {
     String getSummary();

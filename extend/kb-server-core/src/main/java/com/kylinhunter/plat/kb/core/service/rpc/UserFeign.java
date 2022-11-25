@@ -5,9 +5,9 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
-import com.kylinhunter.plat.api.page.PageData;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
+import io.github.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 
 @FeignClient(value = "plat-server-core", fallback = EchoServiceFallback.class)

@@ -3,12 +3,12 @@ package com.kylinhunter.plat.web.context;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.auth.Token;
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
-import com.kylinhunter.plat.api.context.DefaultUserContext;
-import com.kylinhunter.plat.api.context.DummyUserContext;
-import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.context.DummyUserContext;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.web.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;

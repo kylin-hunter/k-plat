@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
 
 import lombok.Getter;
 

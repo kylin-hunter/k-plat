@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserMapper;
 import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;

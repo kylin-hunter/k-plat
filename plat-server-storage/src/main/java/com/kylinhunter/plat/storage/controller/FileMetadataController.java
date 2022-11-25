@@ -2,12 +2,12 @@ package com.kylinhunter.plat.storage.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuery;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuery;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
 import com.kylinhunter.plat.storage.service.local.FileMetadataService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 

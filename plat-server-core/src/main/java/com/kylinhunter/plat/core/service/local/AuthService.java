@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.api.auth.ReqLogin;
-import com.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.ReqLogin;
+import io.github.kylinhunter.plat.api.auth.Token;
 
 /**
  * <p>

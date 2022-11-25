@@ -4,10 +4,10 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.User;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
-import com.kylinhunter.plat.api.module.core.constants.UserStatus;
-import com.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.constants.UserStatus;
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 
 import lombok.Getter;
 

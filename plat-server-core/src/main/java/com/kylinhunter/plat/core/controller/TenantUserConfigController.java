@@ -2,12 +2,12 @@ package com.kylinhunter.plat.core.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantUserConfigService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 

@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantCatalogService;
 

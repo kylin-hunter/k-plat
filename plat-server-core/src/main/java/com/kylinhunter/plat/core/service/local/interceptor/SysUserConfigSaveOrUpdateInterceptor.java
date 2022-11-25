@@ -3,13 +3,13 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;

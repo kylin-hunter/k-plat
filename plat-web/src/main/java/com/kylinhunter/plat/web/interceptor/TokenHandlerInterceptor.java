@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.kylinhunter.plat.api.auth.Token;
-import com.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.context.UserContext;
 import com.kylinhunter.plat.web.auth.JWTService;
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import com.kylinhunter.plat.web.log.LogHelper;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;

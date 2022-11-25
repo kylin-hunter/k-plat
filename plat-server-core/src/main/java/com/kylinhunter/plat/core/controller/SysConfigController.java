@@ -2,12 +2,12 @@ package com.kylinhunter.plat.core.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.kylinhunter.plat.api.module.core.bean.entity.SysConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.SysConfigVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.SysConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigVO;
 import com.kylinhunter.plat.core.service.local.SysConfigService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 

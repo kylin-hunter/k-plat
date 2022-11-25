@@ -3,12 +3,12 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.User;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import com.kylinhunter.plat.web.auth.PasswordUtil;
 import com.kylinhunter.plat.core.init.data.UserInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;

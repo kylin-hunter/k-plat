@@ -3,13 +3,13 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;

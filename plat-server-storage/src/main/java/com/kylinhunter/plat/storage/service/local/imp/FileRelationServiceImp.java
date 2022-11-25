@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileRelation;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqCreate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqQuery;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqUpdate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileRelationResp;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileRelationVO;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileRelation;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqCreate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqQuery;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqUpdate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationResp;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationVO;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import com.kylinhunter.plat.storage.dao.mapper.FileRelationMapper;
 import com.kylinhunter.plat.storage.service.local.FileRelationService;

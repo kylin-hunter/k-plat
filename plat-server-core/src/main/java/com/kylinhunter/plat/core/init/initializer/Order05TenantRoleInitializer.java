@@ -2,7 +2,7 @@ package com.kylinhunter.plat.core.init.initializer;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
 import com.kylinhunter.plat.core.init.data.TenantRoleInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantRoleService;
 

@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.dao.service.local.ex;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.kylinhunter.plat.api.bean.filter.ReqFilter;
+import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;
 
 /**
  * @description

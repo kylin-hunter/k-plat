@@ -3,12 +3,12 @@ package com.kylinhunter.plat.generator.kplat.configuration;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.api.bean.vo.request.Req;
-import com.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
-import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.request.Req;
+import io.github.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
+import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.generator.common.GenConst;
 import com.kylinhunter.plat.generator.common.Module;
 

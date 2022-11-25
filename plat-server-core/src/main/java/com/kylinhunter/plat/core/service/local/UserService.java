@@ -1,12 +1,12 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.User;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import com.kylinhunter.plat.api.service.local.CommonService;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
+import io.github.kylinhunter.plat.api.service.local.CommonService;
 
 /**
  * <p>

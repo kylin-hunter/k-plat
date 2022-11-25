@@ -2,12 +2,12 @@ package com.kylinhunter.plat.core.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
 import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.web.controller.CommonCurdController;
 

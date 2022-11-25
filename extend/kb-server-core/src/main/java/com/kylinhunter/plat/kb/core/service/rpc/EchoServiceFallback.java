@@ -3,7 +3,7 @@ package com.kylinhunter.plat.kb.core.service.rpc;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 
 /**

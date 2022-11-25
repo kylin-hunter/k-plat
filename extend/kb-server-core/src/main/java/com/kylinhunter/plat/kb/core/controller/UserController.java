@@ -4,9 +4,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.UserResp;
-import com.kylinhunter.plat.api.page.PageData;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
+import io.github.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.kb.core.service.rpc.UserFeign;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 

@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.kb.api.module.core.bean.entity;
 
 import java.math.BigDecimal;
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

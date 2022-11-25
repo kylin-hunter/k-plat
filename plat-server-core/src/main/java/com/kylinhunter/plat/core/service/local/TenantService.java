@@ -1,12 +1,12 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
-import com.kylinhunter.plat.api.service.local.CommonService;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
+import io.github.kylinhunter.plat.api.service.local.CommonService;
 
 /**
  * <p>

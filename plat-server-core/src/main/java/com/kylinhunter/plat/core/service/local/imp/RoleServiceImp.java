@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.module.core.bean.entity.Role;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Role;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.core.dao.mapper.RoleMapper;
 import com.kylinhunter.plat.core.service.local.RoleService;
 import com.kylinhunter.plat.core.service.local.interceptor.RoleDeleteInterceptor;

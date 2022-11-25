@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.google.common.collect.Lists;
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import com.kylinhunter.plat.generator.common.GenConst;
 import com.kylinhunter.plat.generator.common.Module;
 

@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 
 import lombok.Getter;
 

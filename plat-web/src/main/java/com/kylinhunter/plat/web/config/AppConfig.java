@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.Env;
+import io.github.kylinhunter.plat.api.Env;
 
 import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Data;

@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.service.local.TenantService;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantDeleteInterceptor;

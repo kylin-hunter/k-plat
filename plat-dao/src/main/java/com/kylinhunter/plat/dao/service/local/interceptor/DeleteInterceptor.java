@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import com.kylinhunter.plat.api.bean.entity.BaseEntity;
-import com.kylinhunter.plat.api.bean.vo.VO;
-import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
-import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
-import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
+import io.github.kylinhunter.plat.api.bean.vo.VO;
+import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
+import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 

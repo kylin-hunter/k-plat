@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import com.google.common.collect.Lists;
-import com.kylinhunter.plat.api.bean.filter.ReqFilter;
-import com.kylinhunter.plat.api.bean.sort.ReqSort;
+import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;
+import io.github.kylinhunter.plat.api.bean.sort.ReqSort;
 
 import io.github.kylinhunter.commons.date.DateUtils;
 

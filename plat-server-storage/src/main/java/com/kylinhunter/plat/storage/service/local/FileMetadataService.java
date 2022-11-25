@@ -1,12 +1,12 @@
 package com.kylinhunter.plat.storage.service.local;
 
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuery;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
-import com.kylinhunter.plat.api.service.local.CommonService;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuery;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
+import io.github.kylinhunter.plat.api.service.local.CommonService;
 
 /**
  * <p>

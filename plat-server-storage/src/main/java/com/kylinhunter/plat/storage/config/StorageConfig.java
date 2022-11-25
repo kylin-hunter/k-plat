@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.storage.constants.StorageType;
+import io.github.kylinhunter.plat.api.module.storage.constants.StorageType;
 
 import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.AccessLevel;

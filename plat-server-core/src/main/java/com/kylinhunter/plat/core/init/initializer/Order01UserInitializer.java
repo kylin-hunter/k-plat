@@ -3,9 +3,9 @@ package com.kylinhunter.plat.core.init.initializer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.auth.context.UserContextHandler;
-import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.web.auth.PasswordUtil;
 import com.kylinhunter.plat.core.init.data.UserInitDatas;
 import com.kylinhunter.plat.core.service.local.UserService;

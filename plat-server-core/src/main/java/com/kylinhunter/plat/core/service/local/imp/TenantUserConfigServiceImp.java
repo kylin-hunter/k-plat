@@ -1,14 +1,13 @@
 package com.kylinhunter.plat.core.service.local.imp;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantUserConfigService;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserConfigMapper;
-import com.kylinhunter.plat.core.service.local.interceptor.SysUserConfigSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantUserConfigSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 

@@ -2,13 +2,13 @@ package com.kylinhunter.plat.core.service.local.interceptor;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
-import com.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.core.init.data.TenantInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 

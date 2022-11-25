@@ -5,8 +5,8 @@ import java.io.InputStream;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
-import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
+import io.github.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
+import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
 import com.kylinhunter.plat.storage.exception.StorageException;
 import com.kylinhunter.plat.storage.minio.service.MinIOService;
 import com.kylinhunter.plat.storage.service.local.imp.AbstractStorageService;

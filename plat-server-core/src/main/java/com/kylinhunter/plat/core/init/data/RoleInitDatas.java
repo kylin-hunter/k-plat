@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.Role;
-import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Role;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
 
 import lombok.Getter;
 

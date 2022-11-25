@@ -1,5 +1,4 @@
 package ${package};
-import com.kylinhunter.plat.api.bean.vo.VO;
 #foreach($pkg in ${imports_for_vo})
 import ${pkg};
 #end

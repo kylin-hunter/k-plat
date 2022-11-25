@@ -1,13 +1,13 @@
 package com.kylinhunter.plat.core.service.local;
 
-import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogTree;
-import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
-import com.kylinhunter.plat.api.service.local.CommonService;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogTree;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
+import io.github.kylinhunter.plat.api.service.local.CommonService;
 
 /**
  * <p>
