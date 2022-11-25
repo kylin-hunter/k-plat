@@ -18,8 +18,9 @@ import com.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
-import com.kylinhunter.plat.commons.util.ReflectionUtil;
+
+import io.github.kylinhunter.commons.bean.BeanCopyUtils;
+import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 
 /**
  * @author BiJi'an
@@ -68,9 +69,14 @@ public class QueryAccurateInterceptor<T extends BaseEntity, C extends ReqCreate,
     public List<Z> after(ReqByIds reqByIds, List<T> entities, Class<Z> respClass) {
         if (entities != null) {
             return entities.stream().map(bean -> {
-                Z response = ReflectionUtil.newInstance(respClass);
-                BeanCopyUtils.copyProperties(bean, response);
-                return response;
+
+                try {
+                    Z response = respClass.newInstance();
+                    BeanCopyUtils.copyProperties(bean, response);
+                    return response;
+                } catch (Exception e) {
+                    throw new DBException("copy bean error", e);
+                }
             }).collect(Collectors.toList());
         }
         return Collections.emptyList();

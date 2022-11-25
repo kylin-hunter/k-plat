@@ -10,11 +10,9 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.kylinhunter.plat.commons.exception.explain.ExplainCustomizer;
-import com.kylinhunter.plat.commons.util.date.DatePatterns;
-import com.kylinhunter.plat.web.error.WebExplainCustomizer;
-import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import com.kylinhunter.plat.web.i18n.KplatLocaleResolver;
+
+import io.github.kylinhunter.commons.date.DatePatterns;
 
 /**
  * @author BiJi'an
@@ -48,13 +46,4 @@ public class WebCommonConfiguration {
         };
     }
 
-    @Bean
-    public ExplainCustomizer webExplainCustomizer() {
-        return new WebExplainCustomizer();
-    }
-
-    @Bean
-    public WebErrInfoCustomizer webErrCustomizer() {
-        return new WebErrInfoCustomizer();
-    }
 }

@@ -18,7 +18,6 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogTree;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import com.kylinhunter.plat.core.service.local.TenantCatalogService;
 import com.kylinhunter.plat.core.service.local.component.TenantCatalogTreeComponent;
@@ -26,6 +25,7 @@ import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogDeleteIn
 import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogSaveOrUpdateInterceptor;
 import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.extern.slf4j.Slf4j;
 
 /**

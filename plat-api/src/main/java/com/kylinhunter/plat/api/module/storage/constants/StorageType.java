@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.api.module.storage.constants;
 
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  **/
 @Getter
 @RequiredArgsConstructor
-public enum StorageType implements EnumUtil.EnumCode {
+public enum StorageType implements EnumUtils.EnumCode {
     MINIO(0, "MINIO");
     private final int code;
     private final String name;

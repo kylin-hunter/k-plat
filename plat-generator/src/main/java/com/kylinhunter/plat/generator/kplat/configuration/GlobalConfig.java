@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.exception.inner.InternalException;
-import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 
+import io.github.kylinhunter.commons.exception.embed.InternalException;
+import io.github.kylinhunter.commons.io.file.UserDirUtils;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

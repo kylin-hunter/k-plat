@@ -1,11 +1,6 @@
 package com.kylinhunter.plat.dao.configuration;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.kylinhunter.plat.commons.exception.explain.ExplainCustomizer;
-import com.kylinhunter.plat.dao.exception.DaoErrInfoCustomizer;
-import com.kylinhunter.plat.dao.exception.DaoExplainCustomizer;
 
 /**
  * @author BiJi'an
@@ -15,13 +10,4 @@ import com.kylinhunter.plat.dao.exception.DaoExplainCustomizer;
 @Configuration
 public class DaoComonConfiguration {
 
-    @Bean
-    public ExplainCustomizer daoExplainCustomizer() {
-        return new DaoExplainCustomizer();
-    }
-
-    @Bean
-    public DaoErrInfoCustomizer daoErrCustomizer() {
-        return new DaoErrInfoCustomizer();
-    }
 }

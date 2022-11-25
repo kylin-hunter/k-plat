@@ -6,9 +6,10 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.google.common.collect.Maps;
 
-import jodd.util.StringPool;
+import io.github.kylinhunter.commons.strings.StringConst;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -62,7 +63,7 @@ public class PackageConfig {
     public String getPackage(Template template) {
         String parentPackage = getParentPackage();
         String currentPackage = String.format(this.packagePatterns.get(template), globalConfig.getModuleName());
-        String packageName = (parentPackage + StringPool.DOT + currentPackage);
+        String packageName = (parentPackage + StringConst.DOT + currentPackage);
         packageName = packageName.replaceAll("\\.\\.", "\\.");
         return packageName;
     }

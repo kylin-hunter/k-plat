@@ -4,9 +4,9 @@ import java.io.File;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.commons.io.file.UserDirUtils;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
+import io.github.kylinhunter.commons.io.file.UserDirUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

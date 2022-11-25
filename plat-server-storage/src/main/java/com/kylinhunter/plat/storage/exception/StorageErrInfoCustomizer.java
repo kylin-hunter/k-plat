@@ -1,27 +1,16 @@
 package com.kylinhunter.plat.storage.exception;
 
-import org.springframework.stereotype.Component;
-
-import com.kylinhunter.plat.commons.exception.info.ErrInfo;
-import com.kylinhunter.plat.commons.exception.info.ErrInfoClassify;
-import com.kylinhunter.plat.commons.exception.info.ErrInfoCustomizer;
-import com.kylinhunter.plat.commons.exception.info.ErrInfoManager;
+import io.github.kylinhunter.commons.exception.info.ErrInfo;
+import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-01-01 00:53
  **/
-@Component
-public class StorageErrInfoCustomizer implements ErrInfoCustomizer {
+@ErrInfoAware
+public class StorageErrInfoCustomizer {
 
-    private static final ErrInfoClassify CLASSIFY_STORAGE = new ErrInfoClassify(40001);
-
-    public static final ErrInfo STORAGE_ERROR = new ErrInfo(CLASSIFY_STORAGE);
-
-
-    @Override
-    public void customize(ErrInfoManager errInfoManager) {
-        errInfoManager.init(StorageErrInfoCustomizer.class);
-    }
+    private static int BASE_CODE;
+    public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
 }

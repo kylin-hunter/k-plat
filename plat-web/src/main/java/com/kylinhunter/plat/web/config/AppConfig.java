@@ -7,8 +7,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.Env;
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class AppConfig {
 
     @PostConstruct
     private void init() {
-        this.env = EnumUtil.fromName(Env.class, this.envStr);
+        this.env = EnumUtils.fromName(Env.class, this.envStr);
         log.info("init config ok {}", this.toString());
 
     }

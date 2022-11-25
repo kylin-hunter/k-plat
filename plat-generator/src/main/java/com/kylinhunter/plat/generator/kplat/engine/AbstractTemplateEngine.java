@@ -10,10 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
-import com.kylinhunter.plat.commons.exception.inner.InternalException;
-import com.kylinhunter.plat.commons.util.JsonUtils;
-import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.generator.kplat.configuration.CodeContext;
 import com.kylinhunter.plat.generator.kplat.configuration.GlobalConfig;
 import com.kylinhunter.plat.generator.kplat.configuration.PackageConfig;
@@ -24,6 +20,11 @@ import com.kylinhunter.plat.generator.kplat.configuration.TemplateConfig;
 import com.kylinhunter.plat.generator.kplat.configuration.TemplateType;
 import com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo;
 
+import io.github.kylinhunter.commons.date.DateUtils;
+import io.github.kylinhunter.commons.exception.common.KRuntimeException;
+import io.github.kylinhunter.commons.exception.embed.InternalException;
+import io.github.kylinhunter.commons.json.JsonOptions;
+import io.github.kylinhunter.commons.json.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -202,7 +203,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("imports_for_vo", outputInfo.getImportPackagesForVO());
         objectMap.put("class_name", outputInfo.getClassName());
         objectMap.put("class_comment", outputInfo.getClassName());
-        objectMap.put("date", DateUtils.formatDate());
+        objectMap.put("date", DateUtils.formatNowWithDate());
         objectMap.put("entity_fields", outputInfo.getEntityFields());
         String entityName = outputInfo.getEntityName();
         objectMap.put("entity_name", entityName);
@@ -219,7 +220,7 @@ public abstract class AbstractTemplateEngine {
         TemplateConfig templateConfig = codeContext.getTemplateConfig();
         objectMap.put("intercepter_enabled", templateConfig.isEnabled(TemplateType.SERVICE_INTERCEPTOR));
 
-                StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
+        StrategyConfigs strategyConfigs = codeContext.getStrategyConfigs();
         StrategyConfig strategyConfig = strategyConfigs.get(template);
         objectMap.put("strategy_is_lombok", strategyConfig.isLombok());
         objectMap.put("strategy_is_lombok_chain_model", strategyConfig.isLombokChainModel());
@@ -275,7 +276,7 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("vo", strategyConfigVO.getClassName(entityName));
         }
 
-        log.info(JsonUtils.toString(objectMap, false));
+        log.info(JsonUtils.writeToString(objectMap, JsonOptions.NO_FAIL));
         return objectMap;
     }
 

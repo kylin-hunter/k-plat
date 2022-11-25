@@ -2,7 +2,7 @@ package com.kylinhunter.plat.generator.common;
 
 import java.io.File;
 
-import com.kylinhunter.plat.commons.io.file.UserDirUtils;
+import io.github.kylinhunter.commons.io.file.UserDirUtils;
 
 /**
  * @author BiJi'an

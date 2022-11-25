@@ -3,14 +3,16 @@ package com.kylinhunter.plat.generator.kplat.configuration;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import org.reflections.ReflectionUtils;
+
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.kylinhunter.plat.commons.util.ReflectionUtil;
-import com.kylinhunter.plat.commons.util.name.NCStrategy;
-import com.kylinhunter.plat.commons.util.name.NamingConvertors;
 import com.kylinhunter.plat.generator.kplat.configuration.bean.EntityField;
 import com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo;
 import com.kylinhunter.plat.generator.kplat.convertor.FieldConvert;
 
+import io.github.kylinhunter.commons.component.CF;
+import io.github.kylinhunter.commons.name.NCStrategy;
+import io.github.kylinhunter.commons.name.NameConvertors;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CodeContextBuilder {
 
     private final CodeContext codeContext;
+    private final NameConvertors nameConvertors = CF.get(NameConvertors.class);
 
     /**
      * @return ConfigCentor
@@ -76,7 +79,7 @@ public class CodeContextBuilder {
         String entityName = entityClass.getSimpleName();
 
         outputInfo.setEntityName(entityName);
-        outputInfo.setEntitySnakeName(NamingConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, entityName));
+        outputInfo.setEntitySnakeName(nameConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, entityName));
         // 处理包
         outputInfo.setPackageName(packageConfig.getPackage(template));
         outputInfo.setPackagePath(packageConfig.getPackagePath(template));
@@ -112,7 +115,7 @@ public class CodeContextBuilder {
 
         // 处理fields
         FieldConvert fieldConvert = strategyConfigs.getFieldConvert();
-        for (Field field : ReflectionUtil.getAllDeclaredFields(entityClass, true).values()) {
+        for (Field field : ReflectionUtils.getFields(entityClass)) {
             EntityField entityField = fieldConvert.convert(strategyConfig, entityClass, field);
             if (entityField != null) {
                 if (!entityField.isPrimitive() && !entityField.getClassName().startsWith("java.lang")) {

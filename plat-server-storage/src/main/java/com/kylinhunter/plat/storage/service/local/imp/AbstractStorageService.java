@@ -12,8 +12,6 @@ import com.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
 import com.kylinhunter.plat.api.module.storage.bean.entity.FileMetadata;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
-import com.kylinhunter.plat.commons.exception.inner.KIOException;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.storage.config.StorageConfig;
 import com.kylinhunter.plat.storage.exception.StorageException;
 import com.kylinhunter.plat.storage.service.local.FileMetadataService;
@@ -23,6 +21,8 @@ import com.kylinhunter.plat.storage.service.local.dto.UploadBeforeMsg;
 import com.kylinhunter.plat.storage.service.local.helper.FileMetadataHelper;
 import com.kylinhunter.plat.web.response.ResponseWriter;
 
+import io.github.kylinhunter.commons.exception.embed.KIOException;
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
-import com.kylinhunter.plat.commons.exception.inner.InitException;
-import com.kylinhunter.plat.commons.io.ResourceHelper;
-import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
 import com.kylinhunter.plat.core.service.local.TenantCatalogService;
 
+import io.github.kylinhunter.commons.exception.embed.InitException;
+import io.github.kylinhunter.commons.io.ResourceHelper;
+import io.github.kylinhunter.commons.json.JsonUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -58,7 +58,7 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
         try (InputStream inputStream = ResourceHelper.getInputStreamInClassPath("/init/tenant_catalog.json")) {
             String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
 
-            List<CatalogInfo> catalogInfos = JsonUtils.toList(json, CatalogInfo.class, true);
+            List<CatalogInfo> catalogInfos = JsonUtils.readToListObject(json, CatalogInfo.class);
 
             log.info("init catalog:" + catalogInfos);
             catalogInfos.forEach(catalogInfo -> {

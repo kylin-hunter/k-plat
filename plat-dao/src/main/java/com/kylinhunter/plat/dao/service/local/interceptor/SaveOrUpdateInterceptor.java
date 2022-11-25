@@ -9,7 +9,8 @@ import com.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
+
+import io.github.kylinhunter.commons.bean.BeanCopyUtils;
 
 /**
  * @author BiJi'an

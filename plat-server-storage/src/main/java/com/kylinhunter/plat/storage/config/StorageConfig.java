@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.kylinhunter.plat.api.module.storage.constants.StorageType;
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public class StorageConfig {
 
     @PostConstruct
     private void init() {
-        storageType = EnumUtil.fromName(StorageType.class, type.toUpperCase());
+        storageType = EnumUtils.fromName(StorageType.class, type.toUpperCase());
         log.info("init storage config ={}", this.toString());
     }
 

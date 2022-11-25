@@ -9,10 +9,10 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;
 
 /**

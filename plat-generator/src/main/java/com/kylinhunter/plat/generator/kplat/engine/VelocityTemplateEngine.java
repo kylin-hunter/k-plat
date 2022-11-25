@@ -13,9 +13,9 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.kylinhunter.plat.generator.kplat.configuration.CodeContext;
 
-import jodd.util.StringPool;
 import lombok.extern.slf4j.Slf4j;
 
 /**

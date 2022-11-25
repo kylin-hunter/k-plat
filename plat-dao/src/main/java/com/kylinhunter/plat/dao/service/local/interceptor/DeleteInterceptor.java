@@ -15,7 +15,8 @@ import com.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
+
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 
 /**
  * @author BiJi'an

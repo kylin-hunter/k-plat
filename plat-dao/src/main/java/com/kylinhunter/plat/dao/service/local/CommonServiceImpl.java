@@ -29,17 +29,17 @@ import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.api.service.local.CommonService;
-import com.kylinhunter.plat.commons.exception.ExceptionHelper;
-import com.kylinhunter.plat.commons.exception.common.KRuntimeException;
-import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
-import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
+import com.kylinhunter.plat.api.service.local.CommonService; 
 import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import com.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
 import com.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
+import io.github.kylinhunter.commons.exception.ExceptionConvertor;
+import io.github.kylinhunter.commons.exception.ExceptionHelper;
+import io.github.kylinhunter.commons.exception.common.KRuntimeException;
+import io.github.kylinhunter.commons.exception.embed.biz.DBException;
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,8 +63,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
 
     @Autowired
     protected ApplicationContext applicationContext;
-    @Autowired
-    protected ExceptionExplainer exceptionExplainer;
+
     @Autowired
     protected UserContextHandler userContextHandler;
 
@@ -117,7 +116,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
                 throw new DBException("save db error");
             }
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 
@@ -132,7 +131,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             reqCreates.forEach(reqCreate -> this.save(reqCreate, false));
             return true;
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 
@@ -152,7 +151,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
         } catch (KRuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 
@@ -222,7 +221,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             T entity = this.baseMapper.selectOne(query);
             return queryAccurateInterceptor.after(reqById, entity, createResponse());
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 
@@ -236,7 +235,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             return this.queryAccurateInterceptor.after(reqByIds, beans, respClass);
 
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 
@@ -253,7 +252,7 @@ public abstract class CommonServiceImpl<M extends BaseMapper<T>, T extends BaseE
             Page<T> entities = this.baseMapper.selectPage(page, queryWrapper);
             return queryComplexInterceptor.after(reqQueryPage, entities, respClass);
         } catch (Exception e) {
-            throw exceptionExplainer.convert(e);
+            throw ExceptionConvertor.convert(e);
         }
     }
 

@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.storage.exception;
 
-import com.kylinhunter.plat.commons.exception.info.ErrInfo;
-import com.kylinhunter.plat.commons.exception.inner.biz.BizException;
+import io.github.kylinhunter.commons.exception.embed.biz.BizException;
+import io.github.kylinhunter.commons.exception.info.ErrInfo;
 
 /**
  * @author BiJi'an

@@ -2,8 +2,7 @@ package com.kylinhunter.plat.web.i18n;
 
 import java.util.Locale;
 
-import com.kylinhunter.plat.commons.util.EnumUtil;
-
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Getter;
 
 /**
@@ -12,7 +11,7 @@ import lombok.Getter;
  * @date 2022-01-07 16:34
  **/
 @Getter
-public enum Lang implements EnumUtil.EnumCode {
+public enum Lang implements EnumUtils.EnumCode {
     ZH(1, "中文", Locale.CHINESE), EN(2, "英文", Locale.ENGLISH);
     private final int code;
     private final String name;

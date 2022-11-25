@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kylinhunter.plat.api.bean.filter.ReqFilter;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.commons.util.name.NamePair;
-import com.kylinhunter.plat.commons.util.name.NamePairUtils;
 import com.kylinhunter.plat.dao.service.local.ex.FilterCustom;
 import com.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
 
+import io.github.kylinhunter.commons.name.NamePair;
+import io.github.kylinhunter.commons.name.NamePairUtils;
 import lombok.RequiredArgsConstructor;
 
 /**

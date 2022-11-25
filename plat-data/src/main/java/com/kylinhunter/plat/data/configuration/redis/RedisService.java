@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 
-import com.kylinhunter.plat.commons.util.ObjectValues;
+import io.github.kylinhunter.commons.util.ObjectValues;
 
 public class RedisService {
     protected RedisTemplate<String, Serializable> redisTemplate;

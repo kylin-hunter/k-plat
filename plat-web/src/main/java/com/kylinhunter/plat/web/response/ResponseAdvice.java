@@ -14,13 +14,14 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.kylinhunter.plat.commons.sys.KPlat;
-import com.kylinhunter.plat.commons.util.JsonUtils;
-import com.kylinhunter.plat.commons.util.date.DateUtils;
 import com.kylinhunter.plat.web.request.RequestContext;
 import com.kylinhunter.plat.web.trace.Trace;
 import com.kylinhunter.plat.web.trace.TraceHandler;
 
+import io.github.kylinhunter.commons.date.DateUtils;
+import io.github.kylinhunter.commons.json.JsonOptions;
+import io.github.kylinhunter.commons.json.JsonUtils;
+import io.github.kylinhunter.commons.sys.KConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +35,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         Class<?> dc = methodParameter.getDeclaringClass();
-        if (dc.getPackage().getName().startsWith(KPlat.BASE_PACKAGE)) {
+        if (dc.getPackage().getName().startsWith(KConst.K_BASE_PACKAGE)) {
             if (dc.getAnnotation(RestController.class) != null || dc.getAnnotation(ResponseBody.class) != null
                     || methodParameter.hasMethodAnnotation(ResponseBody.class)) {
                 return true;
@@ -67,13 +68,14 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         if (!trace.getTraceExplain().isDummy()) {
             response.setTraceExplain(trace.getTraceExplain());
         }
-        log.info(req.getRequestURI() + "'s response:" + JsonUtils.toString(response, false));
+        log.info(
+                req.getRequestURI() + "'s response:" + JsonUtils.writeToString(response, JsonOptions.NO_FAIL));
 
         if (!isResponse) {
 
             response.setData(returnValue);
             if (returnValue instanceof String) {
-                return JsonUtils.toString(response, false);
+                return JsonUtils.writeToString(response, JsonOptions.NO_FAIL);
             }
         }
         return response;

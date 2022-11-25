@@ -12,8 +12,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogTree;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;
+
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 
 /**
  * @author BiJi'an

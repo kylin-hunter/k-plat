@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Sets;
 
-import jodd.util.StringPool;
+import io.github.kylinhunter.commons.strings.StringConst;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -86,7 +86,7 @@ public class StrategyConfig {
 
     public String getDistFileRelativePath(Template template, String entityName) {
         String packageName = packageConfig.getPackage(template);
-        String packageRelativePath = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+        String packageRelativePath = packageName.replaceAll("\\.", StringConst.BACK_SLASH + File.separator);
         String classRelatviePath =
                 packageRelativePath + File.separator + this.getClassName(entityName) + "." + template.getExtension();
         return classRelatviePath;

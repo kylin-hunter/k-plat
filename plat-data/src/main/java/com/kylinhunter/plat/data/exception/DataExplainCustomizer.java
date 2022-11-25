@@ -1,19 +1,16 @@
 package com.kylinhunter.plat.data.exception;
 
-import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
-import com.kylinhunter.plat.commons.exception.explain.ExplainCustomizer;
+import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-08 00:01
  **/
-public class DataExplainCustomizer implements ExplainCustomizer {
+public class DataExplainCustomizer extends AbstractExplainerSupplier {
 
     @Override
-    public void customize(ExceptionExplainer exceptionExplainer) {
-
-
+    public void customize() {
 
     }
 }

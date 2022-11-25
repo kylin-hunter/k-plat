@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.api.module.core.constants;
 
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  **/
 @Getter
 @RequiredArgsConstructor
-public enum UserStatus implements EnumUtil.EnumCode {
+public enum UserStatus implements EnumUtils.EnumCode {
     NORMAL(0, "NORMAL"),
     FROZEN(1, "FROZEN");
     private final int code;

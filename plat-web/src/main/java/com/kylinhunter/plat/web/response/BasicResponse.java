@@ -3,8 +3,7 @@ package com.kylinhunter.plat.web.response;
 
 import java.io.Serializable;
 
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
-
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

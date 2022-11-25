@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.google.common.collect.Lists;
 import com.kylinhunter.plat.api.bean.filter.ReqFilter;
 import com.kylinhunter.plat.api.bean.sort.ReqSort;
-import com.kylinhunter.plat.commons.util.date.DateUtils;
+
+import io.github.kylinhunter.commons.date.DateUtils;
 
 /**
  * @author BiJi'an
@@ -53,7 +54,7 @@ public class WebDataBinderConfig {
             public void setAsText(String text) throws IllegalArgumentException {
                 // 日期解析方法,将对应的text解析成自己需要的格式
                 if (!StringUtils.isEmpty(text)) {
-                    this.setValue(DateUtils.parseDate(text));
+                    this.setValue(DateUtils.parseWithDate(text));
                 }
             }
         });

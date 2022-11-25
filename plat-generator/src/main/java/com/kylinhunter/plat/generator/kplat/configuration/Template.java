@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.generator.kplat.configuration;
 
-import com.kylinhunter.plat.commons.io.file.FileExtensions;
 
+import io.github.kylinhunter.commons.io.file.FileExtensions;
 import lombok.Getter;
 
 /**

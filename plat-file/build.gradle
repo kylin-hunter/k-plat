@@ -1,6 +1,5 @@
 dependencies {
     api project(':plat-api')
-    api project(':plat-commons')
     implementation(rootProject.dependency_management['jodconverter-local'])
     implementation(rootProject.dependency_management['jodconverter-spring-boot-starter'])
     implementation "org.springframework.boot:spring-boot-starter-web"

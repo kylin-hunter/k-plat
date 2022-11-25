@@ -8,10 +8,10 @@ import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.core.init.data.RoleInitDatas;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;
 
 /**

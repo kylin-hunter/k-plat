@@ -13,7 +13,6 @@ import com.kylinhunter.plat.api.module.core.bean.entity.User;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import com.kylinhunter.plat.api.module.core.constants.UserType;
 import com.kylinhunter.plat.web.auth.PasswordUtil;
-import com.kylinhunter.plat.commons.util.EnumUtil;
 import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.AuthService;
@@ -21,6 +20,7 @@ import com.kylinhunter.plat.core.service.local.TenantUserService;
 import com.kylinhunter.plat.web.auth.JWTService;
 import com.kylinhunter.plat.web.exception.AuthException;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -98,7 +98,7 @@ public class AuthServiceImp implements AuthService {
             token.setUserType(tenantUser.getType());
         } else {
 
-            UserType userType = EnumUtil.fromCode(UserType.class, token.getUserType());
+            UserType userType = EnumUtils.fromCode(UserType.class, token.getUserType());
             if (userType == UserType.SUPER_ADMIN) {
                 TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
                 tenantUserReqCreate.setTenantId(tenantId);

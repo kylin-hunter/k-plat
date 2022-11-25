@@ -10,11 +10,11 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
-import com.kylinhunter.plat.commons.tools.select.BranchExecutor;
-import com.kylinhunter.plat.commons.tools.select.BranchExecutors;
 import com.kylinhunter.plat.generator.kplat.configuration.StrategyConfig;
 import com.kylinhunter.plat.generator.kplat.configuration.bean.EntityField;
 
+import io.github.kylinhunter.commons.branch.BranchExecutor;
+import io.github.kylinhunter.commons.branch.BranchExecutors;
 import io.swagger.annotations.ApiModelProperty;
 
 /**

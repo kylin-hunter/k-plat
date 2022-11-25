@@ -9,8 +9,8 @@ import javax.validation.constraints.NotEmpty;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

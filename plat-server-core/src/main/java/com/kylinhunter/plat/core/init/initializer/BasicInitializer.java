@@ -5,7 +5,9 @@ import java.util.Set;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.google.common.collect.Sets;
-import com.kylinhunter.plat.commons.exception.inner.InitException;
+
+import io.github.kylinhunter.commons.exception.embed.InitException;
+import lombok.Getter;
 
 /**
  * @author BiJi'an
@@ -14,6 +16,7 @@ import com.kylinhunter.plat.commons.exception.inner.InitException;
  **/
 
 public abstract class BasicInitializer implements Initializer, InitializingBean {
+    @Getter
     private int order;
 
     private final static Set<Integer> orders = Sets.newHashSet();

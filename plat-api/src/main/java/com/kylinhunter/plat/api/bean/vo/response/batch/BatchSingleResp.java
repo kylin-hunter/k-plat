@@ -4,8 +4,8 @@ package com.kylinhunter.plat.api.bean.vo.response.batch;
 import java.io.Serializable;
 
 import com.kylinhunter.plat.api.bean.vo.BasicVO;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

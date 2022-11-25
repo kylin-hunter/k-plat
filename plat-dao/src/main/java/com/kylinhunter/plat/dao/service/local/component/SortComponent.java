@@ -9,8 +9,9 @@ import com.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import com.kylinhunter.plat.api.bean.sort.Order;
 import com.kylinhunter.plat.api.bean.sort.ReqSort;
 import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.commons.util.name.NamePair;
-import com.kylinhunter.plat.commons.util.name.NamePairUtils;
+
+import io.github.kylinhunter.commons.name.NamePair;
+import io.github.kylinhunter.commons.name.NamePairUtils;
 
 /**
  * @author BiJi'an

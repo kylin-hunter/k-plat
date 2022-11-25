@@ -1,6 +1,5 @@
 dependencies {
     api project(':plat-api')
-    api project(':plat-commons')
 
     api(rootProject.dependency_management['mybatis-spring-boot-starter'])
     api(rootProject.dependency_management['mybatis-plus-boot-starter'])

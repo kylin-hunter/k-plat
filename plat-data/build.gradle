@@ -1,6 +1,5 @@
 dependencies {
     api project(':plat-api')
-    api project(':plat-commons')
     implementation 'org.redisson:redisson-spring-boot-starter:3.14.1'
 }
 jar.enabled = true

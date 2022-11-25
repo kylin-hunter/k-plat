@@ -15,7 +15,8 @@ import com.kylinhunter.plat.api.bean.vo.request.Req;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.context.UserContext;
-import com.kylinhunter.plat.commons.exception.inner.biz.ex.DBException;
+
+import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 
 /**
  * @author BiJi'an

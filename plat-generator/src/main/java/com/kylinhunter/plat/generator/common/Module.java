@@ -5,9 +5,8 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.classloader.KPlatClassLoaderUtil;
-import com.kylinhunter.plat.commons.util.ReflectionUtil;
 
+import io.github.kylinhunter.commons.classloader.ExClassLoaderUtil;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -48,15 +47,15 @@ public class Module {
     public void loadClasses() {
         entityClassNames.forEach(e -> {
 
-            entityClasses.add(KPlatClassLoaderUtil.loadClass(e));
+            entityClasses.add(ExClassLoaderUtil.loadClass(e));
 
             //            entityClasses.add(ReflectionUtil.loadClass(e));
         });
         mapperClassNames.forEach((k, v) -> {
 
-            mapperClasses.put(KPlatClassLoaderUtil.loadClass(k), KPlatClassLoaderUtil.loadClass(v));
+            mapperClasses.put(ExClassLoaderUtil.loadClass(k), ExClassLoaderUtil.loadClass(v));
 
-            mapperClasses.put(ReflectionUtil.loadClass(k), ReflectionUtil.loadClass(v));
+            //            mapperClasses.put(ReflectionUtil.loadClass(k), ReflectionUtil.loadClass(v));
         });
 
     }

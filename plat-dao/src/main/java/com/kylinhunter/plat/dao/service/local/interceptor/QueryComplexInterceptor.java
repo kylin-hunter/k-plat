@@ -15,10 +15,11 @@ import com.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import com.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import com.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import com.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.commons.bean.BeanCopyUtils;
-import com.kylinhunter.plat.commons.util.ReflectionUtil;
 import com.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import com.kylinhunter.plat.dao.service.local.component.SortComponent;
+
+import io.github.kylinhunter.commons.bean.BeanCopyUtils;
+import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 
 /**
  * @author BiJi'an
@@ -58,9 +59,13 @@ public class QueryComplexInterceptor<T extends BaseEntity, C extends ReqCreate, 
         pageData.setPages(page.getPages());
         pageData.setTotal(page.getTotal());
         for (T r : page.getRecords()) {
-            Z response = ReflectionUtil.newInstance(respClass);
-            BeanCopyUtils.copyProperties(r, response);
-            pageData.getBody().add(response);
+            try {
+                Z response = respClass.newInstance();
+                BeanCopyUtils.copyProperties(r, response);
+                pageData.getBody().add(response);
+            } catch (Exception e) {
+                throw new DBException("copy bean error", e);
+            }
         }
         return pageData;
 

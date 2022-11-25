@@ -2,10 +2,10 @@ package com.kylinhunter.plat.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.kylinhunter.plat.commons.exception.info.ErrInfoManager;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
+import io.github.kylinhunter.commons.exception.info.ErrInfoManager;
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

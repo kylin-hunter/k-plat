@@ -3,7 +3,7 @@ package com.kylinhunter.plat.web.trace;
 import com.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
 import com.kylinhunter.plat.web.trace.explain.TraceExplain;
 
-import jodd.util.StringPool;
+import io.github.kylinhunter.commons.strings.StringConst;
 
 /**
  * @author BiJi'an
@@ -15,7 +15,7 @@ public class DummyTrace implements Trace {
 
     @Override
     public String getId() {
-        return StringPool.EMPTY;
+        return StringConst.EMPTY;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DummyTrace implements Trace {
 
     @Override
     public String getToken() {
-        return StringPool.EMPTY;
+        return StringConst.EMPTY;
     }
 
     @Override

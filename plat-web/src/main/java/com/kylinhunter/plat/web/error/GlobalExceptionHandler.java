@@ -7,12 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
-import com.kylinhunter.plat.commons.util.JsonUtils;
 import com.kylinhunter.plat.web.response.DefaultResponse;
 import com.kylinhunter.plat.web.response.ResponseService;
 import com.kylinhunter.plat.web.response.ResponseWriter;
 
+import io.github.kylinhunter.commons.exception.ExceptionConvertor;
+import io.github.kylinhunter.commons.json.JsonOptions;
+import io.github.kylinhunter.commons.json.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +31,6 @@ public class GlobalExceptionHandler {
 
     private final ResponseWriter responseWriter;
 
-    private final ExceptionExplainer exceptionExplainer;
 
     /**
      * @param req             req
@@ -48,8 +48,8 @@ public class GlobalExceptionHandler {
 
         try {
             log.error("global error", globalException);
-            DefaultResponse<?> response = responseService.toResponse(exceptionExplainer.convert(globalException));
-            String responseJson = JsonUtils.toString(response, false);
+            DefaultResponse<?> response = responseService.toResponse(ExceptionConvertor.convert(globalException));
+            String responseJson = JsonUtils.writeToString(response, JsonOptions.NO_FAIL);
             log.error(req.getRequestURI() + "'s response:" + responseJson);
             responseWriter.writeJson(responseJson);
         } catch (Exception e) {

@@ -10,9 +10,9 @@ import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import com.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
 import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;
 
 /**

@@ -1,5 +1,5 @@
 dependencies {
-    api project(':plat-commons')
+    implementation("io.github.kylin-hunter:k-commons:1.0.3")
 }
 jar.enabled = true
 bootJarMainClassName.enabled=false

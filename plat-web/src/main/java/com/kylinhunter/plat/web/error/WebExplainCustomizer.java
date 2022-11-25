@@ -12,12 +12,11 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Maps;
-import com.kylinhunter.plat.commons.exception.explain.ExplainCustomizer;
-import com.kylinhunter.plat.commons.exception.explain.ExceptionExplainer;
-import com.kylinhunter.plat.commons.exception.explain.ExplainInfo;
-import com.kylinhunter.plat.commons.exception.info.ErrInfos;
 import com.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 
+import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
+import io.github.kylinhunter.commons.exception.explain.Explainer;
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -26,44 +25,52 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2021/8/1
  **/
 @Slf4j
-public class WebExplainCustomizer implements ExplainCustomizer {
+public class WebExplainCustomizer extends AbstractExplainerSupplier {
 
     @Override
-    public void customize(ExceptionExplainer exceptionExplainer) {
-        exceptionExplainer.register(BindException.class, (e) -> {
-            Map<String, String> errMsgs = Maps.newHashMap();
-            if (e.hasErrors()) {
-                for (ObjectError objectError : e.getAllErrors()) {
-                    if (objectError instanceof FieldError) {
-                        errMsgs.put(((FieldError) objectError).getField(), objectError.getDefaultMessage());
+    public void customize() {
+        this.createExplain(BindException.class)
+                .setExplainer(e -> {
+                    Map<String, String> errMsgs = Maps.newHashMap();
+                    if (e.hasErrors()) {
+                        for (ObjectError objectError : e.getAllErrors()) {
+                            if (objectError instanceof FieldError) {
+                                errMsgs.put(((FieldError) objectError).getField(), objectError.getDefaultMessage());
 
+                            }
+                        }
                     }
-                }
-            }
-            return new ExplainInfo(ErrInfos.PARAM, errMsgs.toString());
-        });
-        exceptionExplainer.register(MethodArgumentNotValidException.class, (e) -> {
-            Map<String, String> errMsgs = Maps.newHashMap();
-            if (e.getBindingResult().hasErrors()) {
-                for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
-                    if (objectError instanceof FieldError) {
-                        errMsgs.put(((FieldError) objectError).getField(), objectError.getDefaultMessage());
+                    return new Explainer.ExplainResult(ErrInfos.PARAM, errMsgs.toString());
+                });
+
+        this.createExplain(MethodArgumentNotValidException.class)
+                .setExplainer((e) -> {
+                    Map<String, String> errMsgs = Maps.newHashMap();
+                    if (e.getBindingResult().hasErrors()) {
+                        for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
+                            if (objectError instanceof FieldError) {
+                                errMsgs.put(((FieldError) objectError).getField(), objectError.getDefaultMessage());
+                            }
+                        }
                     }
-                }
-            }
-            return new ExplainInfo(ErrInfos.PARAM, errMsgs.toString());
-        });
+                    return new Explainer.ExplainResult(ErrInfos.PARAM, errMsgs.toString());
+                });
 
-        exceptionExplainer.register(HttpRequestMethodNotSupportedException.class,
-                (e) -> new ExplainInfo(WebErrInfoCustomizer.WEB_NOT_SUPPORTED, e.getMessage()));
+        this.createExplain(HttpRequestMethodNotSupportedException.class)
+                .setExplainer(
+                        (e) -> new Explainer.ExplainResult(WebErrInfoCustomizer.WEB_NOT_SUPPORTED, e.getMessage()));
 
-        exceptionExplainer.register(NoHandlerFoundException.class,
-                (e) -> new ExplainInfo(WebErrInfoCustomizer.WEB_NO_HANDLER_FOUND, e.getMessage()));
+        this.createExplain(NoHandlerFoundException.class)
+                .setExplainer(
+                        (e) -> new Explainer.ExplainResult(WebErrInfoCustomizer.WEB_NO_HANDLER_FOUND, e.getMessage()));
 
-        exceptionExplainer.register(InvalidFormatException.class,
-                (e) -> new ExplainInfo(ErrInfos.FORMAT, "json format" + e.getMessage()));
+        this.createExplain(InvalidFormatException.class)
+                .setExplainer(
+                        (e) -> new Explainer.ExplainResult(ErrInfos.FORMAT, e.getMessage()));
 
-        exceptionExplainer.register(HttpMessageNotReadableException.class,
-                (e) -> new ExplainInfo(ErrInfos.FORMAT, e.getMessage()));
+        this.createExplain(HttpMessageNotReadableException.class)
+                .setExplainer(
+                        (e) -> new Explainer.ExplainResult(ErrInfos.FORMAT, e.getMessage()));
+
     }
 }

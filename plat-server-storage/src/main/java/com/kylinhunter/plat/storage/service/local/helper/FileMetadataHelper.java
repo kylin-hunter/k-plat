@@ -12,11 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCreate;
-import com.kylinhunter.plat.commons.codec.MD5Util;
-import com.kylinhunter.plat.commons.exception.inner.KIOException;
-import com.kylinhunter.plat.commons.exception.inner.ParamException;
-import com.kylinhunter.plat.commons.util.date.DateFormats;
-import com.kylinhunter.plat.commons.util.date.DateUtils;
+
+import io.github.kylinhunter.commons.codec.MD5Utils;
+import io.github.kylinhunter.commons.date.DateFormats;
+import io.github.kylinhunter.commons.date.DateUtils;
+import io.github.kylinhunter.commons.exception.embed.KIOException;
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 
 /**
  * @author BiJi'an
@@ -31,7 +32,7 @@ public class FileMetadataHelper {
             fileMetadataReqCreate.setType(0);
             fileMetadataReqCreate.setDescription("");
             try (InputStream inputStream = multipartFile.getInputStream()) {
-                final String md5 = MD5Util.md5(inputStream);
+                final String md5 = MD5Utils.md5(inputStream);
                 fileMetadataReqCreate.setMd5(md5);
             }
 
@@ -67,7 +68,7 @@ public class FileMetadataHelper {
         fileMetadataReqCreate.setType(0);
         fileMetadataReqCreate.setDescription("");
 
-        final String md5 = MD5Util.md5(file);
+        final String md5 = MD5Utils.md5(file);
         fileMetadataReqCreate.setMd5(md5);
 
         final long size = file.length();

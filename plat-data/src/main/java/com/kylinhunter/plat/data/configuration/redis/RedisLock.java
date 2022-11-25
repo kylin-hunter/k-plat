@@ -6,8 +6,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
-import com.kylinhunter.plat.commons.exception.inner.InitException;
-
+import io.github.kylinhunter.commons.exception.embed.InitException;
 import lombok.RequiredArgsConstructor;
 
 @Component

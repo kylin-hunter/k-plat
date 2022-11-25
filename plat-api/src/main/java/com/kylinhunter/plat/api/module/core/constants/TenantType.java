@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.api.module.core.constants;
 
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  **/
 @Getter
 @RequiredArgsConstructor
-public enum TenantType implements EnumUtil.EnumCode {
+public enum TenantType implements EnumUtils.EnumCode {
     DEFAULT(0, "DEFAULT"),
     SYS(1, "SYS");
     private final int code;

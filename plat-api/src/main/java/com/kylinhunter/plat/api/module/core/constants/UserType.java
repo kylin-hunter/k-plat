@@ -1,7 +1,7 @@
 package com.kylinhunter.plat.api.module.core.constants;
 
-import com.kylinhunter.plat.commons.util.EnumUtil;
 
+import io.github.kylinhunter.commons.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  **/
 @Getter
 @RequiredArgsConstructor
-public enum UserType implements EnumUtil.EnumCode {
+public enum UserType implements EnumUtils.EnumCode {
     USER(0, "USER"),
     SUPER_ADMIN(1, "SUPER_ADMIN"),
     TENANT_USER(2, "TENANT_USER"),
