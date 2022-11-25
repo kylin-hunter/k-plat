@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import com.kylinhunter.plat.commons.io.ResourceHelper;
-
+import io.github.kylinhunter.commons.io.ResourceHelper;
 import io.minio.MinioClient;
 import io.minio.ObjectWriteResponse;
 import io.minio.PutObjectArgs;

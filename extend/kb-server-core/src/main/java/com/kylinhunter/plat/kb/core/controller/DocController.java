@@ -9,7 +9,7 @@ import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocReqUpdate;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocResp;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocVO;
 import com.kylinhunter.plat.kb.core.service.local.DocService;
-import com.kylinhunter.plat.web.controller.CommonCurdController;
+import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

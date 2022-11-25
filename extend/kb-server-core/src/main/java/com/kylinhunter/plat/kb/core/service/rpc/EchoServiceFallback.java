@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
-import com.kylinhunter.plat.web.response.DefaultResponse;
+import io.github.kylinhunter.plat.web.response.DefaultResponse;
 
 /**
  * @author BiJi'an

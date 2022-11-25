@@ -4,8 +4,8 @@ import org.jodconverter.core.office.OfficeException;
 import org.jodconverter.local.JodConverter;
 import org.jodconverter.local.office.LocalOfficeManager;
 
-import com.kylinhunter.plat.commons.io.ResourceHelper;
-import com.kylinhunter.plat.commons.io.file.UserDirUtils;
+import io.github.kylinhunter.commons.io.ResourceHelper;
+import io.github.kylinhunter.commons.io.file.UserDirUtils;
 
 /**
  * @author BiJi'an

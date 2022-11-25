@@ -38,5 +38,4 @@ tmp/
 # system ignore
 .DS_Store
 Thumbs.db
-/plat-algorithm/src/src_tmp/
 

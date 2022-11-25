@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.web.response.DefaultResponse;
+import io.github.kylinhunter.plat.web.response.DefaultResponse;
 
 @FeignClient(value = "plat-server-core", fallback = EchoServiceFallback.class)
 public interface UserFeign {

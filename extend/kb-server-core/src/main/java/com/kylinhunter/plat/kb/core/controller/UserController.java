@@ -8,7 +8,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.page.PageData;
 import com.kylinhunter.plat.kb.core.service.rpc.UserFeign;
-import com.kylinhunter.plat.web.response.DefaultResponse;
+import io.github.kylinhunter.plat.web.response.DefaultResponse;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

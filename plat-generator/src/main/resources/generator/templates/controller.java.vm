@@ -9,7 +9,7 @@ import ${import_vo_update};
 import ${import_vo_response};
 import ${import_vo};
 import ${import_service_local};
-import com.kylinhunter.plat.web.controller.CommonCurdController;
+import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
