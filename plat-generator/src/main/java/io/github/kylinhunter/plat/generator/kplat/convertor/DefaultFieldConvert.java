@@ -40,7 +40,7 @@ public class DefaultFieldConvert implements FieldConvert {
     /**
      * @param strategyConfig strategyConfig
      * @param field          field
-     * @return com.kylinhunter.plat.generator.kplat.configuration.bean.EntityField
+     * @return io.github.kylinhunter.plat.generator.kplat.configuration.bean.EntityField
      * @title 默认的转换
      * @description
      * @author BiJi'an

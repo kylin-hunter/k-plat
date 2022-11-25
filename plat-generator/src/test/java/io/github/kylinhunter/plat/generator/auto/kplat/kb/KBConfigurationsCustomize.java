@@ -18,7 +18,7 @@ public class KBConfigurationsCustomize implements ConfigurationsCustomize {
     public void customize(Module module, Configurations configurations) {
         module.getEntityClassNames().forEach(System.out::println);
         PackageConfig packageConfig = configurations.getCodeContext().getPackageConfig();
-        packageConfig.setParentPattern("com.kylinhunter.plat.kb");
+        packageConfig.setParentPattern("io.github.kylinhunter.plat.kb");
         final TemplateConfig templateConfig = configurations.getCodeContext().getTemplateConfig();
         templateConfig.setEnabled(TemplateType.SERVICE_INTERCEPTOR, true);
 

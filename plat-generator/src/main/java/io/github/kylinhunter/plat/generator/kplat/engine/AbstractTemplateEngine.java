@@ -41,7 +41,7 @@ public abstract class AbstractTemplateEngine {
 
     /**
      * @param CodeContext CodeContext
-     * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
+     * @return io.github.kylinhunter.plat.generator.custom.AbstractTemplateEngine
      * @title 模板引擎初始化
      * @description
      * @author BiJi'an
@@ -53,7 +53,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
+     * @return io.github.kylinhunter.plat.generator.custom.AbstractTemplateEngine
      * @title 创建目录
      * @description
      * @author BiJi'an
@@ -83,7 +83,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * @return com.kylinhunter.plat.generator.custom.AbstractTemplateEngine
+     * @return io.github.kylinhunter.plat.generator.custom.AbstractTemplateEngine
      * @title 输出结果
      * @description
      * @author BiJi'an

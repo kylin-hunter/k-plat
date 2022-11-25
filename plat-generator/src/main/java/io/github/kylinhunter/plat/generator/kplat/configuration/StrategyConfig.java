@@ -41,7 +41,7 @@ public class StrategyConfig {
 
     /**
      * @param superClassName 父类
-     * @return com.kylinhunter.plat.generator.custom.configuration.StrategyConfig
+     * @return io.github.kylinhunter.plat.generator.custom.configuration.StrategyConfig
      * @title 设置父类
      * @description
      * @author BiJi'an
@@ -56,7 +56,7 @@ public class StrategyConfig {
 
     /**
      * @param superClass superClassName
-     * @return com.kylinhunter.plat.generator.custom.configuration.StrategyConfig
+     * @return io.github.kylinhunter.plat.generator.custom.configuration.StrategyConfig
      * @title 设置父类
      * @description
      * @author BiJi'an

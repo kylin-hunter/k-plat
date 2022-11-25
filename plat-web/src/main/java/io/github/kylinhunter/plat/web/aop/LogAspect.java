@@ -42,7 +42,7 @@ public class LogAspect extends HandlerInterceptorAdapter {
     //
     //    private static final String[] API_PATTERN = PathPatterns.include(PathPatterns.LOG_OPEN_API);
 
-    @AfterReturning(returning = "object", pointcut = "execution(* com.kylinhunter.plat..*Controller.*(..))")
+    @AfterReturning(returning = "object", pointcut = "execution(* io.github.kylinhunter.plat..*Controller.*(..))")
     public void doController(JoinPoint point, Object object) throws Throwable {
         try {
             ServletRequestAttributes attributes =

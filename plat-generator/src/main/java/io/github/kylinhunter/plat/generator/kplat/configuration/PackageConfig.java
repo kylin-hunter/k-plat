@@ -27,7 +27,7 @@ public class PackageConfig {
     private static final String DEFAULT_ONTROLLER = "controller";
 
     private final GlobalConfig globalConfig;
-    private String parentPattern = "com.kylinhunter.plat";   /*父包名*/
+    private String parentPattern = "io.github.kylinhunter.plat";   /*父包名*/
     private Map<Template, String> packagePatterns = Maps.newHashMap();
 
     public PackageConfig(GlobalConfig globalConfig) {

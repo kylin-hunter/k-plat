@@ -11,7 +11,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
  **/
 public interface UserContextHandler {
     /**
-     * @return com.kylinhunter.plat.api.context.UserContext
+     * @return io.github.kylinhunter.plat.api.context.UserContext
      * @title create
      * @description
      * @author BiJi'an
@@ -20,7 +20,7 @@ public interface UserContextHandler {
     UserContext create(Token token);
 
     /**
-     * @return com.kylinhunter.plat.api.context.UserContext
+     * @return io.github.kylinhunter.plat.api.context.UserContext
      * @title create
      * @description
      * @author BiJi'an
@@ -29,7 +29,7 @@ public interface UserContextHandler {
     UserContext create(User user);
 
     /**
-     * @return com.kylinhunter.plat.api.context.UserContext
+     * @return io.github.kylinhunter.plat.api.context.UserContext
      * @title get get
      * @description
      * @author BiJi'an

@@ -43,7 +43,7 @@ public class DefaultTraceHandler implements TraceHandler {
     }
 
     /**
-     * @return com.kylinhunter.plat.commons.trace.Trace
+     * @return io.github.kylinhunter.plat.commons.trace.Trace
      * @title 从request获取Trace信息
      * @description
      * @author BiJi'an

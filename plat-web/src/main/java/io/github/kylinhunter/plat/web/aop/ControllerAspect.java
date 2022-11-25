@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ControllerAspect {
     private final UserContextHandler userContextHandler;
 
-    @Around("execution(* com.kylinhunter.plat..*Controller.*(..))")
+    @Around("execution(* io.github.kylinhunter.plat..*Controller.*(..))")
     public Object allController(ProceedingJoinPoint point) throws Throwable {
         this.setTraceMsg(point);
         return point.proceed();

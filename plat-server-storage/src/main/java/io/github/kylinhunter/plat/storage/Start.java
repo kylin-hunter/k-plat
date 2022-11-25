@@ -11,8 +11,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @date  2022-01-01 00:13
  **/
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.kylinhunter.plat"})
-@MapperScan("com.kylinhunter.plat.storage.dao")
+@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"})
+@MapperScan("io.github.kylinhunter.plat.storage.dao")
 public class Start {
     public static void main(String[] args) {
         SpringApplication.run(Start.class, args);

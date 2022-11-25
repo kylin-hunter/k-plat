@@ -27,7 +27,7 @@ public class ResponseService {
 
     /**
      * @param e
-     * @return com.kylinhunter.plat.commons.web.response.DefaultResponse
+     * @return io.github.kylinhunter.plat.commons.web.response.DefaultResponse
      * @throws
      * @title toResponse
      * @description

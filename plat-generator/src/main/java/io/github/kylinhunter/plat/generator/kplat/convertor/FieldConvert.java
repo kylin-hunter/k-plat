@@ -14,7 +14,7 @@ public interface FieldConvert {
     /**
      * @param strategyConfig strategyConfig
      * @param field          field
-     * @return com.kylinhunter.plat.generator.custom.convertor.EntityField
+     * @return io.github.kylinhunter.plat.generator.custom.convertor.EntityField
      * @title 类型转换
      * @description
      * @author BiJi'an

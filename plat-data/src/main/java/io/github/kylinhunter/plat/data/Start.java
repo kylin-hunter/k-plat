@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description
  * @date  2022-01-01 00:13
  **/
-@SpringBootApplication(scanBasePackages = {"com.kylinhunter.plat"})
-@MapperScan("com.kylinhunter.plat.data")
+@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"})
+@MapperScan("io.github.kylinhunter.plat.data")
 public class Start {
     public static void main(String[] args) {
         SpringApplication.run(Start.class, args);

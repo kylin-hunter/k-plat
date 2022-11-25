@@ -41,7 +41,7 @@ public class OutputInfo {
 
     /**
      * @param entityField entityField
-     * @return com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo
+     * @return io.github.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo
      * @title 添加field
      * @description
      * @author BiJi'an
@@ -54,7 +54,7 @@ public class OutputInfo {
 
     /**
      * @param pkg pkg
-     * @return com.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo
+     * @return io.github.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo
      * @title 添加引入包
      * @description
      * @author BiJi'an

@@ -19,6 +19,6 @@ public class KBMyPlusGeneratorCustomize implements MyPlusGeneratorCustomize {
         final StrategyConfig strategyConfig = myPlusGeneratorConfig.getStrategyConfig();
         strategyConfig.setTablePrefix("kb_");
         final PackageConfig packageConfig = myPlusGeneratorConfig.getPackageConfig();
-        packageConfig.setParent("com.kylinhunter.plat.kb");
+        packageConfig.setParent("io.github.kylinhunter.plat.kb");
     }
 }

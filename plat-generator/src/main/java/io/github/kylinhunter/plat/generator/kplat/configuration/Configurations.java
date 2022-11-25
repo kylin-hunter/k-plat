@@ -51,7 +51,7 @@ public class Configurations {
     }
 
     public void initPackageConfig(PackageConfig packageConfig) {
-        packageConfig.setParentPattern("com.kylinhunter.plat");
+        packageConfig.setParentPattern("io.github.kylinhunter.plat");
         packageConfig.setPackagePattern(Template.VO_CREATE, "api.module.%s.bean.vo");
         packageConfig.setPackagePattern(Template.VO_UPDATE, "api.module.%s.bean.vo");
         packageConfig.setPackagePattern(Template.VO_RESPONSE, "api.module.%s.bean.vo");

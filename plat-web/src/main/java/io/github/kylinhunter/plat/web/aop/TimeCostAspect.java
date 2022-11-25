@@ -28,11 +28,11 @@ public class TimeCostAspect {
     public final AppConfig appConfig;
     private final TraceHandler traceHandler;
 
-    @Pointcut("execution(* com.kylinhunter.plat..*Controller.*(..))")
+    @Pointcut("execution(* io.github.kylinhunter.plat..*Controller.*(..))")
     private void logController() {
     }
 
-    @Pointcut("execution(* com.kylinhunter.plat..service..*Service*.*(..))")
+    @Pointcut("execution(* io.github.kylinhunter.plat..service..*Service*.*(..))")
     private void logService() {
     }
 

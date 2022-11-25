@@ -7,7 +7,7 @@ package io.github.kylinhunter.plat.web.trace;
  **/
 public interface TraceHandler {
     /**
-     * @return com.kylinhunter.plat.commons.trace.Trace
+     * @return io.github.kylinhunter.plat.commons.trace.Trace
      * @throws
      * @title 隐式 从 request中 创建 trace
      * @description
@@ -17,7 +17,7 @@ public interface TraceHandler {
     Trace create();
 
     /**
-     * @return com.kylinhunter.plat.commons.trace.Trace
+     * @return io.github.kylinhunter.plat.commons.trace.Trace
      * @throws
      * @title 获取trace
      * @description

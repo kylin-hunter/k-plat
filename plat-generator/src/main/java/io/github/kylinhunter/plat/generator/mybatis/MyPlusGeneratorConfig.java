@@ -108,7 +108,7 @@ public class MyPlusGeneratorConfig {
 
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setModuleName("");
-        packageConfig.setParent("com.kylinhunter.plat");
+        packageConfig.setParent("io.github.kylinhunter.plat");
         packageConfig.setService("api.module." + module.getName() + ".service.local");
         packageConfig.setEntity("api.module." + module.getName() + ".bean.entity");
         packageConfig.setMapper(module.getName() + ".dao.mapper");
@@ -132,7 +132,7 @@ public class MyPlusGeneratorConfig {
                 "sys_op_lock");
 
         //        strategyConfig.setVersionFieldName("sys_op_lock");
-        //        strategyConfig.setSuperControllerClass("com.kylinhunter.plat.****.BaseController");
+        //        strategyConfig.setSuperControllerClass("io.github.kylinhunter.plat.****.BaseController");
         strategyConfig.setControllerMappingHyphenStyle(true);
         strategyConfig.setEntityLombokModel(true);
         strategyConfig.setRestControllerStyle(true);
