@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
 import com.kylinhunter.plat.core.init.data.TenantRoleInitDatas;
-import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;

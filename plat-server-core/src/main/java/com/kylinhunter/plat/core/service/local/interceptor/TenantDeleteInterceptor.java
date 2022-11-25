@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import com.kylinhunter.plat.core.init.data.TenantInitDatas;
-import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;

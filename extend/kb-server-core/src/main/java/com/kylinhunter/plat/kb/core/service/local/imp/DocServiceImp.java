@@ -2,7 +2,7 @@ package com.kylinhunter.plat.kb.core.service.local.imp;
 
 import org.springframework.stereotype.Service;
 
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import com.kylinhunter.plat.kb.api.module.core.bean.entity.Doc;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocReqCreate;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocReqQuery;

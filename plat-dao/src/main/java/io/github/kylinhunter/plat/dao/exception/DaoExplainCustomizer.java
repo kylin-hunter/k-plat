@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.exception;
+package io.github.kylinhunter.plat.dao.exception;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 

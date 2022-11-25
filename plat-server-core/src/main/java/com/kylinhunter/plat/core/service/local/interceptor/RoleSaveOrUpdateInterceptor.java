@@ -9,7 +9,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import com.kylinhunter.plat.core.init.data.RoleInitDatas;
-import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;

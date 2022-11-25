@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuer
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import com.kylinhunter.plat.storage.dao.mapper.FileMetadataMapper;
 import com.kylinhunter.plat.storage.service.local.FileMetadataService;
 

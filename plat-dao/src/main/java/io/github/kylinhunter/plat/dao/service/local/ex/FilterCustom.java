@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.ex;
+package io.github.kylinhunter.plat.dao.service.local.ex;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;

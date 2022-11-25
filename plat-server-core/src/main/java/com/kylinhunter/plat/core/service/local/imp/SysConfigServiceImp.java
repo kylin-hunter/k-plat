@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigVO;
 import com.kylinhunter.plat.core.dao.mapper.SysConfigMapper;
 import com.kylinhunter.plat.core.service.local.SysConfigService;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 /**
  * <p>

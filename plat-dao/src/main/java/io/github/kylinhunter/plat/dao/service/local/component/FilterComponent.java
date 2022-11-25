@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.component;
+package io.github.kylinhunter.plat.dao.service.local.component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
-import com.kylinhunter.plat.dao.service.local.ex.FilterCustom;
-import com.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
+import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustom;
+import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
 
 import io.github.kylinhunter.commons.name.NamePair;
 import io.github.kylinhunter.commons.name.NamePairUtils;

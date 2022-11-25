@@ -16,7 +16,7 @@ import com.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import com.kylinhunter.plat.core.service.local.TenantService;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 /**
  * <p>

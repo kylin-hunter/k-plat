@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.configuration;
+package io.github.kylinhunter.plat.dao.configuration;
 
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;

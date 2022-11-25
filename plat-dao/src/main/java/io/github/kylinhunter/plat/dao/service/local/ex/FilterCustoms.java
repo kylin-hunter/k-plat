@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.ex;
+package io.github.kylinhunter.plat.dao.service.local.ex;
 
 import java.util.Map;
 

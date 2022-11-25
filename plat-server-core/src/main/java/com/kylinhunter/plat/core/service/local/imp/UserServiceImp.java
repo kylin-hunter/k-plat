@@ -14,7 +14,7 @@ import com.kylinhunter.plat.core.dao.mapper.UserMapper;
 import com.kylinhunter.plat.core.service.local.UserService;
 import com.kylinhunter.plat.core.service.local.interceptor.UserDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.UserSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;

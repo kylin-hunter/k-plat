@@ -6,7 +6,7 @@ import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocReqQuery;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocReqUpdate;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocResp;
 import com.kylinhunter.plat.kb.api.module.core.bean.vo.DocVO;
-import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import org.springframework.stereotype.Component;
 
 

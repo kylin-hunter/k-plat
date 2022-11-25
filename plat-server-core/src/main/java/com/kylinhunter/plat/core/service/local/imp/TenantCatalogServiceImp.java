@@ -23,7 +23,7 @@ import com.kylinhunter.plat.core.service.local.TenantCatalogService;
 import com.kylinhunter.plat.core.service.local.component.TenantCatalogTreeComponent;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantCatalogSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.extern.slf4j.Slf4j;

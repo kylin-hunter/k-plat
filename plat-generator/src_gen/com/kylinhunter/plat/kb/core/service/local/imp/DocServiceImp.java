@@ -12,7 +12,7 @@ import com.kylinhunter.plat.kb.core.service.local.interceptor.DocSaveOrUpdateInt
 import com.kylinhunter.plat.kb.core.service.local.interceptor.DocDeleteInterceptor;
 
 
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;
 

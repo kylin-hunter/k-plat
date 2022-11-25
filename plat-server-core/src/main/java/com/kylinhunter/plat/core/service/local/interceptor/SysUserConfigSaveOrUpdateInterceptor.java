@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
-import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import lombok.RequiredArgsConstructor;

@@ -11,7 +11,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import com.kylinhunter.plat.core.dao.mapper.SysUserConfigMapper;
 import com.kylinhunter.plat.core.service.local.SysUserConfigService;
 import com.kylinhunter.plat.core.service.local.interceptor.SysUserConfigSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 /**
  * <p>

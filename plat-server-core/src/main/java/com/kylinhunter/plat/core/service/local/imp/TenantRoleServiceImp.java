@@ -14,7 +14,7 @@ import com.kylinhunter.plat.core.dao.mapper.TenantRoleMapper;
 import com.kylinhunter.plat.core.service.local.TenantRoleService;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantRoleDeleteInterceptor;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantRoleSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 /**
  * <p>

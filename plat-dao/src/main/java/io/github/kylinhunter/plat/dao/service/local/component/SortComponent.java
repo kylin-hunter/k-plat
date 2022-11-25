@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.component;
+package io.github.kylinhunter.plat.dao.service.local.component;
 
 import java.util.List;
 

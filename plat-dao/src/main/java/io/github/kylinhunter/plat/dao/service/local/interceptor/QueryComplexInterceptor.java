@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.interceptor;
+package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -15,8 +15,8 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
-import com.kylinhunter.plat.dao.service.local.component.FilterComponent;
-import com.kylinhunter.plat.dao.service.local.component.SortComponent;
+import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
+import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 
 import io.github.kylinhunter.commons.bean.BeanCopyUtils;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;

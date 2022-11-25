@@ -6,7 +6,6 @@ import ${import_vo_query};
 import ${import_vo_update};
 import ${import_vo_response};
 import ${import_vo};
-import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import org.springframework.stereotype.Component;
 
 

@@ -12,7 +12,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserMapper;
 import com.kylinhunter.plat.core.service.local.TenantUserService;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 /**
  * <p>

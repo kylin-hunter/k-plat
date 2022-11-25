@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.configuration;
+package io.github.kylinhunter.plat.dao.configuration;
 
 import org.springframework.context.annotation.Configuration;
 

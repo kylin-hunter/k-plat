@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.interceptor;
+package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

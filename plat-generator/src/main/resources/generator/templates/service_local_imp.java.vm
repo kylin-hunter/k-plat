@@ -13,9 +13,6 @@ import ${import_service_interceptor_save_update};
 import ${import_service_interceptor_delete};
 #end
 
-
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-
 import org.springframework.stereotype.Service;
 
 /**

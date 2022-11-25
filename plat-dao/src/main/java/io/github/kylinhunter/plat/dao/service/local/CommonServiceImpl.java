@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local;
+package io.github.kylinhunter.plat.dao.service.local;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,10 +30,10 @@ import io.github.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
-import com.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
-import com.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
-import com.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
-import com.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 
 import io.github.kylinhunter.commons.exception.ExceptionConvertor;
 import io.github.kylinhunter.commons.exception.ExceptionHelper;

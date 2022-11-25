@@ -8,7 +8,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantConfigService;
 import com.kylinhunter.plat.core.dao.mapper.TenantConfigMapper;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;
 

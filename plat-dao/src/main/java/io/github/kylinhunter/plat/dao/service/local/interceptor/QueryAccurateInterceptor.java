@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.dao.service.local.interceptor;
+package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import java.util.Collections;
 import java.util.List;

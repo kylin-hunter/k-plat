@@ -9,7 +9,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import com.kylinhunter.plat.core.service.local.TenantUserConfigService;
 import com.kylinhunter.plat.core.dao.mapper.TenantUserConfigMapper;
 import com.kylinhunter.plat.core.service.local.interceptor.TenantUserConfigSaveOrUpdateInterceptor;
-import com.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
 import org.springframework.stereotype.Service;
 
