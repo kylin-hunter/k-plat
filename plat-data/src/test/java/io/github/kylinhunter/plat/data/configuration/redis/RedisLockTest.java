@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.configuration.redis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

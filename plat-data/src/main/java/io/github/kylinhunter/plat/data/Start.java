@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data;
+package io.github.kylinhunter.plat.data;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

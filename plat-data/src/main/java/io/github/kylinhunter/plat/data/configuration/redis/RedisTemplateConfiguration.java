@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.configuration.redis;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data.exception;
+package io.github.kylinhunter.plat.data.exception;
 
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 

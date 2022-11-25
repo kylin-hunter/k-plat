@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.configuration.redis;
 
 import java.util.stream.IntStream;
 
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.kylinhunter.plat.data.Start;
+import io.github.kylinhunter.plat.data.Start;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

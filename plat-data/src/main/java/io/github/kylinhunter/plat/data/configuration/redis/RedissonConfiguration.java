@@ -1,4 +1,4 @@
-package com.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.configuration.redis;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
