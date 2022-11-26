@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: kb-server-core
-  profiles:
-    active: local
-server:
-  port: 8601

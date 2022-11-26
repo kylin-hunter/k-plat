@@ -1,5 +1,0 @@
-dependencies {
-    api project(':plat-api')
-}
-jar.enabled = true
-bootJar.enabled = false
