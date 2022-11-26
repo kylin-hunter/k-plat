@@ -19,21 +19,21 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("kplat_file_metadata")
-@ApiModel(value="FileMetadata对象", description="")
+@ApiModel(value="FileMetadata", description="")
 public class FileMetadata extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "类型 0 ")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "content-type")
     private String contentType;
 
-    @ApiModelProperty(value = "文件名")
+    @ApiModelProperty(value = "name")
     private String name;
 
-    @ApiModelProperty(value = "扩展名")
+    @ApiModelProperty(value = "extension")
     private String extension;
 
     @ApiModelProperty(value = "size")
@@ -48,7 +48,7 @@ public class FileMetadata extends BaseEntity {
     @ApiModelProperty(value = "bucket")
     private String bucket;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "path")
     private String path;
 
 

@@ -17,29 +17,29 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "FileMetadataResp对象", description = "FileMetadataResp")
+@ApiModel(value = "FileMetadataResp", description = "FileMetadataResp")
 public class FileMetadataResp extends DefaultSysResp {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "扩展名")
+    @ApiModelProperty(value = "extension")
     private String extension;
 
     @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型 0 ")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "bucket")
     private String bucket;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "path")
     private String path;
 
     @ApiModelProperty(value = "size")
     private Long size;
 
-    @ApiModelProperty(value = "文件名")
+    @ApiModelProperty(value = "name")
     private String name;
 
     @ApiModelProperty(value = "content-type")

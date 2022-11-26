@@ -17,29 +17,29 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "FileMetadataReqUpdate对象", description = "FileMetadataReqUpdate")
+@ApiModel(value = "FileMetadataReqUpdate", description = "FileMetadataReqUpdate")
 public class FileMetadataReqUpdate extends ReqUpdate  implements FileMetadataVO {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "扩展名")
+    @ApiModelProperty(value = "extension")
     private String extension;
 
     @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型 0 ")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "bucket")
     private String bucket;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "path")
     private String path;
 
     @ApiModelProperty(value = "size")
     private Long size;
 
-    @ApiModelProperty(value = "文件名")
+    @ApiModelProperty(value = "name")
     private String name;
 
     @ApiModelProperty(value = "content-type")

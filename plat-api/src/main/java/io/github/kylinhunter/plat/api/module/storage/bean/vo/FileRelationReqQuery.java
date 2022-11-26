@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "FileRelationReqQuery对象", description = "FileRelationReqQuery")
+@ApiModel(value = "FileRelationReqQuery", description = "FileRelationReqQuery")
 public class FileRelationReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;

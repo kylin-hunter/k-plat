@@ -20,13 +20,13 @@ import lombok.EqualsAndHashCode;
 public class FileRelationReqUpdate extends ReqUpdate  implements FileRelationVO {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "类型 0 ")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
-    @ApiModelProperty(value = "知识ID")
+    @ApiModelProperty(value = "masterId")
     private String masterId;
 
-    @ApiModelProperty(value = "文件ID")
+    @ApiModelProperty(value = "fileId")
     private String fileId;
 
 
