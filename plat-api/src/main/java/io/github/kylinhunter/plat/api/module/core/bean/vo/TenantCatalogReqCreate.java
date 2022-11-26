@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantCatalogReqCreate对象", description = "TenantCatalogReqCreate")
+@ApiModel(value = "TenantCatalogReqCreate", description = "TenantCatalogReqCreate")
 public class TenantCatalogReqCreate extends ReqCreate implements TenantCatalogVO {
 
     private static final long serialVersionUID = 1L;
@@ -24,9 +24,9 @@ public class TenantCatalogReqCreate extends ReqCreate implements TenantCatalogVO
     private String code;
     @ApiModelProperty(value = "path")
     private Integer level;
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
     @ApiModelProperty(value = "parent_id")
     private String parentId;
@@ -34,7 +34,7 @@ public class TenantCatalogReqCreate extends ReqCreate implements TenantCatalogVO
     private String path;
     @ApiModelProperty(value = "name")
     private String name;
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

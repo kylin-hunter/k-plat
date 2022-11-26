@@ -8,7 +8,6 @@ import org.springframework.beans.BeanUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
-
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,11 +30,9 @@ public class DefaultUserContext implements UserContext, Serializable {
 
     @ApiModelProperty(value = "userName", hidden = true)
     private String userName = "";
-    @ApiModelProperty(value = "账户类型")
-    private int userType;
 
-    @ApiModelProperty(value = "账户类型")
-    private boolean checkTenant;
+    @ApiModelProperty(value = "userType")
+    private int userType;
 
     @ApiModelProperty(value = "roleIds", hidden = true)
     private List<String> roleIds;

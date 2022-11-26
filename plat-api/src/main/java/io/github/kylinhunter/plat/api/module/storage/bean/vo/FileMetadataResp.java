@@ -24,7 +24,7 @@ public class FileMetadataResp extends DefaultSysResp {
     @ApiModelProperty(value = "扩展名")
     private String extension;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
     @ApiModelProperty(value = "类型 0 ")

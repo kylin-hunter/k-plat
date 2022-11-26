@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantCatalogResp对象", description = "TenantCatalogResp")
+@ApiModel(value = "TenantCatalogResp", description = "TenantCatalogResp")
 public class TenantCatalogResp extends DefaultSysResp {
 
     private static final long serialVersionUID = 1L;
@@ -26,10 +26,10 @@ public class TenantCatalogResp extends DefaultSysResp {
     @ApiModelProperty(value = "path")
     private Integer level;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "parent_id")
@@ -41,7 +41,7 @@ public class TenantCatalogResp extends DefaultSysResp {
     @ApiModelProperty(value = "name")
     private String name;
 
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

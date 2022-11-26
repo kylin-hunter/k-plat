@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ReqLogin {
-    @ApiModelProperty(value = "userId")
+    @ApiModelProperty(value = "userCode")
     @NotBlank
     private String userCode;
     @ApiModelProperty(value = "password")

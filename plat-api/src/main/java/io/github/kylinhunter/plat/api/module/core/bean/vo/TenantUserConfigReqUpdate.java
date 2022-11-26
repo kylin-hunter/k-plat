@@ -16,26 +16,26 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantUserConfigReqUpdate对象", description = "TenantUserConfigReqUpdate")
+@ApiModel(value = "TenantUserConfigReqUpdate", description = "TenantUserConfigReqUpdate")
 public class TenantUserConfigReqUpdate extends ReqUpdate  implements TenantUserConfigVO {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "配置编码")
+    @ApiModelProperty(value = "code")
     private String code;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型 0 字符串")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "userid")
     private String userId;
 
-    @ApiModelProperty(value = "配置项的值")
+    @ApiModelProperty(value = "value")
     private String value;
 
-    @ApiModelProperty(value = "状态")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

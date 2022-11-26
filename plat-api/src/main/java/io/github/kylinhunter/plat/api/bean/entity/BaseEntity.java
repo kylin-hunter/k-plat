@@ -28,10 +28,7 @@ public class BaseEntity implements java.io.Serializable {
     @TableId(type = IdType.ASSIGN_UUID)
     @EqualsAndHashCode.Include
     protected String id;
-    /*
-       @ApiModelProperty(value = "更新时间", hidden = true, example = SwaggerConst.SAMPLE_DATE_TIME)
-       private LocalDateTime sysAutoUpdated;
-    */
+
     @ApiModelProperty(value = "sysTenantId", hidden = true)
     private String sysTenantId;
 

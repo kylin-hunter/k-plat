@@ -89,16 +89,6 @@ public class DummyUserContext implements UserContext, Serializable {
     }
 
     @Override
-    public void setCheckTenant(boolean checkTenant) {
-
-    }
-
-    @Override
-    public boolean isCheckTenant() {
-        return true;
-    }
-
-    @Override
     public boolean isSuperAdmin() {
         return false;
     }

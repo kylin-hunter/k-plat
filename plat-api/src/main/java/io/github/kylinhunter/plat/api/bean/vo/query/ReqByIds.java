@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "ReqByIds 对象", description = "ReqByIds")
+@ApiModel(value = "ReqByIds", description = "ReqByIds")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReqByIds extends ReqQuery implements Serializable {
     private static final long serialVersionUID = -8450405452557433712L;
-    @ApiModelProperty(value = "批量查询主键", required = true)
+    @ApiModelProperty(value = "primary keys", required = true)
     @NotEmpty
     private Collection<String> ids;
 

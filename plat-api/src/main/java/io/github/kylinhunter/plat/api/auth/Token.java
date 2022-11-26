@@ -30,10 +30,10 @@ public class Token {
     @ApiModelProperty(value = "userName", hidden = true)
     private String userName = "";
 
-    @ApiModelProperty(value = "账户类型")
+    @ApiModelProperty(value = "userType")
     private int userType;
 
-    @ApiModelProperty(value = "过期时间", hidden = true)
+    @ApiModelProperty(value = "expireDate", hidden = true)
     private LocalDateTime expireDate;
 
 }

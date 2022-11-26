@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "RoleReqQuery对象", description = "RoleReqQuery")
+@ApiModel(value = "RoleReqQuery", description = "RoleReqQuery")
 public class RoleReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;

@@ -23,7 +23,7 @@ public class FileMetadataReqCreate extends ReqCreate implements FileMetadataVO {
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "扩展名")
     private String extension;
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
     @ApiModelProperty(value = "类型 0 ")
     private Integer type;

@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "RoleReqCreate对象", description = "RoleReqCreate")
+@ApiModel(value = "RoleReqCreate", description = "RoleReqCreate")
 public class RoleReqCreate extends ReqCreate implements RoleVO {
 
     private static final long serialVersionUID = 1L;
@@ -29,11 +29,11 @@ public class RoleReqCreate extends ReqCreate implements RoleVO {
     @ApiModelProperty(value = "name")
     @NotBlank
     private String name;
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
-    @ApiModelProperty(value = "角色状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
 }

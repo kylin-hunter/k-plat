@@ -6,7 +6,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 
 /**
  * @author BiJi'an
- * @description 日志追踪
+ * @description
  * @date 2022/01/01
  **/
 public interface UserContextHandler {

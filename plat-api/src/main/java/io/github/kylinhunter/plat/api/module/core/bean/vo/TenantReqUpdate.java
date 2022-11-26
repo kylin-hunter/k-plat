@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantReqUpdate对象", description = "TenantReqUpdate")
+@ApiModel(value = "TenantReqUpdate", description = "TenantReqUpdate")
 public class TenantReqUpdate extends ReqUpdate  implements TenantVO {
 
     private static final long serialVersionUID = 1L;
@@ -26,17 +26,17 @@ public class TenantReqUpdate extends ReqUpdate  implements TenantVO {
     @NotBlank
     private String code;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "name")
     @NotBlank
     private String name;
 
-    @ApiModelProperty(value = "角色状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

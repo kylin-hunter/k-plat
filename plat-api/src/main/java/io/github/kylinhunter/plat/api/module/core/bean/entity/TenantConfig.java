@@ -18,24 +18,24 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("kplat_tenant_config")
-@ApiModel(value="TenantConfig对象", description="")
+@ApiModel(value="TenantConfig")
 public class TenantConfig extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "类型 0 字符串")
+    @ApiModelProperty(value = "type 0 string")
     private Integer type;
 
-    @ApiModelProperty(value = "状态")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "配置编码")
+    @ApiModelProperty(value = "code")
     private String code;
 
-    @ApiModelProperty(value = "配置项的值")
+    @ApiModelProperty(value = "value")
     private String value;
 
 

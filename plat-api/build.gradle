@@ -1,7 +1,6 @@
 dependencies {
     api("io.github.kylin-hunter:k-commons:1.0.4")
-//    api("jakarta.validation:jakarta.validation-api")
-    api 'org.hibernate.validator:hibernate-validator:7.0.4.Final'
+    api 'org.hibernate.validator:hibernate-validator'
     api(rootProject.dependency_management['mybatis-plus'])
     api(rootProject.dependency_management['springfox-swagger2'])
     api(rootProject.dependency_management['springfox-swagger-ui'])

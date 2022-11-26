@@ -39,7 +39,7 @@ public class FileMetadata extends BaseEntity {
     @ApiModelProperty(value = "size")
     private Long size;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
     @ApiModelProperty(value = "md5")

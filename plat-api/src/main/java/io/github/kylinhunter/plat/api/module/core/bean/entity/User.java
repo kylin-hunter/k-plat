@@ -20,31 +20,31 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @TableName("kplat_user")
-@ApiModel(value = "User", description = "")
+@ApiModel(value = "User")
 @NoArgsConstructor
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户code")
+    @ApiModelProperty(value = "userCode")
     private String userCode;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "userName")
     private String userName;
 
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "password")
     private String password;
 
-    @ApiModelProperty(value = "用户来源")
+    @ApiModelProperty(value = "source")
     private String source;
 
-    @ApiModelProperty(value = "用户类型，预留 默认0")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
-    @ApiModelProperty(value = "用户状态，预留 默认0")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "description")
     private String description;
 }

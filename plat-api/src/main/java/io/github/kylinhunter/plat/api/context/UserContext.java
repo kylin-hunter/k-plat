@@ -34,9 +34,5 @@ public interface UserContext {
 
     boolean isDummy();
 
-    void setCheckTenant(boolean checkTenant);
-
-    boolean isCheckTenant();
-
     boolean isSuperAdmin();
 }

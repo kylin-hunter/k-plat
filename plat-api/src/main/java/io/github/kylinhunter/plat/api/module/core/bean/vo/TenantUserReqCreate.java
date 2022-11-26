@@ -20,15 +20,15 @@ import lombok.EqualsAndHashCode;
 public class TenantUserReqCreate extends ReqCreate implements TenantUserVO {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
     @ApiModelProperty(value = "userId")
     private String userId;
     @ApiModelProperty(value = "tenantId")
     private String tenantId;
-    @ApiModelProperty(value = "用户类型，预留 默认0")
+    @ApiModelProperty(value = "type")
     private Integer type;
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

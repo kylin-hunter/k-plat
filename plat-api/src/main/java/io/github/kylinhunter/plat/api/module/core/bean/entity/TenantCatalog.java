@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("kplat_tenant_catalog")
-@ApiModel(value="TenantCatalog对象", description="")
+@ApiModel(value="TenantCatalog")
 public class TenantCatalog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -29,19 +29,19 @@ public class TenantCatalog extends BaseEntity {
     @ApiModelProperty(value = "name")
     private String name;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
     @ApiModelProperty(value = "path")
     private String path;
 
-    @ApiModelProperty(value = "path")
+    @ApiModelProperty(value = "level")
     private Integer level;
 
     @ApiModelProperty(value = "parent_id")

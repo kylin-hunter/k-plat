@@ -23,14 +23,14 @@ public class BatchResp<T extends BasicVO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "详细信息")
+    @ApiModelProperty(value = "body")
     private List<BatchSingleResp<T>> body = Lists.newArrayList();
 
     public void addSingleResp(T singleResp) {
-        this.body.add(new BatchSingleResp(singleResp));
+        this.body.add(new BatchSingleResp<>(singleResp));
     }
 
     public void addSingleResp(int code, String msg, T singleResp) {
-        this.body.add(new BatchSingleResp(code,msg,singleResp));
+        this.body.add(new BatchSingleResp<>(code, msg, singleResp));
     }
 }

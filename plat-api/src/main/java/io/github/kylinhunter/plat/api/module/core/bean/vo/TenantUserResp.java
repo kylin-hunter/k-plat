@@ -16,11 +16,11 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantUserResp对象", description = "TenantUserResp")
+@ApiModel(value = "TenantUserResp", description = "TenantUserResp")
 public class TenantUserResp extends DefaultSysResp {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
     @ApiModelProperty(value = "userId")
@@ -29,10 +29,10 @@ public class TenantUserResp extends DefaultSysResp {
     @ApiModelProperty(value = "tenantId")
     private String tenantId;
 
-    @ApiModelProperty(value = "用户类型，预留 默认0")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
-    @ApiModelProperty(value = "状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

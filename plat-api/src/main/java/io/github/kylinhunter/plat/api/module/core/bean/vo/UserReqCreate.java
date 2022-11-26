@@ -24,25 +24,25 @@ public class UserReqCreate extends ReqCreate implements UserVO {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "userCode")
     @NotBlank
     private String userCode;
 
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "userName")
     @NotBlank
     private String userName;
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "password")
     private String password;
 
-    @ApiModelProperty(value = "用户来源")
+    @ApiModelProperty(value = "source")
     private String source;
 
-    @ApiModelProperty(value = "用户类型，预留 默认0")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
-    @ApiModelProperty(value = "用户状态，预留 默认0")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
     @ApiModelProperty(value = "备注")

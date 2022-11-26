@@ -16,23 +16,23 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TenantRoleResp对象", description = "TenantRoleResp")
+@ApiModel(value = "TenantRoleResp", description = "TenantRoleResp")
 public class TenantRoleResp extends DefaultSysResp {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "code")
     private String code;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "description")
     private String description;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "type")
     private Integer type;
 
     @ApiModelProperty(value = "name")
     private String name;
 
-    @ApiModelProperty(value = "角色状态，预留")
+    @ApiModelProperty(value = "status")
     private Integer status;
 
 

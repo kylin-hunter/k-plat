@@ -24,7 +24,7 @@ public class UserReqQuery extends ReqPage {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "根据roleId过滤")
+    @ApiModelProperty(value = "roleId")
     private String roleId;
 
 }
