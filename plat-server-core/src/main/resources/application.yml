@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: plat-server-core
   profiles:
     active: local
 server:

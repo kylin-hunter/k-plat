@@ -1,8 +1,4 @@
 spring:
-  cloud:
-    nacos:
-      config:
-        server-addr: 47.94.98.98:8848/
-      discovery:
-        server-addr: 47.94.98.98:8848/
-
+  config:
+    activate:
+      on-profile: ali

@@ -2,30 +2,3 @@ spring:
   config:
     activate:
       on-profile: local
-    import:
-      - optional:nacos:plat-common.yaml
-      - optional:nacos:plat-server-storage-local.yaml
-  cloud:
-    nacos:
-      config:
-        server-addr: 127.0.0.1:8848
-        namespace: local
-        file-extension: yaml
-      discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: local
-    sentinel:
-      transport:
-        port: 8719
-        dashboard: 192.168.31.122:8022
-      #        client-ip: 100.103.74.205
-      datasource:
-        ds:
-          nacos:
-            server-addr: 127.0.0.1:8848
-            dataId: ${spring.application.name}-sentinel
-            groupId: DEFAULT_GROUP
-            rule-type: flow
-
-server:
-  port: 8002
