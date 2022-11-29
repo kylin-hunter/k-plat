@@ -5,16 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.context.UserContext;
-import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
-import io.github.kylinhunter.plat.web.log.LogHelper;
+import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.trace.Trace;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
-
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j
-public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
+public class TokenHandlerInterceptor implements HandlerInterceptor {
     private final TraceHandler traceHandler;
-    private final UserContextHandler  userContextHandler;
+    private final UserContextHandler userContextHandler;
     private final JWTService jwtService;
 
     @Override
@@ -41,8 +38,7 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
         Trace trace = traceHandler.get();
         Token token = jwtService.verify(trace.getToken());
 
-        UserContext userContext = userContextHandler.create(token);
-        LogHelper.setTraceId(userContext.getUserId());
+        userContextHandler.create(token);
 
         return true;
     }

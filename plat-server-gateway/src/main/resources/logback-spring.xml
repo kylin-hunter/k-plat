@@ -5,4 +5,5 @@
     <property name="app.logging.log_level" value="INFO"/>
     <include resource="io/github/kylinhunter/commons/spring/kylinhunter-spring.xml"/>
     <logger name="io.github.kylinhunter" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
 </configuration>

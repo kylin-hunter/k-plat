@@ -10,18 +10,22 @@ dependencies {
     api project(':plat-dao')
     api("org.springframework.boot:spring-boot-starter-web")
     api('org.springframework.boot:spring-boot-starter-aop')
-    api('org.springframework.cloud:spring-cloud-starter-bootstrap')
-
     api('org.springframework.boot:spring-boot-starter-actuator')
-    api('io.micrometer:micrometer-registry-prometheus')
-    api(rootProject.dependency_management['java-jwt'])
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+
+    api('org.springframework.cloud:spring-cloud-starter-bootstrap')
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
     api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     api "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
-    api("org.springframework.cloud:spring-cloud-starter-openfeign")
     api 'com.alibaba.csp:sentinel-datasource-nacos'
+
+    api('io.micrometer:micrometer-registry-prometheus')
+    api(rootProject.dependency_management['java-jwt'])
+
 
 }
 jar.enabled = true

@@ -2,3 +2,26 @@ spring:
   config:
     activate:
       on-profile: local
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: url-proxy-1
+          uri: https://blog.csdn.net
+          predicates:
+            - Path=/k-plat/**
+            - ExtCheck=1
+        - id: url-proxy-2
+          uri: https://www.360.cn/
+          predicates:
+            - Path=/360
+        - id: url-proxy-3
+          uri: lb://plat-server-core
+          predicates:
+            - Path=/k-plat/**
+            - ExtCheck=2
+          filters:
+            - AddPrefix

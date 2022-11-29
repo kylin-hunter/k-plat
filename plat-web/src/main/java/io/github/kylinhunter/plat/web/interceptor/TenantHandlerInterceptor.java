@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import io.github.kylinhunter.plat.api.context.UserContext;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j
-public class TenantHandlerInterceptor extends HandlerInterceptorAdapter {
+public class TenantHandlerInterceptor implements HandlerInterceptor {
     private final TraceHandler traceHandler;
     private final UserContextHandler userContextHandler;
 
