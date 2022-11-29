@@ -1,0 +1,24 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
+dependencies {
+
+    api project(':plat-web')
+    implementation 'io.minio:minio:8.4.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+}
+
+jar.enabled = false
+bootJar.enabled(true)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.storage.exception;
+package io.github.kylinhunter.plat.gateway.exception;
 
 import io.github.kylinhunter.commons.exception.info.ErrInfo;
 import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
@@ -9,8 +9,8 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
  * @date 2022-01-01 00:53
  **/
 @ErrInfoAware
-public class StorageErrInfoCustomizer {
+public class GatewayErrInfoCustomizer {
 
-    private static int BASE_CODE =70000;
+    private static int BASE_CODE = 80000;
     public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
 }

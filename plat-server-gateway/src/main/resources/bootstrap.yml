@@ -1,10 +1,10 @@
 spring:
   application:
-    name: plat-server-core
+    name: plat-server-gateway
   config:
     import:
       - optional:nacos:plat-common.yaml
-      - optional:nacos:plat-server-core-local.yaml
+      - optional:nacos:plat-server-gateway-local.yaml
   cloud:
     nacos:
       config:
