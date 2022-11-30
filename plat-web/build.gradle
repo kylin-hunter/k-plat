@@ -15,7 +15,6 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
-    api('org.springframework.cloud:spring-cloud-starter-bootstrap')
     api("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"

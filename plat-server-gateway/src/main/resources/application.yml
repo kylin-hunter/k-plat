@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: plat-server-gateway
   profiles:
     active: local
 server:
