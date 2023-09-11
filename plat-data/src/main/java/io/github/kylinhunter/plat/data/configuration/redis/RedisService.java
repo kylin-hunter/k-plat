@@ -20,10 +20,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 
 public class RedisService {
+
   protected RedisTemplate<String, Serializable> redisTemplate;
 
   private String DEFAULT_NAME_SPACE = "kplat";
@@ -31,11 +33,11 @@ public class RedisService {
   public RedisService(RedisTemplate<String, Serializable> redisTemplate) {
     super();
     this.redisTemplate = redisTemplate;
-    Arrays.stream(RedisKeys.values())
-        .forEach(
-            redisKeys -> {
-              redisKeys.setNamespace(DEFAULT_NAME_SPACE);
-            });
+  }
+
+  @PostConstruct
+  private void init() {
+    RedisKey.defaultNamespace(DEFAULT_NAME_SPACE);
   }
 
   /**
@@ -69,7 +71,7 @@ public class RedisService {
   }
 
   public Long increment(String key, long value) {
-    return this.increment(key, new Long(value));
+    return this.increment(key, Long.valueOf(value));
   }
 
   public Long increment(String key, Long value) {

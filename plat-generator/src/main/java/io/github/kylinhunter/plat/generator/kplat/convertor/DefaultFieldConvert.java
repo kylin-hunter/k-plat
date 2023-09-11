@@ -35,6 +35,7 @@ import org.springframework.beans.BeanUtils;
  * @date 2022/01/01
  */
 public class DefaultFieldConvert implements FieldConvert {
+
   private static final String SERIAL_VERSIONU_ID = "serialVersionUID";
 
   @Override
@@ -52,7 +53,7 @@ public class DefaultFieldConvert implements FieldConvert {
 
   /**
    * @param strategyConfig strategyConfig
-   * @param field field
+   * @param field          field
    * @return io.github.kylinhunter.plat.generator.kplat.configuration.bean.EntityField
    * @title 默认的转换
    * @description
@@ -77,26 +78,29 @@ public class DefaultFieldConvert implements FieldConvert {
     }
     entityField.setPrimitive(field.getType().isPrimitive());
 
-    final Class<?>[] classes = new Class[] {LocalDate.class, LocalDateTime.class, Date.class};
+    final Class<?>[] classes = new Class[]{LocalDate.class, LocalDateTime.class, Date.class};
     for (Class clazz : classes) {
       if (field.getType() == clazz) {
         entityField.setDatetime(true);
       }
     }
     PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(entityClass, field.getName());
-    Method readMethod = pd.getReadMethod();
-    Method wirteMethod = pd.getWriteMethod();
-    entityField.setReadMethod(
-        readMethod.getReturnType().getSimpleName() + " " + readMethod.getName() + "()");
+    if (pd != null) {
+      Method readMethod = pd.getReadMethod();
+      Method wirteMethod = pd.getWriteMethod();
+      entityField.setReadMethod(
+          readMethod.getReturnType().getSimpleName() + " " + readMethod.getName() + "()");
 
-    entityField.setWriteMethod(
-        "void "
-            + wirteMethod.getName()
-            + " ("
-            + wirteMethod.getParameterTypes()[0].getSimpleName()
-            + " "
-            + entityField.getName()
-            + ")");
+      entityField.setWriteMethod(
+          "void "
+              + wirteMethod.getName()
+              + " ("
+              + wirteMethod.getParameterTypes()[0].getSimpleName()
+              + " "
+              + entityField.getName()
+              + ")");
+    }
+
     return entityField;
   }
 }

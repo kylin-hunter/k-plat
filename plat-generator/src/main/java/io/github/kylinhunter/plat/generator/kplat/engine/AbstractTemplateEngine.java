@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -113,7 +114,7 @@ public abstract class AbstractTemplateEngine {
             Path distFilePath = outputInfo.getDistFilePath();
 
             String pathTemplate = pathTemplate(templateConfig.getTemplate(template));
-            if (isCreate(distFilePath) && StringUtils.isNotBlank(pathTemplate)) {
+            if (isFileOverride(distFilePath) && StringUtils.isNotBlank(pathTemplate)) {
               writer(objectMap, pathTemplate, distFilePath);
             }
           }
@@ -144,24 +145,27 @@ public abstract class AbstractTemplateEngine {
    * @author BiJi'an
    * @date 2021/8/5 12:42 上午
    */
-  protected boolean isCreate(Path path) throws IOException {
+  protected boolean isFileOverride(Path path) throws IOException {
 
-    // 全局判断【默认】
+    Objects.requireNonNull(path);
     boolean exist = Files.exists(path);
     if (!exist) {
-      Files.createDirectories(path.getParent());
+      Path parent = path.getParent();
+      if (parent != null && !Files.exists(parent)) {
+        Files.createDirectories(parent);
+      }
       return true;
-    } else {
-      return codeContext.getGlobalConfig().isFileOverride();
     }
+
+    return codeContext.getGlobalConfig().isFileOverride();
   }
 
   /**
    * 将模板转化成为文件
    *
-   * @param context 渲染对象 MAP 信息
+   * @param context      渲染对象 MAP 信息
    * @param templatePath 模板文件
-   * @param path 文件生成的目录
+   * @param path         文件生成的目录
    */
   public abstract void writer(Map<String, Object> context, String templatePath, Path path)
       throws Exception;
