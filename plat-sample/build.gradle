@@ -1,5 +1,5 @@
 dependencies {
-    api project(':plat-commons')
+    api project(':plat-api')
 }
 jar.enabled = true
 bootJar.enabled(false)

@@ -8,7 +8,7 @@ dependencyManagement {
 dependencies {
     implementation project(':plat-web')
     implementation(rootProject.dependency_management['velocity-engine-core'])
-    runtimeOnly files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+//    runtimeOnly files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
 }
 jar.enabled = true

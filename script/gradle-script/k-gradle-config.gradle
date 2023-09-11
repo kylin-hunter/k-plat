@@ -1,7 +1,20 @@
 ext {
     profile = "local"
-//    KYLIN_VERION = "1.0.2-SNAPSHOT"
-    KYLIN_VERION = "1.0.1"
+    KYLIN_VERIONS = [
+            "plat-api"           : '1.0.2',
+            "plat-core"          : '1.0.2',
+            "plat-dao"           : '1.0.2',
+            "plat-data"          : '1.0.2',
+            "plat-file"          : '1.0.2',
+            "plat-generator"     : '1.0.2',
+            "plat-sample"        : '1.0.2',
+            "plat-server-core"   : '1.0.2',
+            "plat-server-devops" : '1.0.2',
+            "plat-server-gateway": '1.0.2',
+            "plat-server-storage": '1.0.2',
+            "plat-web"           : '1.0.2'
+
+    ]
     KYLIN_IMAGE_REPO = "私服地址"
     KYLIN_IMAGE_VERSION = "v1"
     KYLIN_GRADLE_SECRET_PATH = "/Users/bijian/gradle-secret.properties"
