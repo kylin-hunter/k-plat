@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2022-01-01 21:42
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ReqByIds", description = "ReqByIds")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -23,7 +23,7 @@ import lombok.Getter;
 public enum Order {
   ASC("asc"),
   DESC("desc");
-  public String code;
+  private String code;
 
   public boolean equalTo(String order) {
     return this.code.equalsIgnoreCase(order);

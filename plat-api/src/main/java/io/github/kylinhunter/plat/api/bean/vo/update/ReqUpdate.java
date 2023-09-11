@@ -32,7 +32,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "ReqUpdate", description = "ReqUpdate")
 public class ReqUpdate extends Req {
   @ApiModelProperty(value = "primary key")

@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
  * @date 2022-01-01 21:42
  */
 @Data
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "ReqPage", description = "ReqPage")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -229,13 +229,14 @@ subprojects {
 //    https://github.com/spotbugs/spotbugs-gradle-plugin
 //    https://spotbugs.github.io/
 //    https://spotbugs.readthedocs.io/en/latest/detectors.html?highlight=FindSqlInjection#findsqlinjection
+//    https://spotbugs.readthedocs.io/en/stable/bugDescriptions.html
     spotbugs {
         ignoreFailures = false
         showStackTraces = true
         showProgress = true
         effort = 'max'  // -effort[:min|less|default|more|max]:
         reportLevel = 'medium' // low medium high
-        excludeFilter = file("../auto-test/spotbugs/exclude.xml")
+        excludeFilter = file("../script/auto-test/spotbugs/exclude.xml")
         onlyAnalyze = ['io.github.kylinhunter.-']
         maxHeapSize = '1g'
         extraArgs = ['-nested:false']

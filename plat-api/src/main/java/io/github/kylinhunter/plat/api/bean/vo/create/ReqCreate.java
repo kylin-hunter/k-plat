@@ -31,7 +31,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "ReqCreate", description = "ReqCreate")
 public class ReqCreate extends Req {
   @ApiModelProperty(value = "primary key", hidden = true)

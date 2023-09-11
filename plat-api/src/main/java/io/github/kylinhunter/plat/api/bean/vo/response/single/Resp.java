@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel(value = "Resp", description = "Resp")
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Resp extends BasicVO {
   private static final long serialVersionUID = -8450405452557433712L;
 

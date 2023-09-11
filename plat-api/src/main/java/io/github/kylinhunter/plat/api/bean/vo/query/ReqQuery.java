@@ -32,7 +32,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "ReqQuery", description = "ReqQuery")
 public class ReqQuery extends Req implements Serializable {
   private static final long serialVersionUID = -8450405452557433712L;

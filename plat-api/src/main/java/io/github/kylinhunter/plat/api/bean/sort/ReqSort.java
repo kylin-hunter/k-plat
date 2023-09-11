@@ -41,6 +41,6 @@ public class ReqSort implements Serializable {
 
   public ReqSort(String field, Order order) {
     this.field = field;
-    this.order = order.code;
+    this.order = order.getCode();
   }
 }

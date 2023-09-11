@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
  * @since 2022-01-01
  */
 @Data
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "UserReqQuery", description = "")
 @NoArgsConstructor
 public class UserReqQuery extends ReqPage {
