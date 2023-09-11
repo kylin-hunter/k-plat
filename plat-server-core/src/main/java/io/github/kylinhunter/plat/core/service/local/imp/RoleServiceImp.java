@@ -1,6 +1,19 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.core.service.local.imp;
-
-import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -15,32 +28,32 @@ import io.github.kylinhunter.plat.core.service.local.RoleService;
 import io.github.kylinhunter.plat.core.service.local.interceptor.RoleDeleteInterceptor;
 import io.github.kylinhunter.plat.core.service.local.interceptor.RoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import org.springframework.stereotype.Service;
 
 /**
- * <p>
  * RoleServiceImp 代码工具自动生成，按需扩展
- * </p>
  *
  * @author biji'an
  * @since 2022-06-11
  */
 @Service
 public class RoleServiceImp
-        extends CommonServiceImpl<RoleMapper, Role,
-        RoleReqCreate, RoleReqUpdate,
-        RoleResp, RoleVO, RoleReqQuery> implements RoleService {
+    extends CommonServiceImpl<
+        RoleMapper, Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery>
+    implements RoleService {
 
-    public RoleServiceImp(RoleSaveOrUpdateInterceptor RoleSaveOrUpdateInterceptor,
-                          RoleDeleteInterceptor RoleDeleteInterceptor) {
-        this.saveOrUpdateInterceptor = RoleSaveOrUpdateInterceptor;
-        this.deleteInterceptor = RoleDeleteInterceptor;
-    }
+  public RoleServiceImp(
+      RoleSaveOrUpdateInterceptor RoleSaveOrUpdateInterceptor,
+      RoleDeleteInterceptor RoleDeleteInterceptor) {
+    this.saveOrUpdateInterceptor = RoleSaveOrUpdateInterceptor;
+    this.deleteInterceptor = RoleDeleteInterceptor;
+  }
 
-    @Override
-    public Role queryByCode(String code) {
-        LambdaQueryWrapper<Role> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(Role::getSysDeleteFlag, false);
-        queryWrapper.eq(Role::getCode, code);
-        return this.baseMapper.selectOne(queryWrapper);
-    }
+  @Override
+  public Role queryByCode(String code) {
+    LambdaQueryWrapper<Role> queryWrapper = Wrappers.lambdaQuery();
+    queryWrapper.eq(Role::getSysDeleteFlag, false);
+    queryWrapper.eq(Role::getCode, code);
+    return this.baseMapper.selectOne(queryWrapper);
+  }
 }

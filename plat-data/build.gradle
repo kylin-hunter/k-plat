@@ -1,6 +1,7 @@
 dependencies {
     api project(':plat-api')
     implementation 'org.redisson:redisson-spring-boot-starter:3.14.1'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 jar.enabled = true
 bootJar.enabled(false)
