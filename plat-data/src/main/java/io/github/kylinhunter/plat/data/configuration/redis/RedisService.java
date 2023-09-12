@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.data.configuration.redis;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;

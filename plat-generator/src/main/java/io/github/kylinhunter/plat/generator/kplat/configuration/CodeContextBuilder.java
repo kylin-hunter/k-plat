@@ -16,9 +16,7 @@
 package io.github.kylinhunter.plat.generator.kplat.configuration;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import io.github.kylinhunter.commons.component.CF;
-import io.github.kylinhunter.commons.name.NCStrategy;
-import io.github.kylinhunter.commons.name.NameConvertors;
+import io.github.kylinhunter.commons.name.CamelToSnakeUtils;
 import io.github.kylinhunter.plat.generator.kplat.configuration.bean.EntityField;
 import io.github.kylinhunter.plat.generator.kplat.configuration.bean.OutputInfo;
 import io.github.kylinhunter.plat.generator.kplat.convertor.FieldConvert;
@@ -42,7 +40,6 @@ import org.reflections.ReflectionUtils;
 public class CodeContextBuilder {
 
   private final CodeContext codeContext;
-  private final NameConvertors nameConvertors = CF.get(NameConvertors.class);
 
   /**
    * @return ConfigCentor
@@ -89,7 +86,8 @@ public class CodeContextBuilder {
     String entityName = entityClass.getSimpleName();
 
     outputInfo.setEntityName(entityName);
-    outputInfo.setEntitySnakeName(nameConvertors.convert(NCStrategy.CAMEL_TO_SNAKE, entityName));
+
+    outputInfo.setEntitySnakeName(CamelToSnakeUtils.convert(entityName));
     // 处理包
     outputInfo.setPackageName(packageConfig.getPackage(template));
     outputInfo.setPackagePath(packageConfig.getPackagePath(template));

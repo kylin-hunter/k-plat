@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.config;
 
-import io.github.kylinhunter.commons.util.EnumUtils;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.Env;
 import javax.annotation.PostConstruct;
 import lombok.Data;

@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.init;
 
+import io.github.kylinhunter.commons.init.KCommons;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -37,7 +38,7 @@ public class CoreApplicationRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-
+    KCommons.custom().cleanPackage().scanPackage("io.github.kylinhunter").init();
     systemDataInitializer.init(false);
   }
 }

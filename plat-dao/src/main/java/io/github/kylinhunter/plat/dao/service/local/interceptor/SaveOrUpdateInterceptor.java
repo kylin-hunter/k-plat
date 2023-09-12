@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
-import io.github.kylinhunter.commons.bean.BeanCopyUtils;
+import io.github.kylinhunter.commons.utils.bean.BeanCopyUtils;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;

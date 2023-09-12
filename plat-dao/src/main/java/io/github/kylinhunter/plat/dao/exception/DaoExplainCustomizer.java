@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.dao.exception;
 
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
-import io.github.kylinhunter.commons.exception.explain.Explainer;
+import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import java.sql.SQLIntegrityConstraintViolationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DuplicateKeyException;
@@ -27,14 +27,22 @@ import org.springframework.dao.DuplicateKeyException;
  * @date 2022-06-08 00:01
  */
 public class DaoExplainCustomizer extends AbstractExplainerSupplier {
+
   String SQLSTATE_CONSTRAINT = "23";
 
   @Override
-  public void customize() {
-    this.createExplain(DuplicateKeyException.class)
-        .setExplainer(e -> new Explainer.ExplainResult(DaoErrInfoCustomizer.DUPLICATE));
-    this.createExplain(SQLIntegrityConstraintViolationException.class)
-        .setExplainer(
+  public void explain() {
+
+    this.addExplainer(DuplicateKeyException.class)
+        .explain(
+            e -> {
+              ExplainResult explainResult = new ExplainResult(DaoErrInfoCustomizer.DUPLICATE);
+              explainResult.setExtra("extra");
+              return explainResult;
+            });
+
+    this.addExplainer(SQLIntegrityConstraintViolationException.class)
+        .explain(
             e -> {
               String message = e.getMessage();
               String sqlState = e.getSQLState();
@@ -42,10 +50,10 @@ public class DaoExplainCustomizer extends AbstractExplainerSupplier {
                   && sqlState.startsWith(SQLSTATE_CONSTRAINT)
                   && !StringUtils.isEmpty(message)
                   && message.toLowerCase().indexOf("foreign") > 0) {
-                return new Explainer.ExplainResult(
+                return new ExplainResult(
                     DaoErrInfoCustomizer.CONSTRAINT_FOREIGN, "数据约束异常,更新foreign异常");
               }
-              return new Explainer.ExplainResult(DaoErrInfoCustomizer.CONSTRAINT, "数据约束异常");
+              return new ExplainResult(DaoErrInfoCustomizer.CONSTRAINT, "数据约束异常");
             });
   }
 }

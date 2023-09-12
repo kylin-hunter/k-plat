@@ -77,6 +77,13 @@ subprojects {
         compileOnly("com.google.code.findbugs:annotations")
         compileOnly("com.google.code.findbugs:jsr305")
 
+        implementation("ch.qos.logback:logback-classic:1.2.12")
+        implementation("ch.qos.logback:logback-core:1.2.12")
+        implementation("org.slf4j:slf4j-api:1.7.32")
+
+
+
+
         testCompileOnly("com.google.code.findbugs:annotations")
         testCompileOnly("com.google.code.findbugs:jsr305")
 

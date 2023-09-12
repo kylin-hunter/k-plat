@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.generator.kplat.configuration;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.google.common.collect.Maps;
-import io.github.kylinhunter.commons.strings.StringConst;
+import io.github.kylinhunter.commons.lang.strings.StringConst;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;

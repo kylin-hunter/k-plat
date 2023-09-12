@@ -15,8 +15,6 @@
  */
 package io.github.kylinhunter.plat.data.configuration.redis;
 
-import lombok.Setter;
-
 /**
  * @description:
  * @author: BiJi'an
@@ -29,6 +27,4 @@ public class RedisKeys {
   public static RedisKey AGENT_SEARCH_KEYWORD_TMP = new RedisKey("search.keyword_tmp");
 
   public static RedisKey LICENSE_FLOW_CONTROLLER = new RedisKey("flow.controller::");
-
-
 }

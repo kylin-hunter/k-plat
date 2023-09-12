@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.dao.service.local.component;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.kylinhunter.commons.name.NamePair;
-import io.github.kylinhunter.commons.name.NamePairUtils;
+import io.github.kylinhunter.commons.name.NameUtils;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import io.github.kylinhunter.plat.api.bean.sort.Order;
 import io.github.kylinhunter.plat.api.bean.sort.ReqSort;
@@ -47,7 +47,7 @@ public class SortComponent {
     if (sorts != null && sorts.size() > 0) {
       sorts.forEach(
           sort -> {
-            NamePair namePair = NamePairUtils.toNamePair(sort.getField());
+            NamePair namePair = NameUtils.toNamePair(sort.getField());
             String column = namePair.getSnake();
             if (Order.ASC.equalTo(sort.getOrder())) {
               wrapper.orderByAsc(column);

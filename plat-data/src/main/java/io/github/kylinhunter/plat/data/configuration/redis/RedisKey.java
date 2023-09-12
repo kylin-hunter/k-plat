@@ -41,8 +41,7 @@ public class RedisKey {
     return namespace + prefix;
   }
 
-  public static  void defaultNamespace(String namespace) {
+  public static void defaultNamespace(String namespace) {
     RedisKey.namespace = namespace;
   }
-
 }

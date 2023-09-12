@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
-import io.github.kylinhunter.commons.strings.StringConst;
+import io.github.kylinhunter.commons.lang.strings.StringConst;
 import io.github.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
 import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
 

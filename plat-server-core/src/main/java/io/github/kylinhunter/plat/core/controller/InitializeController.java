@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022-06-03 23:19
  */
 @RestController
-@RequestMapping("/api/v1/initialize")
+@RequestMapping("/initialize")
 @Api(value = "Tenant相关接口")
 @RequiredArgsConstructor
 public class InitializeController {

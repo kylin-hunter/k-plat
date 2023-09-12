@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.core.service.local.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.github.kylinhunter.commons.util.EnumUtils;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.ReqLogin;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;

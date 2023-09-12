@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.i18n;
 
-import io.github.kylinhunter.commons.util.EnumUtils;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import java.util.Locale;
 import lombok.Getter;
 

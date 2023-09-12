@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.dao.service.local.component;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.kylinhunter.commons.name.NamePair;
-import io.github.kylinhunter.commons.name.NamePairUtils;
+import io.github.kylinhunter.commons.name.NameUtils;
 import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustom;
@@ -50,7 +50,7 @@ public class FilterComponent {
     if (filters != null && filters.size() > 0) {
       filters.forEach(
           filter -> {
-            NamePair namePair = NamePairUtils.toNamePair(filter.getField());
+            NamePair namePair = NameUtils.toNamePair(filter.getField());
             String field = namePair.getCamel();
             String column = namePair.getSnake();
             FilterCustom filterCustom = filterCustoms.getFilterCustom(field);

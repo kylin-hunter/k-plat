@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.generator.kplat.configuration;
 
 import com.google.common.collect.Sets;
-import io.github.kylinhunter.commons.strings.StringConst;
+import io.github.kylinhunter.commons.lang.strings.StringConst;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Set;

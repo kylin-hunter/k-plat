@@ -53,7 +53,7 @@ public class DefaultFieldConvert implements FieldConvert {
 
   /**
    * @param strategyConfig strategyConfig
-   * @param field          field
+   * @param field field
    * @return io.github.kylinhunter.plat.generator.kplat.configuration.bean.EntityField
    * @title 默认的转换
    * @description
@@ -78,7 +78,7 @@ public class DefaultFieldConvert implements FieldConvert {
     }
     entityField.setPrimitive(field.getType().isPrimitive());
 
-    final Class<?>[] classes = new Class[]{LocalDate.class, LocalDateTime.class, Date.class};
+    final Class<?>[] classes = new Class[] {LocalDate.class, LocalDateTime.class, Date.class};
     for (Class clazz : classes) {
       if (field.getType() == clazz) {
         entityField.setDatetime(true);

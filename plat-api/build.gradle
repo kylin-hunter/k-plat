@@ -1,6 +1,9 @@
 dependencies {
-    api("io.github.kylin-hunter:k-commons:1.0.4")
+    api("io.github.kylin-hunter:k-commons:1.0.14")
+    api("io.github.kylin-hunter:k-utils:1.0.1")
     api 'org.hibernate.validator:hibernate-validator'
+    api(rootProject.dependency_management['commons-lang3'])
+    api(rootProject.dependency_management['commons-io'])
     api(rootProject.dependency_management['mybatis-plus'])
     api(rootProject.dependency_management['springfox-swagger2'])
     api(rootProject.dependency_management['springfox-swagger-ui'])

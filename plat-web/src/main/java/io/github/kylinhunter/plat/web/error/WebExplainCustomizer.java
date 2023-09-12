@@ -18,7 +18,7 @@ package io.github.kylinhunter.plat.web.error;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Maps;
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
-import io.github.kylinhunter.commons.exception.explain.Explainer;
+import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import java.util.Map;
@@ -40,9 +40,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class WebExplainCustomizer extends AbstractExplainerSupplier {
 
   @Override
-  public void customize() {
-    this.createExplain(BindException.class)
-        .setExplainer(
+  public void explain() {
+
+    this.addExplainer(BindException.class)
+        .explain(
             e -> {
               Map<String, String> errMsgs = Maps.newHashMap();
               if (e.hasErrors()) {
@@ -53,12 +54,12 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
                   }
                 }
               }
-              return new Explainer.ExplainResult(ErrInfos.PARAM, errMsgs.toString());
+              return new ExplainResult(ErrInfos.PARAM, errMsgs.toString());
             });
 
-    this.createExplain(MethodArgumentNotValidException.class)
-        .setExplainer(
-            (e) -> {
+    this.addExplainer(MethodArgumentNotValidException.class)
+        .explain(
+            e -> {
               Map<String, String> errMsgs = Maps.newHashMap();
               if (e.getBindingResult().hasErrors()) {
                 for (ObjectError objectError : e.getBindingResult().getAllErrors()) {
@@ -68,25 +69,19 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
                   }
                 }
               }
-              return new Explainer.ExplainResult(ErrInfos.PARAM, errMsgs.toString());
+              return new ExplainResult(ErrInfos.PARAM, errMsgs.toString());
             });
 
-    this.createExplain(HttpRequestMethodNotSupportedException.class)
-        .setExplainer(
-            (e) ->
-                new Explainer.ExplainResult(
-                    WebErrInfoCustomizer.WEB_NOT_SUPPORTED, e.getMessage()));
+    this.addExplainer(HttpRequestMethodNotSupportedException.class)
+        .explain(e -> new ExplainResult(WebErrInfoCustomizer.WEB_NOT_SUPPORTED, e.getMessage()));
 
-    this.createExplain(NoHandlerFoundException.class)
-        .setExplainer(
-            (e) ->
-                new Explainer.ExplainResult(
-                    WebErrInfoCustomizer.WEB_NO_HANDLER_FOUND, e.getMessage()));
+    this.addExplainer(NoHandlerFoundException.class)
+        .explain(e -> new ExplainResult(WebErrInfoCustomizer.WEB_NO_HANDLER_FOUND, e.getMessage()));
 
-    this.createExplain(InvalidFormatException.class)
-        .setExplainer((e) -> new Explainer.ExplainResult(ErrInfos.FORMAT, e.getMessage()));
+    this.addExplainer(InvalidFormatException.class)
+        .explain(e -> new ExplainResult(ErrInfos.FORMAT, e.getMessage()));
 
-    this.createExplain(HttpMessageNotReadableException.class)
-        .setExplainer((e) -> new Explainer.ExplainResult(ErrInfos.FORMAT, e.getMessage()));
+    this.addExplainer(HttpMessageNotReadableException.class)
+        .explain(e -> new ExplainResult(ErrInfos.FORMAT, e.getMessage()));
   }
 }

@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.module.core.constants;
 
-import io.github.kylinhunter.commons.util.EnumUtils;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

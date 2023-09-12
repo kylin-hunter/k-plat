@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.core.init.initializer;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
 import io.github.kylinhunter.commons.io.ResourceHelper;
-import io.github.kylinhunter.commons.json.JsonUtils;
+import io.github.kylinhunter.commons.utils.json.JsonUtils;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.core.init.data.TenantCatalogInitDatas;

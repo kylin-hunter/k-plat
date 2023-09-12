@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.storage.config;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
-import io.github.kylinhunter.commons.util.EnumUtils;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.module.storage.constants.StorageType;
 import javax.annotation.PostConstruct;
 import lombok.AccessLevel;

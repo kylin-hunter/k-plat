@@ -25,5 +25,5 @@ import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier
 public class DataExplainCustomizer extends AbstractExplainerSupplier {
 
   @Override
-  public void customize() {}
+  public void explain() {}
 }
