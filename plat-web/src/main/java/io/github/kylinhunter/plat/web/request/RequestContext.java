@@ -17,6 +17,7 @@ package io.github.kylinhunter.plat.web.request;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import io.github.kylinhunter.plat.web.trace.CookieInfo;
 import java.util.Enumeration;
 import java.util.List;

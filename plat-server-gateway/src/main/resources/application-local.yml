@@ -25,7 +25,7 @@ spring:
             - Path=/k-plat/core/**
           filters:
             - StripPrefix=1
-            - AddPrefix
+            - AddTrace
             - AddRequestHeader=K-FROM,plat-server-gateway
             - AddResponseHeader=K-FROM, plat-server-gateway
             - AddRequestParameter=K-FROM,plat-server-gateway
@@ -38,7 +38,7 @@ spring:
             - Path=/kplat/core-proxy/**
           filters:
             - StripPrefix=1
-            - AddPrefix
+            - AddTrace
             - AddRequestHeader=K-FROM,plat-server-gateway
             - AddResponseHeader=K-FROM, plat-server-gateway
             - AddRequestParameter=K-FROM,plat-server-gateway

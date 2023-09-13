@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.gateway;
+package io.github.kylinhunter.plat.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -30,16 +31,18 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @Slf4j
-public class UserNameCheckFilter implements Ordered, GlobalFilter {
+public class LogFilter implements Ordered, GlobalFilter {
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    log.info("AFilter前置逻辑");
+    ServerHttpRequest request = exchange.getRequest();
+    String path = request.getURI().getPath();
+    log.info("start {}",path);
     return chain
         .filter(exchange)
         .then(
             Mono.fromRunnable(
                 () -> {
-                  log.info("AFilter后置逻辑");
+                  log.info("end   {}", path);
                 }));
   }
 
