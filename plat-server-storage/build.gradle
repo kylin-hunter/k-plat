@@ -8,7 +8,7 @@ dependencyManagement {
 dependencies {
 
     api project(':plat-web')
-    implementation 'io.minio:minio:8.4.2'
+    implementation 'io.minio:minio:8.5.5'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 }
 

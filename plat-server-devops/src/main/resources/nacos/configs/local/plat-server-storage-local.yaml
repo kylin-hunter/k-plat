@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /storage
 logging:
   level:
     org.springframework.transaction: debug
@@ -10,7 +13,7 @@ kplat:
     type: minio
     s3:
       bucket: bijian
-      url: "http://47.94.98.98:9000"
+      url: "http://127.0.0.1:9000"
       accessKey: "bijian"
       secretKey: "bja0925bja"
       connectTimeout: 100000

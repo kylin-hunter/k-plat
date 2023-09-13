@@ -10,7 +10,7 @@ import io.github.kylinhunter.plat.core.Start;
 public class Start1 {
     public static void main(String[] args) {
         Start.main(new String[] {
-                "--server.port=8011"
+                "--server.port=8101"
         });
     }
 }

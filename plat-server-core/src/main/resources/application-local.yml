@@ -9,8 +9,8 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
-        namespace: baa83f28-72ee-416a-97b5-b9de328b87ea
+        namespace: local
 
       discovery:
         server-addr: 127.0.0.1:8848
-        namespace: baa83f28-72ee-416a-97b5-b9de328b87ea
+        namespace: local

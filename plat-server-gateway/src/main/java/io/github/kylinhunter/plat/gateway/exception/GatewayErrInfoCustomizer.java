@@ -27,5 +27,5 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 public class GatewayErrInfoCustomizer {
 
   private static int BASE_CODE = 80000;
-  public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
+  public static final ErrInfo GW_ERROR = new ErrInfo(++BASE_CODE);
 }

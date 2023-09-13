@@ -20,18 +20,36 @@ spring:
           lower-case-service-id: true
       routes:
         - id: url-proxy-1
-          uri: https://blog.csdn.net
-          predicates:
-            - Path=/k-plat/**
-            - ExtCheck=1
-        - id: url-proxy-2
-          uri: https://www.360.cn/
-          predicates:
-            - Path=/360
-        - id: url-proxy-3
           uri: lb://plat-server-core
           predicates:
-            - Path=/k-plat/**
-            - ExtCheck=2
+            - Path=/k-plat/core/**
           filters:
+            - StripPrefix=1
             - AddPrefix
+            - AddRequestHeader=K-FROM,plat-server-gateway
+            - AddResponseHeader=K-FROM, plat-server-gateway
+            - AddRequestParameter=K-FROM,plat-server-gateway
+          metadata:
+            connect-timeout: 10000 #ms
+            response-timeout: 10000 #ms
+        - id: url-proxy-2
+          uri: lb://plat-server-core
+          predicates:
+            - Path=/kplat/core-proxy/**
+          filters:
+            - StripPrefix=1
+            - AddPrefix
+            - AddRequestHeader=K-FROM,plat-server-gateway
+            - AddResponseHeader=K-FROM, plat-server-gateway
+            - AddRequestParameter=K-FROM,plat-server-gateway
+            - SetRequestHeader=K-CLIENT, plat-server-gateway
+            - PreserveHostHeader
+            - RequestSize=200
+            - RewritePath=/core-proxy/?(?<segment>.*), /core/$\{segment}
+            - SaveSession
+            - SecureHeaders
+
+          metadata:
+            connect-timeout: 10000 #ms
+            response-timeout: 10000 #ms
+

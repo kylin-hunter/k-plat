@@ -1,6 +1,3 @@
-server:
-  servlet:
-    context-path: /k-plat
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

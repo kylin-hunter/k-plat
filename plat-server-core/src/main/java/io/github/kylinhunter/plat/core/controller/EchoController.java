@@ -15,6 +15,9 @@
  */
 package io.github.kylinhunter.plat.core.controller;
 
+import io.github.kylinhunter.plat.web.config.AppConfig;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,10 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022-06-03 23:19
  */
 @RestController
+@RequiredArgsConstructor
 public class EchoController {
 
+  private  final AppConfig appConfig;
   @RequestMapping(value = "/echo/{string}", method = RequestMethod.GET)
   public String echo(@PathVariable String string) {
-    return "Hello Nacos Discovery " + string;
+    return "Hello  I'm plat-server-core , service in port:" +appConfig.getServerPort();
   }
 }

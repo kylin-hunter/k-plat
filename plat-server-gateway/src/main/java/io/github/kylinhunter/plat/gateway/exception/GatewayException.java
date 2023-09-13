@@ -25,7 +25,7 @@ import io.github.kylinhunter.commons.exception.info.ErrInfo;
  */
 public class GatewayException extends BizException {
   public GatewayException(String message, Throwable cause) {
-    this(GatewayErrInfoCustomizer.STORAGE_ERROR, message, cause);
+    this(GatewayErrInfoCustomizer.GW_ERROR, message, cause);
   }
 
   public GatewayException(ErrInfo errInfo) {
@@ -33,11 +33,11 @@ public class GatewayException extends BizException {
   }
 
   public GatewayException(String message) {
-    this(GatewayErrInfoCustomizer.STORAGE_ERROR, message);
+    this(GatewayErrInfoCustomizer.GW_ERROR, message);
   }
 
   public GatewayException(Throwable cause) {
-    this(GatewayErrInfoCustomizer.STORAGE_ERROR, cause);
+    this(GatewayErrInfoCustomizer.GW_ERROR, cause);
   }
 
   public GatewayException(ErrInfo errInfo, String message, Throwable cause) {

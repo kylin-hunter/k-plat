@@ -26,11 +26,10 @@ public class Test {
             throws IOException, InvalidKeyException, InvalidResponseException, InsufficientDataException,
             NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException {
 
-        String name = "admin";
-        String pass = "bjaby09250520";
+        String name = "local_test";
+        String pass = "local_test";
         String bucket = "bijian";
-        String endpoint = "http://47.94.98.98:9000";
-//        endpoint = "http://10.233.28.42:8200";
+        String endpoint = "http://127.0.0.1:9000";
         //         name = "admin";
         //         pass = "admin123";
         final MinioClient minioClient =
@@ -45,7 +44,7 @@ public class Test {
         FileInputStream inputStream = new FileInputStream(file);
         final ObjectWriteResponse objectWriteResponse = minioClient.putObject(PutObjectArgs.builder()
                 .bucket(bucket)
-                .object("1/1/tes1t   2.docx")
+                .object("1/1/tes1t   3.docx")
                 .stream(inputStream, file.length(), -1)
                 .build());
         System.out.println(objectWriteResponse);

@@ -27,9 +27,10 @@ import lombok.Data;
  * @date 2022-01-01 16:59
  */
 public class PathPatterns {
+  public static final PathPattern ALL = PathPattern.builder().build().add("/**");
+
   public static final PathPattern LOGIN = PathPattern.builder().build().add("/login");
   public static final PathPattern AUTH = PathPattern.builder().build().add("/auth/**");
-
   public static final PathPattern API_V1_TENANT =
       PathPattern.builder().build().add("/api/v1/core/tenants/**");
   public static final PathPattern API_V1_USER =
