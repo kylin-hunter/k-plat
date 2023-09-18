@@ -1,6 +1,18 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
 dependencies {
-    api project(':plat-api')
-    implementation 'org.redisson:redisson-spring-boot-starter:3.14.1'
+    api project(':plat-web')
+
+//    implementation 'org.redisson:redisson-spring-boot-starter:3.22.1'
+//    implementation 'org.redisson:redisson:3.22.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.apache.commons:commons-pool2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 jar.enabled = true

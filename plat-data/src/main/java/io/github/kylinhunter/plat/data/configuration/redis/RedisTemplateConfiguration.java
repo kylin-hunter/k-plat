@@ -51,7 +51,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @Slf4j
-@ConditionalOnProperty(prefix = "app", value = "data.redis.enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "plat", value = "data.redis.enabled", havingValue = "true")
 public class RedisTemplateConfiguration {
 
   @Resource private RedisConnectionFactory redisConnectionFactory;

@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.gateway;
+package io.github.kylinhunter.plat.gateway.predicate;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -30,9 +33,9 @@ import org.springframework.web.server.ServerWebExchange;
  * @date 2022-11-30 01:59
  */
 @Component
-public class ExtCheckRoutePredicateFactory
-    extends AbstractRoutePredicateFactory<ExtCheckRoutePredicateFactory.Config> {
-  public ExtCheckRoutePredicateFactory() {
+public class DCRoutePredicate
+    extends AbstractRoutePredicateFactory<DCRoutePredicate.Config> {
+  public DCRoutePredicate() {
     super(Config.class);
   }
 
@@ -42,10 +45,9 @@ public class ExtCheckRoutePredicateFactory
       @Override
       public boolean test(ServerWebExchange serverWebExchange) {
         ServerHttpRequest request = serverWebExchange.getRequest();
-        MultiValueMap<String, String> queryParams = request.getQueryParams();
-
-        String jifang = queryParams.getFirst("jifang");
-        if (config.name.equals(jifang)) {
+        HttpHeaders headers = request.getHeaders();
+        String dcId = headers.getFirst("X-DC-ID");
+        if (config.dcid.equals(dcId)) {
           return true;
         }
         return false;
@@ -55,7 +57,7 @@ public class ExtCheckRoutePredicateFactory
 
   @Override
   public String name() {
-    return "ExtCheck";
+    return "DCRouter";
   }
 
   /**
@@ -64,19 +66,14 @@ public class ExtCheckRoutePredicateFactory
    * @return
    */
   @Override
+
   public List<String> shortcutFieldOrder() {
-    return Arrays.asList("name");
+    return Arrays.asList("dcid");
   }
-
+  @Getter
+  @Setter
   public static class Config {
-    private String name;
+    private String dcid;
 
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
   }
 }

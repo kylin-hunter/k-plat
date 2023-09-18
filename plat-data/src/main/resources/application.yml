@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: plat-server-data
+  profiles:
+    active: local
+server:
+  port: 8004
+plat:
+  data:
+    redis:
+      enabled: true
+

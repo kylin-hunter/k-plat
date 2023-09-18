@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.interceptor;
 
+import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -35,6 +36,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
+//    registry.addInterceptor(new SentinelWebInterceptor()).addPathPatterns("/**");
+
     registry
         .addInterceptor(traceHandlerInterceptor)
         .addPathPatterns(PathPatterns.of(PathPatterns.ALL));
