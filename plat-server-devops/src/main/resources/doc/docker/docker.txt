@@ -22,7 +22,8 @@ systemctl status docker
 
 
 
-sudo systemctl daemon-reload   sudo systemctl restart docker 
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 
 docker info
 
@@ -32,4 +33,3 @@ docker info
   https://registry.docker-cn.com/
   http://hub-mirror.c.163.com/
   https://docker.mirrors.ustc.edu.cn/
- Live Restore Enabled: false
