@@ -16,7 +16,9 @@
 package io.github.kylinhunter.plat.data;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -24,7 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description
  * @date 2022-01-01 00:13
  */
-@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"})
+@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"},
+    exclude={RedissonAutoConfiguration.class})
 @MapperScan("io.github.kylinhunter.plat.data")
 public class Start {
   public static void main(String[] args) {

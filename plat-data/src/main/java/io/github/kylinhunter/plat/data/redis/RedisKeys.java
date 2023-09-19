@@ -13,35 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.redis;
 
 /**
  * @description:
  * @author: BiJi'an
  * @create: 2022-03-15 16:16
  */
-public class RedisKey {
+public class RedisKeys {
 
-  private String prefix;
-  private static String namespace = "com.kplat::";
+  public static RedisKey AGENT_SEARCH_KEYWORD = new RedisKey("search.keyword::");
 
-  RedisKey(String prefix) {
-    this.prefix = prefix;
-  }
+  public static RedisKey AGENT_SEARCH_KEYWORD_TMP = new RedisKey("search.keyword_tmp");
 
-  public String key(String name) {
-    return namespace + prefix + name;
-  }
-
-  public String key() {
-    return namespace + prefix;
-  }
-
-  public String prefix() {
-    return namespace + prefix;
-  }
-
-  public static void defaultNamespace(String namespace) {
-    RedisKey.namespace = namespace;
-  }
+  public static RedisKey LICENSE_FLOW_CONTROLLER = new RedisKey("flow.controller::");
 }

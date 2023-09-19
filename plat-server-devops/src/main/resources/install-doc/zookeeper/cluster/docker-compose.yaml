@@ -1,0 +1,61 @@
+version: '3.7'
+networks:
+  zk-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
+services:
+  zk1:
+    image: zookeeper:3.6.4
+    restart: always
+    hostname: zookeeper1
+    container_name: zk1
+    ports:
+      - 2181:2181
+      - 8081:8080
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "*"
+    volumes:
+      - /Users/bijian/software/zookeeper/cluster/zk1/data:/data
+      - /Users/bijian/software/zookeeper/cluster/zk1/datalog:/datalog
+    networks:
+      - zk-net
+  zk2:
+    image: zookeeper:3.6.4
+    restart: always
+    hostname: zookeeper2
+    container_name: zk2
+    ports:
+      - 2182:2181
+      - 8082:8080
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "*"
+    volumes:
+      - /Users/bijian/software/zookeeper/cluster/zk2/data:/data
+      - /Users/bijian/software/zookeeper/cluster/zk2/datalog:/datalog
+    networks:
+      - zk-net
+
+  zk3:
+    image: zookeeper:3.6.4
+    restart: always
+    hostname: zookeeper3
+    container_name: zk3
+    ports:
+      - 2183:2181
+      - 8083:8080
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: "*"
+    volumes:
+      - /Users/bijian/software/zookeeper/cluster/zk3/data:/data
+      - /Users/bijian/software/zookeeper/cluster/zk3/datalog:/datalog
+    networks:
+      - zk-net

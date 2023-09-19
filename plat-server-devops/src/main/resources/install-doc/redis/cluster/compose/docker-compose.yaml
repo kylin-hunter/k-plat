@@ -1,0 +1,78 @@
+version: '3'
+services:
+  redis-cluster:
+    image: redis:6.2.13
+    command: redis-cli -a 123456  --cluster create  172.25.104.116:7361 172.25.104.116:7362 172.25.104.116:7363 172.25.104.116:7364 172.25.104.116:7365 172.25.104.116:7366 --cluster-replicas 1  --cluster-yes
+    depends_on:
+      - redis-1
+      - redis-2
+      - redis-3
+      - redis-4
+      - redis-5
+      - redis-6
+  redis-1:
+    image: redis:6.2.13
+    container_name: redis-1
+    restart: always
+    ports:
+      - 7361:7361
+      - 17361:17361
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-1/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-1/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
+  redis-2:
+    image: redis:6.2.13
+    container_name: redis-2
+    restart: always
+    ports:
+      - 7362:7362
+      - 17362:17362
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-2/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-2/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
+  redis-3:
+    image: redis:6.2.13
+    container_name: redis-3
+    restart: always
+    ports:
+      - 7363:7363
+      - 17363:17363
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-3/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-3/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
+  redis-4:
+    image: redis:6.2.13
+    container_name: redis-4
+    restart: always
+    ports:
+      - 7364:7364
+      - 17364:17364
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-4/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-4/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
+  redis-5:
+    image: redis:6.2.13
+    container_name: redis-5
+    restart: always
+    ports:
+      - 7365:7365
+      - 17365:17365
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-5/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-5/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
+  redis-6:
+    image: redis:6.2.13
+    container_name: redis-6
+    restart: always
+    ports:
+      - 7366:7366
+      - 17366:17366
+    volumes:
+      - /Users/bijian/software/redis/cluster_baidu/node-6/data:/data
+      - /Users/bijian/software/redis/cluster_baidu/node-6/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]

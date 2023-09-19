@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
 import java.util.function.Consumer;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class RedisLock {
+public class RedisLockService {
   private final RedissonClient redissonClient;
 
   /***

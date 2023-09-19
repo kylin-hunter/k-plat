@@ -7,8 +7,8 @@ dependencyManagement {
 dependencies {
     api project(':plat-web')
 
-//    implementation 'org.redisson:redisson-spring-boot-starter:3.22.1'
-    implementation 'org.redisson:redisson:3.22.1'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.21.3'
+    implementation 'org.redisson:redisson:3.21.3'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.apache.commons:commons-pool2'
     implementation 'com.fasterxml.jackson.core:jackson-databind'

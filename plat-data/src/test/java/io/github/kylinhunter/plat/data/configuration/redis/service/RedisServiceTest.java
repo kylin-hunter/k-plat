@@ -1,5 +1,6 @@
-package io.github.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.configuration.redis.service;
 
+import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Assertions;

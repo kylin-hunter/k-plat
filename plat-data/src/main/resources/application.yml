@@ -8,5 +8,6 @@ server:
 plat:
   data:
     redis:
+      name-space: "com.kplat::"
       enabled: true
 

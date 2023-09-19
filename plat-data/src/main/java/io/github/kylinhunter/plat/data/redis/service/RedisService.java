@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.configuration.redis;
+package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
+import io.github.kylinhunter.plat.data.redis.RedisKey;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 
@@ -27,7 +29,9 @@ public class RedisService {
 
   protected RedisTemplate<String, Serializable> redisTemplate;
 
-  private String DEFAULT_NAME_SPACE = "kplat";
+
+  @Value("${plat.data.redis.name-space}")
+  private String namespace ;
 
   public RedisService(RedisTemplate<String, Serializable> redisTemplate) {
     super();
@@ -36,7 +40,7 @@ public class RedisService {
 
   @PostConstruct
   private void init() {
-    RedisKey.defaultNamespace(DEFAULT_NAME_SPACE);
+    RedisKey.setNamespace(namespace);
   }
 
   /**
