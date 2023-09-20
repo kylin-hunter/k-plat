@@ -1,0 +1,28 @@
+1、mac下查看 docker的valume
+
+docker run -it --rm --privileged --pid=host justincormack/nsenter1
+rm -rf  /var/lib/docker/overlay2/57e309e8a9b8f4c2055184170fc4c0913d346a87132e392ded8cd039442cbfd4/diff/opt/cmak/RUNNING_PID
+
+2、显示所有卷
+$ docker volume ls
+docker volume ls -qf dangling=true
+docker volume ls -qf dangling=true 是一个 Docker 命令，用于列出所有处于 "悬空" 状态的卷，并只显示这些卷的ID。
+
+3、清理未使用的 Docker Volumes
+$ docker volume prune
+docker volume prune 只删除未被容器使用的卷，但保留被命名的卷。
+docker volume prune -a 删除所有未被容器使用的卷，包括未使用的和被命名的卷。
+
+4、清理特定的 Docker Volumes
+$ docker volume rm <volume_name>
+docker volume rm $(docker volume ls -qf dangling=true)
+
+5、查看磁盘使用情况
+
+docker system df
+docker system df -v
+
+docker system prune 命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)
+
+docker system prune -a 命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉
+
