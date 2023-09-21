@@ -21,7 +21,7 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqQuer
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqUpdate;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationResp;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationVO;
-import io.github.kylinhunter.plat.storage.service.local.FileRelationService;
+import io.github.kylinhunter.plat.api.module.storage.service.FileRelationService;
 import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

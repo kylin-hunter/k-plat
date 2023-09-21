@@ -34,7 +34,6 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 public class BasicVO implements Serializable, VO {
-  private static final long serialVersionUID = -8450405452557433712L;
 
   @ApiModelProperty(value = "voType", hidden = true)
   @JsonIgnore

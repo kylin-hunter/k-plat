@@ -33,7 +33,7 @@ public class ${class_name} #if(${strategy_is_serializable})implements Serializab
 #end
 
 #if(${strategy_is_serializable})
-    private static final long serialVersionUID = 1L;
+
 #end
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${entity_fields})

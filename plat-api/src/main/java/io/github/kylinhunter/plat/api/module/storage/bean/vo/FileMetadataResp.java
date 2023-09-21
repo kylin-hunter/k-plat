@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadataResp", description = "FileMetadataResp")
 public class FileMetadataResp extends DefaultSysResp {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "extension")
   private String extension;

@@ -25,7 +25,7 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.storage.dao.mapper.FileMetadataMapper;
-import io.github.kylinhunter.plat.storage.service.local.FileMetadataService;
+import io.github.kylinhunter.plat.api.module.storage.service.FileMetadataService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantUserResp", description = "TenantUserResp")
 public class TenantUserResp extends DefaultSysResp {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "description")
   private String description;

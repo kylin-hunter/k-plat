@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantUser")
 public class TenantUser extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "tenantId")
   private String tenantId;

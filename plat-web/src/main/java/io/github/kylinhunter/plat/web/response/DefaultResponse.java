@@ -34,7 +34,7 @@ import lombok.Setter;
 @Setter
 @ApiModel("返回bean")
 public class DefaultResponse<T> implements Response<T> {
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty("业务状态码 0正常  非0错误")
   private int code;

@@ -31,5 +31,5 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantRoleReqQuery", description = "TenantRoleReqQuery")
 public class TenantRoleReqQuery extends ReqPage {
 
-  private static final long serialVersionUID = 1L;
+  
 }

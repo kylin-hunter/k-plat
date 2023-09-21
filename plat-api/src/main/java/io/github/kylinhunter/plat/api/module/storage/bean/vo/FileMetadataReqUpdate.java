@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadataReqUpdate", description = "FileMetadataReqUpdate")
 public class FileMetadataReqUpdate extends ReqUpdate implements FileMetadataVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "extension")
   private String extension;

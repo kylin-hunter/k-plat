@@ -41,7 +41,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReqPage extends ReqQuery implements Serializable {
-  private static final long serialVersionUID = -8450405452557433712L;
 
   @ApiModelProperty(
       value = "page enabled  ,If it is turned off, it may cause performance problems",

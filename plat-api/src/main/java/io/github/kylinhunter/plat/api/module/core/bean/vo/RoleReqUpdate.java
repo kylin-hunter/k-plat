@@ -33,7 +33,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "RoleReqUpdate", description = "RoleReqUpdate")
 public class RoleReqUpdate extends ReqUpdate implements RoleVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "code")
   @NotBlank

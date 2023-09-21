@@ -31,5 +31,5 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelationReqQuery", description = "FileRelationReqQuery")
 public class FileRelationReqQuery extends ReqPage {
 
-  private static final long serialVersionUID = 1L;
+  
 }

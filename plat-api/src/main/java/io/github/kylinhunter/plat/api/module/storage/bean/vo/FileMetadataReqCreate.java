@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadataReqCreate", description = "FileMetadataReqCreate")
 public class FileMetadataReqCreate extends ReqCreate implements FileMetadataVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "extension")
   private String extension;

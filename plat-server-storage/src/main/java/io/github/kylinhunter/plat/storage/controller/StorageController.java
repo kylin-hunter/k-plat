@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.storage.controller;
 
-import io.github.kylinhunter.plat.storage.service.local.StorageService;
+import io.github.kylinhunter.plat.api.module.storage.service.StorageService;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

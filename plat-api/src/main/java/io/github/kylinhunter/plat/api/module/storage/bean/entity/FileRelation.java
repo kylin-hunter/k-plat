@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelation对象", description = "")
 public class FileRelation extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "type")
   private Integer type;

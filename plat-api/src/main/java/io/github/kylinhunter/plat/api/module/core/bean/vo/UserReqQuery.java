@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserReqQuery extends ReqPage {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "roleId")
   private String roleId;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.storage.service.local;
+package io.github.kylinhunter.plat.api.module.storage.service;
 
 import java.io.File;
 import org.springframework.web.multipart.MultipartFile;

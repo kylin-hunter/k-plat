@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantCatalogReqUpdate", description = "TenantCatalogReqUpdate")
 public class TenantCatalogReqUpdate extends ReqUpdate implements TenantCatalogVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "code")
   private String code;

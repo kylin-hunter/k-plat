@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ReqDelete", description = "ReqDelete")
 public class ReqDeletes extends Req implements Serializable {
-  private static final long serialVersionUID = -8450405452557433712L;
+  
 
   @ApiModelProperty(value = "physical", hidden = true, required = true)
   private boolean physical = true;

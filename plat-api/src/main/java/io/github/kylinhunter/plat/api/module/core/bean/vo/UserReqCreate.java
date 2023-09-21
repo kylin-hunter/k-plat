@@ -33,7 +33,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "UserReqCreate", description = "")
 public class UserReqCreate extends ReqCreate implements UserVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "userCode")
   @NotBlank

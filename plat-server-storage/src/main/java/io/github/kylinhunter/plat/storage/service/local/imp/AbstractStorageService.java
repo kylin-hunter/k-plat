@@ -23,9 +23,9 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqCrea
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import io.github.kylinhunter.plat.storage.config.StorageConfig;
 import io.github.kylinhunter.plat.storage.exception.StorageException;
-import io.github.kylinhunter.plat.storage.service.local.FileMetadataService;
-import io.github.kylinhunter.plat.storage.service.local.FileRelationService;
-import io.github.kylinhunter.plat.storage.service.local.StorageService;
+import io.github.kylinhunter.plat.api.module.storage.service.FileMetadataService;
+import io.github.kylinhunter.plat.api.module.storage.service.FileRelationService;
+import io.github.kylinhunter.plat.api.module.storage.service.StorageService;
 import io.github.kylinhunter.plat.storage.service.local.dto.UploadBeforeMsg;
 import io.github.kylinhunter.plat.storage.service.local.helper.FileMetadataHelper;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;

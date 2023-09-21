@@ -33,7 +33,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantReqCreate", description = "TenantReqCreate")
 public class TenantReqCreate extends ReqCreate implements TenantVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "code")
   @NotBlank

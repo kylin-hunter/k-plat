@@ -116,7 +116,7 @@ public class Order06TenantCatalogInitializer extends BasicInitializer {
       TenantCatalog catalog = tenantCatalogService.queryByCode(catalogInfo.type, catalogInfo.code);
 
       if (catalog != null) {
-        log.info("exist catalog={}" + catalogInfo.code);
+        log.info("exist catalog={}" , catalogInfo.code);
 
       } else {
         TenantCatalogReqCreate tenantCatalogReqCreate = new TenantCatalogReqCreate();

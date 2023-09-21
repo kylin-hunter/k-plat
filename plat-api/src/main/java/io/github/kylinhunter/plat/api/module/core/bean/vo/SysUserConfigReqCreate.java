@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysUserConfigReqCreate", description = "SysUserConfigReqCreate")
 public class SysUserConfigReqCreate extends ReqCreate implements SysUserConfigVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "code")
   private String code;

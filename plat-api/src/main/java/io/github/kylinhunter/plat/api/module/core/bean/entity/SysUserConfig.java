@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysUserConfig对象", description = "")
 public class SysUserConfig extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "type: 0 string")
   private Integer type;

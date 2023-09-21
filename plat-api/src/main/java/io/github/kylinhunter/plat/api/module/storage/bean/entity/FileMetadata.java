@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadata", description = "")
 public class FileMetadata extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "type")
   private Integer type;

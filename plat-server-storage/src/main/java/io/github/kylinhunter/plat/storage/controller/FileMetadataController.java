@@ -21,7 +21,7 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqQuer
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataReqUpdate;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataResp;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileMetadataVO;
-import io.github.kylinhunter.plat.storage.service.local.FileMetadataService;
+import io.github.kylinhunter.plat.api.module.storage.service.FileMetadataService;
 import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;

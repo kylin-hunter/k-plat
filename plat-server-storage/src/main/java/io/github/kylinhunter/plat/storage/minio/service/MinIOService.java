@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.storage.minio.service;
 
-import io.github.kylinhunter.plat.storage.service.local.StorageService;
+import io.github.kylinhunter.plat.api.module.storage.service.StorageService;
 
 /**
  * @author BiJi'an

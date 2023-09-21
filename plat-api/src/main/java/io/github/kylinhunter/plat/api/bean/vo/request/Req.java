@@ -35,7 +35,6 @@ import lombok.Setter;
 @ApiModel(value = "Req", description = "Req")
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Req extends BasicVO implements VO {
-  private static final long serialVersionUID = -8450405452557433712L;
 
   @ApiModelProperty(value = "debug", hidden = true)
   private boolean debug = false;

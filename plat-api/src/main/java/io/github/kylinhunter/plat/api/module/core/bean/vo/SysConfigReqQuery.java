@@ -31,5 +31,5 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysConfigReqQuery", description = "SysConfigReqQuery")
 public class SysConfigReqQuery extends ReqPage {
 
-  private static final long serialVersionUID = 1L;
+  
 }

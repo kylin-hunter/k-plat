@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelationReqCreate对象", description = "FileRelationReqCreate")
 public class FileRelationReqCreate extends ReqCreate implements FileRelationVO {
 
-  private static final long serialVersionUID = 1L;
+  
 
   @ApiModelProperty(value = "type")
   private Integer type;

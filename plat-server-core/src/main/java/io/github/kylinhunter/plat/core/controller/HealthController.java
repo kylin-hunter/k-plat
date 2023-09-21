@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.core.controller;
 
 import io.github.kylinhunter.plat.web.config.AppConfig;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-public class EchoController {
+public class HealthController {
 
   private  final AppConfig appConfig;
   @RequestMapping(value = "/echo/{string}", method = RequestMethod.GET)
