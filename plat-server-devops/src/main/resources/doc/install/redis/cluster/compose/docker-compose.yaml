@@ -13,7 +13,7 @@ services:
   redis-1:
     image: redis:6.2.13
     container_name: redis-1
-    restart: always
+#    restart: always
     ports:
       - 7361:7361
       - 17361:17361
@@ -24,7 +24,7 @@ services:
   redis-2:
     image: redis:6.2.13
     container_name: redis-2
-    restart: always
+#    restart: always
     ports:
       - 7362:7362
       - 17362:17362
@@ -35,7 +35,7 @@ services:
   redis-3:
     image: redis:6.2.13
     container_name: redis-3
-    restart: always
+#    restart: always
     ports:
       - 7363:7363
       - 17363:17363
@@ -46,7 +46,7 @@ services:
   redis-4:
     image: redis:6.2.13
     container_name: redis-4
-    restart: always
+#    restart: always
     ports:
       - 7364:7364
       - 17364:17364
@@ -57,7 +57,7 @@ services:
   redis-5:
     image: redis:6.2.13
     container_name: redis-5
-    restart: always
+#    restart: always
     ports:
       - 7365:7365
       - 17365:17365
@@ -68,7 +68,7 @@ services:
   redis-6:
     image: redis:6.2.13
     container_name: redis-6
-    restart: always
+#    restart: always
     ports:
       - 7366:7366
       - 17366:17366

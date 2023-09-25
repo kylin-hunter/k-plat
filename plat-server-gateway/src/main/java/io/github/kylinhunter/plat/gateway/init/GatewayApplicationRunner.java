@@ -39,7 +39,6 @@ public class GatewayApplicationRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    KCommons.custom().cleanPackage().scanPackage("io.github.kylinhunter").init();
-    ErrInfoManager.println();
+
    }
 }

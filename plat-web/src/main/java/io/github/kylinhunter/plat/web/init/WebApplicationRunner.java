@@ -15,6 +15,9 @@
  */
 package io.github.kylinhunter.plat.web.init;
 
+import io.github.kylinhunter.commons.exception.info.ErrInfoManager;
+import io.github.kylinhunter.commons.init.KCommons;
+import io.github.kylinhunter.plat.web.log.LogHelper;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,34 +46,36 @@ import org.springframework.stereotype.Component;
 @Order(value = 1)
 public class WebApplicationRunner implements ApplicationRunner {
 
-  private final ConfigurableEnvironment springEnv;
+  private final ConfigurableEnvironment configurableEnvironment;
 
   @Override
   public void run(ApplicationArguments args) {
 
-    MutablePropertySources propSrcs = springEnv.getPropertySources();
-    // 获取所有配置
-    Map<String, String> props =
-        StreamSupport.stream(propSrcs.spliterator(), false)
-            .filter(ps -> ps instanceof EnumerablePropertySource)
-            .map(ps -> ((EnumerablePropertySource) ps).getPropertyNames())
-            .flatMap(Arrays::stream)
-            .distinct()
-            .collect(Collectors.toMap(Function.identity(), springEnv::getProperty));
-
-    // key 和 value 之间的最小间隙
-    int interval = 20;
-    int max =
-        props.keySet().stream().max(Comparator.comparingInt(String::length)).orElse("").length();
-
-    // 打印
-    props.keySet().stream()
-        .sorted()
-        .forEach(
-            k -> {
-              int i = max - k.length() + interval;
-              String join = String.join("", Collections.nCopies(i, " "));
-              System.out.println(String.format("%s%s%s", k, join, props.get(k)));
-            });
+    initKCommons();
+    initEnv();
   }
+
+  /**
+   * @return void
+   * @throws
+   * @title initKCommons
+   * @description initKCommons
+   * @author BiJi'an
+   * @date 2023-09-24 15:18
+   */
+  private void initKCommons() {
+    log.info("{} init kcommons start", LogHelper.SYS_TAG);
+    KCommons.custom().cleanPackage().scanPackage("io.github.kylinhunter").init();
+    ErrInfoManager.println();
+    log.info("{} init kcommons end", LogHelper.SYS_TAG);
+  }
+
+  private void initEnv() {
+    log.info("{} init env start", LogHelper.SYS_TAG);
+    EnvHelper.printEnv(configurableEnvironment);
+    log.info("{} init env end", LogHelper.SYS_TAG);
+  }
+
+
 }
+

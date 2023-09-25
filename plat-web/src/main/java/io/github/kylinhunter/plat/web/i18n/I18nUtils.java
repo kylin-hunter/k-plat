@@ -38,12 +38,16 @@ public class I18nUtils {
     LocaleContextHolder.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
   }
 
-  /** 获取单个国际化翻译值 */
+  /**
+   * 获取单个国际化翻译值
+   */
   public static String get(long errCode) {
     return get(errCode + "", null, null);
   }
 
-  /** 获取单个国际化翻译值 */
+  /**
+   * 获取单个国际化翻译值
+   */
   public static String get(long errCode, Object params) {
     if (params instanceof Object[]) {
       return get(errCode + "", (Object[]) params, null);
@@ -53,29 +57,26 @@ public class I18nUtils {
     }
   }
 
-  /** 获取单个国际化翻译值 */
+  /**
+   * 获取单个国际化翻译值
+   */
   public static String get(String msgKey) {
     return get(msgKey, null, msgKey);
   }
 
-  /** 获取单个国际化翻译值 */
+  /**
+   * 获取单个国际化翻译值
+   */
   public static String get(String msgKey, Object[] args, String defaultValue) {
     try {
       Locale locale = LocaleContextHolder.getLocale();
       String value = messageSource.getMessage(msgKey, args, locale);
-
       log.info("get in :" + locale + ":" + value);
-      log.info(
-          "get in :"
-              + Lang.ZH.getLocale()
-              + ":"
-              + messageSource.getMessage(msgKey, args, Lang.ZH.getLocale()));
-
       if (!StringUtils.isEmpty(value)) {
         return value;
       }
     } catch (Exception e) {
-      log.error("invalid msg={}", e.getMessage());
+      log.warn("invalid msg={}", e.getMessage());
     }
     return defaultValue;
   }

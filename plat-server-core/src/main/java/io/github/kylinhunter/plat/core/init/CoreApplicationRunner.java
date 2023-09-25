@@ -38,7 +38,6 @@ public class CoreApplicationRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    KCommons.custom().cleanPackage().scanPackage("io.github.kylinhunter").init();
     systemDataInitializer.init(false);
   }
 }

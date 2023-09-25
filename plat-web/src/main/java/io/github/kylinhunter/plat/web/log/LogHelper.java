@@ -23,6 +23,8 @@ import org.slf4j.MDC;
  * @date 2022-01-30 21:05
  */
 public class LogHelper {
+
+  public static final String SYS_TAG = "###@@@";
   private static final String MDC_TRACE_ID = "x-trace-id";
   private static final String MDC_USER_ID = "x-current-user";
 
@@ -37,4 +39,6 @@ public class LogHelper {
   public static void clearContext() {
     MDC.clear();
   }
+
+
 }
