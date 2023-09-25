@@ -35,6 +35,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Slf4j
 public class ResponseService {
+
   private final TraceHandler traceHandler;
   private final RequestContext requestContext;
 
@@ -73,4 +74,6 @@ public class ResponseService {
     }
     return response;
   }
+
+
 }
