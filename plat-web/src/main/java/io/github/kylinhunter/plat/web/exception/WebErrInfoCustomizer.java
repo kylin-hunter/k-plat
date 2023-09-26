@@ -34,6 +34,14 @@ public class WebErrInfoCustomizer {
   public static final ErrInfo AUTH_TOKEN_VERIFY_INVALID = new ErrInfo(++BASE_CODE);
   public static final ErrInfo AUTH_TOKEN_VERIFY_ERROR = new ErrInfo(++BASE_CODE);
 
-  public static final ErrInfo WEB_NOT_SUPPORTED = new ErrInfo(++BASE_CODE);
-  public static final ErrInfo WEB_NO_HANDLER_FOUND = new ErrInfo(++BASE_CODE);
+  static int WEB_ERR_CODE = 60100;
+  public static final ErrInfo WEB_ERROR = new ErrInfo(++WEB_ERR_CODE);
+  public static final ErrInfo WEB_NOT_SUPPORTED = new ErrInfo(++WEB_ERR_CODE);
+  public static final ErrInfo WEB_NO_HANDLER_FOUND = new ErrInfo(++WEB_ERR_CODE);
+
+  static int FEIGN_ERR_CODE = 60200;
+
+  public static final ErrInfo FEIGN_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
+  public static final ErrInfo FEIGN_REQUEST_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
+  public static final ErrInfo FEIGN_SERVER_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
 }
