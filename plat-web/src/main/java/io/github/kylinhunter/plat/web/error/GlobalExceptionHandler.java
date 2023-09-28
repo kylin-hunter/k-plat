@@ -43,19 +43,22 @@ public class GlobalExceptionHandler {
 
   private final ResponseWriter responseWriter;
 
+
   /**
-   * @param req req
-   * @param rsp rsp
+   * @param req             req
+   * @param rsp             rsp
    * @param globalException globalException
-   * @param model model
+   * @param model           model
    * @return java.lang.Object
    * @title handler
    * @description
    * @author BiJi'an
    * @date 2021/8/1 4:00 上午
    */
+
+
   @ExceptionHandler(value = Exception.class)
-  public Object handler(
+  public Object handleDefault(
       HttpServletRequest req, HttpServletResponse rsp, Exception globalException, Model model) {
 
     try {

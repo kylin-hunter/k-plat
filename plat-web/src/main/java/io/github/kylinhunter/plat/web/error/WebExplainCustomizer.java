@@ -15,12 +15,16 @@
  */
 package io.github.kylinhunter.plat.web.error;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Maps;
+import io.github.kylinhunter.commons.exception.ExceptionFinder;
+import io.github.kylinhunter.commons.exception.common.KRuntimeException;
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -83,5 +87,27 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
 
     this.addExplainer(HttpMessageNotReadableException.class)
         .explain(e -> new ExplainResult(ErrInfos.FORMAT, e.getMessage()));
+
+    // feign err
+    this.addExplainer(feign.RetryableException.class)
+        .explain(
+            e -> new ExplainResult(WebErrInfoCustomizer.FEIGN_ERROR, e.getMessage()));
+
+    // sentinel error
+
+    this.addExplainer(BlockException.class)
+        .explain(
+            e -> new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage()));
+
+    this.addExplainer(UndeclaredThrowableException.class)
+        .explain(
+            e -> {
+              BlockException ex = ExceptionFinder.find(e, true, BlockException.class);
+
+              if (ex != null) {
+                return new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage());
+              }
+              return new ExplainResult(WebErrInfoCustomizer.WEB_ERROR);
+            });
   }
 }
