@@ -22,8 +22,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-01 00:13 -Dcsp.sentinel.app.type=1 -Dproject.name=plat-server-gateway
+ * @date 2022-01-01 00:13
+ * <p>
+ * -Dcsp.sentinel.app.type=1 -Dproject.name=plat-server-gateway
  * -Dcsp.sentinel.dashboard.server=localhost:8080
+ * </p>
  */
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"})
