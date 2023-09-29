@@ -63,7 +63,7 @@ public class ResponseService {
     }
     response.setTime(trace.getStartTime());
     response.setDurationTime(trace.getDurationTime());
-    response.setData(e.getExtra());
+//    response.setData(e.getExtra()); 注释掉有可能引起feign的编解码异常
     if (debugMode) { // 更好地调试信息
       response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
       response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
