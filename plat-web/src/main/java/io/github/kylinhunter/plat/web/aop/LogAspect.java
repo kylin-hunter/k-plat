@@ -34,7 +34,6 @@ import org.springframework.web.util.UrlPathHelper;
 
 @Aspect
 @Slf4j
-@Component
 @Order(Integer.MAX_VALUE)
 public class LogAspect extends HandlerInterceptorAdapter {
 

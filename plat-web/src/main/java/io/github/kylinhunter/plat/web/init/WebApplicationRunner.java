@@ -41,7 +41,6 @@ import org.springframework.stereotype.Component;
  * @date 2022-06-12 23:51
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 @Order(value = 1)
 public class WebApplicationRunner implements ApplicationRunner {

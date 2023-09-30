@@ -37,7 +37,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @description
  * @date 2021/8/2
  */
-@Component
 @RequiredArgsConstructor
 @Slf4j
 public class RequestContext {

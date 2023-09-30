@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2023-09-26 17:14
  */
-@Component
+
 public class FeignComponent {
 
   private static final int MAX_ERR_BODY_LENGTH = 400;

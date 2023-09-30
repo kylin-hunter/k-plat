@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
  * @description trace
  * @date 2022/01/01
  */
-@Component
+
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultUserContextHandler implements UserContextHandler {

@@ -26,7 +26,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 @Slf4j
 // @ConditionalOnExpression("'${a}' == 'a' || '${b}' == 'b'")
 @RequiredArgsConstructor

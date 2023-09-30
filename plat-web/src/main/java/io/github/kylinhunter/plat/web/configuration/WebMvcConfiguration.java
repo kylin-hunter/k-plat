@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.interceptor;
+package io.github.kylinhunter.plat.web.configuration;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebInterceptor;
+import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
+import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
+import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
+import io.github.kylinhunter.plat.web.interceptor.TraceHandlerInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

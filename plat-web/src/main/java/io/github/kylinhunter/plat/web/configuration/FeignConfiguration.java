@@ -1,8 +1,11 @@
-package io.github.kylinhunter.plat.web.feign;
+package io.github.kylinhunter.plat.web.configuration;
 
 import feign.codec.ErrorDecoder;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.exception.WebException;
+import io.github.kylinhunter.plat.web.feign.FeignComponent;
+import io.github.kylinhunter.plat.web.feign.FeignTokenInterceptor;
+import io.github.kylinhunter.plat.web.request.RequestContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +21,7 @@ import org.springframework.context.annotation.Configuration;
 public class FeignConfiguration {
 
   protected ErrorDecoder errorDecoder = new ErrorDecoder.Default();
-  @Autowired
-  private FeignComponent feignComponent;
+
 
 //  @Bean
 //  public Retryer retryer() {
@@ -29,7 +31,7 @@ public class FeignConfiguration {
 //  }
 
   @Bean
-  public ErrorDecoder errorDecoder() {
+  public ErrorDecoder errorDecoder(FeignComponent feignComponent) {
     return (key, response) -> {
       String msg = feignComponent.getResponseBody(response);
       int status = response.status();
@@ -48,5 +50,17 @@ public class FeignConfiguration {
 
 //      return errorDecoder.decode(key, response);
     };
+
+
+  }
+
+  @Bean
+  public FeignComponent foodComponent() {
+    return new FeignComponent();
+  }
+
+  @Bean
+  public FeignTokenInterceptor feignTokenInterceptor(RequestContext requestContext) {
+    return new FeignTokenInterceptor(requestContext);
   }
 }

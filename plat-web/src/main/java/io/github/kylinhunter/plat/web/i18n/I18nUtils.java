@@ -27,7 +27,6 @@ import org.springframework.util.StringUtils;
  * @description
  * @date 2022-01-01 15:13
  */
-@Component
 @Slf4j
 public class I18nUtils {
 

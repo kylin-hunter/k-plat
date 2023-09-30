@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2023-09-28 17:07
  */
-@Component
 public class WebBlockExceptionHandler implements BlockExceptionHandler {
 
 

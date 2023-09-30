@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-01-01 01:47
  */
-@Component
+
 public class JWTService {
 
   private static final String USER_ID = "userId";

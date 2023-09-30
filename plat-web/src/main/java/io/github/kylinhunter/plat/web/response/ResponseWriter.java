@@ -38,7 +38,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @description
  * @date 2021/8/26
  */
-@Component
 @Data
 @Slf4j
 public class ResponseWriter {

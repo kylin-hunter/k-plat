@@ -33,7 +33,6 @@ import org.springframework.stereotype.Component;
  *     <p>Mar 16, 2021 11:34:19 AM
  */
 @Aspect
-@Component
 @Slf4j
 @RequiredArgsConstructor
 public class TimeCostAspect {

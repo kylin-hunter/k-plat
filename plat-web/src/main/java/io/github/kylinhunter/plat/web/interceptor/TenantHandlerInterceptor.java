@@ -36,7 +36,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @description
  * @date 2022/01/01
  */
-@Component
+
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j

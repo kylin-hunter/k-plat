@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-06-19 00:23
  */
-@Component
+
 @Slf4j
 @RequiredArgsConstructor
 public class FeignTokenInterceptor implements RequestInterceptor {

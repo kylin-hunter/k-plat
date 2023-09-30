@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
  * @author: BiJi'an
  * @create: 2021/7/14
  */
-@Component
 @Data
 @Slf4j
 @ToString

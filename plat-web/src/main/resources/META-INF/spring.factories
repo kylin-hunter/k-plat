@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+        io.github.kylinhunter.plat.web.configuration.Swagger2Configuration,\
+        io.github.kylinhunter.plat.web.configuration.WebCommonConfiguration,\
+        io.github.kylinhunter.plat.web.configuration.SentinelConfiguration,\
+        io.github.kylinhunter.plat.web.configuration.ErrorConfiguration,\
+        io.github.kylinhunter.plat.web.configuration.FeignConfiguration,\
+        io.github.kylinhunter.plat.web.configuration.WebMvcConfiguration

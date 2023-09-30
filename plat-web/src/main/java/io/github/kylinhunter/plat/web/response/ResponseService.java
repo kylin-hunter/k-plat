@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2021/8/26
  */
-@Component
+
 @Data
 @Slf4j
 public class ResponseService {
