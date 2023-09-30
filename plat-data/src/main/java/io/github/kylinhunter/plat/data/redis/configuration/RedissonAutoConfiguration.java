@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.data.redis.configuration;
 
+import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonReactiveClient;
@@ -232,4 +233,10 @@ public class RedissonAutoConfiguration {
   }
 
 
+
+
+  @Bean
+  public RedisLockService redisLockService(RedissonClient redissonClient){
+    return new RedisLockService(redissonClient);
+  }
 }

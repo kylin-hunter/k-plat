@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.github.kylinhunter.plat.data.redis.configuration.RedissonAutoConfiguration,\
+io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration
