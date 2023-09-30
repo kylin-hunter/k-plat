@@ -15,7 +15,16 @@
  */
 package io.github.kylinhunter.plat.dao.configuration;
 
+import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
+import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
+import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author BiJi'an
@@ -23,4 +32,44 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022-01-07 00:06
  */
 @Configuration
-public class DaoComonConfiguration {}
+public class DaoComonConfiguration {
+
+  @Bean
+  public FilterCustoms filterCustoms(){
+    return new FilterCustoms();
+  }
+
+  @Bean
+  public FilterComponent filterComponent(FilterCustoms filterCustoms) {
+    return new FilterComponent(filterCustoms);
+  }
+  @Bean
+  public SortComponent sortComponent( ) {
+    return new SortComponent();
+  }
+
+  @Bean
+  @Primary
+  public QueryComplexInterceptor queryComplexInterceptor(SortComponent sortComponent ,FilterComponent filterComponent){
+    return new QueryComplexInterceptor(sortComponent,filterComponent);
+  }
+
+  @Bean
+  @Primary
+  public DeleteInterceptor deleteInterceptor(){
+    return new DeleteInterceptor();
+  }
+
+  @Bean
+  @Primary
+  public SaveOrUpdateInterceptor saveOrUpdateInterceptor(){
+    return new SaveOrUpdateInterceptor();
+  }
+
+  @Bean
+  @Primary
+  public QueryAccurateInterceptor queryAccurateInterceptor(){
+    return new QueryAccurateInterceptor();
+  }
+
+}

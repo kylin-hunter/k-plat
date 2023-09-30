@@ -35,8 +35,7 @@ import org.springframework.util.CollectionUtils;
  * @description
  * @date 2022-06-08 23:40
  */
-@Component
-@Primary
+
 public class DeleteInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

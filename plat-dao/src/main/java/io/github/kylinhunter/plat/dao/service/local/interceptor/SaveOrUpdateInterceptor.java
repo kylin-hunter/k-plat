@@ -30,8 +30,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-06-08 23:40
  */
-@Component
-@Primary
+
 public class SaveOrUpdateInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

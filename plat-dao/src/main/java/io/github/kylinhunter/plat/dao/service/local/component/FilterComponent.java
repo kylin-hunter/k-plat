@@ -32,7 +32,6 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-01-11 21:27
  */
-@Component
 @RequiredArgsConstructor
 public class FilterComponent {
 

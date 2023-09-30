@@ -39,8 +39,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-06-06 22:59
  */
-@Component
-@Primary
+
 public class QueryAccurateInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

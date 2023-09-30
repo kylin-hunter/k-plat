@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+        io.github.kylinhunter.plat.web.configuration.Swagger2Configuration,\
+        io.github.kylinhunter.plat.web.configuration.WebCommonConfiguration

@@ -18,14 +18,13 @@ package io.github.kylinhunter.plat.dao.service.local.ex;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
 
 /**
  * @description
  * @author BiJi'an
  * @date 2022-01-22 19:41
  */
-@Component
+
 public class FilterCustoms {
   public static final Map<String, FilterCustom> DATA = Maps.newHashMap();
 
