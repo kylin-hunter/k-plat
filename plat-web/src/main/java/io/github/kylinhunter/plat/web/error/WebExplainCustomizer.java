@@ -28,6 +28,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -109,5 +110,11 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
               }
               return new ExplainResult(WebErrInfoCustomizer.WEB_ERROR);
             });
+
+    this.addExplainer(AccessDeniedException.class)
+        .explain(
+            e -> new ExplainResult(WebErrInfoCustomizer.AUTH_NO_PERMISSION));
+
+
   }
 }

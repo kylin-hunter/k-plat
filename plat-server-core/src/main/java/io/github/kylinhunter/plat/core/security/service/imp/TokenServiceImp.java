@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.core.service.local.imp;
+package io.github.kylinhunter.plat.core.security.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.kylinhunter.commons.lang.EnumUtils;
-import io.github.kylinhunter.plat.api.auth.ReqLogin;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
-import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
-import io.github.kylinhunter.plat.core.service.local.AuthService;
+import io.github.kylinhunter.plat.core.security.service.TokenService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
+import io.github.kylinhunter.plat.core.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.auth.JWTService;
-import io.github.kylinhunter.plat.web.auth.PasswordUtil;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,58 +42,82 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class AuthServiceImp implements AuthService {
-  private final UserMapper userMapper;
+public class TokenServiceImp implements TokenService {
+
   private final TenantMapper tenantMapper;
   private final JWTService jwtService;
   private final TenantUserService tenantUserService;
 
-  @Override
-  public String login(ReqLogin reqLogin) {
-    LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
-    queryWrapper.eq(User::getUserCode, reqLogin.getUserCode());
-    queryWrapper.eq(User::getSysDeleteFlag, false);
-    User user = this.userMapper.selectOne(queryWrapper);
-    if (user != null) {
+  /**
+   * @param tokenUserDetails tokenUserDetails
+   * @return java.lang.String
+   * @title createToken
+   * @description createToken
+   * @author BiJi'an
+   * @date 2023-10-02 00:29
+   */
+  public String createToken(TokenUserDetails tokenUserDetails) {
 
-      if (PasswordUtil.matches(reqLogin.getPassword(), user.getPassword())) {
-        log.info("login user success {}={}", user.getUserCode(), user.getUserName());
-        Token token = new Token();
-        token.setUserId(user.getId());
-        token.setUserType(user.getType());
-        token.setUserCode(reqLogin.getUserCode());
-        token.setUserName(user.getUserName());
-        token.setTenantId(reqLogin.getTenantId());
-        if (!StringUtils.isEmpty(token.getTenantId())) {
-          checkTenant(token);
-        }
-        return jwtService.create(token);
+    Token token = new Token();
+    token.setUserId(tokenUserDetails.getId());
+    token.setUserType(tokenUserDetails.getType());
+    token.setUserCode(tokenUserDetails.getUsername());
+    token.setUserName(tokenUserDetails.getUsername());
+    token.setTenantId(tokenUserDetails.getTenantId());
+    checkTenant(token);
 
-      } else {
-        log.error("password error user={}", reqLogin.getUserCode());
-      }
-    } else {
-      log.error("no user={}", reqLogin.getUserCode());
-    }
+    String tokenStr = jwtService.create(token);
+    log.info("createToken user={} token={}", tokenUserDetails.getUsername(), tokenStr);
+    return tokenStr;
 
-    throw new AuthException("login error :" + reqLogin.getUserCode());
   }
 
-  @Override
-  public Token verify(String token) {
-    return jwtService.verify(token);
-  }
 
-  @Override
+  /**
+   * @param loginToken loginToken
+   * @param tenantId   tenantId
+   * @return java.lang.String
+   * @title createTenantToken
+   * @description createTenantToken
+   * @author BiJi'an
+   * @date 2023-10-02 00:05
+   */
   public String createTenantToken(String loginToken, String tenantId) {
-    Token token = this.verify(loginToken);
+    TokenUserDetails tokenUserDetails = this.verify(loginToken);
+    Token token = tokenUserDetails.getToken();
     token.setTenantId(tenantId);
     checkTenant(token);
     return jwtService.create(token);
   }
 
+  /**
+   * @param token token
+   * @return io.github.kylinhunter.plat.core.service.local.security.bean.TokenUserDetails
+   * @title verify
+   * @description verify
+   * @author BiJi'an
+   * @date 2023-10-02 00:30
+   */
+  public TokenUserDetails verify(String token) {
+    Token verifyToken = jwtService.verify(token);
+    return new TokenUserDetails(verifyToken);
+  }
+
+
+  /**
+   * @param token token
+   * @return void
+   * @title checkTenant
+   * @description checkTenant
+   * @author BiJi'an
+   * @date 2023-10-02 00:05
+   */
   private void checkTenant(Token token) {
     String tenantId = token.getTenantId();
+    if (StringUtils.isEmpty(tenantId)) {
+      return;
+    }
+
     LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(Tenant::getId, tenantId);
     queryWrapper.eq(Tenant::getSysDeleteFlag, false);
@@ -119,10 +140,9 @@ public class AuthServiceImp implements AuthService {
         tenantUserReqCreate.setType(UserType.TENANT_ADMIN.getCode());
         tenantUserService.save(tenantUserReqCreate);
         log.info("create tenant admin tenantId={},user={}", tenant.getCode(), token.getUserCode());
-
         token.setUserType(tenantUserReqCreate.getType());
       } else {
-        throw new AuthException("校验用户和租户关系失败" + token.getUserId() + ":" + tenant.getId());
+        throw new AuthException("user=" + token.getUserId() + " not in tenant=" + tenant.getId());
       }
     }
   }

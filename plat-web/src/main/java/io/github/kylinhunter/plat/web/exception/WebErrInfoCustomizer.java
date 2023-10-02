@@ -41,6 +41,8 @@ public class WebErrInfoCustomizer {
   public static final ErrInfo AUTH_TOKEN_VERIFY_INVALID = new ErrInfo(++AUTH_BASE_CODE);
   public static final ErrInfo AUTH_TOKEN_VERIFY_ERROR = new ErrInfo(++AUTH_BASE_CODE);
 
+  public static final ErrInfo AUTH_NO_PERMISSION = new ErrInfo(++AUTH_BASE_CODE);
+  public static final ErrInfo AUTH_NO_PERMISSION_ANONYMOUS = new ErrInfo(++AUTH_BASE_CODE);
 
   static int FEIGN_ERR_CODE = 60200;
 

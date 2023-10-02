@@ -35,6 +35,7 @@ import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -97,6 +98,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("查看详情")
+  @PreAuthorize("hasAuthority('test1')")
   public DefaultResponse<Z> get(@PathVariable("id") String id) {
 
     return new DefaultResponse<>(this.service.queryById(ReqById.of(id)));
@@ -113,6 +115,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("分页获取全部数据")
+  @PreAuthorize("hasAuthority('test')")
   public DefaultResponse<PageData<Z>> list(@Validated Q reqQueryPage) {
 
     return new DefaultResponse<>(this.service.query(reqQueryPage));

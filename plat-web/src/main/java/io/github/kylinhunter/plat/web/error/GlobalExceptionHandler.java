@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-  private final ResponseService responseService;
 
   private final ResponseWriter responseWriter;
 
@@ -60,17 +59,8 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(value = Exception.class)
   public Object handleDefault(
       HttpServletRequest req, HttpServletResponse rsp, Exception globalException, Model model) {
-
-    try {
-      log.error("global error", globalException);
-      DefaultResponse<?> response =
-          responseService.toResponse(ExceptionConvertor.convert(globalException));
-      String responseJson = JsonUtils.writeToString(response, JsonOptions.NO_FAIL);
-      log.error(req.getRequestURI() + "'s response:" + responseJson);
-      responseWriter.writeJson(responseJson);
-    } catch (Exception e) {
-      log.error("global_exception_handler_error", e);
-    }
+    log.error("global error", globalException);
+    responseWriter.write(globalException);
     return null;
   }
 }

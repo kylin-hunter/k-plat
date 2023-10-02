@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.configuration;
 
-import com.alibaba.csp.sentinel.adapter.spring.webmvc.SentinelWebInterceptor;
 import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
 import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
@@ -42,14 +41,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
 //    registry.addInterceptor(new SentinelWebInterceptor()).addPathPatterns("/**");
 
-    registry
-        .addInterceptor(traceHandlerInterceptor)
-        .addPathPatterns(PathPatterns.of(PathPatterns.ALL));
+//    registry
+//        .addInterceptor(traceHandlerInterceptor)
+//        .addPathPatterns(PathPatterns.of(PathPatterns.ALL));
 
-    registry
-        .addInterceptor(tokenHandlerInterceptor)
-        .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
-        .addPathPatterns(PathPatterns.of(PathPatterns.AUTH));
+//    registry
+//        .addInterceptor(tokenHandlerInterceptor)
+//        .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
+//        .addPathPatterns(PathPatterns.of(PathPatterns.AUTH));
 
     registry
         .addInterceptor(tenantHandlerInterceptor)

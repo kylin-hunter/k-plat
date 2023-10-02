@@ -16,8 +16,11 @@
 package io.github.kylinhunter.plat.web.response;
 
 import com.google.common.collect.Maps;
+import io.github.kylinhunter.commons.exception.ExceptionConvertor;
+import io.github.kylinhunter.commons.exception.info.ErrInfo;
+import io.github.kylinhunter.commons.utils.json.JsonOptions;
+import io.github.kylinhunter.commons.utils.json.JsonUtils;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +32,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -42,15 +44,56 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Slf4j
 public class ResponseWriter {
 
+  private final ResponseService responseService;
+
+  public void write(Exception exception) {
+    try {
+      DefaultResponse<?> response = responseService.toResponse(
+          ExceptionConvertor.convert(exception));
+      this.writeJson(response);
+    } catch (Exception e) {
+      log.error("write error error", e);
+    }
+  }
+
+  /**
+   * @param fileName fileName
+   * @param content  content
+   * @return void
+   * @title writeFile
+   * @description writeFile
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void writeFile(String fileName, String content) {
     this.writeFile(
         fileName, content != null ? content.getBytes(StandardCharsets.UTF_8) : new byte[0], false);
   }
 
+  /**
+   * @param fileName   fileName
+   * @param content    content
+   * @param attachment attachment
+   * @return void
+   * @title writeFile
+   * @description writeFile
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void writeFile(String fileName, byte[] content, boolean attachment) {
     this.writeFile(fileName, new ByteArrayInputStream(content), true);
   }
 
+  /**
+   * @param fileName    fileName
+   * @param inputStream inputStream
+   * @param attachment  attachment
+   * @return void
+   * @title writeFile
+   * @description writeFile
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void writeFile(String fileName, InputStream inputStream, boolean attachment) {
     try {
       Map<String, String> headers = Maps.newHashMap();
@@ -66,20 +109,94 @@ public class ResponseWriter {
     }
   }
 
+  /**
+   * @param json json
+   * @return void
+   * @title writeJson
+   * @description writeJson
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void writeJson(String json) {
     Map<String, String> headers = Maps.newHashMap();
     headers.put(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8");
     this.write(headers, json.getBytes(StandardCharsets.UTF_8));
   }
 
+  /**
+   * @param obj obj
+   * @return void
+   * @title writeJson
+   * @description writeJson
+   * @author BiJi'an
+   * @date 2023-10-02 01:17
+   */
+  public void writeJson(Object obj) {
+    String json = JsonUtils.writeToString(obj, JsonOptions.NO_FAIL);
+    this.writeJson(json);
+    log.error("respone write json={}", json);
+
+  }
+
+  /**
+   * @param code code
+   * @param msg  msg
+   * @return void
+   * @title writeErr
+   * @description writeErr
+   * @author BiJi'an
+   * @date 2023-10-02 01:01
+   */
+  public void writeErr(int code, String msg, Object data) {
+    DefaultResponse<Object> defaultResponse = new DefaultResponse<>();
+    defaultResponse.setCode(code);
+    defaultResponse.setMsg(msg);
+    defaultResponse.setData(data);
+    String json = JsonUtils.writeToString(defaultResponse, JsonOptions.NO_FAIL);
+    this.writeJson(json);
+  }
+
+  /**
+   * @param errInfo errInfo
+   * @param msg     msg
+   * @return void
+   * @title writeErr
+   * @description writeErr
+   * @author BiJi'an
+   * @date 2023-10-02 01:02
+   */
+  public void writeErr(ErrInfo errInfo, String msg, Object data) {
+    this.writeErr(errInfo.getCode(), msg, data);
+
+  }
+
+
+  /**
+   * @param headers headers
+   * @param content content
+   * @return void
+   * @title write
+   * @description write
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void write(Map<String, String> headers, byte[] content) {
     try (InputStream inputStream = new ByteArrayInputStream(content)) {
       this.write(headers, inputStream);
-    } catch (IOException e) {
+    } catch (Exception e) {
       log.error("write error", e);
     }
   }
 
+  /**
+   * @param headers     headers
+   * @param inputStream inputStream
+   * @return void
+   * @title write
+   * @description write
+   * @author BiJi'an
+   * @date 2023-10-02 00:57
+   */
   public void write(Map<String, String> headers, InputStream inputStream) {
     HttpServletResponse response =
         ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();

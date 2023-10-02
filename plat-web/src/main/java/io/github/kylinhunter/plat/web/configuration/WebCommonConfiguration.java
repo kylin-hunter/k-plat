@@ -26,6 +26,7 @@ import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.AppConfig;
 import io.github.kylinhunter.plat.web.context.DefaultUserContextHandler;
+import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
@@ -33,9 +34,10 @@ import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
 import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
 import io.github.kylinhunter.plat.web.interceptor.TraceHandlerInterceptor;
 import io.github.kylinhunter.plat.web.request.RequestContext;
+import io.github.kylinhunter.plat.web.request.WebDataBinderConfig;
+import io.github.kylinhunter.plat.web.response.ResponseAdvice;
 import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import io.github.kylinhunter.plat.web.sentinel.WebBlockExceptionHandler;
 import io.github.kylinhunter.plat.web.trace.DefaultTraceHandler;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +45,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration.EnableWebMvcConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -142,14 +143,15 @@ public class WebCommonConfiguration {
     return new TenantHandlerInterceptor(traceHandler, userContextHandler);
   }
 
-  @Bean
-  public ResponseWriter responseWriter() {
-    return new ResponseWriter();
-  }
 
   @Bean
   public ResponseService responseService(TraceHandler traceHandler, RequestContext requestContext) {
     return new ResponseService(traceHandler, requestContext);
+  }
+
+  @Bean
+  public ResponseWriter responseWriter(ResponseService responseService) {
+    return new ResponseWriter(responseService);
   }
 
   @Bean
@@ -158,8 +160,11 @@ public class WebCommonConfiguration {
   }
 
   @Bean
-  public WebApplicationRunner webApplicationRunner(ConfigurableEnvironment configurableEnvironment){
+  public WebApplicationRunner webApplicationRunner(
+      ConfigurableEnvironment configurableEnvironment) {
     return new WebApplicationRunner(configurableEnvironment);
   }
+
+
 
 }

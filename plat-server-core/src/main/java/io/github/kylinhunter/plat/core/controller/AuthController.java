@@ -15,9 +15,8 @@
  */
 package io.github.kylinhunter.plat.core.controller;
 
-import io.github.kylinhunter.plat.api.auth.ReqLogin;
 import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
-import io.github.kylinhunter.plat.core.service.local.AuthService;
+import io.github.kylinhunter.plat.core.security.service.TokenService;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
@@ -43,26 +42,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController extends CommonController {
 
   private final TraceHandler traceHandler;
-  private final AuthService authService;
+  private final TokenService tokenService;
 
-  @PostMapping(value = "/login")
-  @ApiOperation("login")
-  public DefaultResponse<String> login(@Validated @RequestBody ReqLogin reqLogin) {
-    return new DefaultResponse(authService.login(reqLogin));
-  }
 
   @PostMapping(value = "/auth/create_tenant_token")
   @ApiOperation("create_tenant_token")
   public DefaultResponse<String> createTenantToken(
       @Validated @RequestBody ReqTenantToken reqTenantToken) {
-
-    return new DefaultResponse(
-        authService.createTenantToken(traceHandler.get().getToken(), reqTenantToken.getTenantId()));
+    return new DefaultResponse(tokenService.createTenantToken(traceHandler.get().getToken(),
+        reqTenantToken.getTenantId()));
   }
 
   @PostMapping(value = "/auth/verify_token")
   @ApiOperation("verify_token")
   public DefaultResponse<String> verify() {
-    return new DefaultResponse(authService.verify(traceHandler.get().getToken()));
+    traceHandler.create();
+    return new DefaultResponse(tokenService.verify(traceHandler.get().getToken()));
   }
 }
