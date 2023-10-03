@@ -72,39 +72,5 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
     web.ignoring().antMatchers("/auth/verify_token", "/error");
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http
-
-        .authorizeRequests()
-        //
-//        .antMatchers("/auth/verify_token").permitAll()
-//        .antMatchers("/core/auth/verify_token").permitAll()
-//        .antMatchers("/auth/verify_token").anonymous()
-//        .antMatchers("/core/auth/verify_token").anonymous()
-//        .antMatchers("/core/login").permitAll()
-//        .antMatchers("/error").anonymous()
-        // 除上面外的所有请求全部需要鉴权认证
-
-        .anyRequest().authenticated()
-        .and().formLogin().loginProcessingUrl("/login")
-
-        .and()
-        .logout().logoutUrl("/logout")
-        .and().exceptionHandling()
-        .accessDeniedHandler(accessDeniedHandler(responseWriter))
-        .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
-        .and()
-        .addFilter(new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter))
-        .addFilter(new JwtVerifyFilter(authenticationManagerBean(), traceHandler, tokenService,
-            userContextHandler, responseWriter))
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .cors()
-        .and().csrf().disable();
-
-
-  }
-
 
 }
