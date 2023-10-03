@@ -1,6 +1,6 @@
 package io.github.kylinhunter.plat.core.security;
 
-import io.github.kylinhunter.plat.web.configuration.DefaultSecurityWebSecurityConfigurer;
+import io.github.kylinhunter.plat.web.security.DefaultSecurityWebSecurityConfigurer;
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
 import org.springframework.context.annotation.Configuration;

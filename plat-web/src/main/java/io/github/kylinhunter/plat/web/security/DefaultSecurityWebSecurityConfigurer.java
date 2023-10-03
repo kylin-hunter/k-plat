@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.web.configuration;
+package io.github.kylinhunter.plat.web.security;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
