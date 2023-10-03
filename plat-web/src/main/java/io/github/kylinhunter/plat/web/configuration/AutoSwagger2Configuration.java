@@ -51,7 +51,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Configuration {
+public class AutoSwagger2Configuration {
   /**
    * 配置基本信息
    *

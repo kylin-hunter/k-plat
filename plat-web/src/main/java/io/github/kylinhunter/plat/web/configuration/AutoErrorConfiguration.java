@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 @RequiredArgsConstructor
-public class ErrorConfiguration {
+public class AutoErrorConfiguration {
   private final ResponseWriter responseWriter;
 
   @Bean

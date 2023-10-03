@@ -1,12 +1,12 @@
-package io.github.kylinhunter.plat.core.security;
+package io.github.kylinhunter.plat.web.configuration;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
-import io.github.kylinhunter.plat.core.security.error.DefaultAuthenticationEntryPoint;
-import io.github.kylinhunter.plat.core.security.filter.JwtLoginFilter;
-import io.github.kylinhunter.plat.core.security.filter.JwtVerifyFilter;
-import io.github.kylinhunter.plat.core.security.service.TokenService;
-import io.github.kylinhunter.plat.core.security.error.DefaultlAccessDeniedHandler;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
+import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
+import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler;
+import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
+import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
+import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -29,29 +28,22 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  * @description
  * @date 2023-10-01 00:27
  */
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private UserDetailsService userDetailsService;
-
+  protected UserDetailsService userDetailsService;
+  @Autowired
+  protected TokenService tokenService;
+  @Autowired
+  protected PasswordEncoder passwordEncoder;
+  @Autowired
+  protected UserContextHandler userContextHandler;
 
   @Autowired
-  private TokenService tokenService;
-
+  protected TraceHandler traceHandler;
   @Autowired
-  private TraceHandler traceHandler;
-  @Autowired
-  private UserContextHandler userContextHandler;
-
-  @Autowired
-  private ResponseWriter responseWriter;
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+  protected ResponseWriter responseWriter;
 
   @Bean
   @Override
@@ -72,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
   }
 
   @Override

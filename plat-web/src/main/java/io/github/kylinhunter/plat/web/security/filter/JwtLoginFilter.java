@@ -1,15 +1,13 @@
-package io.github.kylinhunter.plat.core.security.filter;
+package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
-import io.github.kylinhunter.plat.core.security.service.TokenService;
-import io.github.kylinhunter.plat.core.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import java.io.IOException;
+import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
+import io.github.kylinhunter.plat.web.security.service.TokenService;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

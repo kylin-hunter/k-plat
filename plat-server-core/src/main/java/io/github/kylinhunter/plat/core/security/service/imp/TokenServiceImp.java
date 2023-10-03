@@ -24,29 +24,33 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
-import io.github.kylinhunter.plat.core.security.service.TokenService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
-import io.github.kylinhunter.plat.core.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
+import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
+import io.github.kylinhunter.plat.web.security.service.TokenService;
+import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-10 02:45
  */
-@Component
-@RequiredArgsConstructor
 @Slf4j
-public class TokenServiceImp implements TokenService {
+public class TokenServiceImp extends DefaultTokenService {
 
-  private final TenantMapper tenantMapper;
-  private final JWTService jwtService;
-  private final TenantUserService tenantUserService;
+  private TenantMapper tenantMapper;
+  private TenantUserService tenantUserService;
+
+  public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
+      TenantUserService tenantUserService) {
+    super(jwtService);
+    this.tenantMapper = tenantMapper;
+    this.tenantUserService = tenantUserService;
+  }
 
   /**
    * @param tokenUserDetails tokenUserDetails

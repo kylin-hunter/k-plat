@@ -26,7 +26,6 @@ import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.AppConfig;
 import io.github.kylinhunter.plat.web.context.DefaultUserContextHandler;
-import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
@@ -58,7 +57,7 @@ import org.springframework.web.servlet.LocaleResolver;
  */
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-public class WebCommonConfiguration {
+public class AutoWebCommonConfiguration {
 
   @Bean // 将区域信息对象注册到容器
   public LocaleResolver localeResolver() {

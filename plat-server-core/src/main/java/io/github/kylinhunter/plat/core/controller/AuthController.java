@@ -16,9 +16,9 @@
 package io.github.kylinhunter.plat.core.controller;
 
 import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
-import io.github.kylinhunter.plat.core.security.service.TokenService;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
+import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

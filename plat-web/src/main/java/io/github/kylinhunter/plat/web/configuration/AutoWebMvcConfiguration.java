@@ -32,7 +32,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @RequiredArgsConstructor
-public class WebMvcConfiguration implements WebMvcConfigurer {
+public class AutoWebMvcConfiguration implements WebMvcConfigurer {
   private final TraceHandlerInterceptor traceHandlerInterceptor;
   private final TokenHandlerInterceptor tokenHandlerInterceptor;
   private final TenantHandlerInterceptor tenantHandlerInterceptor;

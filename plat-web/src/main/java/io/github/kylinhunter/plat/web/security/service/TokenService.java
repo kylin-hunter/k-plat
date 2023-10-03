@@ -1,7 +1,7 @@
-package io.github.kylinhunter.plat.core.security.service;
+package io.github.kylinhunter.plat.web.security.service;
 
-import io.github.kylinhunter.plat.core.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.exception.AuthException;
+import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 
 /**
  * @author BiJi'an

@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.core;
 
+import io.github.kylinhunter.plat.web.configuration.AutoSecurityWebSecurityConfigurer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +29,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat.core"},
-    exclude = {RedissonAutoConfiguration.class})
+    exclude = {RedissonAutoConfiguration.class, AutoSecurityWebSecurityConfigurer.class})
 @MapperScan("io.github.kylinhunter.plat.core.dao")
 public class Start {
 

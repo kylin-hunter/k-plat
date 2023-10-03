@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022-01-01 20:55
  */
 @Configuration
-public class SentinelConfiguration {
+public class AutoSentinelConfiguration {
   @Bean
   public WebBlockExceptionHandler webBlockExceptionHandler( ) {
     return new WebBlockExceptionHandler();

@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.core.security.error;
+package io.github.kylinhunter.plat.web.security.error;
 
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;

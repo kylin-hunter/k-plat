@@ -1,12 +1,11 @@
-package io.github.kylinhunter.plat.core.security.filter;
+package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
-import io.github.kylinhunter.plat.core.security.service.TokenService;
-import io.github.kylinhunter.plat.core.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.exception.AuthException;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
+import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
+import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.trace.TraceHandler;
 import java.io.IOException;
 import javax.servlet.FilterChain;

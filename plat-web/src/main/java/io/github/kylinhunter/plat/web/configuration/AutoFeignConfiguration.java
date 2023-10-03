@@ -7,7 +7,6 @@ import io.github.kylinhunter.plat.web.feign.FeignComponent;
 import io.github.kylinhunter.plat.web.feign.FeignTokenInterceptor;
 import io.github.kylinhunter.plat.web.request.RequestContext;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @Slf4j
-public class FeignConfiguration {
+public class AutoFeignConfiguration {
 
   protected ErrorDecoder errorDecoder = new ErrorDecoder.Default();
 

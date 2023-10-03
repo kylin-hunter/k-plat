@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.core.security.bean;
+package io.github.kylinhunter.plat.web.security.bean;
 
 import com.google.common.collect.Lists;
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
