@@ -35,7 +35,6 @@ import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,7 +58,8 @@ public abstract class CommonCurdController<
     Q extends ReqPage,
     T extends BaseEntity> {
 
-  @Autowired protected S service;
+  @Autowired
+  protected S service;
 
   @PostConstruct
   private void init() {
@@ -74,10 +74,11 @@ public abstract class CommonCurdController<
     return new DefaultResponse<>(service.save(reqCreate));
   }
 
-  @RequestMapping(value = "", method = RequestMethod.PUT)
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ResponseBody
   @ApiOperation("修改")
-  public DefaultResponse<Z> update(@RequestBody @Validated Y reqUpdate) {
+  public DefaultResponse<Z> update(@RequestBody @Validated Y reqUpdate, @PathVariable("id") String id) {
+    reqUpdate.setId(id);
     return new DefaultResponse<>(service.update(reqUpdate));
   }
 
@@ -98,7 +99,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("查看详情")
-  @PreAuthorize("hasAuthority('test1')")
+//  @PreAuthorize("hasAuthority('get')")
   public DefaultResponse<Z> get(@PathVariable("id") String id) {
 
     return new DefaultResponse<>(this.service.queryById(ReqById.of(id)));
@@ -115,7 +116,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("分页获取全部数据")
-  @PreAuthorize("hasAuthority('test')")
+//  @PreAuthorize("hasAuthority('list')")
   public DefaultResponse<PageData<Z>> list(@Validated Q reqQueryPage) {
 
     return new DefaultResponse<>(this.service.query(reqQueryPage));

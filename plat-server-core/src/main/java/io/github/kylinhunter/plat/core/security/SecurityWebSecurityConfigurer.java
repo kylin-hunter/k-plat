@@ -4,6 +4,7 @@ import io.github.kylinhunter.plat.web.security.DefaultSecurityWebSecurityConfigu
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -32,6 +33,14 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
 //        .antMatchers("/core/login").permitAll()
 //        .antMatchers("/error").anonymous()
         // 除上面外的所有请求全部需要鉴权认证
+
+        .antMatchers(HttpMethod.POST,"/api/v1/core/users").hasAuthority("users:create")
+        .antMatchers(HttpMethod.PUT,"/api/v1/core/users/*").hasAuthority("users:update")
+        .antMatchers(HttpMethod.DELETE,"/api/v1/core/users/*").hasAuthority("users:delete")
+        .antMatchers(HttpMethod.DELETE,"/api/v1/core/users/batch").hasAuthority("users:batch_delete")
+        .antMatchers(HttpMethod.GET,"/api/v1/core/users/*").hasAuthority("users:get")
+        .antMatchers(HttpMethod.GET,"/api/v1/core/users/batch").hasAuthority("users:batch_get")
+        .antMatchers(HttpMethod.GET,"/api/v1/core/users").hasAuthority("users:list")
 
         .anyRequest().authenticated()
         .and().formLogin().loginProcessingUrl("/login")

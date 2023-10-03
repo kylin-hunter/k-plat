@@ -57,7 +57,7 @@ public class TokenUserDetails implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("test"));
+    return Lists.newArrayList(new SimpleGrantedAuthority("list"));
   }
 
 
