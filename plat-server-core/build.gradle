@@ -7,7 +7,7 @@ dependencyManagement {
 
 dependencies {
 
-    api project(':plat-web')
+    api project(':plat-data')
 
 
 }

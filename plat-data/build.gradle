@@ -7,12 +7,12 @@ dependencyManagement {
 dependencies {
     api project(':plat-web')
 
-    implementation 'org.redisson:redisson-spring-boot-starter:3.21.3'
-    implementation 'org.redisson:redisson:3.21.3'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.apache.commons:commons-pool2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    api 'org.redisson:redisson-spring-boot-starter:3.21.3'
+    api 'org.redisson:redisson:3.21.3'
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.apache.commons:commons-pool2'
+    api 'com.fasterxml.jackson.core:jackson-databind'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 jar.enabled = true

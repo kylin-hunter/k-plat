@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolve
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2021/7/30
  */
 @Slf4j
+@Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class ErrorMessageController extends BasicErrorController {
 

@@ -165,6 +165,16 @@ public class WebCommonConfiguration {
     return new WebApplicationRunner(configurableEnvironment);
   }
 
+  ;
+
+  @Bean
+  public ResponseAdvice responseAdvice(TraceHandler traceHandler, RequestContext requestContext) {
+    return new ResponseAdvice(traceHandler, requestContext);
+  }
+  @Bean
+  public WebDataBinderConfig webDataBinderConfig() {
+    return new WebDataBinderConfig();
+  }
 
 
 }

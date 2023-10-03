@@ -16,7 +16,10 @@
 package io.github.kylinhunter.plat.web.configuration;
 
 import io.github.kylinhunter.plat.web.error.ErrorMessageController;
+import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
+import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -33,7 +36,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
+@RequiredArgsConstructor
 public class ErrorConfiguration {
+  private final ResponseWriter responseWriter;
 
   @Bean
   public ErrorMessageController basicErrorController(
@@ -44,4 +49,11 @@ public class ErrorConfiguration {
     return new ErrorMessageController(
         errorAttributes, serverProperties.getError(), errorViewResolversProvider.getIfAvailable());
   }
+
+  @Bean
+  public GlobalExceptionHandler globalExceptionHandler( ResponseWriter responseWriter) {
+    return new GlobalExceptionHandler(responseWriter);
+  }
+
+
 }

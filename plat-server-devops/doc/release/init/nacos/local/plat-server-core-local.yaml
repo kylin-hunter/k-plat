@@ -1,6 +1,13 @@
 server:
   servlet:
     context-path: /core
+spring:
+  redis:
+    timeout: 30000
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
 logging:
   level:
     org.springframework.transaction: debug
