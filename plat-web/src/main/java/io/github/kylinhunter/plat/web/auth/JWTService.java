@@ -76,7 +76,7 @@ public class JWTService {
 
   public Token verify(String token) {
     try {
-      if (StringUtils.isBlank(token)) {
+      if (StringUtils.isBlank(token) || "null".equalsIgnoreCase(token)) {
         throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_NOT_FOUND);
       }
       JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();

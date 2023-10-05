@@ -19,18 +19,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
-import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,11 +45,15 @@ public class TokenServiceImp extends DefaultTokenService {
   private TenantMapper tenantMapper;
   private TenantUserService tenantUserService;
 
+  private UserContextHandler userContextHandler;
+
+
   public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService) {
+      TenantUserService tenantUserService, UserContextHandler userContextHandler) {
     super(jwtService);
     this.tenantMapper = tenantMapper;
     this.tenantUserService = tenantUserService;
+    this.userContextHandler = userContextHandler;
   }
 
   /**
@@ -137,17 +141,38 @@ public class TokenServiceImp extends DefaultTokenService {
 
       UserType userType = EnumUtils.fromCode(UserType.class, token.getUserType());
       if (userType == UserType.SUPER_ADMIN) {
-        TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
-        tenantUserReqCreate.setTenantId(tenantId);
-        tenantUserReqCreate.setUserId(token.getUserId());
-        tenantUserReqCreate.setStatus(0);
-        tenantUserReqCreate.setType(UserType.TENANT_ADMIN.getCode());
-        tenantUserService.save(tenantUserReqCreate);
-        log.info("create tenant admin tenantId={},user={}", tenant.getCode(), token.getUserCode());
-        token.setUserType(tenantUserReqCreate.getType());
+        TenantUserResp tenantUserResp = addTenantUser(token, tenant);
+        token.setUserType(tenantUserResp.getType());
       } else {
         throw new AuthException("user=" + token.getUserId() + " not in tenant=" + tenant.getId());
       }
     }
+  }
+
+  /**
+   * @param token  token
+   * @param tenant tenant
+   * @return io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp
+   * @title addTenantUser
+   * @description addTenantUser
+   * @author BiJi'an
+   * @date 2023-10-06 01:13
+   */
+  private TenantUserResp addTenantUser(Token token, Tenant tenant) {
+    try {
+      userContextHandler.create(token);
+      TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
+      tenantUserReqCreate.setTenantId(tenant.getId());
+      tenantUserReqCreate.setUserId(token.getUserId());
+      tenantUserReqCreate.setStatus(0);
+      tenantUserReqCreate.setType(UserType.TENANT_ADMIN.getCode());
+      TenantUserResp save = tenantUserService.save(tenantUserReqCreate);
+      log.info("create tenant admin tenantId={},user={}", tenant.getCode(), token.getUserCode());
+      return save;
+    } finally {
+      userContextHandler.remove();
+    }
+
+
   }
 }

@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.core.security;
 
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
@@ -17,14 +18,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @date 2023-10-01 00:27
  */
 @Configuration
-public class SecurityConfiguration  {
-
+public class SecurityConfiguration {
 
 
   @Bean
   public TokenService tokenService(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService) {
-    return new TokenServiceImp(tenantMapper, jwtService, tenantUserService);
+      TenantUserService tenantUserService, UserContextHandler userContextHandler) {
+    return new TokenServiceImp(tenantMapper, jwtService, tenantUserService, userContextHandler);
   }
 
   @Bean
