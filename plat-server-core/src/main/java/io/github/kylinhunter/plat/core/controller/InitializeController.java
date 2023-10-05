@@ -22,6 +22,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,6 +39,7 @@ public class InitializeController {
   private final SystemDataInitializer systemDataInitializer;
 
   @RequestMapping(value = "", method = RequestMethod.GET)
+  @ResponseBody
   public Response<Boolean> initialize() {
     return new DefaultResponse<>(systemDataInitializer.init(true));
   }

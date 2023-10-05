@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `kplat_role`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_role_code` (`code`) COMMENT '唯一的code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_user`
 (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `kplat_user`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_user_code` (`user_code`) COMMENT '唯一的user code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_sys_config`
 (
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `kplat_sys_config`
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_code` (`code`) COMMENT '唯一的code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_sys_user_config`
 (
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `kplat_sys_user_config`
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_code` (`user_id`,`code`) COMMENT '唯一的code'
-);
+    );
 
 
 CREATE TABLE IF NOT EXISTS `kplat_tenant`
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_code` (`code`) COMMENT '唯一的code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_tenant_user`
 (
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_user`
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_user` (`tenant_id`, `user_id`) COMMENT '唯一的code',
     KEY `idx_userId` (`user_id`) USING BTREE COMMENT 'userId'
-);
+    );
 
 
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_role`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_role_code` (`sys_tenant_id`, `code`) COMMENT '唯一的code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_tenant_catalog`
 (
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_catalog`
     `parent_id`             varchar(64)   NOT NULL DEFAULT '0' COMMENT 'parent_id',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_catalog_code` (`sys_tenant_id`, `type`, `code`) COMMENT '唯一的code'
-);
+    );
 CREATE TABLE IF NOT EXISTS `kplat_tenant_config`
 (
     `id`                    varchar(64)   NOT NULL COMMENT '主键',
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_config`
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_code` (`sys_tenant_id`,`code`) COMMENT '唯一的code'
-);
+    );
 
 CREATE TABLE IF NOT EXISTS `kplat_tenant_user_config`
 (
@@ -229,5 +229,5 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_user_config`
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_code` (`sys_tenant_id`,`user_id`,`code`) COMMENT '唯一的code'
-);
+    );
 

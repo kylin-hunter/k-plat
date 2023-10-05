@@ -8,6 +8,10 @@ dependencyManagement {
 dependencies {
 
     api project(':plat-data')
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.13'
+    implementation("org.flywaydb:flyway-mysql:8.5.13")
+
+
 
 
 }
