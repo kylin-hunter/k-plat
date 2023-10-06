@@ -1,6 +1,6 @@
 docker run \
  -p 3306:3306 --name mysql8 \
- -v /Users/bijian/software/mysql/docker/conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf \
+ -v /Users/bijian/software/mysql/docker/conf:/etc/mysql/conf.d \
  -v /Users/bijian/software/mysql/docker/log:/var/log/mysql \
  -v /Users/bijian/software/mysql/docker/data:/var/lib/mysql \
  -e MYSQL_ROOT_PASSWORD=root \
