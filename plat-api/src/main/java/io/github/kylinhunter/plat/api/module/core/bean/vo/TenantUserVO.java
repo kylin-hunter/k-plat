@@ -26,9 +26,6 @@ public interface TenantUserVO extends VO {
 
   void setUserId(String userId);
 
-  String getTenantId();
-
-  void setTenantId(String tenantId);
 
   Integer getStatus();
 

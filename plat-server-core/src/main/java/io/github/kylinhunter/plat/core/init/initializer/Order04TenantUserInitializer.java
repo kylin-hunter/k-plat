@@ -68,7 +68,6 @@ public class Order04TenantUserInitializer extends BasicInitializer {
     TenantUser tenantUser = tenantUserService.findByTenantAndUser(tenantId, userId);
     if (tenantUser == null) {
       TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
-      tenantUserReqCreate.setTenantId(tenantId);
       tenantUserReqCreate.setUserId(userId);
       tenantUserReqCreate.setStatus(0);
       tenantUserReqCreate.setType(userType.getCode());
@@ -77,9 +76,7 @@ public class Order04TenantUserInitializer extends BasicInitializer {
           "create tenant user tenant={},user={},type={}", tenant.getCode(), userCode, userType);
     } else {
       log.info(
-          "exist tenant user tenant={},user={},type={}",
-          tenant.getCode(),
-          userCode,
+          "exist tenant user tenant={},user={},type={}", tenant.getCode(), userCode,
           tenantUser.getType());
     }
   }

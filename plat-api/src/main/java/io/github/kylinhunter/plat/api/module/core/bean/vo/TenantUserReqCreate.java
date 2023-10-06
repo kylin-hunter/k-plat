@@ -40,9 +40,6 @@ public class TenantUserReqCreate extends ReqCreate implements TenantUserVO {
   @ApiModelProperty(value = "userId")
   private String userId;
 
-  @ApiModelProperty(value = "tenantId")
-  private String tenantId;
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

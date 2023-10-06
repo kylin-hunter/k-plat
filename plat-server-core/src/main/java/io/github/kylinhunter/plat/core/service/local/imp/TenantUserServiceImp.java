@@ -51,7 +51,7 @@ public class TenantUserServiceImp
 
     LambdaQueryWrapper<TenantUser> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(TenantUser::getSysDeleteFlag, false);
-    queryWrapper.eq(TenantUser::getTenantId, tenantId);
+    queryWrapper.eq(TenantUser::getSysTenantId, tenantId);
     queryWrapper.eq(TenantUser::getUserId, userId);
     return this.baseMapper.selectOne(queryWrapper);
   }

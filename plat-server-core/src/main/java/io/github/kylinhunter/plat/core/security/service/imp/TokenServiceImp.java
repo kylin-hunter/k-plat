@@ -161,8 +161,8 @@ public class TokenServiceImp extends DefaultTokenService {
   private TenantUserResp addTenantUser(Token token, Tenant tenant) {
     try {
       userContextHandler.create(token);
+
       TenantUserReqCreate tenantUserReqCreate = new TenantUserReqCreate();
-      tenantUserReqCreate.setTenantId(tenant.getId());
       tenantUserReqCreate.setUserId(token.getUserId());
       tenantUserReqCreate.setStatus(0);
       tenantUserReqCreate.setType(UserType.TENANT_ADMIN.getCode());
