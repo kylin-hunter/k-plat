@@ -1,9 +1,9 @@
 package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
-import io.github.kylinhunter.plat.core.dao.mapper.RolePermissionMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
+import io.github.kylinhunter.plat.core.dao.mapper.UserRoleMapper;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
@@ -29,8 +29,8 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public UserDetailsService userDetailsService(UserMapper userMapper,RolePermissionMapper rolePermissionMapper) {
-    return new UserDetailsServiceImp(userMapper, rolePermissionMapper);
+  public UserDetailsService userDetailsService(UserMapper userMapper, UserRoleMapper userRoleMapper) {
+    return new UserDetailsServiceImp(userMapper, userRoleMapper);
   }
 
 
