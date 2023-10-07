@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `kplat_role`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_role_code` (`code`) COMMENT '唯一的code'
-    );
+);
 
 CREATE TABLE IF NOT EXISTS `kplat_permission`
 (
@@ -36,12 +36,33 @@ CREATE TABLE IF NOT EXISTS `kplat_permission`
     `sys_update_time`       datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后编辑时间',
     `sys_delete_flag`       tinyint      NOT NULL DEFAULT 0 COMMENT '0 未删除 1删除',
     `sys_op_lock`           int          NULL COMMENT '乐观锁',
-    `type`                  tinyint      NOT NULL DEFAULT 0 COMMENT '类型 0 ',
-    `code`                  varchar(255) NOT NULL COMMENT 'content-type',
-    `name`                  varchar(255) NOT NULL DEFAULT '' COMMENT '文件名',
+    `code`                  varchar(255) NOT NULL COMMENT '权限代码',
+    `name`                  varchar(255) NOT NULL DEFAULT '' COMMENT '权限名字',
+    `type`                  tinyint      NOT NULL DEFAULT 0 COMMENT '类型 0自建  1 系统自带 ',
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     KEY `idx_code` (`code`) COMMENT 'code'
+
+);
+
+
+CREATE TABLE IF NOT EXISTS `kplat_role_permission`
+(
+    `id`                    varchar(64) NOT NULL COMMENT '主键',
+    `sys_tenant_id`         varchar(64) NOT NULL DEFAULT '' COMMENT '租户ID',
+    `sys_auto_updated`      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '系统更新时间',
+    `sys_created_user_id`   varchar(64) NOT NULL default 0 COMMENT '创建人userid',
+    `sys_created_user_name` varchar(64) NOT NULL default '' COMMENT '创建人username',
+    `sys_created_time`      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `sys_update_user_id`    varchar(64) NOT NULL default 0 COMMENT '最后编辑人userid',
+    `sys_update_user_name`  varchar(64) NOT NULL default '' COMMENT '最后编辑人username',
+    `sys_update_time`       datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后编辑时间',
+    `sys_delete_flag`       tinyint     NOT NULL DEFAULT 0 COMMENT '0 未删除 1删除',
+    `sys_op_lock`           int         NULL COMMENT '乐观锁',
+    `role_id`               varchar(64) NOT NULL COMMENT '角色id',
+    `permission_id`         varchar(64) NOT NULL DEFAULT '' COMMENT 'permission id',
+    PRIMARY KEY (`id`),
+    KEY `idx_role_permission` (`role_id`, `permission_id`) COMMENT '角色权限唯一'
 
 );
 
@@ -67,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `kplat_user`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_user_code` (`user_code`) COMMENT '唯一的user code'
-    );
+);
 
 CREATE TABLE IF NOT EXISTS `kplat_sys_config`
 (
@@ -89,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `kplat_sys_config`
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_code` (`code`) COMMENT '唯一的code'
-    );
+);
 
 CREATE TABLE IF NOT EXISTS `kplat_sys_user_config`
 (
@@ -111,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `kplat_sys_user_config`
     `code`                  varchar(64)   NOT NULL DEFAULT '' COMMENT '配置编码',
     `value`                 varchar(4096) NOT NULL DEFAULT '' COMMENT '配置项的值',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `uniq_code` (`user_id`,`code`) COMMENT '唯一的code'
-    );
+    UNIQUE KEY `uniq_code` (`user_id`, `code`) COMMENT '唯一的code'
+);
 
 
 CREATE TABLE IF NOT EXISTS `kplat_tenant`
@@ -135,6 +156,6 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant`
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_code` (`code`) COMMENT '唯一的code'
-    );
+);
 
 

@@ -58,26 +58,22 @@ public abstract class DefaultMybatisPlusGenerator {
     }
 
     private void compile(MyPlusGeneratorConfig config) {
-        try {
-            KplatCompiler kplatCompiler = new KplatCompiler();
+        KplatCompiler kplatCompiler = new KplatCompiler();
 
-            File output = config.getOutput();
+        File output = config.getOutput();
 
-            Collection<File> javaFiles = FileUtils.listFiles(output, new String[] {"java"}, true);
+        Collection<File> javaFiles = FileUtils.listFiles(output, new String[] {"java"}, true);
 
-            javaFiles.forEach(e -> {
-                log.info("compile file:" + e.getAbsolutePath()
-                );
-            });
+        javaFiles.forEach(e -> {
+            log.info("compile file:" + e.getAbsolutePath()
+            );
+        });
 
-            kplatCompiler.addSources(javaFiles);
-            File compileOutput = UserDirUtils.getTmpDir(config.getModule().getName());
-            kplatCompiler.setOutput(compileOutput);
-            kplatCompiler.compile();
+        kplatCompiler.addSources(javaFiles);
+        File compileOutput = UserDirUtils.getTmpDir(config.getModule().getName());
+        kplatCompiler.setOutput(compileOutput);
+        kplatCompiler.compile();
 
-            ExClassLoaderUtil.addClassPath(UserDirUtils.getTmpDir().toPath());
-        } catch (IOException e) {
-            throw new SystemException("output error", e);
-        }
+        ExClassLoaderUtil.addClassPath(UserDirUtils.getTmpDir().toPath());
     }
 }

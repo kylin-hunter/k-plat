@@ -1,6 +1,8 @@
 package io.github.kylinhunter.plat.generator.auto;
 
+import io.github.kylinhunter.plat.generator.auto.kplat.core.KPlatCodeGenneratorForPermission;
 import io.github.kylinhunter.plat.generator.auto.kplat.core.KPlatCodeGenneratorForTenantUser;
+import io.github.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForPermission;
 import io.github.kylinhunter.plat.generator.auto.mybatis.core.MybatisPlusGeneratorForTenantUser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CodeGenerateForTenantUser {
 
     public static void main(String[] args) {
-        new MybatisPlusGeneratorForTenantUser().exec();
-        new KPlatCodeGenneratorForTenantUser().exec(false);
+        new MybatisPlusGeneratorForPermission().exec();
+        new KPlatCodeGenneratorForPermission().exec(false);
 
     }
 
