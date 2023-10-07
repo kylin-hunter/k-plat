@@ -23,7 +23,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.stereotype.Component;
 
 /**
  * @description: 主要配置
@@ -35,20 +34,21 @@ import org.springframework.stereotype.Component;
 @ToString
 @RefreshScope
 public class AppConfig {
+
   @Value("${spring.application.name}")
   private String appName;
 
   @Value("${server.port}")
   private String serverPort;
 
-  @Value("${kplat.devVersion:1.0}")
+  @Value("${kplat.devVersion:1.0.1}")
   private String devVersion;
 
   @Value("${kplat.productVersion:1.0}")
   private String productVersion;
 
-  @Value("${kplat.threshold:0}")
-  private int watchThreshold;
+  @Value("${kplat.logwatch.threshold:0}")
+  private int logWatchThreshold;
 
   @Value("${kplat.initialize.enabled:false}")
   private boolean initialize;

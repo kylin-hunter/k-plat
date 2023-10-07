@@ -23,7 +23,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
 /**
  * log time cost
@@ -56,7 +55,7 @@ public class TimeCostAspect {
     long startTime = System.currentTimeMillis();
     Object obj = pjp.proceed();
     long cost = System.currentTimeMillis() - startTime;
-    if (cost > appConfig.getWatchThreshold()) {
+    if (cost > appConfig.getLogWatchThreshold()) {
       log.info("process {}.{} with cost:{}ms", className, methodName, cost);
     }
     traceHandler.get().getTraceExplain().addTimeCost(timerKey, cost);
