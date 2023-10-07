@@ -7,6 +7,8 @@ import ${import_vo_update};
 import ${import_vo_response};
 import ${import_vo};
 
+import io.github.kylinhunter.plat.api.service.local.CommonService;
+
 /**
  * <p>
  * $!{class_comment} 代码工具自动生成，按需扩展

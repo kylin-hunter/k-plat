@@ -2,6 +2,7 @@ package ${package};
 #foreach($pkg in ${imports_for_vo})
 import ${pkg};
 #end
+import io.github.kylinhunter.plat.api.bean.vo.VO;
 public interface  ${class_name}  extends VO {
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${entity_fields})
