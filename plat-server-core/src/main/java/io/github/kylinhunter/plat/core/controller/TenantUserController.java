@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-06-15
  */
 @RestController
-@RequestMapping("/api/v1/core/tenant_user")
+@RequestMapping("/api/v1/core/tenant_users")
 @Api(value = "TenantUser相关接口")
 @RequiredArgsConstructor
 public class TenantUserController
