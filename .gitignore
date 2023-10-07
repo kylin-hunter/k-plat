@@ -39,3 +39,4 @@ tmp/
 .DS_Store
 Thumbs.db
 
+/plat-generator/src_gen/
