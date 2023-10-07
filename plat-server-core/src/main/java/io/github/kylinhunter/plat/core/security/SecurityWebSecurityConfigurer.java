@@ -25,7 +25,6 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers("/initialize",
-        "/auth/create_tenant_token",
         "/auth/verify_token",
         "/health",
         "/echo/**",
