@@ -5,11 +5,16 @@ import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author BiJi'an
@@ -33,31 +38,46 @@ public class TokenUserDetails implements UserDetails {
   private Token token;
   private User user;
 
-  public TokenUserDetails(User user) {
-    this(user, null);
+  Collection<? extends GrantedAuthority> authorities;
+
+  public TokenUserDetails(User user,Set<String> pemCodes) {
+    this(user, null,pemCodes);
   }
 
-  public TokenUserDetails(User user, String tenantId) {
+
+  public TokenUserDetails(User user, String tenantId,Set<String> pemCodes) {
     this.username = user.getUserCode();
     this.password = user.getPassword();
     this.id = user.getId();
     this.type = user.getType();
     this.tenantId = StringUtil.defaultString(tenantId);
     this.user = user;
+    if (!CollectionUtils.isEmpty(pemCodes)) {
+      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
+          .collect(Collectors.toList());
+    }else {
+      authorities= Collections.EMPTY_LIST;
+    }
   }
 
-  public TokenUserDetails(Token token) {
+  public TokenUserDetails(Token token, Set<String> pemCodes) {
     this.username = token.getUserCode();
     this.password = "";
     this.id = token.getUserId();
     this.type = token.getUserType();
     this.tenantId = token.getTenantId();
     this.token = token;
+    if (!CollectionUtils.isEmpty(pemCodes)) {
+      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
+          .collect(Collectors.toList());
+    }else {
+      authorities= Collections.EMPTY_LIST;
+    }
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("list"));
+    return authorities;
   }
 
 

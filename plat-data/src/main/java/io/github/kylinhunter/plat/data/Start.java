@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description
  * @date 2022-01-01 00:13
  */
-@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat"},
+@SpringBootApplication(scanBasePackages = {"io.github.kylinhunter.plat.data"},
     exclude={RedissonAutoConfiguration.class})
 @MapperScan("io.github.kylinhunter.plat.data")
 public class Start {

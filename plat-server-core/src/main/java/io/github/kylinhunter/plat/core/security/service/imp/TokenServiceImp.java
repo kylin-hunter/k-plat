@@ -27,10 +27,13 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
+import io.github.kylinhunter.plat.data.redis.RedisKeys;
+import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -47,13 +50,16 @@ public class TokenServiceImp extends DefaultTokenService {
 
   private UserContextHandler userContextHandler;
 
+  private RedisService redisService;
+
 
   public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService, UserContextHandler userContextHandler) {
+      TenantUserService tenantUserService, UserContextHandler userContextHandler,RedisService redisService) {
     super(jwtService);
     this.tenantMapper = tenantMapper;
     this.tenantUserService = tenantUserService;
     this.userContextHandler = userContextHandler;
+    this.redisService = redisService;
   }
 
   /**
@@ -108,7 +114,9 @@ public class TokenServiceImp extends DefaultTokenService {
    */
   public TokenUserDetails verify(String token) {
     Token verifyToken = jwtService.verify(token);
-    return new TokenUserDetails(verifyToken);
+    Set<String> pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getUserId()));
+
+    return new TokenUserDetails(verifyToken, pemCodes);
   }
 
 

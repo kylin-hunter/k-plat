@@ -33,7 +33,7 @@ public class AutoSecurityConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean(TokenService.class)
+  @ConditionalOnMissingBean(UserDetailsService.class)
   public UserDetailsService userDetailsService() {
     return new DefaultUserDetailsService();
   }

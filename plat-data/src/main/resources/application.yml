@@ -5,7 +5,7 @@ spring:
     active: local
 server:
   port: 8004
-plat:
+kplat:
   data:
     redis:
       name-space: "com.kplat::"

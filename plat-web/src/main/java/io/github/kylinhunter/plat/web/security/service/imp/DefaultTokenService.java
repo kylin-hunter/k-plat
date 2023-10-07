@@ -19,6 +19,7 @@ import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -68,7 +69,7 @@ public class DefaultTokenService implements TokenService {
    */
   public TokenUserDetails verify(String token) {
     Token verifyToken = jwtService.verify(token);
-    return new TokenUserDetails(verifyToken);
+    return new TokenUserDetails(verifyToken, null);
   }
 
 }

@@ -54,18 +54,18 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @Slf4j
-@ConditionalOnProperty(prefix = "plat", value = "data.redis.enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "plat", value = "data.redis.enabled", havingValue = "true" ,matchIfMissing = true)
 public class RedisTemplateConfiguration {
 
   @Resource private RedisConnectionFactory redisConnectionFactory;
 
   @Bean
   @Primary
-  public RedisTemplate<String, Serializable> redisTemplate() {
+  public RedisTemplate<String, Object> redisTemplate() {
     final GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer =
         new GenericJackson2JsonRedisSerializer(createObjectMapper());
 
-    RedisTemplate<String, Serializable> template = new RedisTemplate<>();
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
     template.setKeySerializer(new StringRedisSerializer());
     template.setValueSerializer(genericJackson2JsonRedisSerializer);
     template.setHashKeySerializer(new StringRedisSerializer());
@@ -77,13 +77,13 @@ public class RedisTemplateConfiguration {
 
   @Bean
   @Primary
-  public RedisService redisService(@Autowired RedisTemplate<String, Serializable> redisTemplate) {
+  public RedisService redisService(@Autowired RedisTemplate<String, Object> redisTemplate) {
     return new RedisService(redisTemplate);
   }
 
   @Bean("redisTemplateJDK")
-  public RedisTemplate<String, Serializable> redisTemplateJDK() {
-    RedisTemplate<String, Serializable> template = new RedisTemplate<>();
+  public RedisTemplate<String, Object> redisTemplateJDK() {
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
     template.setKeySerializer(new StringRedisSerializer());
     template.setHashKeySerializer(new StringRedisSerializer());
     template.setConnectionFactory(redisConnectionFactory);
@@ -92,7 +92,7 @@ public class RedisTemplateConfiguration {
 
   @Bean("redisServiceJDK")
   public RedisService redisServiceJDK(
-      @Autowired @Qualifier("redisTemplateJDK") RedisTemplate<String, Serializable> redisTemplate) {
+      @Autowired @Qualifier("redisTemplateJDK") RedisTemplate<String, Object> redisTemplate) {
     return new RedisService(redisTemplate);
   }
 

@@ -19,6 +19,7 @@ import io.github.kylinhunter.commons.util.ObjectValues;
 import io.github.kylinhunter.plat.data.redis.RedisKey;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +28,13 @@ import org.springframework.data.redis.core.script.RedisScript;
 
 public class RedisService {
 
-  protected RedisTemplate<String, Serializable> redisTemplate;
+  protected RedisTemplate<String, Object> redisTemplate;
 
 
-  @Value("${plat.data.redis.name-space}")
-  private String namespace ;
+  @Value("${kplat.data.redis.name-space:kplat}")
+  private String namespace;
 
-  public RedisService(RedisTemplate<String, Serializable> redisTemplate) {
+  public RedisService(RedisTemplate<String, Object> redisTemplate) {
     super();
     this.redisTemplate = redisTemplate;
   }
@@ -65,6 +66,11 @@ public class RedisService {
     redisTemplate.opsForValue().set(key, value);
   }
 
+  public void set(String key, Set<?> values) {
+
+    redisTemplate.opsForValue().set(key, values);
+  }
+
   public void set(String key, Serializable value, long expireSecond) {
     redisTemplate.opsForValue().set(key, value, expireSecond, TimeUnit.SECONDS);
   }
@@ -87,7 +93,7 @@ public class RedisService {
    * @param key
    */
   @SuppressWarnings("unchecked")
-  public <T extends Serializable> T get(String key) {
+  public <T> T get(String key) {
     return (T) redisTemplate.opsForValue().get(key);
   }
 

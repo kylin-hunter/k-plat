@@ -23,6 +23,6 @@ public class DefaultUserDetailsService implements UserDetailsService {
     wrapper.eq(User::getUserName, username);
     User user = new User();
     user.setUserCode(username);
-    return new TokenUserDetails(user);
+    return new TokenUserDetails(user, null);
   }
 }

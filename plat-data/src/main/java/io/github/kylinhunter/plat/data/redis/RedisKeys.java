@@ -22,9 +22,6 @@ package io.github.kylinhunter.plat.data.redis;
  */
 public class RedisKeys {
 
-  public static RedisKey AGENT_SEARCH_KEYWORD = new RedisKey("search.keyword::");
+  public static RedisKey USER_PERMS = new RedisKey("user-perms::");
 
-  public static RedisKey AGENT_SEARCH_KEYWORD_TMP = new RedisKey("search.keyword_tmp");
-
-  public static RedisKey LICENSE_FLOW_CONTROLLER = new RedisKey("flow.controller::");
 }
