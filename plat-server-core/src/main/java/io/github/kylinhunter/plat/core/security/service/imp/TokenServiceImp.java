@@ -36,6 +36,7 @@ import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @author BiJi'an
@@ -52,6 +53,8 @@ public class TokenServiceImp extends DefaultTokenService {
 
   private RedisService redisService;
 
+  @Value("${kplat.token_expire_time:1800}")
+  private long tokenExpireTime;
 
   public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
       TenantUserService tenantUserService, UserContextHandler userContextHandler,RedisService redisService) {
@@ -78,6 +81,7 @@ public class TokenServiceImp extends DefaultTokenService {
     token.setUserCode(tokenUserDetails.getUsername());
     token.setUserName(tokenUserDetails.getUsername());
     token.setTenantId(tokenUserDetails.getTenantId());
+    token.setEffectiveTime(tokenExpireTime);
     checkTenant(token);
 
     String tokenStr = jwtService.create(token);

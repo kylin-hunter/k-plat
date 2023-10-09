@@ -28,8 +28,8 @@ import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
@@ -44,20 +44,31 @@ public class JWTService {
   private static final String USER_CODE = "userCode";
   private static final String USER_NAME = "userName";
   private static final String USER_TYPE = "userType";
+
+  private static final String EFFECTIVE_TIME = "effectiveTime";
+
   private static final String SECRET = "kplat";
+
+  private static final long MAX_EFFECTIVE_TIME = TimeUnit.DAYS.toSeconds(1);
+  private static final long DEFAULT_EFFECTIVE_TIME = TimeUnit.SECONDS.toSeconds(30);
 
   public String create(Token tokenInfo) {
     try {
       LocalDateTime now = LocalDateTime.now();
-      LocalDateTime maxExpireTime = now.plus(1, ChronoUnit.DAYS);
-      LocalDateTime requireExpireTime = tokenInfo.getExpireDate();
-      if (requireExpireTime == null) {
-        tokenInfo.setExpireDate(maxExpireTime);
+
+      long effectiveTime = tokenInfo.getEffectiveTime();
+      LocalDateTime expireTime;
+      if (effectiveTime <= 0) {
+        tokenInfo.setEffectiveTime(DEFAULT_EFFECTIVE_TIME);
+        expireTime = now.plus(DEFAULT_EFFECTIVE_TIME, ChronoUnit.SECONDS);
+      } else if (effectiveTime <= MAX_EFFECTIVE_TIME) {
+        expireTime = now.plus(effectiveTime, ChronoUnit.SECONDS);
       } else {
-        if (requireExpireTime.isAfter(maxExpireTime)) {
-          tokenInfo.setExpireDate(maxExpireTime);
-        }
+        tokenInfo.setEffectiveTime(MAX_EFFECTIVE_TIME);
+        expireTime = now.plus(MAX_EFFECTIVE_TIME, ChronoUnit.SECONDS);
       }
+      tokenInfo.setExpireTime(expireTime);
+
       return JWT.create()
           //                .withHeader(map) // 添加头部
           .withClaim(TENANT_ID, tokenInfo.getTenantId()) // 添加payload
@@ -65,7 +76,8 @@ public class JWTService {
           .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
           .withClaim(USER_NAME, tokenInfo.getUserName())
           .withClaim(USER_TYPE, tokenInfo.getUserType())
-          .withExpiresAt(DateUtils.toDate(tokenInfo.getExpireDate())) // 设置过期时间
+          .withClaim(EFFECTIVE_TIME, tokenInfo.getEffectiveTime())
+          .withExpiresAt(DateUtils.toDate(tokenInfo.getExpireTime())) // 设置过期时间
           .sign(Algorithm.HMAC256(SECRET));
     } catch (AuthException e) {
       throw e;
@@ -86,9 +98,11 @@ public class JWTService {
       String userCode = decodedJWT.getClaim(USER_CODE).asString();
       String userName = decodedJWT.getClaim(USER_NAME).asString();
       int userType = decodedJWT.getClaim(USER_TYPE).asInt();
+      long effectiveTime = decodedJWT.getClaim(EFFECTIVE_TIME).asLong();
       Date date = decodedJWT.getExpiresAt();
       return new Token(
-          tenantId, userId, userCode, userName, userType, DateUtils.toLocalDateTime(date));
+          tenantId, userId, userCode, userName, userType, effectiveTime,
+          DateUtils.toLocalDateTime(date));
     } catch (AuthException e) {
       throw e;
     } catch (TokenExpiredException e) {

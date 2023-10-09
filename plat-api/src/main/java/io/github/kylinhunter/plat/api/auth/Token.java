@@ -32,21 +32,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Token {
-  @ApiModelProperty(value = "tenantId", hidden = true)
+
   private String tenantId = "";
-
-  @ApiModelProperty(value = "userId", hidden = true)
   private String userId = "";
-
-  @ApiModelProperty(value = "userCode", hidden = true)
   private String userCode = "";
-
-  @ApiModelProperty(value = "userName", hidden = true)
   private String userName = "";
-
-  @ApiModelProperty(value = "userType")
   private int userType;
-
-  @ApiModelProperty(value = "expireDate", hidden = true)
-  private LocalDateTime expireDate;
+  private long effectiveTime;
+  private LocalDateTime expireTime;
 }
