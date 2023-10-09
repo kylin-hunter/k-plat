@@ -1,4 +1,1 @@
-1、jwt和userdetai的超时统一设置
-
-
-3、权限里面的 admin逻辑处理
+1、权限里面的 admin逻辑处理已经加了，tenent权限还没加

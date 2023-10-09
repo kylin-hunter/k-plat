@@ -27,10 +27,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UserType implements EnumUtils.EnumCode {
-  USER(0, "USER"),
-  SUPER_ADMIN(1, "SUPER_ADMIN"),
-  TENANT_USER(2, "TENANT_USER"),
-  TENANT_ADMIN(3, "TENANT_ADMIN");
+  USER(0, "user"),
+  SUPER_ADMIN(1, "superAdmin"),
+  TENANT_USER(2, "tenantUser"),
+  TENANT_ADMIN(3, "tenantAdmin");
   private final int code;
   private final String name;
 

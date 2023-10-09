@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.core.security;
 
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.web.security.DefaultSecurityWebSecurityConfigurer;
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
@@ -58,14 +59,19 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "users");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "roles");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "permissions");
-    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "role_permissions");
+    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry,
+        "role_permissions");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "sys_configs");
-    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "sys_user_configs");
-    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenant_catalogs");
-    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenant_configs");
+    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry,
+        "sys_user_configs");
+    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry,
+        "tenant_catalogs");
+    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry,
+        "tenant_configs");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenants");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenant_roles");
-    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenant_user_configs");
+    expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry,
+        "tenant_user_configs");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "tenant_users");
     expressionInterceptUrlRegistry = addPermission(expressionInterceptUrlRegistry, "user_roles");
     return expressionInterceptUrlRegistry;
@@ -79,32 +85,39 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
     expressionInterceptUrlRegistry = expressionInterceptUrlRegistry
 
         .antMatchers(HttpMethod.POST, baseUrl)
-        .hasAuthority(module + "::create")
+        .hasAnyAuthority(module + "::create", UserType.SUPER_ADMIN.getName())
 
         .antMatchers(HttpMethod.PUT, baseUrl + "/*")
-        .hasAuthority(module + "::update")
+        .hasAnyAuthority(module + "::update", UserType.SUPER_ADMIN.getName())
 
         .antMatchers(HttpMethod.DELETE, baseUrl + "/*")
-        .hasAuthority(module + "::delete")
+        .hasAnyAuthority(module + "::delete", UserType.SUPER_ADMIN.getName())
 
         .antMatchers(HttpMethod.DELETE, baseUrl + "/batch")
-        .hasAuthority(module + "::batch_delete")
+        .hasAnyAuthority(module + "::batch_delete", UserType.SUPER_ADMIN.getName())
 
         .antMatchers(HttpMethod.GET, baseUrl + "/*")
-        .hasAuthority(module + "::get")
+        .hasAnyAuthority(module + "::get", UserType.SUPER_ADMIN.getName())
 
         .antMatchers(HttpMethod.GET, baseUrl + "/batch")
-        .hasAuthority(module + "::batch_get")
+        .hasAnyAuthority(module + "::batch_get", UserType.SUPER_ADMIN.getName())
         .antMatchers(HttpMethod.GET, baseUrl)
-        .hasAuthority(module + "::list");
+        .hasAnyAuthority(module + "::list", UserType.SUPER_ADMIN.getName());
     if (log.isInfoEnabled()) {
-      log.info("add permission {}={}={}", "POST", baseUrl, module + "::create");
-      log.info("add permission {}={}={}", "PUT", baseUrl + "/*", module + "::update");
-      log.info("add permission {}={}={}", "DELETE", baseUrl + "/*", module + "::delete");
-      log.info("add permission {}={}={}", "DELETE", baseUrl + "/batch", module + "::batch_delete");
-      log.info("add permission {}={}={}", "GET", baseUrl + "/*", module + "::get");
-      log.info("add permission {}={}={}", "GET", baseUrl + "/batch", module + "::batch_get");
-      log.info("add permission {}={}={}", "GET", baseUrl, module + "::list");
+      log.info("add permission {}={}={}", "POST", baseUrl,
+          module + "::create" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "PUT", baseUrl + "/*",
+          module + "::update" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "DELETE", baseUrl + "/*",
+          module + "::delete" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "DELETE", baseUrl + "/batch",
+          module + "::batch_delete" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "GET", baseUrl + "/*",
+          module + "::get" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "GET", baseUrl + "/batch",
+          module + "::batch_get" + "/" + UserType.SUPER_ADMIN.getName());
+      log.info("add permission {}={}={}", "GET", baseUrl,
+          module + "::list" + "/" + UserType.SUPER_ADMIN.getName());
 
     }
     return expressionInterceptUrlRegistry;

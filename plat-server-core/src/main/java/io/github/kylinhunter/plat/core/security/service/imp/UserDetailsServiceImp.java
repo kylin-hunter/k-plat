@@ -1,9 +1,12 @@
 package io.github.kylinhunter.plat.core.security.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.collect.Sets;
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.UserRole;
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.RolePermissionMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserRoleMapper;
@@ -44,13 +47,16 @@ public class UserDetailsServiceImp implements UserDetailsService {
     if (Objects.isNull(user)) {
       throw new RuntimeException("username or password error");
     }
+    Set<String> pemCodes = Sets.newHashSet();
     List<Permission> permissions = userRoleMapper.getPermissionsByUserId(user.getId());
     if (!CollectionUtils.isEmpty(permissions)) {
-      Set<String> pemCodes =  permissions.stream().map(p -> p.getCode()).collect(Collectors.toSet());
-      redisService.set(RedisKeys.USER_PERMS.key(user.getId()), pemCodes);
-      new TokenUserDetails(user,pemCodes);
+      pemCodes = permissions.stream().map(p -> p.getCode()).collect(Collectors.toSet());
     }
-    return new TokenUserDetails(user,null);
+    UserType userType = EnumUtils.fromCode(UserType.class, user.getType());
+    pemCodes.add(userType.getName());
+    redisService.set(RedisKeys.USER_PERMS.key(user.getId()), pemCodes);
+
+    return new TokenUserDetails(user, null);
 
 
   }
