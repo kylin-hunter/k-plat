@@ -17,19 +17,19 @@ package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
 import io.github.kylinhunter.plat.data.redis.RedisKey;
-import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.RedisScript;
 
 public class RedisService {
 
   protected RedisTemplate<String, Object> redisTemplate;
-
 
   @Value("${kplat.data.redis.name-space:kplat}")
   private String namespace;
@@ -44,63 +44,136 @@ public class RedisService {
     RedisKey.setNamespace(namespace);
   }
 
+
   /**
-   * 设置 String 类型 key-value
-   *
-   * @param key
-   * @param value
+   * @param key key
+   * @return java.lang.Boolean
+   * @title delete
+   * @description delete
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
    */
-  public void set(String key, Long value) {
+  public Boolean delete(String key) {
+    return redisTemplate.delete(key);
+  }
+
+  /**
+   * @param key key
+   * @return java.lang.Boolean
+   * @title hasKey
+   * @description hasKey
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
+  public Boolean hasKey(String key) {
+    return redisTemplate.hasKey(key);
+  }
+
+
+  /**
+   * @return org.springframework.data.redis.core.ValueOperations<java.lang.String, java.lang.Object>
+   * @title opsForValue
+   * @description opsForValue
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
+  public ValueOperations<String, Object> opsForValue() {
+    return redisTemplate.opsForValue();
+  }
+
+  /**
+   * @param key   key
+   * @param value value
+   * @return void
+   * @title set
+   * @description set
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
+  public void set(String key, Object value) {
 
     redisTemplate.opsForValue().set(key, value);
   }
 
   /**
-   * 设置 String 类型 key-value
-   *
-   * @param key
-   * @param value
+   * @param key          key
+   * @param values       values
+   * @param expireSecond expireSecond
+   * @return void
+   * @title set
+   * @description set
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
    */
-  public void set(String key, Serializable value) {
+  public void set(String key, Object values, long expireSecond) {
 
-    redisTemplate.opsForValue().set(key, value);
+    redisTemplate.opsForValue().set(key, values, expireSecond, TimeUnit.SECONDS);
   }
 
-  public void set(String key, Set<?> values) {
+  /**
+   * @param key     key
+   * @param value   value
+   * @param timeout timeout
+   * @param unit    unit
+   * @return void
+   * @title set
+   * @description set
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
 
-    redisTemplate.opsForValue().set(key, values);
-  }
-
-  public void set(String key, Serializable value, long expireSecond) {
-    redisTemplate.opsForValue().set(key, value, expireSecond, TimeUnit.SECONDS);
-  }
-
-  public void set(String key, Serializable value, long timeout, TimeUnit unit) {
+  public void set(String key, Object value, long timeout, TimeUnit unit) {
     redisTemplate.opsForValue().set(key, value, timeout, unit);
   }
 
+  /**
+   * @param key   key
+   * @param value value
+   * @return java.lang.Long
+   * @title increment
+   * @description increment
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
   public Long increment(String key, long value) {
     return this.increment(key, Long.valueOf(value));
   }
 
+  /**
+   * @param key   key
+   * @param value value
+   * @return java.lang.Long
+   * @title increment
+   * @description increment
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
+   */
   public Long increment(String key, Long value) {
     return redisTemplate.opsForValue().increment(key, value);
   }
 
   /**
-   * 获取 String 值
-   *
-   * @param key
+   * @param key key
+   * @return T
+   * @title get
+   * @description get
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
    */
+
   @SuppressWarnings("unchecked")
   public <T> T get(String key) {
     return (T) redisTemplate.opsForValue().get(key);
   }
 
   /**
-   * 获取 String 值
-   *
-   * @param key
+   * @param key          key
+   * @param defaultValue defaultValue
+   * @return java.lang.Long
+   * @title getLong
+   * @description getLong
+   * @author BiJi'an
+   * @date 2023-10-09 22:52
    */
   @SuppressWarnings("unchecked")
   public Long getLong(String key, Long defaultValue) {
@@ -108,43 +181,144 @@ public class RedisService {
   }
 
   /**
-   * 获取 String 值
-   *
-   * @param key
+   * @return org.springframework.data.redis.core.SetOperations<java.lang.String, java.lang.Object>
+   * @title opsForSet
+   * @description opsForSet
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
    */
-  public void delete(String key) {
-    redisTemplate.delete(key);
+  public SetOperations<String, Object> opsForSet() {
+    return redisTemplate.opsForSet();
   }
 
-  public Boolean hasKey(String key) {
-    return redisTemplate.hasKey(key);
-  }
+  /**
+   * @param key   key
+   * @param value value
+   * @return void
+   * @title forSetAdd
+   * @description forSetAdd
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
 
-  public void opSetAdd(String key, Serializable value) {
+  public void forSetAdd(String key, Object value) {
     redisTemplate.opsForSet().add(key, value);
   }
 
-  public <T extends Serializable> T opSetPop(String key) {
+  /**
+   * @param key key
+   * @return T
+   * @title forSetPop
+   * @description forSetPop
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+
+  public <T> T forSetPop(String key) {
     return (T) redisTemplate.opsForSet().pop(key);
   }
 
-  public Serializable opSetSize(String key) {
+
+  /**
+   * @param key key
+   * @return java.lang.Long
+   * @title forSetSize
+   * @description forSetSize
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public Long forSetSize(String key) {
     return redisTemplate.opsForSet().size(key);
   }
 
-  public void opZSetAdd(String key, String member, double value) {
+  /**
+   * @return org.springframework.data.redis.core.ZSetOperations<java.lang.String, java.lang.Object>
+   * @title opsForZSet
+   * @description opsForZSet
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public ZSetOperations<String, Object> opsForZSet() {
+    return redisTemplate.opsForZSet();
+  }
+
+  /**
+   * @param key    key
+   * @param member member
+   * @param value  value
+   * @return void
+   * @title forZSetAdd
+   * @description forZSetAdd
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public void forZSetAdd(String key, String member, double value) {
     redisTemplate.opsForZSet().add(key, member, value);
   }
 
-  public void opZSetIncrementScore(String key, String member, double value) {
+  /**
+   * @param key    key
+   * @param member member
+   * @param value  value
+   * @return void
+   * @title forZSetIncrementScore
+   * @description forZSetIncrementScore
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public void forZSetIncrementScore(String key, String member, double value) {
     redisTemplate.opsForZSet().incrementScore(key, member, value);
   }
 
-  public Double opZSetGetScore(String key, String member) {
+  /**
+   * @param key key
+   * @return java.lang.Long
+   * @title forZSetSize
+   * @description forZSetSize
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public Long forZSetSize(String key) {
+    return redisTemplate.opsForZSet().size(key);
+  }
+/**
+ * @title forSetRemove
+ * @description forSetRemove
+ * @author BiJi'an
+ * @param key key
+ * @param values values
+ * @date 2023-10-09 22:58
+ * @return T
+ */
+  public <T> T forZSetRemove(String key,Object... values) {
+    return (T) redisTemplate.opsForZSet().remove(key, values);
+  }
+
+  /**
+   * @param key    key
+   * @param member member
+   * @return java.lang.Double
+   * @title forZSetScore
+   * @description forZSetScore
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+  public Double forZSetScore(String key, String member) {
     return redisTemplate.opsForZSet().score(key, member);
   }
 
-  public <T> T executeLuaScript(RedisScript<T> redisScript, List<String> keys, Object... args) {
+  /**
+   * @param redisScript redisScript
+   * @param keys        keys
+   * @param args        args
+   * @return T
+   * @title executeLuaScript
+   * @description executeLuaScript
+   * @author BiJi'an
+   * @date 2023-10-09 22:53
+   */
+
+  public <T> T execute(RedisScript<T> redisScript, List<String> keys, Object... args) {
     return redisTemplate.execute(redisScript, keys, args);
   }
 }
