@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.context;
 
+import io.github.kylinhunter.plat.api.auth.Token;
 import java.util.List;
 
 public interface UserContext {
@@ -23,15 +24,14 @@ public interface UserContext {
 
   String getUserId();
 
+  Token getToken();
+
   String getUserCode();
 
   String getUserName();
 
   int getUserType();
 
-  List<String> getRoleIds();
-
-  List<String> getRoleCodes();
 
   void setTenantId(final String tenantId);
 
@@ -43,9 +43,6 @@ public interface UserContext {
 
   void setUserType(final int type);
 
-  void setRoleIds(final List<String> roleIds);
-
-  void setRoleCodes(final List<String> roleCodes);
 
   boolean isDummy();
 

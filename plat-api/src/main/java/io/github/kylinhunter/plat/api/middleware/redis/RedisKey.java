@@ -13,15 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.redis;
+package io.github.kylinhunter.plat.api.middleware.redis;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @description:
  * @author: BiJi'an
  * @create: 2022-03-15 16:16
  */
-public class RedisKeys {
+public class RedisKey {
 
-  public static RedisKey USER_PERMS = new RedisKey("user-perms::");
+  private String prefix;
+  private static String NAMESPACE = "com.kplat::";
 
+  public RedisKey(String prefix) {
+    this.prefix = prefix;
+  }
+
+  public String key(String name) {
+    return NAMESPACE + prefix + name;
+  }
+
+  public String key() {
+    return key(StringUtils.EMPTY);
+  }
+
+
+  public static void setNamespace(String namespace) {
+    if (namespace != null && namespace.length() > 0) {
+      RedisKey.NAMESPACE = namespace;
+    }
+  }
 }

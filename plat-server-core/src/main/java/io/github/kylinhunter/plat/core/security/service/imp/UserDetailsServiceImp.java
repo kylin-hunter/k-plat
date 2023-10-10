@@ -11,7 +11,7 @@ import io.github.kylinhunter.plat.core.service.local.RoleService;
 import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.core.service.local.UserService;
-import io.github.kylinhunter.plat.data.redis.RedisKeys;
+import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
@@ -73,8 +73,8 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
     }
 
     List<Permission> permissions = tenantRoleService.findPermissionsByUserId(tenantId,
-        user.getId());
-    calPermCodes(permissions, tenantUser.getUserId(), tenantUser.getType());
+        tenantUser.getId());
+    calPermCodes(permissions, tenantUser.getId(), tenantUser.getType());
 
     return new TokenUserDetails(user, tenantUser);
   }

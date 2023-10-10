@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
-import io.github.kylinhunter.plat.data.redis.RedisKey;
+import io.github.kylinhunter.plat.api.middleware.redis.RedisKey;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;

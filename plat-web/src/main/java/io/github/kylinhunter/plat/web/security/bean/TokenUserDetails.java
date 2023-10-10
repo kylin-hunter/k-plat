@@ -26,7 +26,7 @@ public class TokenUserDetails implements UserDetails {
 
   private String username;
   private String password;
-  private String id;
+  private String userId;
   private Integer type;
 
   private String tenantId;
@@ -60,7 +60,7 @@ public class TokenUserDetails implements UserDetails {
 
     this.username = user.getUserCode();
     this.password = user.getPassword();
-    this.id = user.getId();
+    this.userId = user.getId();
     this.type = user.getType();
 
     if (!CollectionUtils.isEmpty(pemCodes)) {
@@ -85,7 +85,7 @@ public class TokenUserDetails implements UserDetails {
 
     this.username = token.getUserCode();
     this.password = "";
-    this.id = token.getUserId();
+    this.userId = token.getUserId();
     this.type = token.getUserType();
 
     if (!CollectionUtils.isEmpty(pemCodes)) {
@@ -96,7 +96,7 @@ public class TokenUserDetails implements UserDetails {
     }
 
     this.tenantId = token.getTenantId();
-
+    this.tenantUserId = token.getTenantUserId();
   }
 
   @Override

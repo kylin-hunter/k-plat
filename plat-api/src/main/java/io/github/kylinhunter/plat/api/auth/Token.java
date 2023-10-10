@@ -33,10 +33,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Token {
 
-  private String tenantId = "";
+
   private String userId = "";
   private String userCode = "";
   private String userName = "";
+  private String tenantId = "";
+  private String tenantUserId = "";
   private int userType;
   private long effectiveTime;
   private LocalDateTime expireTime;

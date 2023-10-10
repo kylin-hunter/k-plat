@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.context;
 
+import io.github.kylinhunter.plat.api.auth.Token;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Data;
@@ -38,6 +39,11 @@ public class DummyUserContext implements UserContext, Serializable {
   }
 
   @Override
+  public Token getToken() {
+    return null;
+  }
+
+  @Override
   public String getUserCode() {
     return null;
   }
@@ -52,36 +58,26 @@ public class DummyUserContext implements UserContext, Serializable {
     return 0;
   }
 
+
   @Override
-  public List<String> getRoleIds() {
-    return null;
+  public void setTenantId(String tenantId) {
   }
 
   @Override
-  public List<String> getRoleCodes() {
-    return null;
+  public void setUserId(String userId) {
   }
 
   @Override
-  public void setTenantId(String tenantId) {}
+  public void setUserCode(String userCode) {
+  }
 
   @Override
-  public void setUserId(String userId) {}
+  public void setUserName(String userName) {
+  }
 
   @Override
-  public void setUserCode(String userCode) {}
-
-  @Override
-  public void setUserName(String userName) {}
-
-  @Override
-  public void setUserType(int type) {}
-
-  @Override
-  public void setRoleIds(List<String> roleIds) {}
-
-  @Override
-  public void setRoleCodes(List<String> roleCodes) {}
+  public void setUserType(int type) {
+  }
 
   @Override
   public boolean isDummy() {

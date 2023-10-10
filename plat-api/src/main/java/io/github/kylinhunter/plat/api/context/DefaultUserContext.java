@@ -20,7 +20,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.List;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
@@ -47,14 +46,13 @@ public class DefaultUserContext implements UserContext, Serializable {
   @ApiModelProperty(value = "userType")
   private int userType;
 
-  @ApiModelProperty(value = "roleIds", hidden = true)
-  private List<String> roleIds;
 
-  @ApiModelProperty(value = "roleCodes", hidden = true)
-  private List<String> roleCodes;
+  private Token token;
+
 
   public DefaultUserContext(Token token) {
     BeanUtils.copyProperties(token, this);
+    this.token = token;
   }
 
   public DefaultUserContext(User user) {

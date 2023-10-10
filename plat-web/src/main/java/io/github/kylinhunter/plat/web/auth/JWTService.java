@@ -41,6 +41,8 @@ public class JWTService {
 
   private static final String USER_ID = "userId";
   private static final String TENANT_ID = "tenantId";
+
+  private static final String TENANT_USER_ID = "tenantUserId";
   private static final String USER_CODE = "userCode";
   private static final String USER_NAME = "userName";
   private static final String USER_TYPE = "userType";
@@ -72,6 +74,7 @@ public class JWTService {
       return JWT.create()
           //                .withHeader(map) // 添加头部
           .withClaim(TENANT_ID, tokenInfo.getTenantId()) // 添加payload
+          .withClaim(TENANT_USER_ID, tokenInfo.getTenantUserId()) // 添加payload
           .withClaim(USER_ID, tokenInfo.getUserId()) // 添加payload
           .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
           .withClaim(USER_NAME, tokenInfo.getUserName())
@@ -94,6 +97,7 @@ public class JWTService {
       JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
       DecodedJWT decodedJWT = jwtVerifier.verify(token);
       String tenantId = decodedJWT.getClaim(TENANT_ID).asString();
+      String tenantUserId = decodedJWT.getClaim(TENANT_USER_ID).asString();
       String userId = decodedJWT.getClaim(USER_ID).asString();
       String userCode = decodedJWT.getClaim(USER_CODE).asString();
       String userName = decodedJWT.getClaim(USER_NAME).asString();
@@ -101,7 +105,7 @@ public class JWTService {
       long effectiveTime = decodedJWT.getClaim(EFFECTIVE_TIME).asLong();
       Date date = decodedJWT.getExpiresAt();
       return new Token(
-          tenantId, userId, userCode, userName, userType, effectiveTime,
+          userId, userCode, userName, tenantId, tenantUserId, userType, effectiveTime,
           DateUtils.toLocalDateTime(date));
     } catch (AuthException e) {
       throw e;

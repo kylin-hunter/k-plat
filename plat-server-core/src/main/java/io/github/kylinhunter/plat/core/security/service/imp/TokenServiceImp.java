@@ -27,7 +27,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
-import io.github.kylinhunter.plat.data.redis.RedisKeys;
+import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
@@ -39,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author BiJi'an
@@ -83,11 +82,12 @@ public class TokenServiceImp extends DefaultTokenService {
   public String createToken(TokenUserDetails tokenUserDetails) {
 
     Token token = new Token();
-    token.setUserId(tokenUserDetails.getId());
+    token.setUserId(tokenUserDetails.getUserId());
     token.setUserType(tokenUserDetails.getType());
     token.setUserCode(tokenUserDetails.getUsername());
     token.setUserName(tokenUserDetails.getUsername());
     token.setTenantId(tokenUserDetails.getTenantId());
+    token.setTenantUserId(tokenUserDetails.getTenantUserId());
     token.setEffectiveTime(tokenExpireTime);
     checkTenant(token);
 
@@ -108,8 +108,7 @@ public class TokenServiceImp extends DefaultTokenService {
    * @date 2023-10-02 00:05
    */
   public String createTenantToken(String loginToken, String tenantId) {
-    TokenUserDetails tokenUserDetails = this.verify(loginToken);
-    Token token = tokenUserDetails.getToken();
+    Token token = userContextHandler.get().getToken();
     token.setTenantId(tenantId);
     checkTenant(token);
     UserDetails userDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,
@@ -131,7 +130,12 @@ public class TokenServiceImp extends DefaultTokenService {
    */
   public TokenUserDetails verify(String token) {
     Token verifyToken = jwtService.verify(token);
-    Set<String> pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getUserId()));
+    Set<String> pemCodes;
+    if (verifyToken.getUserType() < 2) {
+      pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getUserId()));
+    } else {
+      pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getTenantUserId()));
+    }
 
     return new TokenUserDetails(verifyToken, pemCodes);
   }
@@ -162,12 +166,15 @@ public class TokenServiceImp extends DefaultTokenService {
     TenantUser tenantUser = tenantUserService.findByTenantAndUser(tenantId, token.getUserId());
     if (tenantUser != null) {
       token.setUserType(tenantUser.getType());
+      token.setTenantUserId(tenantUser.getId());
     } else {
 
       UserType userType = EnumUtils.fromCode(UserType.class, token.getUserType());
       if (userType == UserType.SUPER_ADMIN) {
         TenantUserResp tenantUserResp = addTenantUser(token, tenant);
         token.setUserType(tenantUserResp.getType());
+        token.setTenantUserId(tenantUserResp.getId());
+
       } else {
         throw new AuthException("user=" + token.getUserId() + " not in tenant=" + tenant.getId());
       }

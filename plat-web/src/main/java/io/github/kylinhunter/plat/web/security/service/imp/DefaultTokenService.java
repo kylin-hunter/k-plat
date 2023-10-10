@@ -19,7 +19,6 @@ import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -41,7 +40,7 @@ public class DefaultTokenService implements TokenService {
   public String createToken(TokenUserDetails tokenUserDetails) {
 
     Token token = new Token();
-    token.setUserId(tokenUserDetails.getId());
+    token.setUserId(tokenUserDetails.getUserId());
     token.setUserType(tokenUserDetails.getType());
     token.setUserCode(tokenUserDetails.getUsername());
     token.setUserName(tokenUserDetails.getUsername());
