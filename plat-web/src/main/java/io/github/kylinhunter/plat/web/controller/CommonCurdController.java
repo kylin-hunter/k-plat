@@ -63,7 +63,7 @@ public abstract class CommonCurdController<
 
   @PostConstruct
   private void init() {
-    log.info("init controller {} ok", this.getClass().getName());
+    log.info("init curd controller {} ok", this.getClass().getName());
   }
 
   @RequestMapping(value = "", method = RequestMethod.POST)

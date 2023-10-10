@@ -32,11 +32,14 @@ import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
+import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author BiJi'an
@@ -53,16 +56,20 @@ public class TokenServiceImp extends DefaultTokenService {
 
   private RedisService redisService;
 
+  private TenantUserDetailsService tenantUserDetailsService;
+
   @Value("${kplat.token_expire_time:1800}")
   private long tokenExpireTime;
 
   public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService, UserContextHandler userContextHandler,RedisService redisService) {
+      TenantUserService tenantUserService, UserContextHandler userContextHandler,
+      RedisService redisService, TenantUserDetailsService tenantUserDetailsService) {
     super(jwtService);
     this.tenantMapper = tenantMapper;
     this.tenantUserService = tenantUserService;
     this.userContextHandler = userContextHandler;
     this.redisService = redisService;
+    this.tenantUserDetailsService = tenantUserDetailsService;
   }
 
   /**
@@ -105,7 +112,13 @@ public class TokenServiceImp extends DefaultTokenService {
     Token token = tokenUserDetails.getToken();
     token.setTenantId(tenantId);
     checkTenant(token);
-    return jwtService.create(token);
+    UserDetails userDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,
+        token.getUserCode());
+    String tokenStr = jwtService.create(token);
+    log.info("create tenant={},username={},token={}", tenantId, userDetails.getUsername(),
+        tokenStr);
+
+    return tokenStr;
   }
 
   /**

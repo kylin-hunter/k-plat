@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `kplat_user`
     `user_name`             varchar(64)  NOT NULL DEFAULT '' COMMENT '用户名',
     `password`              varchar(64)  NOT NULL DEFAULT '' COMMENT '密码',
     `source`                varchar(100) NOT NULL DEFAULT 0 COMMENT '用户来源',
-    `type`                  tinyint      NOT NULL DEFAULT 0 COMMENT '用户类型 0 普通 1超级管理员',
+    `type`                  tinyint      NOT NULL DEFAULT 0 COMMENT '用户类型 0 普通 1超级管理员 ',
     `status`                tinyint      NOT NULL DEFAULT 0 COMMENT '用户状态',
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),

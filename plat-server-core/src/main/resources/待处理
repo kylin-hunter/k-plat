@@ -1,1 +1,11 @@
-1、权限里面的 admin逻辑处理已经加了，tenent权限还没加
+1、权限里面的 admin逻辑处理已经加了，tenent相关的权限还没加
+2、跨agent访问
+3、初始化分类
+4、去掉无用的初始化代码
+5、去掉无用的拦截器若干，包括对tokenIner 和 agentInter
+
+
+6、AutoWebMvcConfiguration里面的exclued可能配置的不对
+
+7、tenant-role-permission 相关逻辑
+8、tennat-user-role相关逻辑

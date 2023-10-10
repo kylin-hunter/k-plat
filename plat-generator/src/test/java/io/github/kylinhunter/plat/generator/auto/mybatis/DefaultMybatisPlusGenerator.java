@@ -74,6 +74,6 @@ public abstract class DefaultMybatisPlusGenerator {
         kplatCompiler.setOutput(compileOutput);
         kplatCompiler.compile();
 
-        ExClassLoaderUtil.addClassPath(UserDirUtils.getTmpDir().toPath());
+        ExClassLoaderUtil.addClassPath(compileOutput.toPath());
     }
 }

@@ -19,8 +19,6 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-    wrapper.eq(User::getUserName, username);
     User user = new User();
     user.setUserCode(username);
     return new TokenUserDetails(user, null);

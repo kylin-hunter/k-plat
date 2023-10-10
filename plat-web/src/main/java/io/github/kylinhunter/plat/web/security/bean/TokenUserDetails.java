@@ -3,6 +3,7 @@ package io.github.kylinhunter.plat.web.security.bean;
 import com.google.common.collect.Lists;
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,25 +39,39 @@ public class TokenUserDetails implements UserDetails {
   private Token token;
   private User user;
 
+  private TenantUser tenantUser;
+
   Collection<? extends GrantedAuthority> authorities;
 
-  public TokenUserDetails(User user,Set<String> pemCodes) {
-    this(user, null,pemCodes);
+  public TokenUserDetails(User user) {
+    this(user, null, null);
+  }
+
+  public TokenUserDetails(User user, Set<String> pemCodes) {
+    this(user, null, pemCodes);
   }
 
 
-  public TokenUserDetails(User user, String tenantId,Set<String> pemCodes) {
+  public TokenUserDetails(User user, TenantUser tenantUser, Set<String> pemCodes) {
     this.username = user.getUserCode();
     this.password = user.getPassword();
     this.id = user.getId();
     this.type = user.getType();
-    this.tenantId = StringUtil.defaultString(tenantId);
     this.user = user;
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
           .collect(Collectors.toList());
-    }else {
-      authorities= Collections.EMPTY_LIST;
+    } else {
+      authorities = Collections.EMPTY_LIST;
+    }
+
+    this.tenantUser = tenantUser;
+    if (tenantUser != null) {
+      this.tenantId = tenantUser.getSysTenantId();
+      this.type = tenantUser.getType();
+
+    } else {
+      this.tenantId = StringUtil.EMPTY;
     }
   }
 
@@ -70,8 +85,8 @@ public class TokenUserDetails implements UserDetails {
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
           .collect(Collectors.toList());
-    }else {
-      authorities= Collections.EMPTY_LIST;
+    } else {
+      authorities = Collections.EMPTY_LIST;
     }
   }
 

@@ -2,6 +2,8 @@ package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
+import io.github.kylinhunter.plat.core.dao.mapper.TenantUserMapper;
+import io.github.kylinhunter.plat.core.dao.mapper.TenantUserRoleMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserRoleMapper;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
@@ -10,11 +12,10 @@ import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,13 +32,27 @@ public class SecurityConfiguration {
 
   @Bean
   public TokenService tokenService(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService, UserContextHandler userContextHandler,RedisService redisService) {
-    return new TokenServiceImp(tenantMapper, jwtService, tenantUserService, userContextHandler,redisService);
+      TenantUserService tenantUserService, UserContextHandler userContextHandler,
+      RedisService redisService,
+      TenantUserDetailsService tenantUserDetailsService) {
+    return new TokenServiceImp(tenantMapper, jwtService, tenantUserService, userContextHandler,
+        redisService, tenantUserDetailsService);
   }
 
   @Bean
-  public UserDetailsService userDetailsService(UserMapper userMapper, UserRoleMapper userRoleMapper,RedisService redisService) {
-    return new UserDetailsServiceImp(userMapper, userRoleMapper,redisService);
+  public UserDetailsService userDetailsService(UserMapper userMapper, UserRoleMapper userRoleMapper,
+      TenantUserMapper tenantUserMapper, TenantUserRoleMapper tenantUserRoleMapper,
+      RedisService redisService) {
+    return new UserDetailsServiceImp(userMapper, userRoleMapper, tenantUserMapper,
+        tenantUserRoleMapper, redisService);
+  }
+
+  @Bean
+  public TenantUserDetailsService tenantUserDetailsService(UserMapper userMapper,
+      UserRoleMapper userRoleMapper, TenantUserMapper tenantUserMapper,
+      TenantUserRoleMapper tenantUserRoleMapper, RedisService redisService) {
+    return new UserDetailsServiceImp(userMapper, userRoleMapper, tenantUserMapper,
+        tenantUserRoleMapper, redisService);
   }
 
 
