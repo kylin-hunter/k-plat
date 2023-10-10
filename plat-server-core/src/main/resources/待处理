@@ -9,3 +9,10 @@
 
 7、tenant-role-permission 相关逻辑
 8、tennat-user-role相关逻辑
+9、defaltdetailserviceImp 增加租户读取
+
+10、RedisKeys 处理
+
+11、token中区分普通用户类型 用户id
+
+12、测试 post + method的权限

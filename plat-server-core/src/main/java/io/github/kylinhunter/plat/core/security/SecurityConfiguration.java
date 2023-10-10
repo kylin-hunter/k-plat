@@ -8,7 +8,10 @@ import io.github.kylinhunter.plat.core.dao.mapper.UserMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserRoleMapper;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
+import io.github.kylinhunter.plat.core.service.local.RoleService;
+import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
+import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
@@ -39,21 +42,23 @@ public class SecurityConfiguration {
         redisService, tenantUserDetailsService);
   }
 
+
   @Bean
-  public UserDetailsService userDetailsService(UserMapper userMapper, UserRoleMapper userRoleMapper,
-      TenantUserMapper tenantUserMapper, TenantUserRoleMapper tenantUserRoleMapper,
+  public UserDetailsService userDetailsService(UserService userService,
+      TenantUserService tenantUserService,
+      RoleService roleService, TenantRoleService tenantRoleService,
       RedisService redisService) {
-    return new UserDetailsServiceImp(userMapper, userRoleMapper, tenantUserMapper,
-        tenantUserRoleMapper, redisService);
+    return new UserDetailsServiceImp(userService, tenantUserService, roleService,
+        tenantRoleService, redisService);
   }
 
   @Bean
-  public TenantUserDetailsService tenantUserDetailsService(UserMapper userMapper,
-      UserRoleMapper userRoleMapper, TenantUserMapper tenantUserMapper,
-      TenantUserRoleMapper tenantUserRoleMapper, RedisService redisService) {
-    return new UserDetailsServiceImp(userMapper, userRoleMapper, tenantUserMapper,
-        tenantUserRoleMapper, redisService);
+  public TenantUserDetailsService tenantUserDetailsService(UserService userService,
+      TenantUserService tenantUserService,
+      RoleService roleService, TenantRoleService tenantRoleService,
+      RedisService redisService) {
+    return new UserDetailsServiceImp(userService, tenantUserService, roleService,
+        tenantRoleService, redisService);
   }
-
 
 }

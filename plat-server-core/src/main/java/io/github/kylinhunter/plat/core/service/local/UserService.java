@@ -31,5 +31,5 @@ import io.github.kylinhunter.plat.api.service.local.CommonService;
  */
 public interface UserService
     extends CommonService<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
-  User queryByUserCode(String userCode);
+  User findByUserCode(String userCode);
 }

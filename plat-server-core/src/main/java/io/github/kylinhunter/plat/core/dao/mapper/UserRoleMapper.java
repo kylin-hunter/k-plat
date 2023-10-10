@@ -24,6 +24,6 @@ public interface UserRoleMapper extends BaseMapper<UserRole> {
       "SELECT t3.*  FROM  kplat_user_role t1,kplat_role_permission t2,kplat_permission t3  "
           + "  WHERE t1.role_id=t2.role_id and t2.permission_id=t3.id"
           + "  and t1.user_id = #{userId}")
-  List<Permission> getPermissionsByUserId(@Param("userId") String userId);
+  List<Permission> findPermissionsByUserId(@Param("userId") String userId);
 
 }

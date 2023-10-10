@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.service.local;
 
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Role;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqQuery;
@@ -22,6 +23,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * RoleService 代码工具自动生成，按需扩展
@@ -31,5 +34,7 @@ import io.github.kylinhunter.plat.api.service.local.CommonService;
  */
 public interface RoleService
     extends CommonService<Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery> {
-  Role queryByCode(String code);
+  Role findByCode(String code);
+  List<Permission> findPermissionsByUserId(String userId);
+
 }

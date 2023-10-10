@@ -52,7 +52,7 @@ public class Order01UserInitializer extends BasicInitializer {
         .forEach(
             userCreate -> {
               final String userCode = userCreate.getUserCode();
-              User user = userService.queryByUserCode(userCode);
+              User user = userService.findByUserCode(userCode);
               if (user != null) {
                 log.info("default userCreate {} exist", userCode);
                 userInitData.addDbData(userCode, user);
@@ -62,7 +62,7 @@ public class Order01UserInitializer extends BasicInitializer {
                 user.setPassword(PasswordUtil.encode(user.getPassword()));
                 userService.save(user);
                 log.info("default userCreate {} created", userCode);
-                userInitData.addDbData(userCode, userService.queryByUserCode(userCode));
+                userInitData.addDbData(userCode, userService.findByUserCode(userCode));
               }
             });
     User userAdmin = userInitData.getDbData(UserInitDatas.USER_ADMIN);

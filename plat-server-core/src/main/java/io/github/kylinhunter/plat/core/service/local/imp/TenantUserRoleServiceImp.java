@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.core.service.local.imp;
 
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserRole;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleReqQuery;
@@ -11,6 +12,7 @@ import io.github.kylinhunter.plat.core.dao.mapper.TenantUserRoleMapper;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserRoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserRoleDeleteInterceptor;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 
@@ -24,16 +26,16 @@ import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
  */
 @Service
 public class TenantUserRoleServiceImp
-        extends CommonServiceImpl<TenantUserRoleMapper, TenantUserRole,
-        TenantUserRoleReqCreate, TenantUserRoleReqUpdate,
-        TenantUserRoleResp, TenantUserRoleVO, TenantUserRoleReqQuery> implements TenantUserRoleService {
+    extends CommonServiceImpl<TenantUserRoleMapper, TenantUserRole,
+    TenantUserRoleReqCreate, TenantUserRoleReqUpdate,
+    TenantUserRoleResp, TenantUserRoleVO, TenantUserRoleReqQuery> implements TenantUserRoleService {
 
-    public TenantUserRoleServiceImp(TenantUserRoleSaveOrUpdateInterceptor saveOrUpdateInterceptor,
-        TenantUserRoleDeleteInterceptor deleteInterceptor) {
-        this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
-        this.deleteInterceptor = deleteInterceptor;
-    }
 
+  public TenantUserRoleServiceImp(TenantUserRoleSaveOrUpdateInterceptor saveOrUpdateInterceptor,
+      TenantUserRoleDeleteInterceptor deleteInterceptor) {
+    this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
+    this.deleteInterceptor = deleteInterceptor;
+  }
 
 
 }

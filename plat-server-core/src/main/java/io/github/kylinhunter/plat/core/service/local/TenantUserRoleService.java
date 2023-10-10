@@ -6,7 +6,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleReqQuery
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleVO;
-
 import io.github.kylinhunter.plat.api.service.local.CommonService;
 
 /**
@@ -19,6 +18,7 @@ import io.github.kylinhunter.plat.api.service.local.CommonService;
  */
 public interface TenantUserRoleService extends CommonService<TenantUserRole,
     TenantUserRoleReqCreate, TenantUserRoleReqUpdate,
-    TenantUserRoleResp, TenantUserRoleVO, TenantUserRoleReqQuery>  {
+    TenantUserRoleResp, TenantUserRoleVO, TenantUserRoleReqQuery> {
+
 
 }

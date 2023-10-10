@@ -17,6 +17,7 @@ package io.github.kylinhunter.plat.core.service.local.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqQuery;
@@ -24,10 +25,12 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantRoleMapper;
+import io.github.kylinhunter.plat.core.dao.mapper.TenantUserRoleMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantRoleDeleteInterceptor;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantRoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,20 +42,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantRoleServiceImp
     extends CommonServiceImpl<
-        TenantRoleMapper,
-        TenantRole,
-        TenantRoleReqCreate,
-        TenantRoleReqUpdate,
-        TenantRoleResp,
-        TenantRoleVO,
-        TenantRoleReqQuery>
+    TenantRoleMapper,
+    TenantRole,
+    TenantRoleReqCreate,
+    TenantRoleReqUpdate,
+    TenantRoleResp,
+    TenantRoleVO,
+    TenantRoleReqQuery>
     implements TenantRoleService {
+
+  private TenantUserRoleMapper tenantUserRoleMapper;
 
   public TenantRoleServiceImp(
       TenantRoleSaveOrUpdateInterceptor tenantRoleSaveOrUpdateInterceptor,
-      TenantRoleDeleteInterceptor tenantRoleDeleteInterceptor) {
+      TenantRoleDeleteInterceptor tenantRoleDeleteInterceptor,
+      TenantUserRoleMapper tenantUserRoleMapper) {
     this.saveOrUpdateInterceptor = tenantRoleSaveOrUpdateInterceptor;
     this.deleteInterceptor = tenantRoleDeleteInterceptor;
+    this.tenantUserRoleMapper = tenantUserRoleMapper;
   }
 
   @Override
@@ -61,5 +68,10 @@ public class TenantRoleServiceImp
     queryWrapper.eq(TenantRole::getSysDeleteFlag, false);
     queryWrapper.eq(TenantRole::getCode, code);
     return this.baseMapper.selectOne(queryWrapper);
+  }
+
+  @Override
+  public List<Permission> findPermissionsByUserId(String tenantId, String userId) {
+    return tenantUserRoleMapper.findPermissionsByUserId(tenantId, userId);
   }
 }

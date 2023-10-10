@@ -1,13 +1,11 @@
 package io.github.kylinhunter.plat.web.security.bean;
 
-import com.google.common.collect.Lists;
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Data;
@@ -32,13 +30,13 @@ public class TokenUserDetails implements UserDetails {
   private Integer type;
 
   private String tenantId;
+  private String tenantUserId;
   private boolean accountNonExpired = true;
   private boolean accountNonLocked = true;
   private boolean credentialsNonExpired = true;
   private boolean enabled = true;
   private Token token;
   private User user;
-
   private TenantUser tenantUser;
 
   Collection<? extends GrantedAuthority> authorities;
@@ -51,13 +49,20 @@ public class TokenUserDetails implements UserDetails {
     this(user, null, pemCodes);
   }
 
+  public TokenUserDetails(User user, TenantUser tenantUser) {
+    this(user, tenantUser, null);
+  }
+
 
   public TokenUserDetails(User user, TenantUser tenantUser, Set<String> pemCodes) {
+    this.user = user;
+    this.tenantUser = tenantUser;
+
     this.username = user.getUserCode();
     this.password = user.getPassword();
     this.id = user.getId();
     this.type = user.getType();
-    this.user = user;
+
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
           .collect(Collectors.toList());
@@ -65,9 +70,9 @@ public class TokenUserDetails implements UserDetails {
       authorities = Collections.EMPTY_LIST;
     }
 
-    this.tenantUser = tenantUser;
     if (tenantUser != null) {
       this.tenantId = tenantUser.getSysTenantId();
+      this.tenantUserId = tenantUser.getId();
       this.type = tenantUser.getType();
 
     } else {
@@ -76,18 +81,22 @@ public class TokenUserDetails implements UserDetails {
   }
 
   public TokenUserDetails(Token token, Set<String> pemCodes) {
+    this.token = token;
+
     this.username = token.getUserCode();
     this.password = "";
     this.id = token.getUserId();
     this.type = token.getUserType();
-    this.tenantId = token.getTenantId();
-    this.token = token;
+
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
           .collect(Collectors.toList());
     } else {
       authorities = Collections.EMPTY_LIST;
     }
+
+    this.tenantId = token.getTenantId();
+
   }
 
   @Override

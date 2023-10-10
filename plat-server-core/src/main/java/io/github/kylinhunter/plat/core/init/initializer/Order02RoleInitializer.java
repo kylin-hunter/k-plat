@@ -47,14 +47,14 @@ public class Order02RoleInitializer extends BasicInitializer {
         .forEach(
             RoleCreate -> {
               final String RoleCode = RoleCreate.getCode();
-              final Role Role = roleService.queryByCode(RoleCode);
+              final Role Role = roleService.findByCode(RoleCode);
               if (Role != null) {
                 log.info("default role {} exist", RoleCode);
                 roleInitData.addDbData(RoleCode, Role);
               } else {
                 roleService.save(RoleCreate);
                 log.info("default role {} created", RoleCode);
-                roleInitData.addDbData(RoleCode, roleService.queryByCode(RoleCode));
+                roleInitData.addDbData(RoleCode, roleService.findByCode(RoleCode));
               }
             });
   }

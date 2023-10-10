@@ -1,6 +1,7 @@
 package io.github.kylinhunter.plat.web.configuration;
 
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultUserDetailsService;
@@ -38,5 +39,10 @@ public class AutoSecurityConfiguration {
     return new DefaultUserDetailsService();
   }
 
+  @Bean
+  @ConditionalOnMissingBean(UserDetailsService.class)
+  public TenantUserDetailsService tenantUserDetailsService() {
+    return new DefaultUserDetailsService();
+  }
 
 }
