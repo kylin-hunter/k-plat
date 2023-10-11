@@ -182,7 +182,7 @@ public abstract class CommonServiceImpl<
         log.error("update batch error", e);
         int code = ExceptionHelper.getErrCode(e);
         String msg = ExceptionHelper.getMessage(e);
-        Z z = this.queryById(new ReqById(reqUpdate.getId()));
+        Z z = this.findyById(new ReqById(reqUpdate.getId()));
         batchResp.addSingleResp(code, msg, z);
       }
     }
@@ -226,7 +226,7 @@ public abstract class CommonServiceImpl<
   }
 
   @Override
-  public Z queryById(ReqById reqById) {
+  public Z findyById(ReqById reqById) {
     try {
       QueryWrapper<T> query = queryAccurateInterceptor.before(reqById, this.tenantSupported);
       query.eq(SysCols.ID, reqById.getId());
@@ -238,7 +238,7 @@ public abstract class CommonServiceImpl<
   }
 
   @Override
-  public List<Z> queryByIds(ReqByIds reqByIds) {
+  public List<Z> findyByIds(ReqByIds reqByIds) {
     try {
 
       QueryWrapper<T> query = this.queryAccurateInterceptor.before(reqByIds, this.tenantSupported);
@@ -251,10 +251,6 @@ public abstract class CommonServiceImpl<
     }
   }
 
-  @Override
-  public T getById(String id) {
-    return this.baseMapper.selectById(id);
-  }
 
   @Override
   public PageData<Z> query(Q reqQueryPage) {

@@ -20,4 +20,3 @@ loadTenantUserByUsername和checkTenant有冲突
 
 14、queryByid 改为 findById统一持久层命名规则
 
-15、usercode和username的命名有不同

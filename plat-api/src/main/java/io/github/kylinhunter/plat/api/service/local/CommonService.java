@@ -59,11 +59,11 @@ public interface CommonService<
 
   boolean delete(ReqDeletes reqDeletes);
 
-  Z queryById(ReqById reqById);
+  Z findyById(ReqById reqById);
 
-  T getById(String id);
 
-  List<Z> queryByIds(ReqByIds reqByIds);
+
+  List<Z> findyByIds(ReqByIds reqByIds);
 
   PageData<Z> query(Q reqQueryPage);
 }

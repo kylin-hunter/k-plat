@@ -102,7 +102,7 @@ public abstract class CommonCurdController<
 //  @PreAuthorize("hasAuthority('get')")
   public DefaultResponse<Z> get(@PathVariable("id") String id) {
 
-    return new DefaultResponse<>(this.service.queryById(ReqById.of(id)));
+    return new DefaultResponse<>(this.service.findyById(ReqById.of(id)));
   }
 
   @RequestMapping(value = "/batch", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public abstract class CommonCurdController<
   @ApiOperation("查看详情")
   public DefaultResponse<List<Z>> batchGet(@Validated ReqByIds reqByIds) {
 
-    return new DefaultResponse<>(this.service.queryByIds(reqByIds));
+    return new DefaultResponse<>(this.service.findyByIds(reqByIds));
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
