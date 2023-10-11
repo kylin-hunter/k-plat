@@ -34,8 +34,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserReqQuery extends ReqPage {
 
-  
 
-  @ApiModelProperty(value = "roleId")
-  private String roleId;
 }

@@ -31,7 +31,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@Accessors(chain = true)
 @ApiModel(value = "DefaultSysResp", description = "DefaultSysResp")
 public class DefaultSysResp extends Resp {
 

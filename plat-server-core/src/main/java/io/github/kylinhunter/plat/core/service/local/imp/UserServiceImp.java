@@ -54,10 +54,10 @@ public class UserServiceImp
   }
 
   @Override
-  public User findByUserCode(String userCode) {
+  public User findByUserName(String userName) {
     LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(User::getSysDeleteFlag, false);
-    queryWrapper.eq(User::getUserCode, userCode);
+    queryWrapper.eq(User::getUserName, userName);
     return this.baseMapper.selectOne(queryWrapper);
   }
 

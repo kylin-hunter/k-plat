@@ -12,8 +12,12 @@
 
 10、RedisKeys 处理
 
-11、token中区分普通用户类型 用户id
+11、token 中区分普通用户类型 用户id
 
 12、DefaultUserContext 和 TokenUserDetail的合并可能性
 13、createTenantToken 有优化的空间
 loadTenantUserByUsername和checkTenant有冲突
+
+14、queryByid 改为 findById统一持久层命名规则
+
+15、usercode和username的命名有不同

@@ -51,18 +51,18 @@ public class Order01UserInitializer extends BasicInitializer {
         .values()
         .forEach(
             userCreate -> {
-              final String userCode = userCreate.getUserCode();
-              User user = userService.findByUserCode(userCode);
+              final String userName = userCreate.getUserName();
+              User user = userService.findByUserName(userName);
               if (user != null) {
-                log.info("default userCreate {} exist", userCode);
-                userInitData.addDbData(userCode, user);
+                log.info("default userCreate {} exist", userName);
+                userInitData.addDbData(userName, user);
               } else {
                 user = new User();
                 BeanUtils.copyProperties(userCreate, user);
                 user.setPassword(PasswordUtil.encode(user.getPassword()));
                 userService.save(user);
-                log.info("default userCreate {} created", userCode);
-                userInitData.addDbData(userCode, userService.findByUserCode(userCode));
+                log.info("default userCreate {} created", userName);
+                userInitData.addDbData(userName, userService.findByUserName(userName));
               }
             });
     User userAdmin = userInitData.getDbData(UserInitDatas.USER_ADMIN);

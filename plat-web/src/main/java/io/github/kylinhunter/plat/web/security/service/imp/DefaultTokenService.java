@@ -42,7 +42,9 @@ public class DefaultTokenService implements TokenService {
     Token token = new Token();
     token.setUserId(tokenUserDetails.getUserId());
     token.setUserType(tokenUserDetails.getType());
-    token.setUserCode(tokenUserDetails.getUsername());
+    token.setNickName(tokenUserDetails.getNickName());
+    token.setRealName(tokenUserDetails.getRealName());
+
     token.setUserName(tokenUserDetails.getUsername());
     token.setTenantId(tokenUserDetails.getTenantId());
     String tokenStr = jwtService.create(token);

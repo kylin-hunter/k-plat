@@ -33,11 +33,13 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "UserReqUpdate", description = "UserReqUpdate")
 public class UserReqUpdate extends ReqUpdate implements UserVO {
 
-  
 
-  @ApiModelProperty(value = "userCode")
-  @NotBlank
-  private String userCode;
+
+  @ApiModelProperty(value = "nickName")
+  private String nickName;
+
+  @ApiModelProperty(value = "realName")
+  private String realName;
 
   @ApiModelProperty(value = "userName")
   @NotBlank

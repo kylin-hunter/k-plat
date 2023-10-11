@@ -10,6 +10,7 @@ import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
 import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
+import io.github.kylinhunter.plat.core.service.local.TenantService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
@@ -46,19 +47,19 @@ public class SecurityConfiguration {
   @Bean
   public UserDetailsService userDetailsService(UserService userService,
       TenantUserService tenantUserService,
-      RoleService roleService, TenantRoleService tenantRoleService,
+      RoleService roleService, TenantService tenantService, TenantRoleService tenantRoleService,
       RedisService redisService) {
-    return new UserDetailsServiceImp(userService, tenantUserService, roleService,
-        tenantRoleService, redisService);
+    return new UserDetailsServiceImp(userService, roleService,
+        tenantService, tenantUserService, tenantRoleService, redisService);
   }
 
   @Bean
   public TenantUserDetailsService tenantUserDetailsService(UserService userService,
       TenantUserService tenantUserService,
-      RoleService roleService, TenantRoleService tenantRoleService,
+      RoleService roleService, TenantService tenantService, TenantRoleService tenantRoleService,
       RedisService redisService) {
-    return new UserDetailsServiceImp(userService, tenantUserService, roleService,
-        tenantRoleService, redisService);
+    return new UserDetailsServiceImp(userService, roleService,
+        tenantService, tenantUserService, tenantRoleService, redisService);
   }
 
 }

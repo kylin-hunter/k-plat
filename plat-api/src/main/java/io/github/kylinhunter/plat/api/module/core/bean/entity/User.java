@@ -34,10 +34,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User extends BaseEntity {
 
-  
+  @ApiModelProperty(value = "nickName")
+  private String nickName;
 
-  @ApiModelProperty(value = "userCode")
-  private String userCode;
+  @ApiModelProperty(value = "realName")
+  private String realName;
+
 
   @ApiModelProperty(value = "userName")
   private String userName;

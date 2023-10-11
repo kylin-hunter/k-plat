@@ -43,8 +43,8 @@ public class UserDeleteInterceptor
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, User entity) {
     super.before(reqDelete, tenantSupported, entity);
-    if (!userInitData.canBeDeleted(entity.getUserCode())) {
-      throw new ParamException("can't delete ,for user code:" + entity.getUserCode());
+    if (!userInitData.canBeDeleted(entity.getUserName())) {
+      throw new ParamException("can't delete ,for user name:" + entity.getUserName());
     }
   }
 }

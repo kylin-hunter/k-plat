@@ -61,4 +61,4 @@ INSERT INTO kplat_tenant_user_role (id, sys_tenant_id, sys_auto_updated, sys_cre
                              sys_op_lock,
                              user_id, role_id)
 VALUES ('1', '1', CURRENT_TIMESTAMP, '1', 'admin', CURRENT_TIMESTAMP, '1', 'admin',
-        CURRENT_TIMESTAMP, 0, null, 'tenant-user-id-2', '1');
+        CURRENT_TIMESTAMP, 0, null, 'tenant-test', '1');

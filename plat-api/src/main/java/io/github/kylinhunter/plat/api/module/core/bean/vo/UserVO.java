@@ -18,7 +18,9 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 
 public interface UserVO extends VO {
-  String getUserCode();
+  String getNickName();
+
+  String getRealName();
 
   String getUserName();
 
@@ -32,7 +34,9 @@ public interface UserVO extends VO {
 
   String getDescription();
 
-  void setUserCode(final String userCode);
+  void setRealName(final String realName);
+  void setNickName(final String nickName);
+
 
   void setUserName(final String userName);
 

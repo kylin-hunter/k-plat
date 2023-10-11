@@ -35,8 +35,12 @@ public class Token {
 
 
   private String userId = "";
-  private String userCode = "";
   private String userName = "";
+
+  private String nickName = "";
+  private String realName = "";
+
+
   private String tenantId = "";
   private String tenantUserId = "";
   private int userType;

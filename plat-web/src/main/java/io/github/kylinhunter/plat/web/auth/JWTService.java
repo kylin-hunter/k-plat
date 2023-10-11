@@ -43,7 +43,8 @@ public class JWTService {
   private static final String TENANT_ID = "tenantId";
 
   private static final String TENANT_USER_ID = "tenantUserId";
-  private static final String USER_CODE = "userCode";
+  private static final String NICK_NAME = "nickName";
+  private static final String REAL_NAME = "realName";
   private static final String USER_NAME = "userName";
   private static final String USER_TYPE = "userType";
 
@@ -76,7 +77,8 @@ public class JWTService {
           .withClaim(TENANT_ID, tokenInfo.getTenantId()) // 添加payload
           .withClaim(TENANT_USER_ID, tokenInfo.getTenantUserId()) // 添加payload
           .withClaim(USER_ID, tokenInfo.getUserId()) // 添加payload
-          .withClaim(USER_CODE, tokenInfo.getUserCode()) // 添加payload
+          .withClaim(NICK_NAME, tokenInfo.getNickName()) // 添加payload
+          .withClaim(REAL_NAME, tokenInfo.getRealName()) // 添加payload
           .withClaim(USER_NAME, tokenInfo.getUserName())
           .withClaim(USER_TYPE, tokenInfo.getUserType())
           .withClaim(EFFECTIVE_TIME, tokenInfo.getEffectiveTime())
@@ -99,13 +101,14 @@ public class JWTService {
       String tenantId = decodedJWT.getClaim(TENANT_ID).asString();
       String tenantUserId = decodedJWT.getClaim(TENANT_USER_ID).asString();
       String userId = decodedJWT.getClaim(USER_ID).asString();
-      String userCode = decodedJWT.getClaim(USER_CODE).asString();
+      String nickName = decodedJWT.getClaim(NICK_NAME).asString();
+      String realName = decodedJWT.getClaim(REAL_NAME).asString();
       String userName = decodedJWT.getClaim(USER_NAME).asString();
       int userType = decodedJWT.getClaim(USER_TYPE).asInt();
       long effectiveTime = decodedJWT.getClaim(EFFECTIVE_TIME).asLong();
       Date date = decodedJWT.getExpiresAt();
       return new Token(
-          userId, userCode, userName, tenantId, tenantUserId, userType, effectiveTime,
+          userId, userName, nickName, realName,tenantId, tenantUserId, userType, effectiveTime,
           DateUtils.toLocalDateTime(date));
     } catch (AuthException e) {
       throw e;

@@ -3,24 +3,29 @@ package io.github.kylinhunter.plat.core.security.service.imp;
 import com.google.common.collect.Sets;
 import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.commons.lang.EnumUtils;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
 import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
+import io.github.kylinhunter.plat.core.service.local.TenantService;
 import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.core.service.local.UserService;
-import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
+import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,54 +37,65 @@ import org.springframework.util.CollectionUtils;
  * @date 2023-10-01 00:23
  */
 @RequiredArgsConstructor
+@Slf4j
 public class UserDetailsServiceImp implements UserDetailsService, TenantUserDetailsService {
 
 
   private final UserService userService;
+  private final RoleService roleService;
+  private final TenantService tenantService;
   private final TenantUserService tenantUserService;
 
-  private final RoleService roleService;
   private final TenantRoleService tenantRoleService;
 
   private final RedisService redisService;
-
+  private UserContextHandler userContextHandler;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userService.findByUserCode(username);
+    User user = userService.findByUserName(username);
     if (Objects.isNull(user)) {
       throw new BizException(WebErrInfoCustomizer.AUTH_ERROR, "username or password error");
     }
     List<Permission> permissions = roleService.findPermissionsByUserId(user.getId());
-    calPermCodes(permissions, user.getId(), user.getType());
+    Set<String> permCodes = calPermCodes(permissions, user.getId(), user.getType());
 
-    return new TokenUserDetails(user);
+    return new TokenUserDetails(user, permCodes);
 
 
   }
 
 
   @Override
-  public UserDetails loadTenantUserByUsername(String tenantId, String username)
+  public TokenUserDetails loadTenantUserByUsername(String tenantId, String username)
       throws UsernameNotFoundException {
-    User user = userService.findByUserCode(username);
+    User user = userService.findByUserName(username);
     if (Objects.isNull(user)) {
       throw new BizException(WebErrInfoCustomizer.AUTH_ERROR, "username or password error");
     }
-
+    Tenant tenant = tenantService.getById(tenantId);
+    if (tenant == null) {
+      throw new AuthException("tenant no exist");
+    }
     TenantUser tenantUser = tenantUserService.findByTenantAndUser(tenantId, user.getId());
     if (Objects.isNull(tenantUser)) {
-      throw new BizException(WebErrInfoCustomizer.AUTH_ERROR, "tenant user not exist");
+
+      UserType userType = EnumUtils.fromCode(UserType.class, user.getType());
+      if (userType == UserType.SUPER_ADMIN) {
+        tenantUser = addTenantUser(tenant, user);
+      } else {
+        throw new AuthException("user=" + user.getId() + " not in tenant=" + tenant.getId());
+      }
     }
 
     List<Permission> permissions = tenantRoleService.findPermissionsByUserId(tenantId,
         tenantUser.getId());
-    calPermCodes(permissions, tenantUser.getId(), tenantUser.getType());
+    Set<String> permCodes = calPermCodes(permissions, tenantUser.getId(), tenantUser.getType());
 
-    return new TokenUserDetails(user, tenantUser);
+    return new TokenUserDetails(user, tenantUser, permCodes);
   }
 
-  private void calPermCodes(List<Permission> permissions, String userId, int userTypeCode) {
+  private Set<String> calPermCodes(List<Permission> permissions, String userId, int userTypeCode) {
     Set<String> permCodes = Sets.newHashSet();
 
     if (!CollectionUtils.isEmpty(permissions)) {
@@ -87,7 +103,32 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
     }
     UserType userType = EnumUtils.fromCode(UserType.class, userTypeCode);
     permCodes.add(userType.getName());
-    redisService.set(RedisKeys.USER_PERMS.key(userId), permCodes);
+    return permCodes;
+
+
+  }
+
+  private TenantUser addTenantUser(Tenant tenant, User user) {
+
+    TenantUser tenantUser = new TenantUser();
+
+    tenantUser.setSysTenantId(tenant.getId());
+    tenantUser.setSysCreatedUserId(user.getId());
+    tenantUser.setSysCreatedUserName(user.getUserName());
+    tenantUser.setSysCreatedTime(LocalDateTime.now());
+
+    tenantUser.setSysUpdateUserId(user.getId());
+    tenantUser.setSysUpdateUserName(user.getUserName());
+    tenantUser.setSysUpdateTime(LocalDateTime.now());
+
+    tenantUser.setSysDeleteFlag(false);
+
+    tenantUser.setUserId(user.getId());
+    tenantUser.setStatus(0);
+    tenantUser.setType(UserType.TENANT_ADMIN.getCode());
+    tenantUserService.save(tenantUser);
+    log.info("create tenant admin tenantId={},user={}", tenant.getCode(), user.getUserName());
+    return tenantUser;
 
 
   }

@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.web.security.service;
 
+import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -10,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public interface TenantUserDetailsService {
 
-  UserDetails loadTenantUserByUsername(String tenantId, String username)
+  TokenUserDetails loadTenantUserByUsername(String tenantId, String username)
       throws UsernameNotFoundException;
 
 }

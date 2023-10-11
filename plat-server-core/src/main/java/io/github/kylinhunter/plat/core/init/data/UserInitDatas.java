@@ -41,14 +41,15 @@ public class UserInitDatas extends BasicInitDatas<UserReqCreate, User> {
 
     UserReqCreate userReqCreate = new UserReqCreate();
     userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
-    userReqCreate.setUserCode(USER_ADMIN);
+    userReqCreate.setNickName(USER_ADMIN);
+    userReqCreate.setRealName(USER_ADMIN);
     userReqCreate.setUserName(USER_ADMIN);
     userReqCreate.setPassword(USER_ADMIN);
     userReqCreate.setSource("0");
     userReqCreate.setType(UserType.SUPER_ADMIN.getCode());
     userReqCreate.setStatus(UserStatus.NORMAL.getCode());
     userReqCreate.setDescription(USER_ADMIN);
-    this.addInitData(userReqCreate.getUserCode(), userReqCreate);
+    this.addInitData(userReqCreate.getUserName(), userReqCreate);
     return userReqCreate;
   }
 
@@ -56,14 +57,15 @@ public class UserInitDatas extends BasicInitDatas<UserReqCreate, User> {
 
     UserReqCreate userReqCreate = new UserReqCreate();
     userReqCreate.setId(UUID.randomUUID().toString().replace("-", ""));
-    userReqCreate.setUserCode(USER_TEST);
+    userReqCreate.setNickName(USER_TEST);
+    userReqCreate.setRealName(USER_TEST);
     userReqCreate.setUserName(USER_TEST);
     userReqCreate.setPassword(USER_TEST);
     userReqCreate.setSource("0");
     userReqCreate.setType(UserType.USER.getCode());
     userReqCreate.setStatus(UserStatus.NORMAL.getCode());
     userReqCreate.setDescription(USER_TEST);
-    this.addInitData(userReqCreate.getUserCode(), userReqCreate);
+    this.addInitData(userReqCreate.getUserName(), userReqCreate);
     return userReqCreate;
   }
 }

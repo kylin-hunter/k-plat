@@ -15,15 +15,16 @@ CREATE TABLE IF NOT EXISTS `kplat_user`
     `sys_update_time`       datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后编辑时间',
     `sys_delete_flag`       tinyint      NOT NULL DEFAULT 0 COMMENT '0 未删除 1删除',
     `sys_op_lock`           int          NULL COMMENT '乐观锁',
-    `user_code`             varchar(64)  NOT NULL DEFAULT '' COMMENT '用户code',
-    `user_name`             varchar(64)  NOT NULL DEFAULT '' COMMENT '用户名',
+    `user_name`             varchar(64)  NOT NULL DEFAULT '' COMMENT '登录用户名',
+    `nick_name`             varchar(64)  NOT NULL DEFAULT '' COMMENT '昵称，用户自己可以改',
+    `real_name`             varchar(64)  NOT NULL DEFAULT '' COMMENT '真实姓名，用户自己不可以改',
     `password`              varchar(64)  NOT NULL DEFAULT '' COMMENT '密码',
     `source`                varchar(100) NOT NULL DEFAULT 0 COMMENT '用户来源',
     `type`                  tinyint      NOT NULL DEFAULT 0 COMMENT '用户类型 0 普通 1超级管理员 ',
     `status`                tinyint      NOT NULL DEFAULT 0 COMMENT '用户状态',
     `description`           varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `uniq_user_code` (`user_code`) COMMENT '唯一的user code'
+    UNIQUE KEY `uniq_user_code` (`user_name`) COMMENT '唯一的user name'
 );
 
 

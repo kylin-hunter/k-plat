@@ -56,8 +56,8 @@ public class UserSaveOrUpdateInterceptor
 
   @Override
   public User before(UserReqUpdate reqUpdate, boolean tenantSupported, User entity) {
-    if (!userInitData.canBeModified(entity.getUserCode())) {
-      throw new ParamException("invalid user code:" + entity.getUserCode());
+    if (!userInitData.canBeModified(entity.getUserName())) {
+      throw new ParamException("invalid user name:" + entity.getUserName());
     }
     return super.before(reqUpdate, tenantSupported, entity);
   }

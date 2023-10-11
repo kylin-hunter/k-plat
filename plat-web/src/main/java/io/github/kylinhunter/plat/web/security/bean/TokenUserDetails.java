@@ -6,6 +6,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Data;
@@ -25,8 +26,15 @@ import org.springframework.util.CollectionUtils;
 public class TokenUserDetails implements UserDetails {
 
   private String username;
+
   private String password;
+
   private String userId;
+
+  private String nickName;
+  private String realName;
+
+
   private Integer type;
 
   private String tenantId;
@@ -38,19 +46,12 @@ public class TokenUserDetails implements UserDetails {
   private Token token;
   private User user;
   private TenantUser tenantUser;
-
+  private Set<String> pemCodes = new HashSet<>();
   Collection<? extends GrantedAuthority> authorities;
 
-  public TokenUserDetails(User user) {
-    this(user, null, null);
-  }
 
   public TokenUserDetails(User user, Set<String> pemCodes) {
     this(user, null, pemCodes);
-  }
-
-  public TokenUserDetails(User user, TenantUser tenantUser) {
-    this(user, tenantUser, null);
   }
 
 
@@ -58,41 +59,43 @@ public class TokenUserDetails implements UserDetails {
     this.user = user;
     this.tenantUser = tenantUser;
 
-    this.username = user.getUserCode();
+    this.username = user.getUserName();
     this.password = user.getPassword();
     this.userId = user.getId();
+    this.nickName = user.getNickName();
+    this.realName = user.getRealName();
     this.type = user.getType();
-
-    if (!CollectionUtils.isEmpty(pemCodes)) {
-      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
-          .collect(Collectors.toList());
-    } else {
-      authorities = Collections.EMPTY_LIST;
-    }
 
     if (tenantUser != null) {
       this.tenantId = tenantUser.getSysTenantId();
       this.tenantUserId = tenantUser.getId();
       this.type = tenantUser.getType();
 
+    }
+    this.pemCodes = pemCodes;
+    if (!CollectionUtils.isEmpty(pemCodes)) {
+      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
+          .collect(Collectors.toList());
     } else {
-      this.tenantId = StringUtil.EMPTY;
+      authorities = Collections.emptyList();
     }
   }
 
   public TokenUserDetails(Token token, Set<String> pemCodes) {
     this.token = token;
 
-    this.username = token.getUserCode();
+    this.username = token.getUserName();
     this.password = "";
     this.userId = token.getUserId();
+    this.nickName = token.getNickName();
+    this.realName = token.getRealName();
     this.type = token.getUserType();
 
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
           .collect(Collectors.toList());
     } else {
-      authorities = Collections.EMPTY_LIST;
+      authorities = Collections.emptyList();
     }
 
     this.tenantId = token.getTenantId();

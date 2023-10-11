@@ -32,10 +32,13 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "UserResp")
 public class UserResp extends DefaultSysResp {
 
-  
 
-  @ApiModelProperty(value = "userCode")
-  private String userCode;
+
+  @ApiModelProperty(value = "nickName")
+  private String nickName;
+
+  @ApiModelProperty(value = "realName")
+  private String realName;
 
   @ApiModelProperty(value = "userName")
   private String userName;
