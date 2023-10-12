@@ -40,7 +40,7 @@ public class DefaulTrace implements Trace {
 
   private boolean debug;
 
-  private TraceExplain traceExplain;
+  private TraceExplain explain;
 
   public DefaulTrace(String id, String token) {
     if (id != null && id.length() > 0) {

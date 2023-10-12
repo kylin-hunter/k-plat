@@ -71,11 +71,11 @@ public class DefaultTraceHolder implements TraceHolder {
       trace.setDebug(true);
       DefaultTraceExplain defaultExplain = new DefaultTraceExplain();
       defaultExplain.setHeaders(RequestUtils.getHeaders(request));
-      defaultExplain.setCookieInfos(RequestUtils.getCookieInfos(request));
-      trace.setTraceExplain(defaultExplain);
+      defaultExplain.setCookies(RequestUtils.getCookies(request));
+      trace.setExplain(defaultExplain);
 
     } else {
-      trace.setTraceExplain(DUMMY_TRACE.getTraceExplain());
+      trace.setExplain(DUMMY_TRACE.getExplain());
     }
     return trace;
   }

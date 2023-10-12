@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DefaultTraceExplain implements TraceExplain {
   private Map<String, List<String>> headers;
-  private List<CookieInfo> cookieInfos;
+  private List<CookieInfo> cookies;
 
   private Map<String, Long> costs = Maps.newLinkedHashMap();
   private Map<String, Object> others = Maps.newLinkedHashMap();
@@ -47,12 +47,12 @@ public class DefaultTraceExplain implements TraceExplain {
   }
 
   @Override
-  public void recordTimeStart(String key) {
+  public void costStart(String key) {
     costs.put(key, System.currentTimeMillis());
   }
 
   @Override
-  public void recordTimeEnd(String key) {
+  public void costEnd(String key) {
     Long startTime = costs.get(key);
     if (startTime != null && startTime > 0) {
       costs.put(key, System.currentTimeMillis() - startTime);
@@ -63,12 +63,12 @@ public class DefaultTraceExplain implements TraceExplain {
   }
 
   @Override
-  public void addTimeCost(String key, long cost) {
+  public void addCost(String key, long cost) {
     costs.put(key, cost);
   }
 
   @Override
-  public long getTimeCost(String key) {
+  public long getCost(String key) {
     Long cost = costs.get(key);
     if (cost != null && cost > 0) {
       return cost;

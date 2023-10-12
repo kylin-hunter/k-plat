@@ -77,11 +77,11 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setTraceExplain(TraceExplain traceExplain) {
+  public void setExplain(TraceExplain explain) {
   }
 
   @Override
-  public TraceExplain getTraceExplain() {
+  public TraceExplain getExplain() {
     return dummyTraceExplain;
   }
 

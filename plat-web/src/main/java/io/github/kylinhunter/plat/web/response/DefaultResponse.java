@@ -110,8 +110,8 @@ public class DefaultResponse<T> implements Response<T> {
     this.traceId = trace.getId();
     this.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
     this.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
-    if (!trace.getTraceExplain().isDummy()) {
-      this.setTraceExplain(trace.getTraceExplain());
+    if (!trace.getExplain().isDummy()) {
+      this.setTraceExplain(trace.getExplain());
     }
   }
 }

@@ -17,6 +17,7 @@ package io.github.kylinhunter.plat.web.trace.explain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.github.kylinhunter.plat.web.trace.CookieInfo;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import lombok.Data;
@@ -36,37 +37,37 @@ public class DummyTraceExplain implements TraceExplain {
   }
 
   @Override
-  public void recordTimeStart(String key) {}
+  public void costStart(String key) {}
 
   @Override
-  public void recordTimeEnd(String key) {}
+  public void costEnd(String key) {}
 
   @Override
-  public void addTimeCost(String key, long cost) {}
+  public void addCost(String key, long cost) {}
 
   @Override
-  public long getTimeCost(String key) {
+  public long getCost(String key) {
     return 0;
   }
 
   @Override
   public Map<String, Long> getCosts() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
-  public List<CookieInfo> getCookieInfos() {
-    return null;
+  public List<CookieInfo> getCookies() {
+    return Collections.emptyList();
   }
 
   @Override
   public Map<String, List<String>> getHeaders() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override
   public Map<String, Object> getOthers() {
-    return null;
+    return Collections.emptyMap();
   }
 
   @Override

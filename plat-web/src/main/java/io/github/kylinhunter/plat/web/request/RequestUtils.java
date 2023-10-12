@@ -132,7 +132,7 @@ public class RequestUtils {
    * @author BiJi'an
    * @date 2023-10-13 01:23
    */
-  public static List<CookieInfo> getCookieInfos(HttpServletRequest request) {
+  public static List<CookieInfo> getCookies(HttpServletRequest request) {
     List<CookieInfo> cookieInfos = Lists.newArrayList();
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {

@@ -28,17 +28,17 @@ public interface TraceExplain {
 
   TraceExplain put(String key, Object value);
 
-  void recordTimeStart(String key);
+  void costStart(String key);
 
-  void recordTimeEnd(String key);
+  void costEnd(String key);
 
-  void addTimeCost(String key, long cost);
+  void addCost(String key, long cost);
 
-  long getTimeCost(String key);
+  long getCost(String key);
 
   Map<String, Long> getCosts();
 
-  List<CookieInfo> getCookieInfos();
+  List<CookieInfo> getCookies();
 
   Map<String, List<String>> getHeaders();
 

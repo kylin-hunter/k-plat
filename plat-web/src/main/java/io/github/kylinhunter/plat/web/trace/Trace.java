@@ -44,9 +44,9 @@ public interface Trace {
 
   long getDurationTime();
 
-  void setTraceExplain(TraceExplain traceExplain);
+  void setExplain(TraceExplain explain);
 
-  TraceExplain getTraceExplain();
+  TraceExplain getExplain();
 
   boolean isDummy();
 }

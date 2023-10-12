@@ -58,7 +58,7 @@ public class TimeCostAspect {
     if (cost > appConfig.getLogWatchThreshold()) {
       log.info("process {}.{} with cost:{}ms", className, methodName, cost);
     }
-    traceHolder.get().getTraceExplain().addTimeCost(timerKey, cost);
+    traceHolder.get().getExplain().addCost(timerKey, cost);
     return obj;
   }
 }
