@@ -61,13 +61,5 @@ public class DefaultUserContext implements UserContext, Serializable {
     this.userId = user.getId();
   }
 
-  @Override
-  public boolean isDummy() {
-    return false;
-  }
-
-  @Override
-  public boolean isSuperAdmin() {
-    return UserType.isSuperAdmin(this.userType);
-  }
+ 
 }

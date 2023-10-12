@@ -13,40 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace;
+package io.github.kylinhunter.plat.api.trace;
 
-import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * @author BiJi'an
  * @description
- * @date 2022-01-30 11:43
+ * @author BiJi'an
+ * @date 2022-01-01 19:25
  */
-public interface Trace {
-
-  String getId();
-
-  void setId(String id);
-
-  boolean isDebug();
-
-  void setDebug(boolean debug);
-
-  String getToken();
-
-  void setToken(String token);
-
-  long getStartTime();
-
-  long getEndTime();
-
-  Trace end();
-
-  long getDurationTime();
-
-  void setExplain(TraceExplain explain);
-
-  TraceExplain getExplain();
-
-  boolean isDummy();
+@Data
+@AllArgsConstructor
+public class CookieInfo {
+  private String name;
+  private String path;
+  private String value;
 }

@@ -18,7 +18,7 @@ package io.github.kylinhunter.plat.web.response;
 import io.github.kylinhunter.commons.sys.KConst;
 import io.github.kylinhunter.commons.utils.json.JsonOptions;
 import io.github.kylinhunter.commons.utils.json.JsonUtils;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

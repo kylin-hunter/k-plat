@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.auth;
 
+import io.github.kylinhunter.plat.api.context.UserContext;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Token {
+public class Token  implements UserContext {
 
 
   private String userId = "";

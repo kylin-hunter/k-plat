@@ -31,14 +31,11 @@ public class PathPatterns {
 
   public static final PathPattern LOGIN = PathPattern.builder().build().add("/login");
   public static final PathPattern AUTH = PathPattern.builder().build().add("/auth/**");
-  public static final PathPattern API_V1_TENANT =
+  public static final PathPattern API_V1_TENANTS =
       PathPattern.builder().build().add("/api/v1/core/tenants/**");
-  public static final PathPattern API_V1_USER =
-      PathPattern.builder().build().add("/api/v1/core/users/**");
-  public static final PathPattern API_V1_ROLES =
-      PathPattern.builder().build().add("/api/v1/core/roles/**");
-  public static final PathPattern API_V1_STORAGE =
-      PathPattern.builder().build().add("/api/v1/storage/**");
+
+  public static final PathPattern API_V1_TENANTS_ACTION =
+      PathPattern.builder().build().add("/api/v1/core/tenant*/**");
 
   public static final PathPattern API_V1 = PathPattern.builder().build().add("/api/v1/**");
 

@@ -15,6 +15,8 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
+import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import io.github.kylinhunter.plat.web.log.LogHelper;
 import io.github.kylinhunter.plat.web.request.RequestUtils;

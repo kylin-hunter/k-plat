@@ -48,10 +48,10 @@ public class TenantUserConfigSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(TenantUserConfigVO vo) {
     super.saveOrUpdateBefore(vo);
     final String userId = vo.getUserId();
-    UserContext userContext = userContextHolder.get(true);
+    UserContext userContext = traceHolder.get().getUserContext();
     if (!StringUtils.isEmpty(userId)) {
-      if (!userId.equals(userContext.getUserId()) && !userContext.isSuperAdmin()) {
-        throw new ParamException("not admin ");
+      if (!userId.equals(userContext.getUserId()) ) {
+        throw new ParamException("only set self config ");
       }
     } else {
       vo.setUserId(userContext.getUserId());

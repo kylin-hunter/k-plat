@@ -50,16 +50,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TenantCatalogServiceImp
     extends CommonServiceImpl<
-        TenantCatalogMapper,
-        TenantCatalog,
-        TenantCatalogReqCreate,
-        TenantCatalogReqUpdate,
-        TenantCatalogResp,
-        TenantCatalogVO,
-        TenantCatalogReqQuery>
+    TenantCatalogMapper,
+    TenantCatalog,
+    TenantCatalogReqCreate,
+    TenantCatalogReqUpdate,
+    TenantCatalogResp,
+    TenantCatalogVO,
+    TenantCatalogReqQuery>
     implements TenantCatalogService {
 
-  @Autowired private TenantCatalogTreeComponent tenantCatalogTreeComponent;
+  @Autowired
+  private TenantCatalogTreeComponent tenantCatalogTreeComponent;
 
   public TenantCatalogServiceImp(
       TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,
@@ -70,9 +71,10 @@ public class TenantCatalogServiceImp
 
   @Override
   public TenantCatalog queryByCode(int type, String code) {
+    String tenantId = traceHolder.get().getUserContext().getTenantId();
     LambdaQueryWrapper<TenantCatalog> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(TenantCatalog::getSysDeleteFlag, false);
-    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHolder.get().getTenantId());
+    queryWrapper.eq(TenantCatalog::getSysTenantId, tenantId);
     queryWrapper.eq(TenantCatalog::getType, type);
     queryWrapper.eq(TenantCatalog::getCode, code);
     return this.baseMapper.selectOne(queryWrapper);
@@ -80,10 +82,11 @@ public class TenantCatalogServiceImp
 
   @Override
   public TenantCatalogTree tree(int type) {
+    String tenantId = traceHolder.get().getUserContext().getTenantId();
 
     LambdaQueryWrapper<TenantCatalog> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(TenantCatalog::getSysDeleteFlag, false);
-    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHolder.get().getTenantId());
+    queryWrapper.eq(TenantCatalog::getSysTenantId, tenantId);
     queryWrapper.eq(TenantCatalog::getType, type);
     queryWrapper.orderByAsc(TenantCatalog::getLevel);
     List<TenantCatalog> tenantCatalogs = this.baseMapper.selectList(queryWrapper);
@@ -94,7 +97,7 @@ public class TenantCatalogServiceImp
   public boolean delete(ReqDelete reqDelete) {
 
     boolean ok = super.delete(reqDelete);
-    log.info("delete catalog id:{}", reqDelete.getId());
+    log.info("delete catalog id:{},{}", reqDelete.getId(), ok);
     List<TenantCatalog> allChildren = Lists.newArrayList();
     fetchAllChildren(reqDelete.getId(), allChildren);
     if (allChildren.size() > 0) {

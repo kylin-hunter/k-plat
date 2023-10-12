@@ -41,6 +41,7 @@ import io.github.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
@@ -77,7 +78,7 @@ public abstract class CommonServiceImpl<
 
   @Autowired protected ApplicationContext applicationContext;
 
-  @Autowired protected UserContextHolder userContextHolder;
+  @Autowired protected TraceHolder traceHolder;
 
   protected SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
 

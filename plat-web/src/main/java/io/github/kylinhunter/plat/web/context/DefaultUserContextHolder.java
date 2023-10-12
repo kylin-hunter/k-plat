@@ -64,9 +64,9 @@ public class DefaultUserContextHolder implements UserContextHolder {
 
     final UserContext userContext = userContexts.get();
     if (check) {
-      if (userContext == null || userContext.isDummy()) {
-        throw new AuthException(" no user content");
-      }
+//      if (userContext == null || userContext.isDummy()) {
+//        throw new AuthException(" no user content");
+//      }
     }
     return userContext;
   }

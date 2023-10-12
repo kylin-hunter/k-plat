@@ -1,8 +1,15 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
 dependencies {
     api("io.github.kylin-hunter:k-commons:1.0.14")
     api("io.github.kylin-hunter:k-utils:1.0.1")
     api 'org.hibernate.validator:hibernate-validator'
     api 'org.springframework:spring-web'
+    implementation('javax.servlet:servlet-api:2.5')
     api(rootProject.dependency_management['commons-lang3'])
     api(rootProject.dependency_management['commons-io'])
     api(rootProject.dependency_management['mybatis-plus'])

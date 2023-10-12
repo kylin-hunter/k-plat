@@ -7,7 +7,7 @@ import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

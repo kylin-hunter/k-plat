@@ -15,7 +15,10 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
-import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
+import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +45,8 @@ public class DefaulTrace implements Trace {
 
   private TraceExplain explain;
 
+  private Token tokenObj;
+
   public DefaulTrace(String id, String token) {
     if (id != null && id.length() > 0) {
       this.id = id;
@@ -50,6 +55,22 @@ public class DefaulTrace implements Trace {
     }
     this.token = token;
   }
+
+  @Override
+  public UserContext getUserContext() {
+    return tokenObj;
+  }
+
+  @Override
+  public Token getTokenObj() {
+    return tokenObj;
+  }
+
+  @Override
+  public void setUserContext(Token token) {
+    this.tokenObj = token;
+  }
+
 
   @Override
   public Trace end() {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace;
+package io.github.kylinhunter.plat.api.trace;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -15,10 +15,9 @@
  */
 package io.github.kylinhunter.plat.web.interceptor;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.context.UserContext;
 import io.github.kylinhunter.plat.web.exception.AuthException;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,15 +39,16 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 @Slf4j
 public class TenantHandlerInterceptor implements HandlerInterceptor {
+
   private final TraceHolder traceHolder;
-  private final UserContextHolder userContextHolder;
+
 
   @Override
   public boolean preHandle(
       @Nonnull HttpServletRequest request,
       @Nonnull HttpServletResponse response,
       @Nonnull Object handler) {
-    UserContext userContext = userContextHolder.get();
+    UserContext userContext = traceHolder.get().getUserContext();
     String tenantId = userContext.getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new AuthException("tenantId is empty");
@@ -63,6 +63,6 @@ public class TenantHandlerInterceptor implements HandlerInterceptor {
       @Nonnull HttpServletResponse response,
       @Nonnull Object handler,
       Exception ex) {
-    userContextHolder.remove();
+
   }
 }

@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.web.trace;
 
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

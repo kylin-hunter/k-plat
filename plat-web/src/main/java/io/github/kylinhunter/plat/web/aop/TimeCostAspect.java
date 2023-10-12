@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.web.aop;
 
 import io.github.kylinhunter.plat.web.config.AppConfig;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -15,18 +15,12 @@
  */
 package io.github.kylinhunter.plat.api.context;
 
-import io.github.kylinhunter.plat.api.auth.Token;
-import java.util.List;
-
 public interface UserContext {
 
   String getTenantId();
 
   String getUserId();
 
-  Token getToken();
-
-  String getUserCode();
 
   String getUserName();
 
@@ -37,14 +31,9 @@ public interface UserContext {
 
   void setUserId(final String userId);
 
-  void setUserCode(final String userCode);
 
   void setUserName(final String userName);
 
   void setUserType(final int type);
 
-
-  boolean isDummy();
-
-  boolean isSuperAdmin();
 }

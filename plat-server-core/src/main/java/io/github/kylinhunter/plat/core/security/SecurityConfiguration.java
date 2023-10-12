@@ -1,6 +1,7 @@
 package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
@@ -30,12 +31,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration {
 
   @Bean
-  public TokenService tokenService( JWTService jwtService,
-     UserContextHolder userContextHolder,
-      RedisService redisService,
+  public TokenService tokenService(JWTService jwtService,
+      TraceHolder traceHolder, RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    return new TokenServiceImp(jwtService,  userContextHolder,
-        redisService, tenantUserDetailsService);
+    return new TokenServiceImp(jwtService,
+        traceHolder, redisService, tenantUserDetailsService);
   }
 
 

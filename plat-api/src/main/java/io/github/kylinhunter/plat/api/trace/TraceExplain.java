@@ -13,20 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace;
+package io.github.kylinhunter.plat.api.trace;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @description
  * @author BiJi'an
- * @date 2022-01-01 19:25
+ * @description
+ * @date 2022-01-30 11:07
  */
-@Data
-@AllArgsConstructor
-public class CookieInfo {
-  private String name;
-  private String path;
-  private String value;
+public interface TraceExplain {
+
+  TraceExplain put(String key, Object value);
+
+  void costStart(String key);
+
+  void costEnd(String key);
+
+  void addCost(String key, long cost);
+
+  long getCost(String key);
+
+  Map<String, Long> getCosts();
+
+  List<CookieInfo> getCookies();
+
+  Map<String, List<String>> getHeaders();
+
+  Map<String, Object> getOthers();
+
+  boolean isDummy();
 }

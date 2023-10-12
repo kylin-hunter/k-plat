@@ -13,36 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace.explain;
+package io.github.kylinhunter.plat.api.trace;
 
-import io.github.kylinhunter.plat.web.trace.CookieInfo;
-import java.util.List;
-import java.util.Map;
+import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.context.UserContext;
 
 /**
- * @description
  * @author BiJi'an
- * @date 2022-01-30 11:07
+ * @description
+ * @date 2022-01-30 11:43
  */
-public interface TraceExplain {
+public interface Trace {
 
-  TraceExplain put(String key, Object value);
+  String getId();
 
-  void costStart(String key);
+  void setId(String id);
 
-  void costEnd(String key);
+  boolean isDebug();
 
-  void addCost(String key, long cost);
+  void setDebug(boolean debug);
 
-  long getCost(String key);
+  String getToken();
 
-  Map<String, Long> getCosts();
+  UserContext getUserContext();
 
-  List<CookieInfo> getCookies();
+  Token getTokenObj();
 
-  Map<String, List<String>> getHeaders();
+  void setUserContext(Token token);
 
-  Map<String, Object> getOthers();
+  void setToken(String token);
+
+  long getStartTime();
+
+  long getEndTime();
+
+  Trace end();
+
+  long getDurationTime();
+
+  void setExplain(TraceExplain explain);
+
+  TraceExplain getExplain();
 
   boolean isDummy();
 }

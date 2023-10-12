@@ -15,8 +15,8 @@
  */
 package io.github.kylinhunter.plat.web.response;
 
-import io.github.kylinhunter.plat.web.trace.Trace;
-import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
+import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import java.io.Serializable;
 
 /**

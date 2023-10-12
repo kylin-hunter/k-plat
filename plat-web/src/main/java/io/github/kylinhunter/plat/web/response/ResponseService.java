@@ -18,7 +18,7 @@ package io.github.kylinhunter.plat.web.response;
 import io.github.kylinhunter.commons.exception.ExceptionHelper;
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

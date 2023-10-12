@@ -7,7 +7,7 @@ import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,8 +36,6 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
   protected TokenService tokenService;
   @Autowired
   protected PasswordEncoder passwordEncoder;
-  @Autowired
-  protected UserContextHolder userContextHolder;
 
   @Autowired
   protected TraceHolder traceHolder;
@@ -85,7 +83,7 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
         .addFilter(new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter,
             traceHolder))
         .addFilter(new JwtVerifyFilter(authenticationManagerBean(), traceHolder, tokenService,
-            userContextHolder, responseWriter))
+            responseWriter))
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .cors()

@@ -39,16 +39,6 @@ public class DummyUserContext implements UserContext, Serializable {
   }
 
   @Override
-  public Token getToken() {
-    return null;
-  }
-
-  @Override
-  public String getUserCode() {
-    return null;
-  }
-
-  @Override
   public String getUserName() {
     return null;
   }
@@ -67,9 +57,6 @@ public class DummyUserContext implements UserContext, Serializable {
   public void setUserId(String userId) {
   }
 
-  @Override
-  public void setUserCode(String userCode) {
-  }
 
   @Override
   public void setUserName(String userName) {
@@ -79,13 +66,4 @@ public class DummyUserContext implements UserContext, Serializable {
   public void setUserType(int type) {
   }
 
-  @Override
-  public boolean isDummy() {
-    return true;
-  }
-
-  @Override
-  public boolean isSuperAdmin() {
-    return false;
-  }
 }

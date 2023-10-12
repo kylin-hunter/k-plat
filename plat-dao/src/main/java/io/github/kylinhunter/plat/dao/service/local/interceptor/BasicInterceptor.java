@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
@@ -25,10 +24,11 @@ import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 /**
  * @author BiJi'an
@@ -43,11 +43,10 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired protected UserContextHolder userContextHolder;
+  @Autowired protected TraceHolder traceHolder;
 
   protected void setCreateMsg(Req req, T entity) {
-    UserContext userContext = userContextHolder.get(true);
-
+    UserContext userContext =traceHolder.get().getUserContext();
     entity.setSysTenantId(userContext.getTenantId());
     entity.setSysCreatedUserId(userContext.getUserId());
     entity.setSysCreatedUserName(userContext.getUserName());
@@ -61,7 +60,7 @@ public class BasicInterceptor<
   }
 
   protected void setUpdateMsg(Req req, T entity) {
-    UserContext userContext = userContextHolder.get(true);
+    UserContext userContext =traceHolder.get().getUserContext();
 
     entity.setSysUpdateUserId(userContext.getUserId());
     entity.setSysUpdateUserName(userContext.getUserName());
@@ -86,8 +85,7 @@ public class BasicInterceptor<
   }
 
   protected String checkAndGetTenantId() {
-
-    String tenantId = userContextHolder.get(true).getTenantId();
+    String tenantId =traceHolder.get().getUserContext().getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new DBException("tenantId is emtpy");
     }

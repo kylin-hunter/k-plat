@@ -31,25 +31,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @RequiredArgsConstructor
 public class AutoWebMvcConfiguration implements WebMvcConfigurer {
+
   private final TenantHandlerInterceptor tenantHandlerInterceptor;
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-//    registry.addInterceptor(new SentinelWebInterceptor()).addPathPatterns("/**");
-
-//    registry
-//        .addInterceptor(traceHandlerInterceptor)
-//        .addPathPatterns(PathPatterns.of(PathPatterns.ALL));
-
-
 
     registry
         .addInterceptor(tenantHandlerInterceptor)
-        .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
-        .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_USER))
-        .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_ROLES))
-        .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANT))
-        .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_STORAGE));
+        .addPathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANTS_ACTION))
+        .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANTS));
   }
 
   @Override

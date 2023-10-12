@@ -30,16 +30,14 @@ import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
 import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
-import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
 import io.github.kylinhunter.plat.web.request.WebDataBinderConfig;
 import io.github.kylinhunter.plat.web.response.ResponseAdvice;
 import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.trace.DefaultTraceHolder;
 import io.github.kylinhunter.plat.web.trace.TraceFilter;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.format.DateTimeFormatter;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -124,16 +122,10 @@ public class AutoWebCommonConfiguration {
     return new JWTService();
   }
 
-  @Bean
-  public TokenHandlerInterceptor tokenHandlerInterceptor(TraceHolder traceHolder,
-      UserContextHolder userContextHolder, JWTService jwtService) {
-    return new TokenHandlerInterceptor(traceHolder, userContextHolder, jwtService);
-  }
 
   @Bean
-  public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHolder traceHolder,
-      UserContextHolder userContextHolder) {
-    return new TenantHandlerInterceptor(traceHolder, userContextHolder);
+  public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHolder traceHolder) {
+    return new TenantHandlerInterceptor(traceHolder);
   }
 
 

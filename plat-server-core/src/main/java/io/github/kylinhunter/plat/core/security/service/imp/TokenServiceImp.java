@@ -18,9 +18,9 @@ package io.github.kylinhunter.plat.core.security.service.imp;
 import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
@@ -42,21 +42,18 @@ import org.springframework.beans.factory.annotation.Value;
 public class TokenServiceImp extends DefaultTokenService {
 
 
-  private UserContextHolder userContextHolder;
+  private final TraceHolder traceHolder;
+  private final RedisService redisService;
 
-  private RedisService redisService;
-
-  private TenantUserDetailsService tenantUserDetailsService;
+  private final TenantUserDetailsService tenantUserDetailsService;
 
   @Value("${kplat.token_expire_time:1800}")
   private long tokenExpireTime;
 
-  public TokenServiceImp(JWTService jwtService,
-      UserContextHolder userContextHolder,
+  public TokenServiceImp(JWTService jwtService, TraceHolder traceHolder,
       RedisService redisService, TenantUserDetailsService tenantUserDetailsService) {
     super(jwtService);
-
-    this.userContextHolder = userContextHolder;
+    this.traceHolder = traceHolder;
     this.redisService = redisService;
     this.tenantUserDetailsService = tenantUserDetailsService;
   }
@@ -112,7 +109,7 @@ public class TokenServiceImp extends DefaultTokenService {
    */
   @Override
   public String createTenantToken(ReqTenantToken reqTenantToken) {
-    Token token = userContextHolder.get().getToken();
+    Token token = traceHolder.get().getTokenObj();
     token.setEffectiveTime(tokenExpireTime);
     String tenantId = reqTenantToken.getTenantId();
     TokenUserDetails userDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,

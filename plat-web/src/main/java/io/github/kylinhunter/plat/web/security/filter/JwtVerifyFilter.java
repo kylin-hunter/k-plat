@@ -6,8 +6,8 @@ import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.Trace;
-import io.github.kylinhunter.plat.web.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,21 +24,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
  * @description
  * @date 2023-10-01 21:11
  */
-public class  JwtVerifyFilter extends BasicAuthenticationFilter {
+public class JwtVerifyFilter extends BasicAuthenticationFilter {
 
   private TokenService tokenService;
   private TraceHolder traceHolder;
-  private UserContextHolder userContextHolder;
   private ResponseWriter responseWriter;
 
 
   public JwtVerifyFilter(AuthenticationManager authenticationManager, TraceHolder traceHolder,
-      TokenService tokenService, UserContextHolder userContextHolder,
+      TokenService tokenService,
       ResponseWriter responseWriter) {
     super(authenticationManager);
     this.traceHolder = traceHolder;
     this.tokenService = tokenService;
-    this.userContextHolder = userContextHolder;
     this.responseWriter = responseWriter;
   }
 
@@ -54,10 +52,10 @@ public class  JwtVerifyFilter extends BasicAuthenticationFilter {
         tokenUserDetails = this.tokenService.verify(token);
       } catch (AuthException e) {
         logger.error("verify token error", e);
-        responseWriter.write(e,trace.isDebug());
+        responseWriter.write(e, trace.isDebug());
         return;
       }
-      userContextHolder.create(tokenUserDetails.getToken());
+      trace.setUserContext(tokenUserDetails.getToken());
       UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
           = new UsernamePasswordAuthenticationToken(tokenUserDetails, null,
           tokenUserDetails.getAuthorities());
@@ -72,8 +70,6 @@ public class  JwtVerifyFilter extends BasicAuthenticationFilter {
       throw new AuthenticationServiceException("verify token error", e);
 
 
-    } finally {
-      userContextHolder.remove();
     }
 
 
