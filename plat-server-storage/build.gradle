@@ -8,8 +8,11 @@ dependencyManagement {
 dependencies {
 
     api project(':plat-web')
-    implementation 'io.minio:minio:8.5.5'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'io.minio:minio'
+    implementation 'com.squareup.okhttp3:okhttp'
+    api project(':plat-data')
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-mysql")
 }
 
 jar.enabled = false

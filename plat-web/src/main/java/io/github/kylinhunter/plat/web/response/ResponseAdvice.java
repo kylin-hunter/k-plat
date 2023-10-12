@@ -15,13 +15,10 @@
  */
 package io.github.kylinhunter.plat.web.response;
 
-import io.github.kylinhunter.commons.date.DateUtils;
 import io.github.kylinhunter.commons.sys.KConst;
 import io.github.kylinhunter.commons.utils.json.JsonOptions;
 import io.github.kylinhunter.commons.utils.json.JsonUtils;
-import io.github.kylinhunter.plat.web.request.RequestContext;
-import io.github.kylinhunter.plat.web.trace.Trace;
-import io.github.kylinhunter.plat.web.trace.TraceHandler;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +38,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @Slf4j
 @RequiredArgsConstructor
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
-  private final TraceHandler traceHandler;
-  private final RequestContext requestContext;
+
+  private final TraceHolder traceHolder;
 
   @Override
   public boolean supports(
@@ -71,29 +68,17 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     }
     HttpServletRequest req =
         ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    Trace trace = traceHandler.get();
-    trace.setEndTime(System.currentTimeMillis());
 
     boolean isResponse = returnValue instanceof Response;
-    Response<Object> response = isResponse ? (Response<Object>) returnValue : new DefaultResponse();
-    response.setTime(trace.getStartTime());
-    response.setDurationTime(trace.getDurationTime());
-    response.setTraceId(trace.getId());
+    Response<Object> response =
+        isResponse ? (Response<Object>) returnValue : new DefaultResponse<>();
 
-    if (requestContext.isDebugMode()) { // 更好地调试信息
-      response.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
-      response.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
-    }
-    if (!trace.getTraceExplain().isDummy()) {
-      response.setTraceExplain(trace.getTraceExplain());
-    }
-    log.info(
-        req.getRequestURI()
-            + "'s response:"
-            + JsonUtils.writeToString(response, JsonOptions.NO_FAIL));
+    response.setTrace(traceHolder.get());
+
+    log.info("{} 's response:{}", req.getRequestURI(),
+        JsonUtils.writeToString(response, JsonOptions.NO_FAIL));
 
     if (!isResponse) {
-
       response.setData(returnValue);
       if (returnValue instanceof String) {
         return JsonUtils.writeToString(response, JsonOptions.NO_FAIL);

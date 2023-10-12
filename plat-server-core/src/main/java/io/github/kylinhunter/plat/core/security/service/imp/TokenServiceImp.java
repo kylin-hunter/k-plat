@@ -15,18 +15,11 @@
  */
 package io.github.kylinhunter.plat.core.security.service.imp;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.kylinhunter.commons.lang.EnumUtils;
+import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqCreate;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
-import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
-import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
@@ -39,7 +32,6 @@ import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author BiJi'an
@@ -49,10 +41,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Slf4j
 public class TokenServiceImp extends DefaultTokenService {
 
-  private TenantMapper tenantMapper;
-  private TenantUserService tenantUserService;
 
-  private UserContextHandler userContextHandler;
+  private UserContextHolder userContextHolder;
 
   private RedisService redisService;
 
@@ -61,13 +51,12 @@ public class TokenServiceImp extends DefaultTokenService {
   @Value("${kplat.token_expire_time:1800}")
   private long tokenExpireTime;
 
-  public TokenServiceImp(TenantMapper tenantMapper, JWTService jwtService,
-      TenantUserService tenantUserService, UserContextHandler userContextHandler,
+  public TokenServiceImp(JWTService jwtService,
+      UserContextHolder userContextHolder,
       RedisService redisService, TenantUserDetailsService tenantUserDetailsService) {
     super(jwtService);
-    this.tenantMapper = tenantMapper;
-    this.tenantUserService = tenantUserService;
-    this.userContextHandler = userContextHandler;
+
+    this.userContextHolder = userContextHolder;
     this.redisService = redisService;
     this.tenantUserDetailsService = tenantUserDetailsService;
   }
@@ -80,6 +69,7 @@ public class TokenServiceImp extends DefaultTokenService {
    * @author BiJi'an
    * @date 2023-10-02 00:29
    */
+  @Override
   public String createToken(TokenUserDetails tokenUserDetails) {
 
     Token token = new Token();
@@ -97,12 +87,15 @@ public class TokenServiceImp extends DefaultTokenService {
       token.setTenantId(tenantId);
       token.setUserType(tokenUserDetails.getType());
       token.setTenantUserId(tokenUserDetails.getTenantUserId());
+      setPerCodes(token.getTenantUserId(), tokenUserDetails.getPemCodes());
+
+    } else {
+      setPerCodes(token.getUserId(), tokenUserDetails.getPemCodes());
+
     }
 
     String tokenStr = jwtService.create(token);
     log.info("createToken user={} token={}", tokenUserDetails.getUsername(), tokenStr);
-    redisService.set(RedisKeys.USER_PERMS.key(token.getUserId()), tokenUserDetails.getPemCodes(),
-        tokenExpireTime);
 
     return tokenStr;
 
@@ -110,17 +103,18 @@ public class TokenServiceImp extends DefaultTokenService {
 
 
   /**
-   * @param loginToken loginToken
-   * @param tenantId   tenantId
+   * @param reqTenantToken reqTenantToken
    * @return java.lang.String
    * @title createTenantToken
    * @description createTenantToken
    * @author BiJi'an
    * @date 2023-10-02 00:05
    */
-  public String createTenantToken(String loginToken, String tenantId) {
-    Token token = userContextHandler.get().getToken();
-
+  @Override
+  public String createTenantToken(ReqTenantToken reqTenantToken) {
+    Token token = userContextHolder.get().getToken();
+    token.setEffectiveTime(tokenExpireTime);
+    String tenantId = reqTenantToken.getTenantId();
     TokenUserDetails userDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,
         token.getUserName());
 
@@ -130,8 +124,8 @@ public class TokenServiceImp extends DefaultTokenService {
     String tokenStr = jwtService.create(token);
     log.info("create tenant={},username={},token={}", tenantId, userDetails.getUsername(),
         tokenStr);
-    redisService.set(RedisKeys.USER_PERMS.key(token.getTenantUserId()), userDetails.getPemCodes(),
-        tokenExpireTime);
+
+    setPerCodes(token.getTenantUserId(), userDetails.getPemCodes());
 
     return tokenStr;
   }
@@ -150,15 +144,24 @@ public class TokenServiceImp extends DefaultTokenService {
     Set<String> pemCodes;
 
     if (userType == UserType.USER || userType == UserType.SUPER_ADMIN) {
-      pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getUserId()));
+      pemCodes = getPerCodes(verifyToken.getUserId());
     } else {
-      pemCodes = redisService.get(RedisKeys.USER_PERMS.key(verifyToken.getTenantUserId()));
+      pemCodes = getPerCodes(verifyToken.getTenantUserId());
     }
     if (Objects.isNull(pemCodes)) {
-      throw new AuthException("no perms msg in redis");
+      throw new AuthException("no user permissions");
     }
 
     return new TokenUserDetails(verifyToken, pemCodes);
   }
 
+
+  private void setPerCodes(String userId, Set<String> perCodes) {
+    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), perCodes, tokenExpireTime);
+  }
+
+
+  private Set<String> getPerCodes(String userId) {
+    return redisService.get(RedisKeys.AUTH_USER_PERMS.key(userId));
+  }
 }

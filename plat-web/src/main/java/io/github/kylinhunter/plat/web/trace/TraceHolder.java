@@ -13,53 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.auth.context;
+package io.github.kylinhunter.plat.web.trace;
 
-import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.context.UserContext;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author BiJi'an
- * @description
+ * @description 日志追踪
  * @date 2022/01/01
  */
-public interface UserContextHandler {
+public interface TraceHolder {
   /**
-   * @return io.github.kylinhunter.plat.api.context.UserContext
-   * @title create
+   * @return io.github.kylinhunter.plat.commons.trace.Trace
+   * @throws
+   * @title 隐式 从 request中 创建 trace
    * @description
    * @author BiJi'an
-   * @date 2022-06-11 00:41
+   * @date 2022/01/01 2:46 下午
    */
-  UserContext create(Token token);
+  Trace create(HttpServletRequest request);
 
   /**
-   * @return io.github.kylinhunter.plat.api.context.UserContext
-   * @title create
+   * @return io.github.kylinhunter.plat.commons.trace.Trace
+   * @throws
+   * @title 获取trace
    * @description
    * @author BiJi'an
-   * @date 2022-06-11 00:41
+   * @date 2021/7/30 11:25 上午
    */
-  UserContext create(User user);
+  Trace get();
 
   /**
-   * @return io.github.kylinhunter.plat.api.context.UserContext
-   * @title get get
-   * @description
-   * @author BiJi'an
-   * @date 2022-06-11 00:40
-   */
-  UserContext get();
-
-  UserContext get(boolean check);
-
-  /**
-   * @return void
+   * @return 清空trace
+   * @throws
    * @title remove
    * @description
    * @author BiJi'an
-   * @date 2022-06-11 00:41
+   * @date 2022/01/01 2:54 下午
    */
   void remove();
 }

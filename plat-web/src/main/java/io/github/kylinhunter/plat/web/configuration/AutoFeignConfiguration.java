@@ -5,7 +5,7 @@ import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.exception.WebException;
 import io.github.kylinhunter.plat.web.feign.FeignComponent;
 import io.github.kylinhunter.plat.web.feign.FeignTokenInterceptor;
-import io.github.kylinhunter.plat.web.request.RequestContext;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,7 +59,7 @@ public class AutoFeignConfiguration {
   }
 
   @Bean
-  public FeignTokenInterceptor feignTokenInterceptor(RequestContext requestContext) {
-    return new FeignTokenInterceptor(requestContext);
+  public FeignTokenInterceptor feignTokenInterceptor(TraceHolder traceHolder) {
+    return new FeignTokenInterceptor(traceHolder);
   }
 }

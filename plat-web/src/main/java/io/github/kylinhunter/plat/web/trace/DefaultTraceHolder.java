@@ -15,12 +15,14 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
+import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import io.github.kylinhunter.plat.web.log.LogHelper;
-import io.github.kylinhunter.plat.web.request.RequestContext;
+import io.github.kylinhunter.plat.web.request.RequestUtils;
 import io.github.kylinhunter.plat.web.trace.explain.DefaultTraceExplain;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author BiJi'an
@@ -29,14 +31,14 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class DefaultTraceHandler implements TraceHandler {
-  private final RequestContext requestContext;
+public class DefaultTraceHolder implements TraceHolder {
+
   private static final DummyTrace DUMMY_TRACE = new DummyTrace();
   private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> DUMMY_TRACE);
 
   @Override
-  public Trace create() {
-    Trace trace = this.tryCreateTraceFromRequest();
+  public Trace create(HttpServletRequest request) {
+    Trace trace = this.tryCreateTraceFromRequest(request);
     traces.set(trace);
     LogHelper.setTraceId(trace.getId());
     return trace;
@@ -60,15 +62,16 @@ public class DefaultTraceHandler implements TraceHandler {
    * @author BiJi'an
    * @date 2022/01/01 2:45 下午
    */
-  private Trace tryCreateTraceFromRequest() {
-    String traceId = requestContext.getTraceId();
-    String token = requestContext.getToken();
+  private Trace tryCreateTraceFromRequest(HttpServletRequest request) {
+    String traceId = request.getHeader(RequestConst.HEADER_TRACE_ID);
+    String token = getToken(request);
     Trace trace = new DefaulTrace(traceId, token);
 
-    if (requestContext.isDebugMode()) {
+    if (RequestUtils.isDebugMode(request)) {
+      trace.setDebug(true);
       DefaultTraceExplain defaultExplain = new DefaultTraceExplain();
-      defaultExplain.setHeaders(requestContext.getHeaders());
-      defaultExplain.setCookieInfos(requestContext.getCookieInfos());
+      defaultExplain.setHeaders(RequestUtils.getHeaders(request));
+      defaultExplain.setCookieInfos(RequestUtils.getCookieInfos(request));
       trace.setTraceExplain(defaultExplain);
 
     } else {
@@ -76,4 +79,25 @@ public class DefaultTraceHandler implements TraceHandler {
     }
     return trace;
   }
+
+  /**
+   * @return java.lang.String
+   * @title getTenantId
+   * @description
+   * @author BiJi'an
+   * @date 2021/8/1 3:46 上午
+   */
+  public String getToken(HttpServletRequest request) {
+    // 获取请求头信息authorization信息
+    final String authHeader = request.getHeader(RequestConst.HEADER_AUTH);
+    log.info("## authHeader= {}", authHeader);
+    if (!StringUtils.isBlank(authHeader) && authHeader.startsWith(RequestConst.BEARER)) {
+      String token = authHeader.substring(7);
+      if (!StringUtils.isBlank(token)) {
+        return token;
+      }
+    }
+    return StringUtils.defaultString(request.getParameter(RequestConst.PARAM_TOKEN));
+  }
+
 }

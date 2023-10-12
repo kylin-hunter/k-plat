@@ -15,8 +15,10 @@
  */
 package io.github.kylinhunter.plat.web.security.service.imp;
 
+import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -53,11 +55,8 @@ public class DefaultTokenService implements TokenService {
   }
 
   @Override
-  public String createTenantToken(String loginToken, String tenantId) {
-    TokenUserDetails tokenUserDetails = this.verify(loginToken);
-    Token token = tokenUserDetails.getToken();
-    token.setTenantId(tenantId);
-    return jwtService.create(token);
+  public String createTenantToken(ReqTenantToken reqTenantToken) {
+    throw new AuthException("no implement");
   }
 
   /**

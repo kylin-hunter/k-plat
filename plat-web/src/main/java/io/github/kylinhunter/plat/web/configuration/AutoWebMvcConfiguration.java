@@ -17,8 +17,6 @@ package io.github.kylinhunter.plat.web.configuration;
 
 import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
-import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
-import io.github.kylinhunter.plat.web.interceptor.TraceHandlerInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,8 +31,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @RequiredArgsConstructor
 public class AutoWebMvcConfiguration implements WebMvcConfigurer {
-  private final TraceHandlerInterceptor traceHandlerInterceptor;
-  private final TokenHandlerInterceptor tokenHandlerInterceptor;
   private final TenantHandlerInterceptor tenantHandlerInterceptor;
 
   @Override
@@ -45,10 +41,7 @@ public class AutoWebMvcConfiguration implements WebMvcConfigurer {
 //        .addInterceptor(traceHandlerInterceptor)
 //        .addPathPatterns(PathPatterns.of(PathPatterns.ALL));
 
-//    registry
-//        .addInterceptor(tokenHandlerInterceptor)
-//        .addPathPatterns(PathPatterns.of(PathPatterns.API_V1))
-//        .addPathPatterns(PathPatterns.of(PathPatterns.AUTH));
+
 
     registry
         .addInterceptor(tenantHandlerInterceptor)

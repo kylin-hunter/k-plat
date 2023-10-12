@@ -25,6 +25,7 @@ import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
  * @date 2022-06-11 02:14
  */
 public class DummyTrace implements Trace {
+
   private final DummyTraceExplain dummyTraceExplain = new DummyTraceExplain();
 
   @Override
@@ -33,7 +34,18 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setId(String id) {}
+  public void setId(String id) {
+  }
+
+  @Override
+  public boolean isDebug() {
+    return false;
+  }
+
+  @Override
+  public void setDebug(boolean debug) {
+
+  }
 
   @Override
   public String getToken() {
@@ -41,7 +53,8 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setToken(String token) {}
+  public void setToken(String token) {
+  }
 
   @Override
   public long getStartTime() {
@@ -54,7 +67,9 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setEndTime(long endTime) {}
+  public Trace end() {
+    return this;
+  }
 
   @Override
   public long getDurationTime() {
@@ -62,7 +77,8 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setTraceExplain(TraceExplain traceExplain) {}
+  public void setTraceExplain(TraceExplain traceExplain) {
+  }
 
   @Override
   public TraceExplain getTraceExplain() {

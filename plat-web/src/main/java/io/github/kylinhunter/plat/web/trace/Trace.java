@@ -28,6 +28,10 @@ public interface Trace {
 
   void setId(String id);
 
+  boolean isDebug();
+
+  void setDebug(boolean debug);
+
   String getToken();
 
   void setToken(String token);
@@ -36,7 +40,7 @@ public interface Trace {
 
   long getEndTime();
 
-  void setEndTime(long endTime);
+  Trace end();
 
   long getDurationTime();
 

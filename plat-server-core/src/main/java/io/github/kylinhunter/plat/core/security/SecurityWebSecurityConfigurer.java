@@ -35,28 +35,6 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
         "/error");
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry = http.authorizeRequests();
-    expressionInterceptUrlRegistry = addPerm(expressionInterceptUrlRegistry);
-    expressionInterceptUrlRegistry.anyRequest().authenticated()
-        .and().formLogin().loginProcessingUrl("/login")
-        .and().logout().logoutUrl("/logout")
-        .and().exceptionHandling()
-        .accessDeniedHandler(accessDeniedHandler(responseWriter))
-        .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
-        .and()
-        .addFilter(new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter))
-        .addFilter(new JwtVerifyFilter(authenticationManagerBean(), traceHandler, tokenService,
-            userContextHandler, responseWriter))
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .cors()
-        .and().csrf().disable();
-
-
-  }
-
   private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry) {
     String[] defaultAuthorities = new String[]{UserType.SUPER_ADMIN.getName()};
@@ -76,7 +54,9 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
     urlRegistry = addPerm(urlRegistry, "tenant_user_configs", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "tenant_catalogs", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "tenant_roles", defaultAuthorities);
+    urlRegistry = addPerm(urlRegistry, "tenant_role_permissions", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "tenant_users", defaultAuthorities);
+    urlRegistry = addPerm(urlRegistry, "tenant_user_roles", defaultAuthorities);
 
     return urlRegistry;
   }

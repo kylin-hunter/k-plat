@@ -69,7 +69,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody
   @ApiOperation("新建")
-  public DefaultResponse<Z> create(@RequestBody @Validated X reqCreate) {
+  public DefaultResponse<Z> save(@RequestBody @Validated X reqCreate) {
 
     return new DefaultResponse<>(service.save(reqCreate));
   }
@@ -92,14 +92,13 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "/batch", method = RequestMethod.DELETE)
   @ResponseBody
   @ApiOperation("删除(多个)")
-  public DefaultResponse<Boolean> batchDelete(@Validated ReqDeletes reqDeletes) {
+  public DefaultResponse<Boolean> delete(@Validated ReqDeletes reqDeletes) {
     return new DefaultResponse<>(service.delete(reqDeletes));
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("查看详情")
-//  @PreAuthorize("hasAuthority('get')")
   public DefaultResponse<Z> get(@PathVariable("id") String id) {
 
     return new DefaultResponse<>(this.service.findyById(ReqById.of(id)));
@@ -108,7 +107,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "/batch", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("查看详情")
-  public DefaultResponse<List<Z>> batchGet(@Validated ReqByIds reqByIds) {
+  public DefaultResponse<List<Z>> findyByIds(@Validated ReqByIds reqByIds) {
 
     return new DefaultResponse<>(this.service.findyByIds(reqByIds));
   }
@@ -116,8 +115,7 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("分页获取全部数据")
-//  @PreAuthorize("hasAuthority('list')")
-  public DefaultResponse<PageData<Z>> list(@Validated Q reqQueryPage) {
+  public DefaultResponse<PageData<Z>> query(@Validated Q reqQueryPage) {
 
     return new DefaultResponse<>(this.service.query(reqQueryPage));
   }

@@ -3,7 +3,7 @@ package io.github.kylinhunter.plat.core.security.service.imp;
 import com.google.common.collect.Sets;
 import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.commons.lang.EnumUtils;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
@@ -49,7 +49,7 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
   private final TenantRoleService tenantRoleService;
 
   private final RedisService redisService;
-  private UserContextHandler userContextHandler;
+  private UserContextHolder userContextHolder;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

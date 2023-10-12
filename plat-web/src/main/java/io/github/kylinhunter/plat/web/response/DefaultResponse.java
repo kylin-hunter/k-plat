@@ -17,8 +17,10 @@ package io.github.kylinhunter.plat.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import io.github.kylinhunter.commons.date.DateUtils;
 import io.github.kylinhunter.commons.exception.info.ErrInfoManager;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
+import io.github.kylinhunter.plat.web.trace.Trace;
 import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,15 +28,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @description 默认的响应结果
  * @author BiJi'an
+ * @description 默认的响应结果
  * @date 2022/01/01
  */
 @Getter
 @Setter
 @ApiModel("返回bean")
 public class DefaultResponse<T> implements Response<T> {
-  
+
 
   @ApiModelProperty("业务状态码 0正常  非0错误")
   private int code;
@@ -97,6 +99,19 @@ public class DefaultResponse<T> implements Response<T> {
       this.code = basicResponse.getCode();
       this.msg = basicResponse.getMsg();
       this.data = basicResponse.getData();
+    }
+  }
+
+  @Override
+  public void setTrace(Trace trace) {
+    trace.end();
+    this.time = trace.getStartTime();
+    this.durationTime = trace.getDurationTime();
+    this.traceId = trace.getId();
+    this.setStartTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getStartTime())));
+    this.setEndTime(DateUtils.format(DateUtils.toLocalDateTime(trace.getEndTime())));
+    if (!trace.getTraceExplain().isDummy()) {
+      this.setTraceExplain(trace.getTraceExplain());
     }
   }
 }

@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.web.context;
 
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.context.DefaultUserContext;
 import io.github.kylinhunter.plat.api.context.DummyUserContext;
 import io.github.kylinhunter.plat.api.context.UserContext;
@@ -24,7 +24,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
@@ -34,7 +33,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @RequiredArgsConstructor
-public class DefaultUserContextHandler implements UserContextHandler {
+public class DefaultUserContextHolder implements UserContextHolder {
 
   private static final UserContext DUMMY_USER_CONTEXT = new DummyUserContext();
 

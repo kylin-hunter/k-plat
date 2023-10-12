@@ -48,7 +48,7 @@ public class SysUserConfigSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(SysUserConfigVO vo) {
     super.saveOrUpdateBefore(vo);
     final String userId = vo.getUserId();
-    UserContext userContext = userContextHandler.get(true);
+    UserContext userContext = userContextHolder.get(true);
     if (!StringUtils.isEmpty(userId)) {
       if (!userId.equals(userContext.getUserId()) && !userContext.isSuperAdmin()) {
         throw new ParamException("not admin ");

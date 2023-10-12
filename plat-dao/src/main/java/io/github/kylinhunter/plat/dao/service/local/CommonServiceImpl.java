@@ -25,7 +25,7 @@ import io.github.kylinhunter.commons.exception.ExceptionHelper;
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
@@ -77,7 +77,7 @@ public abstract class CommonServiceImpl<
 
   @Autowired protected ApplicationContext applicationContext;
 
-  @Autowired protected UserContextHandler userContextHandler;
+  @Autowired protected UserContextHolder userContextHolder;
 
   protected SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
 

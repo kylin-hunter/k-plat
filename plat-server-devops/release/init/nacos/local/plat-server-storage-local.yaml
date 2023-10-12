@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /storage
+logging:
+  level:
+    org.springframework.transaction: debug
+    org.springframework.jdbc: debug
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+kplat:
+  storage:
+    type: minio
+    s3:
+      bucket: bijian
+      url: "http://127.0.0.1:9000"
+      accessKey: "bijian"
+      secretKey: "bja0925bja"
+      connectTimeout: 100000
+      readTimeOut: 600000
+spring:
+  flyway:
+    # 开启 flyway
+    enabled: true
+    # 是否禁用数据库清理
+    clean-disabled: true
+    # SQL 迁移的编码
+    encoding: UTF-8
+    # 是否在执行迁移时自动调用验证。
+    validate-on-migrate: true
+    # 迁移时发现目标schema非空，而且带有没有元数据的表时，是否自动执行基准迁移，默认false.
+    baseline-on-migrate: true

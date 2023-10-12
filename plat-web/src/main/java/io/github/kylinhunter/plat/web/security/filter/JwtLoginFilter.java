@@ -7,6 +7,7 @@ import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
   private final TokenService tokenService;
 
   private final ResponseWriter responseWriter;
+  private final TraceHolder traceHolder;
+
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request,
@@ -60,7 +63,9 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
       String tetantId = request.getParameter("tenantId");
       userDetail.setTenantId(tetantId);
       String token = tokenService.createToken(userDetail);
-      responseWriter.writeJson(new DefaultResponse<>(token));
+      DefaultResponse<String> rep = new DefaultResponse<>(token);
+      rep.setTrace(traceHolder.get());
+      responseWriter.writeJson(rep);
     } catch (AuthException e) {
       throw new AuthenticationServiceException(e.getMessage(), e);
     } catch (Exception e) {

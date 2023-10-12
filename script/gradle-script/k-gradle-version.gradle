@@ -83,7 +83,10 @@ ext {
             'converter-jackson'               : 'com.squareup.retrofit2:converter-jackson:2.9.0',
             'pdf2dom'                         : 'net.sf.cssbox:pdf2dom:1.6',
             'pdfbox-tools'                    : 'org.apache.pdfbox:pdfbox:2.0.4',
-            'IKAnalyzer'                      : 'com.github.magese:ik-analyzer:8.5.0'
+            'IKAnalyzer'                      : 'com.github.magese:ik-analyzer:8.5.0',
+            'flyway-core'                    : 'org.flywaydb:flyway-core:8.5.13',
+            'flyway-mysql'                    : 'org.flywaydb:flyway-mysql:8.5.13',
+            'minio'                           : 'io.minio:minio:8.5.5'
 
     ]
 

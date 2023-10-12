@@ -19,26 +19,25 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.github.kylinhunter.commons.date.DatePatterns;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.aop.ControllerAspect;
 import io.github.kylinhunter.plat.web.aop.LogAspect;
 import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.AppConfig;
-import io.github.kylinhunter.plat.web.context.DefaultUserContextHandler;
+import io.github.kylinhunter.plat.web.context.DefaultUserContextHolder;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
 import io.github.kylinhunter.plat.web.interceptor.TenantHandlerInterceptor;
 import io.github.kylinhunter.plat.web.interceptor.TokenHandlerInterceptor;
-import io.github.kylinhunter.plat.web.interceptor.TraceHandlerInterceptor;
-import io.github.kylinhunter.plat.web.request.RequestContext;
 import io.github.kylinhunter.plat.web.request.WebDataBinderConfig;
 import io.github.kylinhunter.plat.web.response.ResponseAdvice;
 import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import io.github.kylinhunter.plat.web.trace.DefaultTraceHandler;
-import io.github.kylinhunter.plat.web.trace.TraceHandler;
+import io.github.kylinhunter.plat.web.trace.DefaultTraceHolder;
+import io.github.kylinhunter.plat.web.trace.TraceFilter;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -84,13 +83,13 @@ public class AutoWebCommonConfiguration {
 
 
   @Bean
-  public DefaultUserContextHandler defaultUserContextHandler() {
-    return new DefaultUserContextHandler();
+  public DefaultUserContextHolder defaultUserContextHandler() {
+    return new DefaultUserContextHolder();
   }
 
   @Bean
-  public ControllerAspect controllerAspect(UserContextHandler userContextHandler) {
-    return new ControllerAspect(userContextHandler);
+  public ControllerAspect controllerAspect(UserContextHolder userContextHolder) {
+    return new ControllerAspect(userContextHolder);
   }
 
   @Bean
@@ -104,20 +103,15 @@ public class AutoWebCommonConfiguration {
     return new AppConfig();
   }
 
+
   @Bean
-  public RequestContext requestContext(HttpServletRequest request) {
-    return new RequestContext(request);
+  public TraceHolder traceHolder() {
+    return new DefaultTraceHolder();
   }
 
   @Bean
-  public DefaultTraceHandler defaultTraceHandler(RequestContext requestContext) {
-    return new DefaultTraceHandler(requestContext);
-  }
-
-  @Bean
-  public TimeCostAspect timeCostAspect(AppConfig appConfig,
-      DefaultTraceHandler defaultTraceHandler) {
-    return new TimeCostAspect(appConfig, defaultTraceHandler);
+  public TimeCostAspect timeCostAspect(AppConfig appConfig, TraceHolder traceHolder) {
+    return new TimeCostAspect(appConfig, traceHolder);
   }
 
   @Bean
@@ -131,21 +125,21 @@ public class AutoWebCommonConfiguration {
   }
 
   @Bean
-  public TokenHandlerInterceptor tokenHandlerInterceptor(TraceHandler traceHandler,
-      UserContextHandler userContextHandler, JWTService jwtService) {
-    return new TokenHandlerInterceptor(traceHandler, userContextHandler, jwtService);
+  public TokenHandlerInterceptor tokenHandlerInterceptor(TraceHolder traceHolder,
+      UserContextHolder userContextHolder, JWTService jwtService) {
+    return new TokenHandlerInterceptor(traceHolder, userContextHolder, jwtService);
   }
 
   @Bean
-  public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHandler traceHandler,
-      UserContextHandler userContextHandler) {
-    return new TenantHandlerInterceptor(traceHandler, userContextHandler);
+  public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHolder traceHolder,
+      UserContextHolder userContextHolder) {
+    return new TenantHandlerInterceptor(traceHolder, userContextHolder);
   }
 
 
   @Bean
-  public ResponseService responseService(TraceHandler traceHandler, RequestContext requestContext) {
-    return new ResponseService(traceHandler, requestContext);
+  public ResponseService responseService(TraceHolder traceHolder) {
+    return new ResponseService(traceHolder);
   }
 
   @Bean
@@ -153,10 +147,6 @@ public class AutoWebCommonConfiguration {
     return new ResponseWriter(responseService);
   }
 
-  @Bean
-  public TraceHandlerInterceptor traceHandlerInterceptor(TraceHandler traceHandler) {
-    return new TraceHandlerInterceptor(traceHandler);
-  }
 
   @Bean
   public WebApplicationRunner webApplicationRunner(
@@ -164,12 +154,17 @@ public class AutoWebCommonConfiguration {
     return new WebApplicationRunner(configurableEnvironment);
   }
 
-  ;
+  @Bean
+  public TraceFilter traceFilter(TraceHolder traceHolder) {
+    return new TraceFilter(traceHolder);
+  }
+
 
   @Bean
-  public ResponseAdvice responseAdvice(TraceHandler traceHandler, RequestContext requestContext) {
-    return new ResponseAdvice(traceHandler, requestContext);
+  public ResponseAdvice responseAdvice(TraceHolder traceHolder) {
+    return new ResponseAdvice(traceHolder);
   }
+
   @Bean
   public WebDataBinderConfig webDataBinderConfig() {
     return new WebDataBinderConfig();

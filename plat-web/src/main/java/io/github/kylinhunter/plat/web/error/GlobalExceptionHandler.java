@@ -21,6 +21,7 @@ import io.github.kylinhunter.commons.utils.json.JsonUtils;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class GlobalExceptionHandler {
 
 
   private final ResponseWriter responseWriter;
+  private final TraceHolder traceHolder;
 
 
   /**
@@ -60,7 +62,7 @@ public class GlobalExceptionHandler {
   public Object handleDefault(
       HttpServletRequest req, HttpServletResponse rsp, Exception globalException, Model model) {
     log.error("global error", globalException);
-    responseWriter.write(globalException);
+    responseWriter.write(globalException,traceHolder.get().isDebug());
     return null;
   }
 }

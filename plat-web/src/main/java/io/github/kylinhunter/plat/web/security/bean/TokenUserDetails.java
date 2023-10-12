@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.web.security.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
@@ -43,9 +44,14 @@ public class TokenUserDetails implements UserDetails {
   private boolean accountNonLocked = true;
   private boolean credentialsNonExpired = true;
   private boolean enabled = true;
+
   private Token token;
+  @JsonIgnore
   private User user;
+  @JsonIgnore
   private TenantUser tenantUser;
+
+  @JsonIgnore
   private Set<String> pemCodes = new HashSet<>();
   Collection<? extends GrantedAuthority> authorities;
 

@@ -18,6 +18,7 @@ package io.github.kylinhunter.plat.web.configuration;
 import io.github.kylinhunter.plat.web.error.ErrorMessageController;
 import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
@@ -38,6 +39,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 @RequiredArgsConstructor
 public class AutoErrorConfiguration {
+
   private final ResponseWriter responseWriter;
 
   @Bean
@@ -51,8 +53,9 @@ public class AutoErrorConfiguration {
   }
 
   @Bean
-  public GlobalExceptionHandler globalExceptionHandler( ResponseWriter responseWriter) {
-    return new GlobalExceptionHandler(responseWriter);
+  public GlobalExceptionHandler globalExceptionHandler(ResponseWriter responseWriter,
+      TraceHolder traceHolder) {
+    return new GlobalExceptionHandler(responseWriter, traceHolder);
   }
 
 

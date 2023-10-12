@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
@@ -43,10 +43,10 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired protected UserContextHandler userContextHandler;
+  @Autowired protected UserContextHolder userContextHolder;
 
   protected void setCreateMsg(Req req, T entity) {
-    UserContext userContext = userContextHandler.get(true);
+    UserContext userContext = userContextHolder.get(true);
 
     entity.setSysTenantId(userContext.getTenantId());
     entity.setSysCreatedUserId(userContext.getUserId());
@@ -61,7 +61,7 @@ public class BasicInterceptor<
   }
 
   protected void setUpdateMsg(Req req, T entity) {
-    UserContext userContext = userContextHandler.get(true);
+    UserContext userContext = userContextHolder.get(true);
 
     entity.setSysUpdateUserId(userContext.getUserId());
     entity.setSysUpdateUserName(userContext.getUserName());
@@ -87,7 +87,7 @@ public class BasicInterceptor<
 
   protected String checkAndGetTenantId() {
 
-    String tenantId = userContextHandler.get(true).getTenantId();
+    String tenantId = userContextHolder.get(true).getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new DBException("tenantId is emtpy");
     }

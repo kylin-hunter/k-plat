@@ -16,17 +16,22 @@
 package io.github.kylinhunter.plat.core.controller;
 
 import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.TraceHandler;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,24 +44,28 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "auth相关")
 @Data
 @EqualsAndHashCode(callSuper = false)
+@RequestMapping("/auth")
 public class AuthController extends CommonController {
 
-  private final TraceHandler traceHandler;
+  private final TraceHolder traceHolder;
   private final TokenService tokenService;
+  private final UserContextHolder userContextHolder;
 
 
-  @PostMapping(value = "/auth/create_tenant_token")
-  @ApiOperation("create_tenant_token")
+  @PostMapping(value = "/tenant_login")
+  @ApiOperation("tenant_login")
   public DefaultResponse<String> createTenantToken(
       @Validated @RequestBody ReqTenantToken reqTenantToken) {
-    return new DefaultResponse(tokenService.createTenantToken(traceHandler.get().getToken(),
-        reqTenantToken.getTenantId()));
+    return new DefaultResponse(tokenService.createTenantToken(reqTenantToken));
   }
 
-  @PostMapping(value = "/auth/verify_token")
+  @PostMapping(value = "/verify_token")
   @ApiOperation("verify_token")
-  public DefaultResponse<String> verify() {
-    traceHandler.create();
-    return new DefaultResponse(tokenService.verify(traceHandler.get().getToken()));
+  public DefaultResponse<String> verify(HttpServletRequest request,
+      @RequestParam(name = "token", required = false) String token) {
+    if (StringUtils.isEmpty(token)) {
+      token = traceHolder.get().getToken();
+    }
+    return new DefaultResponse(tokenService.verify(token));
   }
 }

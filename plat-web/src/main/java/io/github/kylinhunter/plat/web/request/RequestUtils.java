@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -37,13 +35,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @description
  * @date 2021/8/2
  */
-@RequiredArgsConstructor
 @Slf4j
-public class RequestContext {
+public class RequestUtils {
 
-  private final HttpServletRequest request;
+  /**
+   * @return javax.servlet.http.HttpServletRequest
+   * @title getRequest
+   * @description getRequest
+   * @author BiJi'an
+   * @date 2023-10-13 01:22
+   */
 
-  public static HttpServletRequest get() {
+  public static HttpServletRequest getRequest() {
     ServletRequestAttributes requestAttributes =
         (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
@@ -53,74 +56,29 @@ public class RequestContext {
     return null;
   }
 
-  /**
-   * @return java.lang.String
-   * @throws
-   * @title getTraceId
-   * @description
-   * @author BiJi'an
-   * @date 2021/8/1 3:46 上午
-   */
-  public String getTraceId() {
-    return getHeader(RequestConst.HEADER_TRACE_ID);
-  }
-
-  /**
-   * @return java.lang.String
-   * @throws
-   * @title getTenantId
-   * @description
-   * @author BiJi'an
-   * @date 2021/8/1 3:46 上午
-   */
-  public String getToken() {
-    // 获取请求头信息authorization信息
-    final String authHeader = request.getHeader(RequestConst.HEADER_AUTH);
-    log.info("## authHeader= {}", authHeader);
-    if (!StringUtils.isBlank(authHeader) && authHeader.startsWith(RequestConst.BEARER)) {
-      String token = authHeader.substring(7);
-      if (!StringUtils.isBlank(token)) {
-        return token;
-      }
-    }
-    return StringUtils.defaultString(request.getParameter(RequestConst.PARAM_TOKEN));
-  }
-
-  /**
-   * 获取简单认证，不做任何处理
-   *
-   * @return
-   */
-  public String getSimpleToken() {
-    final String authHeader = request.getHeader(RequestConst.HEADER_AUTH);
-    log.info("## authHeader= {}", authHeader);
-    return StringUtils.defaultString(authHeader);
-  }
 
   /**
    * @return boolean
-   * @throws
    * @title isExplain
    * @description
    * @author BiJi'an
    * @date 2021/8/1 3:46 上午
    */
-  public boolean isDebugMode() {
-    return BooleanUtils.toBoolean(this.getHeader(RequestConst.HEADER_DEBUG));
+  public static boolean isDebugMode(HttpServletRequest request) {
+    return BooleanUtils.toBoolean(getHeader(request, RequestConst.HEADER_DEBUG));
   }
 
   /**
-   * @param request
-   * @param xForwardedFor
-   * @param xRealIp
+   * @param request request
+   * @param xForwardedFor xForwardedFor
+   * @param xRealIp xRealIp
    * @return java.lang.String
-   * @throws
    * @title getIP
    * @description
    * @author BiJi'an
    * @date 2021/8/1 3:46 上午
    */
-  public String getIP(HttpServletRequest request, boolean xForwardedFor, boolean xRealIp) {
+  public static String getIP(HttpServletRequest request, boolean xForwardedFor, boolean xRealIp) {
     if (xForwardedFor) {
       String forwardedIp = request.getHeader("X-Forwarded-For");
       if (!StringUtils.isEmpty(forwardedIp) && !"unknown".equalsIgnoreCase(forwardedIp)) {
@@ -143,32 +101,38 @@ public class RequestContext {
   }
 
   /**
-   * @param name
+   * @param name name
    * @return java.lang.String
-   * @throws
    * @title getHeader
    * @description
    * @author BiJi'an
    * @date 2021/8/1 3:46 上午
    */
-  private String getHeader(String name) {
+  private static String getHeader(HttpServletRequest request, String name) {
     return StringUtils.defaultString(request.getHeader(name));
   }
 
   /**
-   * @param name
+   * @param name name
    * @return java.lang.String
-   * @throws
    * @title getParameter
    * @description
    * @author BiJi'an
    * @date 2021/8/1 3:46 上午
    */
-  private String getParameter(String name) {
+  private static String getParameter(HttpServletRequest request, String name) {
     return StringUtils.defaultString(request.getParameter(name));
   }
 
-  public List<CookieInfo> getCookieInfos() {
+  /**
+   * @param request request
+   * @return java.util.List<io.github.kylinhunter.plat.web.trace.CookieInfo>
+   * @title getCookieInfos
+   * @description getCookieInfos
+   * @author BiJi'an
+   * @date 2023-10-13 01:23
+   */
+  public static List<CookieInfo> getCookieInfos(HttpServletRequest request) {
     List<CookieInfo> cookieInfos = Lists.newArrayList();
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
@@ -179,7 +143,15 @@ public class RequestContext {
     return cookieInfos;
   }
 
-  public Map<String, List<String>> getHeaders() {
+  /**
+   * @param request request
+   * @return java.util.Map<java.lang.String, java.util.List < java.lang.String>>
+   * @title getHeaders
+   * @description getHeaders
+   * @author BiJi'an
+   * @date 2023-10-13 01:23
+   */
+  public static Map<String, List<String>> getHeaders(HttpServletRequest request) {
     Map<String, List<String>> headers = Maps.newHashMap();
     final Enumeration<String> headerNames = request.getHeaderNames();
     if (headerNames != null) {

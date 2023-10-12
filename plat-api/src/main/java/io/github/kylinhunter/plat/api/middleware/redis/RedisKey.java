@@ -45,4 +45,8 @@ public class RedisKey {
       RedisKey.NAMESPACE = namespace;
     }
   }
+
+  public static RedisKey withPrefix(String prefix) {
+    return new RedisKey(prefix);
+  }
 }

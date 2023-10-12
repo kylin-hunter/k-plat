@@ -46,10 +46,10 @@ public class ResponseWriter {
 
   private final ResponseService responseService;
 
-  public void write(Exception exception) {
+  public void write(Exception exception, boolean debug) {
     try {
-      DefaultResponse<?> response = responseService.toResponse(
-          ExceptionConvertor.convert(exception));
+      Response<?> response = responseService.toResponse(ExceptionConvertor.convert(exception),
+          debug);
       this.writeJson(response);
     } catch (Exception e) {
       log.error("write error error", e);
@@ -134,7 +134,7 @@ public class ResponseWriter {
   public void writeJson(Object obj) {
     String json = JsonUtils.writeToString(obj, JsonOptions.NO_FAIL);
     this.writeJson(json);
-    log.error("respone write json={}", json);
+    log.info("respone write json={}", json);
 
   }
 

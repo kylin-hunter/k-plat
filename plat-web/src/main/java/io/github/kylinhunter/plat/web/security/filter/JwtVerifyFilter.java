@@ -1,12 +1,13 @@
 package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.TraceHandler;
+import io.github.kylinhunter.plat.web.trace.Trace;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,21 +24,21 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
  * @description
  * @date 2023-10-01 21:11
  */
-public class JwtVerifyFilter extends BasicAuthenticationFilter {
+public class  JwtVerifyFilter extends BasicAuthenticationFilter {
 
   private TokenService tokenService;
-  private TraceHandler traceHandler;
-  private UserContextHandler userContextHandler;
+  private TraceHolder traceHolder;
+  private UserContextHolder userContextHolder;
   private ResponseWriter responseWriter;
 
 
-  public JwtVerifyFilter(AuthenticationManager authenticationManager, TraceHandler traceHandler,
-      TokenService tokenService, UserContextHandler userContextHandler,
+  public JwtVerifyFilter(AuthenticationManager authenticationManager, TraceHolder traceHolder,
+      TokenService tokenService, UserContextHolder userContextHolder,
       ResponseWriter responseWriter) {
     super(authenticationManager);
-    this.traceHandler = traceHandler;
+    this.traceHolder = traceHolder;
     this.tokenService = tokenService;
-    this.userContextHandler = userContextHandler;
+    this.userContextHolder = userContextHolder;
     this.responseWriter = responseWriter;
   }
 
@@ -45,18 +46,18 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain chain) throws IOException, ServletException {
     try {
-      traceHandler.create();
 
-      String token = traceHandler.get().getToken();
+      Trace trace = traceHolder.get();
+      String token = trace.getToken();
       TokenUserDetails tokenUserDetails = null;
       try {
         tokenUserDetails = this.tokenService.verify(token);
       } catch (AuthException e) {
         logger.error("verify token error", e);
-        responseWriter.write(e);
+        responseWriter.write(e,trace.isDebug());
         return;
       }
-      userContextHandler.create(tokenUserDetails.getToken());
+      userContextHolder.create(tokenUserDetails.getToken());
       UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
           = new UsernamePasswordAuthenticationToken(tokenUserDetails, null,
           tokenUserDetails.getAuthorities());
@@ -72,8 +73,7 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
 
 
     } finally {
-      userContextHandler.remove();
-      traceHandler.remove();
+      userContextHolder.remove();
     }
 
 

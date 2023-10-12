@@ -15,15 +15,17 @@
  */
 package io.github.kylinhunter.plat.web.response;
 
+import io.github.kylinhunter.plat.web.trace.Trace;
 import io.github.kylinhunter.plat.web.trace.explain.TraceExplain;
 import java.io.Serializable;
 
 /**
- * @description 返回响应
  * @author BiJi'an
+ * @description 返回响应
  * @date 2022/01/01
  */
 public interface Response<T> extends Serializable {
+
   int getCode();
 
   void setCode(int code);
@@ -38,25 +40,23 @@ public interface Response<T> extends Serializable {
 
   long getTime();
 
-  void setTime(long time);
+
 
   String getStartTime();
 
-  void setStartTime(String startTime);
 
   String getEndTime();
 
-  void setEndTime(String endTime);
 
   long getDurationTime();
 
-  void setDurationTime(long durationTime);
 
   String getTraceId();
 
-  void setTraceId(String traceId);
 
   TraceExplain getTraceExplain();
 
   void setTraceExplain(TraceExplain traceExplain);
+
+  void setTrace(Trace trace);
 }

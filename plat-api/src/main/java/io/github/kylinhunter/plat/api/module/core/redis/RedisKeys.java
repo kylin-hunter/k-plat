@@ -24,6 +24,6 @@ import io.github.kylinhunter.plat.api.middleware.redis.RedisKey;
  */
 public class RedisKeys {
 
-  public static RedisKey USER_PERMS = new RedisKey("user-perm::");
+  public static RedisKey AUTH_USER_PERMS = RedisKey.withPrefix("user-perm::");
 
 }

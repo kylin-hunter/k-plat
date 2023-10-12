@@ -30,12 +30,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DefaulTrace implements Trace {
+
   private String id;
   private String token;
 
   private long startTime = System.currentTimeMillis();
   private long endTime = startTime;
   private long durationTime;
+
+  private boolean debug;
 
   private TraceExplain traceExplain;
 
@@ -49,12 +52,13 @@ public class DefaulTrace implements Trace {
   }
 
   @Override
-  public void setEndTime(long endTime) {
-    this.endTime = endTime;
+  public Trace end() {
+    this.endTime = System.currentTimeMillis();
     long cost = endTime - startTime;
     if (cost > 0) {
       this.durationTime = cost;
     }
+    return this;
   }
 
   @Override

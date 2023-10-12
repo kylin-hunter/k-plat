@@ -72,7 +72,7 @@ public class TenantCatalogServiceImp
   public TenantCatalog queryByCode(int type, String code) {
     LambdaQueryWrapper<TenantCatalog> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(TenantCatalog::getSysDeleteFlag, false);
-    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHandler.get().getTenantId());
+    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHolder.get().getTenantId());
     queryWrapper.eq(TenantCatalog::getType, type);
     queryWrapper.eq(TenantCatalog::getCode, code);
     return this.baseMapper.selectOne(queryWrapper);
@@ -83,7 +83,7 @@ public class TenantCatalogServiceImp
 
     LambdaQueryWrapper<TenantCatalog> queryWrapper = Wrappers.lambdaQuery();
     queryWrapper.eq(TenantCatalog::getSysDeleteFlag, false);
-    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHandler.get().getTenantId());
+    queryWrapper.eq(TenantCatalog::getSysTenantId, userContextHolder.get().getTenantId());
     queryWrapper.eq(TenantCatalog::getType, type);
     queryWrapper.orderByAsc(TenantCatalog::getLevel);
     List<TenantCatalog> tenantCatalogs = this.baseMapper.selectList(queryWrapper);

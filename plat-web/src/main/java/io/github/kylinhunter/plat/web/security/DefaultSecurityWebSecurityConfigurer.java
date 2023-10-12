@@ -1,22 +1,21 @@
 package io.github.kylinhunter.plat.web.security;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHandler;
+import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
 import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler;
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.web.trace.TraceHandler;
+import io.github.kylinhunter.plat.web.trace.TraceHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,10 +37,10 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
   @Autowired
   protected PasswordEncoder passwordEncoder;
   @Autowired
-  protected UserContextHandler userContextHandler;
+  protected UserContextHolder userContextHolder;
 
   @Autowired
-  protected TraceHandler traceHandler;
+  protected TraceHolder traceHolder;
   @Autowired
   protected ResponseWriter responseWriter;
 
@@ -70,6 +69,34 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers("/auth/verify_token", "/error");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry = http.authorizeRequests();
+    expressionInterceptUrlRegistry = addPerm(expressionInterceptUrlRegistry);
+    expressionInterceptUrlRegistry.anyRequest().authenticated()
+        .and().formLogin().loginProcessingUrl("/login")
+        .and().logout().logoutUrl("/logout")
+        .and().exceptionHandling()
+        .accessDeniedHandler(accessDeniedHandler(responseWriter))
+        .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
+        .and()
+        .addFilter(new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter,
+            traceHolder))
+        .addFilter(new JwtVerifyFilter(authenticationManagerBean(), traceHolder, tokenService,
+            userContextHolder, responseWriter))
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .cors()
+        .and().csrf().disable();
+
+
+  }
+
+  private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
+      ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry) {
+    return expressionInterceptUrlRegistry;
   }
 
 
