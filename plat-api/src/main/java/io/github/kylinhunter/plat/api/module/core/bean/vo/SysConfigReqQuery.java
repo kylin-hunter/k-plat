@@ -29,7 +29,4 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "SysConfigReqQuery", description = "SysConfigReqQuery")
-public class SysConfigReqQuery extends ReqPage {
-
-  
-}
+public class SysConfigReqQuery extends ReqPage {}

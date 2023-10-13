@@ -15,9 +15,9 @@
  */
 package io.github.kylinhunter.plat.web.security.service.imp;
 
+import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
-import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
@@ -38,7 +38,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 public class DefaultTokenService implements TokenService {
 
   protected final JWTService jwtService;
-
 
   @Override
   public String createToken(TokenUserDetails tokenUserDetails) {
@@ -74,5 +73,4 @@ public class DefaultTokenService implements TokenService {
     VerifyToken verifyToken = jwtService.verify(token);
     return new TokenUserDetails(verifyToken, Collections.emptySet());
   }
-
 }

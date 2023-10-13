@@ -33,7 +33,6 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = " ReqById", description = "ReqById")
 @NoArgsConstructor
 public class ReqById extends ReqQuery implements Serializable {
-  
 
   @ApiModelProperty(value = "primary key")
   @NotBlank

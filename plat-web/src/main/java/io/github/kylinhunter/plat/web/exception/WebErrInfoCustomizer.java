@@ -26,7 +26,6 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 @ErrInfoAware
 public class WebErrInfoCustomizer {
 
-
   static int WEB_BASE_CODE = 60000;
   public static final ErrInfo WEB_ERROR = new ErrInfo(++WEB_BASE_CODE);
   public static final ErrInfo WEB_NOT_SUPPORTED = new ErrInfo(++WEB_BASE_CODE);
@@ -49,7 +48,6 @@ public class WebErrInfoCustomizer {
   public static final ErrInfo FEIGN_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
   public static final ErrInfo FEIGN_REQUEST_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
   public static final ErrInfo FEIGN_SERVER_ERROR = new ErrInfo(++FEIGN_ERR_CODE);
-
 
   static int CIRCUIT_BREAKER_ERR_CODE = 60300;
   public static final ErrInfo LIMIT_EXCEEDS = new ErrInfo(++CIRCUIT_BREAKER_ERR_CODE);

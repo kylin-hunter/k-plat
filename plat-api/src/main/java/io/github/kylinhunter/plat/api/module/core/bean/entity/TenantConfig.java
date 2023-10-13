@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantConfig")
 public class TenantConfig extends BaseEntity {
 
-  
-
   @ApiModelProperty(value = "type 0 string")
   private Integer type;
 

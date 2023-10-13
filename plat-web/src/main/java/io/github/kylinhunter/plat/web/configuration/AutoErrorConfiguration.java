@@ -15,10 +15,10 @@
  */
 package io.github.kylinhunter.plat.web.configuration;
 
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.error.ErrorMessageController;
 import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
@@ -53,10 +53,8 @@ public class AutoErrorConfiguration {
   }
 
   @Bean
-  public GlobalExceptionHandler globalExceptionHandler(ResponseWriter responseWriter,
-      TraceHolder traceHolder) {
+  public GlobalExceptionHandler globalExceptionHandler(
+      ResponseWriter responseWriter, TraceHolder traceHolder) {
     return new GlobalExceptionHandler(responseWriter, traceHolder);
   }
-
-
 }

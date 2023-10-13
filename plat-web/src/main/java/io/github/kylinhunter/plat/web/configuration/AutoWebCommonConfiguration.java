@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.github.kylinhunter.commons.date.DatePatterns;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.aop.ControllerAspect;
 import io.github.kylinhunter.plat.web.aop.LogAspect;
 import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
@@ -34,7 +35,6 @@ import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.trace.DefaultTraceHolder;
 import io.github.kylinhunter.plat.web.trace.TraceFilter;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.format.DateTimeFormatter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -77,7 +77,6 @@ public class AutoWebCommonConfiguration {
     };
   }
 
-
   @Bean
   public ControllerAspect controllerAspect() {
     return new ControllerAspect();
@@ -89,11 +88,9 @@ public class AutoWebCommonConfiguration {
   }
 
   @Bean
-
   public AppConfig appConfig() {
     return new AppConfig();
   }
-
 
   @Bean
   public TraceHolder traceHolder() {
@@ -115,12 +112,10 @@ public class AutoWebCommonConfiguration {
     return new JWTService();
   }
 
-
   @Bean
   public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHolder traceHolder) {
     return new TenantHandlerInterceptor(traceHolder);
   }
-
 
   @Bean
   public ResponseService responseService(TraceHolder traceHolder) {
@@ -131,7 +126,6 @@ public class AutoWebCommonConfiguration {
   public ResponseWriter responseWriter(ResponseService responseService) {
     return new ResponseWriter(responseService);
   }
-
 
   @Bean
   public WebApplicationRunner webApplicationRunner(
@@ -144,7 +138,6 @@ public class AutoWebCommonConfiguration {
     return new TraceFilter(traceHolder);
   }
 
-
   @Bean
   public ResponseAdvice responseAdvice(TraceHolder traceHolder) {
     return new ResponseAdvice(traceHolder);
@@ -154,6 +147,4 @@ public class AutoWebCommonConfiguration {
   public WebDataBinderConfig webDataBinderConfig() {
     return new WebDataBinderConfig();
   }
-
-
 }

@@ -48,6 +48,6 @@ public interface TenantRoleService
       "SELECT t3.*  FROM  kplat_tenant_user_role t1,kplat_tenant_role_permission t2,kplat_permission t3  "
           + "  WHERE t1.role_id=t2.role_id and t2.permission_id=t3.id"
           + "  and t1.sys_tenant_id = #{tenantId} and t1.user_id = #{userId}")
-  List<Permission> findPermissionsByUserId(@Param("tenantId") String tenantId,@Param("userId") String userId);
-
+  List<Permission> findPermissionsByUserId(
+      @Param("tenantId") String tenantId, @Param("userId") String userId);
 }

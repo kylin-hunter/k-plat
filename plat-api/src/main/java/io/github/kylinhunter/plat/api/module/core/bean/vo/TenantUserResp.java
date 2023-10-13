@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantUserResp", description = "TenantUserResp")
 public class TenantUserResp extends DefaultSysResp {
 
-  
-
   @ApiModelProperty(value = "description")
   private String description;
 

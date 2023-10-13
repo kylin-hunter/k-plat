@@ -18,22 +18,12 @@ package io.github.kylinhunter.plat.web.init;
 import io.github.kylinhunter.commons.exception.info.ErrInfoManager;
 import io.github.kylinhunter.commons.init.KCommons;
 import io.github.kylinhunter.plat.web.log.LogHelper;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.EnumerablePropertySource;
-import org.springframework.core.env.MutablePropertySources;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
@@ -74,7 +64,4 @@ public class WebApplicationRunner implements ApplicationRunner {
     EnvHelper.printEnv(configurableEnvironment);
     log.info("{} init env end", LogHelper.SYS_TAG);
   }
-
-
 }
-

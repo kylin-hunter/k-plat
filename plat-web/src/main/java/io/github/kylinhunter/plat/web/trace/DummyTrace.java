@@ -16,13 +16,12 @@
 package io.github.kylinhunter.plat.web.trace;
 
 import io.github.kylinhunter.commons.lang.strings.StringConst;
-import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.context.DummyUserContext;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.Trace;
-import io.github.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
+import io.github.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
 
 /**
  * @author BiJi'an
@@ -40,8 +39,7 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setId(String id) {
-  }
+  public void setId(String id) {}
 
   @Override
   public boolean isDebug() {
@@ -49,9 +47,7 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setDebug(boolean debug) {
-
-  }
+  public void setDebug(boolean debug) {}
 
   @Override
   public UserContext getUserContext() {
@@ -69,21 +65,13 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setVerifyToken(VerifyToken verifyToken) {
-
-  }
-
-
+  public void setVerifyToken(VerifyToken verifyToken) {}
 
   @Override
-  public void setUserContext(UserContext userContext) {
-
-  }
-
+  public void setUserContext(UserContext userContext) {}
 
   @Override
-  public void setToken(String token) {
-  }
+  public void setToken(String token) {}
 
   @Override
   public long getStartTime() {
@@ -106,8 +94,7 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public void setExplain(TraceExplain explain) {
-  }
+  public void setExplain(TraceExplain explain) {}
 
   @Override
   public TraceExplain getExplain() {

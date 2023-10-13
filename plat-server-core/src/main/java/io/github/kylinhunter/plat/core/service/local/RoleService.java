@@ -24,7 +24,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * RoleService 代码工具自动生成，按需扩展
@@ -35,6 +34,6 @@ import org.apache.ibatis.annotations.Param;
 public interface RoleService
     extends CommonService<Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery> {
   Role findByCode(String code);
-  List<Permission> findPermissionsByUserId(String userId);
 
+  List<Permission> findPermissionsByUserId(String userId);
 }

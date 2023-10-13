@@ -39,7 +39,6 @@ public class RedisKey {
     return key(StringUtils.EMPTY);
   }
 
-
   public static void setNamespace(String namespace) {
     if (namespace != null && namespace.length() > 0) {
       RedisKey.NAMESPACE = namespace;

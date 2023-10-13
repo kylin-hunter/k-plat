@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantConfigReqCreate", description = "TenantConfigReqCreate")
 public class TenantConfigReqCreate extends ReqCreate implements TenantConfigVO {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

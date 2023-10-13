@@ -16,8 +16,8 @@
 package io.github.kylinhunter.plat.web.interceptor;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
-import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.web.exception.AuthException;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,14 +34,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @description
  * @date 2022/01/01
  */
-
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 @Slf4j
 public class TenantHandlerInterceptor implements HandlerInterceptor {
 
   private final TraceHolder traceHolder;
-
 
   @Override
   public boolean preHandle(
@@ -62,7 +60,5 @@ public class TenantHandlerInterceptor implements HandlerInterceptor {
       @Nonnull HttpServletRequest request,
       @Nonnull HttpServletResponse response,
       @Nonnull Object handler,
-      Exception ex) {
-
-  }
+      Exception ex) {}
 }

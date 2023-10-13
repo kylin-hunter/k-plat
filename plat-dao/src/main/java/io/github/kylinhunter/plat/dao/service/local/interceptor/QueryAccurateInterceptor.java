@@ -31,15 +31,12 @@ import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-06 22:59
  */
-
 public class QueryAccurateInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

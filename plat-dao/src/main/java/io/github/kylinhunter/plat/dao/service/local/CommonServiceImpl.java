@@ -64,23 +64,21 @@ import org.springframework.transaction.annotation.Transactional;
 @NoArgsConstructor
 @Slf4j
 public abstract class CommonServiceImpl<
-    M extends BaseMapper<T>,
-    T extends BaseEntity,
-    X extends ReqCreate,
-    Y extends ReqUpdate,
-    Z extends Resp,
-    V extends VO,
-    Q extends ReqPage>
+        M extends BaseMapper<T>,
+        T extends BaseEntity,
+        X extends ReqCreate,
+        Y extends ReqUpdate,
+        Z extends Resp,
+        V extends VO,
+        Q extends ReqPage>
     extends ServiceImpl<M, T> implements CommonService<T, X, Y, Z, V, Q> {
 
   protected Class<T> entityClass = currentEntityClass();
   protected Class<Z> respClass = currentRespClass();
 
-  @Autowired
-  protected ApplicationContext applicationContext;
+  @Autowired protected ApplicationContext applicationContext;
 
-  @Autowired
-  protected TraceHolder traceHolder;
+  @Autowired protected TraceHolder traceHolder;
 
   protected SaveOrUpdateInterceptor<T, X, Y, Z, V, Q> saveOrUpdateInterceptor;
 
@@ -254,7 +252,6 @@ public abstract class CommonServiceImpl<
     }
   }
 
-
   @Override
   public PageData<Z> query(Q reqQueryPage) {
     try {
@@ -292,7 +289,6 @@ public abstract class CommonServiceImpl<
     } else {
       this.tenantSupported = clazz.getSimpleName().startsWith("Tenant");
     }
-    log.info("{} 's tenantSupported={}",clazz.getSimpleName(),tenantSupported);
-
+    log.info("{} 's tenantSupported={}", clazz.getSimpleName(), tenantSupported);
   }
 }

@@ -76,7 +76,9 @@ public class Order04TenantUserInitializer extends BasicInitializer {
           "create tenant user tenant={},user={},type={}", tenant.getCode(), userCode, userType);
     } else {
       log.info(
-          "exist tenant user tenant={},user={},type={}", tenant.getCode(), userCode,
+          "exist tenant user tenant={},user={},type={}",
+          tenant.getCode(),
+          userCode,
           tenantUser.getType());
     }
   }

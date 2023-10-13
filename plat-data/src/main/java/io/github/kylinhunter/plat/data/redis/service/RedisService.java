@@ -44,7 +44,6 @@ public class RedisService {
     RedisKey.setNamespace(namespace);
   }
 
-
   /**
    * @param key key
    * @return java.lang.Boolean
@@ -69,7 +68,6 @@ public class RedisService {
     return redisTemplate.hasKey(key);
   }
 
-
   /**
    * @return org.springframework.data.redis.core.ValueOperations<java.lang.String, java.lang.Object>
    * @title opsForValue
@@ -82,7 +80,7 @@ public class RedisService {
   }
 
   /**
-   * @param key   key
+   * @param key key
    * @param value value
    * @return void
    * @title set
@@ -96,8 +94,8 @@ public class RedisService {
   }
 
   /**
-   * @param key          key
-   * @param values       values
+   * @param key key
+   * @param values values
    * @param expireSecond expireSecond
    * @return void
    * @title set
@@ -111,23 +109,22 @@ public class RedisService {
   }
 
   /**
-   * @param key     key
-   * @param value   value
+   * @param key key
+   * @param value value
    * @param timeout timeout
-   * @param unit    unit
+   * @param unit unit
    * @return void
    * @title set
    * @description set
    * @author BiJi'an
    * @date 2023-10-09 22:52
    */
-
   public void set(String key, Object value, long timeout, TimeUnit unit) {
     redisTemplate.opsForValue().set(key, value, timeout, unit);
   }
 
   /**
-   * @param key   key
+   * @param key key
    * @param value value
    * @return java.lang.Long
    * @title increment
@@ -140,7 +137,7 @@ public class RedisService {
   }
 
   /**
-   * @param key   key
+   * @param key key
    * @param value value
    * @return java.lang.Long
    * @title increment
@@ -160,14 +157,13 @@ public class RedisService {
    * @author BiJi'an
    * @date 2023-10-09 22:52
    */
-
   @SuppressWarnings("unchecked")
   public <T> T get(String key) {
     return (T) redisTemplate.opsForValue().get(key);
   }
 
   /**
-   * @param key          key
+   * @param key key
    * @param defaultValue defaultValue
    * @return java.lang.Long
    * @title getLong
@@ -192,7 +188,7 @@ public class RedisService {
   }
 
   /**
-   * @param key   key
+   * @param key key
    * @param value value
    * @return void
    * @title forSetAdd
@@ -200,7 +196,6 @@ public class RedisService {
    * @author BiJi'an
    * @date 2023-10-09 22:53
    */
-
   public void forSetAdd(String key, Object value) {
     redisTemplate.opsForSet().add(key, value);
   }
@@ -213,11 +208,9 @@ public class RedisService {
    * @author BiJi'an
    * @date 2023-10-09 22:53
    */
-
   public <T> T forSetPop(String key) {
     return (T) redisTemplate.opsForSet().pop(key);
   }
-
 
   /**
    * @param key key
@@ -243,9 +236,9 @@ public class RedisService {
   }
 
   /**
-   * @param key    key
+   * @param key key
    * @param member member
-   * @param value  value
+   * @param value value
    * @return void
    * @title forZSetAdd
    * @description forZSetAdd
@@ -257,9 +250,9 @@ public class RedisService {
   }
 
   /**
-   * @param key    key
+   * @param key key
    * @param member member
-   * @param value  value
+   * @param value value
    * @return void
    * @title forZSetIncrementScore
    * @description forZSetIncrementScore
@@ -281,21 +274,21 @@ public class RedisService {
   public Long forZSetSize(String key) {
     return redisTemplate.opsForZSet().size(key);
   }
-/**
- * @title forSetRemove
- * @description forSetRemove
- * @author BiJi'an
- * @param key key
- * @param values values
- * @date 2023-10-09 22:58
- * @return T
- */
-  public <T> T forZSetRemove(String key,Object... values) {
+  /**
+   * @title forSetRemove
+   * @description forSetRemove
+   * @author BiJi'an
+   * @param key key
+   * @param values values
+   * @date 2023-10-09 22:58
+   * @return T
+   */
+  public <T> T forZSetRemove(String key, Object... values) {
     return (T) redisTemplate.opsForZSet().remove(key, values);
   }
 
   /**
-   * @param key    key
+   * @param key key
    * @param member member
    * @return java.lang.Double
    * @title forZSetScore
@@ -309,15 +302,14 @@ public class RedisService {
 
   /**
    * @param redisScript redisScript
-   * @param keys        keys
-   * @param args        args
+   * @param keys keys
+   * @param args args
    * @return T
    * @title executeLuaScript
    * @description executeLuaScript
    * @author BiJi'an
    * @date 2023-10-09 22:53
    */
-
   public <T> T execute(RedisScript<T> redisScript, List<String> keys, Object... args) {
     return redisTemplate.execute(redisScript, keys, args);
   }

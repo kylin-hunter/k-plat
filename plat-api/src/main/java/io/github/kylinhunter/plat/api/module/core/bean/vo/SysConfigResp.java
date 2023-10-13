@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysConfigResp", description = "SysConfigResp")
 public class SysConfigResp extends DefaultSysResp {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

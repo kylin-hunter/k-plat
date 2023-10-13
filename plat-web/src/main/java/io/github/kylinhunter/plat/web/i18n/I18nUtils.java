@@ -19,7 +19,6 @@ import java.util.Locale;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
@@ -37,16 +36,12 @@ public class I18nUtils {
     LocaleContextHolder.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
   }
 
-  /**
-   * 获取单个国际化翻译值
-   */
+  /** 获取单个国际化翻译值 */
   public static String get(long errCode) {
     return get(errCode + "", null, null);
   }
 
-  /**
-   * 获取单个国际化翻译值
-   */
+  /** 获取单个国际化翻译值 */
   public static String get(long errCode, Object params) {
     if (params instanceof Object[]) {
       return get(errCode + "", (Object[]) params, null);
@@ -56,16 +51,12 @@ public class I18nUtils {
     }
   }
 
-  /**
-   * 获取单个国际化翻译值
-   */
+  /** 获取单个国际化翻译值 */
   public static String get(String msgKey) {
     return get(msgKey, null, msgKey);
   }
 
-  /**
-   * 获取单个国际化翻译值
-   */
+  /** 获取单个国际化翻译值 */
   public static String get(String msgKey, Object[] args, String defaultValue) {
     try {
       Locale locale = LocaleContextHolder.getLocale();

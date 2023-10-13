@@ -25,7 +25,6 @@ import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an

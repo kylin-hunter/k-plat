@@ -41,7 +41,6 @@ public interface Trace {
 
   void setVerifyToken(VerifyToken verifyToken);
 
-
   void setUserContext(UserContext userContext);
 
   void setToken(String token);

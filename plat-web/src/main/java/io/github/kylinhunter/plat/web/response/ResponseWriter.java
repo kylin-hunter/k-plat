@@ -48,8 +48,8 @@ public class ResponseWriter {
 
   public void write(Exception exception, boolean debug) {
     try {
-      Response<?> response = responseService.toResponse(ExceptionConvertor.convert(exception),
-          debug);
+      Response<?> response =
+          responseService.toResponse(ExceptionConvertor.convert(exception), debug);
       this.writeJson(response);
     } catch (Exception e) {
       log.error("write error error", e);
@@ -58,7 +58,7 @@ public class ResponseWriter {
 
   /**
    * @param fileName fileName
-   * @param content  content
+   * @param content content
    * @return void
    * @title writeFile
    * @description writeFile
@@ -71,8 +71,8 @@ public class ResponseWriter {
   }
 
   /**
-   * @param fileName   fileName
-   * @param content    content
+   * @param fileName fileName
+   * @param content content
    * @param attachment attachment
    * @return void
    * @title writeFile
@@ -85,9 +85,9 @@ public class ResponseWriter {
   }
 
   /**
-   * @param fileName    fileName
+   * @param fileName fileName
    * @param inputStream inputStream
-   * @param attachment  attachment
+   * @param attachment attachment
    * @return void
    * @title writeFile
    * @description writeFile
@@ -135,12 +135,11 @@ public class ResponseWriter {
     String json = JsonUtils.writeToString(obj, JsonOptions.NO_FAIL);
     this.writeJson(json);
     log.info("respone write json={}", json);
-
   }
 
   /**
    * @param code code
-   * @param msg  msg
+   * @param msg msg
    * @return void
    * @title writeErr
    * @description writeErr
@@ -158,7 +157,7 @@ public class ResponseWriter {
 
   /**
    * @param errInfo errInfo
-   * @param msg     msg
+   * @param msg msg
    * @return void
    * @title writeErr
    * @description writeErr
@@ -167,9 +166,7 @@ public class ResponseWriter {
    */
   public void writeErr(ErrInfo errInfo, String msg, Object data) {
     this.writeErr(errInfo.getCode(), msg, data);
-
   }
-
 
   /**
    * @param headers headers
@@ -189,7 +186,7 @@ public class ResponseWriter {
   }
 
   /**
-   * @param headers     headers
+   * @param headers headers
    * @param inputStream inputStream
    * @return void
    * @title write

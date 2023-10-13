@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -32,7 +31,4 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @ApiModel(value = "UserReqQuery", description = "")
 @NoArgsConstructor
-public class UserReqQuery extends ReqPage {
-
-
-}
+public class UserReqQuery extends ReqPage {}

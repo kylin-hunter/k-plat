@@ -30,7 +30,6 @@ import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,7 +38,6 @@ import org.apache.commons.lang3.StringUtils;
  * @description
  * @date 2022-01-01 01:47
  */
-
 public class JWTService {
 
   private static final String USER_ID = "userId";

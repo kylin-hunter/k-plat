@@ -108,5 +108,4 @@ public class DefaultTraceHolder implements TraceHolder {
     }
     return StringUtils.defaultString(request.getParameter(RequestConst.PARAM_TOKEN));
   }
-
 }

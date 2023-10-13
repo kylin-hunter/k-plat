@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.core.security.service.imp;
 
 import com.google.common.collect.Sets;
@@ -39,7 +54,6 @@ import org.springframework.util.CollectionUtils;
 @Slf4j
 public class UserDetailsServiceImp implements UserDetailsService, TenantUserDetailsService {
 
-
   private final UserService userService;
   private final RoleService roleService;
   private final TenantService tenantService;
@@ -59,10 +73,7 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
     Set<String> permCodes = calPermCodes(permissions, user.getId(), user.getType());
 
     return new TokenUserDetails(user, permCodes);
-
-
   }
-
 
   @Override
   public TokenUserDetails loadTenantUserByUsername(String tenantId, String username)
@@ -86,8 +97,8 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
       }
     }
 
-    List<Permission> permissions = tenantRoleService.findPermissionsByUserId(tenantId,
-        tenantUser.getId());
+    List<Permission> permissions =
+        tenantRoleService.findPermissionsByUserId(tenantId, tenantUser.getId());
     Set<String> permCodes = calPermCodes(permissions, tenantUser.getId(), tenantUser.getType());
 
     return new TokenUserDetails(user, tenantUser, permCodes);
@@ -102,8 +113,6 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
     UserType userType = EnumUtils.fromCode(UserType.class, userTypeCode);
     permCodes.add(userType.getName());
     return permCodes;
-
-
   }
 
   private TenantUser addTenantUser(Tenant tenant, User user) {
@@ -127,7 +136,5 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
     tenantUserService.save(tenantUser);
     log.info("create tenant admin tenantId={},user={}", tenant.getCode(), user.getUserName());
     return tenantUser;
-
-
   }
 }

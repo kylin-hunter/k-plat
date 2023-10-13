@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelation对象", description = "")
 public class FileRelation extends BaseEntity {
 
-  
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

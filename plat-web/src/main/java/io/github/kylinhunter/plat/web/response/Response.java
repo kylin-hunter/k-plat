@@ -40,19 +40,13 @@ public interface Response<T> extends Serializable {
 
   long getTime();
 
-
-
   String getStartTime();
-
 
   String getEndTime();
 
-
   long getDurationTime();
 
-
   String getTraceId();
-
 
   TraceExplain getTraceExplain();
 

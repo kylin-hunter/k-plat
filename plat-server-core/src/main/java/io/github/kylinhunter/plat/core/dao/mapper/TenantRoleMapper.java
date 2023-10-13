@@ -16,12 +16,8 @@
 package io.github.kylinhunter.plat.core.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.Permission;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantRole;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -32,7 +28,4 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface TenantRoleMapper extends BaseMapper<TenantRole> {
-
-
-}
+public interface TenantRoleMapper extends BaseMapper<TenantRole> {}

@@ -33,8 +33,6 @@ import org.springframework.stereotype.Component;
 @Order(value = 3)
 public class StorageApplicationRunner implements ApplicationRunner {
 
-
   @Override
-  public void run(ApplicationArguments args) {
-  }
+  public void run(ApplicationArguments args) {}
 }

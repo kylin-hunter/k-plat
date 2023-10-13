@@ -60,5 +60,4 @@ public class UserServiceImp
     queryWrapper.eq(User::getUserName, userName);
     return this.baseMapper.selectOne(queryWrapper);
   }
-
 }

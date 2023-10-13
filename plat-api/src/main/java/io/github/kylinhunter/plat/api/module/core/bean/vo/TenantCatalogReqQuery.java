@@ -29,7 +29,4 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "TenantCatalogReqQuery", description = "TenantCatalogReqQuery")
-public class TenantCatalogReqQuery extends ReqPage {
-
-  
-}
+public class TenantCatalogReqQuery extends ReqPage {}

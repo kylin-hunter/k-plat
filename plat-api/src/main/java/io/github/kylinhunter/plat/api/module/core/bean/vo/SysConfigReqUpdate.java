@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysConfigReqUpdate", description = "SysConfigReqUpdate")
 public class SysConfigReqUpdate extends ReqUpdate implements SysConfigVO {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

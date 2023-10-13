@@ -15,8 +15,8 @@
  */
 package io.github.kylinhunter.plat.web.error;
 
-import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,29 +35,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-
   private final ResponseWriter responseWriter;
   private final TraceHolder traceHolder;
 
-
   /**
-   * @param req             req
-   * @param rsp             rsp
+   * @param req req
+   * @param rsp rsp
    * @param globalException globalException
-   * @param model           model
+   * @param model model
    * @return java.lang.Object
    * @title handler
    * @description
    * @author BiJi'an
    * @date 2021/8/1 4:00 上午
    */
-
-
   @ExceptionHandler(value = Exception.class)
   public Object handleDefault(
       HttpServletRequest req, HttpServletResponse rsp, Exception globalException, Model model) {
     log.error("global error", globalException);
-    responseWriter.write(globalException,traceHolder.get().isDebug());
+    responseWriter.write(globalException, traceHolder.get().isDebug());
     return null;
   }
 }

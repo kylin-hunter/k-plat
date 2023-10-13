@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysConfigReqCreate", description = "SysConfigReqCreate")
 public class SysConfigReqCreate extends ReqCreate implements SysConfigVO {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

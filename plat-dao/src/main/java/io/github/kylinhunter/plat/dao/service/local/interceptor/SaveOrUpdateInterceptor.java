@@ -22,15 +22,12 @@ import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-08 23:40
  */
-
 public class SaveOrUpdateInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

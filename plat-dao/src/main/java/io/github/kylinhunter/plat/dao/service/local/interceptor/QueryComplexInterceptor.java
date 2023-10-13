@@ -31,17 +31,12 @@ import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-06 22:59
  */
-
-
 @RequiredArgsConstructor
 public class QueryComplexInterceptor<
         T extends BaseEntity,
@@ -52,8 +47,8 @@ public class QueryComplexInterceptor<
         Q extends ReqPage>
     extends BasicInterceptor<T, C, U, Z, V, Q> {
 
-   private final SortComponent sortComponent;
-   private final FilterComponent filterComponent;
+  private final SortComponent sortComponent;
+  private final FilterComponent filterComponent;
 
   public QueryWrapper<T> before(Q q, boolean tenantSupported) {
     QueryWrapper<T> query = Wrappers.query();

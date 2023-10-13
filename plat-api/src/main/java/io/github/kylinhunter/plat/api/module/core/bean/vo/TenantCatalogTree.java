@@ -34,8 +34,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantCatalogResp", description = "TenantCatalogResp")
 public class TenantCatalogTree extends Resp {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

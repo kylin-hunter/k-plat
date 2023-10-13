@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadataResp", description = "FileMetadataResp")
 public class FileMetadataResp extends DefaultSysResp {
 
-  
-
   @ApiModelProperty(value = "extension")
   private String extension;
 

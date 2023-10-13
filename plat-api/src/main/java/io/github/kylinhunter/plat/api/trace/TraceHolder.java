@@ -32,6 +32,7 @@ public interface TraceHolder {
    * @date 2022/01/01 2:46 下午
    */
   Trace create(HttpServletRequest request);
+
   Trace create();
 
   /**

@@ -35,15 +35,19 @@ public class HealthController {
 
   private final AppConfig appConfig;
 
-
-  @RequestMapping(value = "/health", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(
+      value = "/health",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public String health() {
     return "Hello  I'm plat-server-core , service in port:" + appConfig.getServerPort();
   }
 
-
-  @RequestMapping(value = "/echo/{string}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(
+      value = "/echo/{string}",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public String echo(@PathVariable String string) {
     return "Hello  I'm plat-server-core , service in port:" + appConfig.getServerPort();

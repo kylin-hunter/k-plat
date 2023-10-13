@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadataReqCreate", description = "FileMetadataReqCreate")
 public class FileMetadataReqCreate extends ReqCreate implements FileMetadataVO {
 
-  
-
   @ApiModelProperty(value = "extension")
   private String extension;
 

@@ -33,7 +33,6 @@ import lombok.Setter;
 @ApiModel(value = "Resp", description = "Resp")
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Resp extends BasicVO {
-  
 
   @ApiModelProperty(value = "id")
   @EqualsAndHashCode.Include

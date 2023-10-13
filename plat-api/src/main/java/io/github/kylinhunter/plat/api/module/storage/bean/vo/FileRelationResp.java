@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelationResp对象", description = "FileRelationResp")
 public class FileRelationResp extends DefaultSysResp {
 
-  
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

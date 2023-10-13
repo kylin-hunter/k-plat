@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileMetadata", description = "")
 public class FileMetadata extends BaseEntity {
 
-  
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

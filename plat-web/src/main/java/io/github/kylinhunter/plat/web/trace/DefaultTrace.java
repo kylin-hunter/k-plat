@@ -66,7 +66,7 @@ public class DefaultTrace implements Trace {
   @Override
   public void setUserContext(UserContext userContext) {
     this.userContext = userContext;
-    this.verifyToken=null;
+    this.verifyToken = null;
   }
 
   @Override
@@ -77,7 +77,7 @@ public class DefaultTrace implements Trace {
   @Override
   public void setVerifyToken(VerifyToken verifyToken) {
     this.verifyToken = verifyToken;
-    this.userContext=null;
+    this.userContext = null;
   }
 
   @Override

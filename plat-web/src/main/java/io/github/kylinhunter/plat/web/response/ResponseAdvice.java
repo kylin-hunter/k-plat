@@ -75,7 +75,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     response.setTrace(traceHolder.get());
 
-    log.info("{} 's response:{}", req.getRequestURI(),
+    log.info(
+        "{} 's response:{}",
+        req.getRequestURI(),
         JsonUtils.writeToString(response, JsonOptions.NO_FAIL));
 
     if (!isResponse) {

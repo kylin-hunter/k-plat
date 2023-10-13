@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AutoSentinelConfiguration {
   @Bean
-  public WebBlockExceptionHandler webBlockExceptionHandler( ) {
+  public WebBlockExceptionHandler webBlockExceptionHandler() {
     return new WebBlockExceptionHandler();
   }
 }

@@ -50,7 +50,7 @@ public class TenantUserConfigSaveOrUpdateInterceptor
     final String userId = vo.getUserId();
     UserContext userContext = traceHolder.get().getUserContext();
     if (!StringUtils.isEmpty(userId)) {
-      if (!userId.equals(userContext.getUserId()) ) {
+      if (!userId.equals(userContext.getUserId())) {
         throw new ParamException("only set self config ");
       }
     } else {

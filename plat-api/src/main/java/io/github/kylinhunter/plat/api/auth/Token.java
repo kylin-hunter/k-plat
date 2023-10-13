@@ -34,7 +34,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class Token extends DefaultUserContext implements UserContext {
 
-
   private long effectiveTime;
   private LocalDateTime expireTime;
 

@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
@@ -30,30 +45,45 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration {
 
   @Bean
-  public TokenService tokenService(JWTService jwtService,
-      TraceHolder traceHolder, RedisService redisService,
+  public TokenService tokenService(
+      JWTService jwtService,
+      TraceHolder traceHolder,
+      RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    return new TokenServiceImp(jwtService,
-        traceHolder, redisService, tenantUserDetailsService);
-  }
-
-
-  @Bean
-  public UserDetailsService userDetailsService(UserService userService,
-      TenantUserService tenantUserService,
-      RoleService roleService, TenantService tenantService, TenantRoleService tenantRoleService,
-      RedisService redisService) {
-    return new UserDetailsServiceImp(userService, roleService,
-        tenantService, tenantUserService, tenantRoleService, redisService);
+    return new TokenServiceImp(jwtService, traceHolder, redisService, tenantUserDetailsService);
   }
 
   @Bean
-  public TenantUserDetailsService tenantUserDetailsService(UserService userService,
+  public UserDetailsService userDetailsService(
+      UserService userService,
       TenantUserService tenantUserService,
-      RoleService roleService, TenantService tenantService, TenantRoleService tenantRoleService,
+      RoleService roleService,
+      TenantService tenantService,
+      TenantRoleService tenantRoleService,
       RedisService redisService) {
-    return new UserDetailsServiceImp(userService, roleService,
-        tenantService, tenantUserService, tenantRoleService, redisService);
+    return new UserDetailsServiceImp(
+        userService,
+        roleService,
+        tenantService,
+        tenantUserService,
+        tenantRoleService,
+        redisService);
   }
 
+  @Bean
+  public TenantUserDetailsService tenantUserDetailsService(
+      UserService userService,
+      TenantUserService tenantUserService,
+      RoleService roleService,
+      TenantService tenantService,
+      TenantRoleService tenantRoleService,
+      RedisService redisService) {
+    return new UserDetailsServiceImp(
+        userService,
+        roleService,
+        tenantService,
+        tenantUserService,
+        tenantRoleService,
+        redisService);
+  }
 }

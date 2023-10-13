@@ -1,12 +1,27 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.web.security;
 
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
 import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler;
 import io.github.kylinhunter.plat.web.security.filter.JwtLoginFilter;
 import io.github.kylinhunter.plat.web.security.filter.JwtVerifyFilter;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,20 +41,14 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  * @description
  * @date 2023-10-01 00:27
  */
-
 public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  protected UserDetailsService userDetailsService;
-  @Autowired
-  protected TokenService tokenService;
-  @Autowired
-  protected PasswordEncoder passwordEncoder;
+  @Autowired protected UserDetailsService userDetailsService;
+  @Autowired protected TokenService tokenService;
+  @Autowired protected PasswordEncoder passwordEncoder;
 
-  @Autowired
-  protected TraceHolder traceHolder;
-  @Autowired
-  protected ResponseWriter responseWriter;
+  @Autowired protected TraceHolder traceHolder;
+  @Autowired protected ResponseWriter responseWriter;
 
   @Bean
   @Override
@@ -47,16 +56,13 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
     return super.authenticationManagerBean();
   }
 
-
   public AccessDeniedHandler accessDeniedHandler(ResponseWriter responseWriter) {
     return new DefaultlAccessDeniedHandler(responseWriter);
   }
 
-
   public AuthenticationEntryPoint authenticationEntryPoint(ResponseWriter responseWriter) {
     return new DefaultAuthenticationEntryPoint(responseWriter);
   }
-
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,31 +76,41 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry = http.authorizeRequests();
+    ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+        expressionInterceptUrlRegistry = http.authorizeRequests();
     expressionInterceptUrlRegistry = addPerm(expressionInterceptUrlRegistry);
-    expressionInterceptUrlRegistry.anyRequest().authenticated()
-        .and().formLogin().loginProcessingUrl("/login")
-        .and().logout().logoutUrl("/logout")
-        .and().exceptionHandling()
+    expressionInterceptUrlRegistry
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin()
+        .loginProcessingUrl("/login")
+        .and()
+        .logout()
+        .logoutUrl("/logout")
+        .and()
+        .exceptionHandling()
         .accessDeniedHandler(accessDeniedHandler(responseWriter))
         .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
         .and()
-        .addFilter(new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter,
-            traceHolder))
-        .addFilter(new JwtVerifyFilter(authenticationManagerBean(), traceHolder, tokenService,
-            responseWriter))
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .addFilter(
+            new JwtLoginFilter(
+                authenticationManagerBean(), tokenService, responseWriter, traceHolder))
+        .addFilter(
+            new JwtVerifyFilter(
+                authenticationManagerBean(), traceHolder, tokenService, responseWriter))
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .cors()
-        .and().csrf().disable();
-
-
+        .and()
+        .csrf()
+        .disable();
   }
 
   private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
-      ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry expressionInterceptUrlRegistry) {
+      ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+          expressionInterceptUrlRegistry) {
     return expressionInterceptUrlRegistry;
   }
-
-
 }

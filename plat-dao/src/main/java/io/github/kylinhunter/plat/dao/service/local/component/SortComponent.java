@@ -23,14 +23,12 @@ import io.github.kylinhunter.plat.api.bean.sort.Order;
 import io.github.kylinhunter.plat.api.bean.sort.ReqSort;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-01-11 21:27
  */
-
 public class SortComponent {
 
   /**

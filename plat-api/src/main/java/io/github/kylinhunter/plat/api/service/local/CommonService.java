@@ -61,8 +61,6 @@ public interface CommonService<
 
   Z findyById(ReqById reqById);
 
-
-
   List<Z> findyByIds(ReqByIds reqByIds);
 
   PageData<Z> query(Q reqQueryPage);

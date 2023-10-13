@@ -1,6 +1,28 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.data.redis.configuration;
 
 import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonReactiveClient;
@@ -27,20 +49,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.util.ReflectionUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
- *
  * @author Nikita Koksharov
  * @author Nikos Kakavas (https://github.com/nikakis)
  * @author AnJia (https://anjia0532.github.io/)
- *
  */
 @Configuration
 @ConditionalOnClass({Redisson.class, RedisOperations.class})
@@ -54,16 +66,11 @@ public class RedissonAutoConfiguration {
   @Autowired(required = false)
   private List<RedissonAutoConfigurationCustomizer> redissonAutoConfigurationCustomizers;
 
-  @Autowired
-  private RedissonProperties redissonProperties;
+  @Autowired private RedissonProperties redissonProperties;
 
-  @Autowired
-  private RedisProperties redisProperties;
+  @Autowired private RedisProperties redisProperties;
 
-  @Autowired
-  private ApplicationContext ctx;
-
-
+  @Autowired private ApplicationContext ctx;
 
   @Bean
   @Lazy
@@ -86,20 +93,22 @@ public class RedissonAutoConfiguration {
     Method clusterMethod = ReflectionUtils.findMethod(RedisProperties.class, "getCluster");
     Method usernameMethod = ReflectionUtils.findMethod(RedisProperties.class, "getUsername");
     Method timeoutMethod = ReflectionUtils.findMethod(RedisProperties.class, "getTimeout");
-    Method connectTimeoutMethod = ReflectionUtils.findMethod(RedisProperties.class, "getConnectTimeout");
+    Method connectTimeoutMethod =
+        ReflectionUtils.findMethod(RedisProperties.class, "getConnectTimeout");
     Method clientNameMethod = ReflectionUtils.findMethod(RedisProperties.class, "getClientName");
     Object timeoutValue = ReflectionUtils.invokeMethod(timeoutMethod, redisProperties);
 
     Integer timeout = null;
     if (timeoutValue instanceof Duration) {
       timeout = (int) ((Duration) timeoutValue).toMillis();
-    } else if (timeoutValue != null){
-      timeout = (Integer)timeoutValue;
+    } else if (timeoutValue != null) {
+      timeout = (Integer) timeoutValue;
     }
 
     Integer connectTimeout = null;
     if (connectTimeoutMethod != null) {
-      Object connectTimeoutValue = ReflectionUtils.invokeMethod(connectTimeoutMethod, redisProperties);
+      Object connectTimeoutValue =
+          ReflectionUtils.invokeMethod(connectTimeoutMethod, redisProperties);
       if (connectTimeoutValue != null) {
         connectTimeout = (int) ((Duration) connectTimeoutValue).toMillis();
       }
@@ -148,26 +157,29 @@ public class RedissonAutoConfiguration {
 
       String[] nodes;
       if (nodesValue instanceof String) {
-        nodes = convert(Arrays.asList(((String)nodesValue).split(",")));
+        nodes = convert(Arrays.asList(((String) nodesValue).split(",")));
       } else {
-        nodes = convert((List<String>)nodesValue);
+        nodes = convert((List<String>) nodesValue);
       }
 
       config = new Config();
-      SentinelServersConfig c = config.useSentinelServers()
-          .setMasterName(redisProperties.getSentinel().getMaster())
-          .addSentinelAddress(nodes)
-          .setDatabase(redisProperties.getDatabase())
-          .setUsername(username)
-          .setPassword(redisProperties.getPassword())
-          .setClientName(clientName);
+      SentinelServersConfig c =
+          config
+              .useSentinelServers()
+              .setMasterName(redisProperties.getSentinel().getMaster())
+              .addSentinelAddress(nodes)
+              .setDatabase(redisProperties.getDatabase())
+              .setUsername(username)
+              .setPassword(redisProperties.getPassword())
+              .setClientName(clientName);
       if (connectTimeout != null) {
         c.setConnectTimeout(connectTimeout);
       }
       if (connectTimeoutMethod != null && timeout != null) {
         c.setTimeout(timeout);
       }
-    } else if (clusterMethod != null && ReflectionUtils.invokeMethod(clusterMethod, redisProperties) != null) {
+    } else if (clusterMethod != null
+        && ReflectionUtils.invokeMethod(clusterMethod, redisProperties) != null) {
       Object clusterObject = ReflectionUtils.invokeMethod(clusterMethod, redisProperties);
       Method nodesMethod = ReflectionUtils.findMethod(clusterObject.getClass(), "getNodes");
       List<String> nodesObject = (List) ReflectionUtils.invokeMethod(nodesMethod, clusterObject);
@@ -175,11 +187,13 @@ public class RedissonAutoConfiguration {
       String[] nodes = convert(nodesObject);
 
       config = new Config();
-      ClusterServersConfig c = config.useClusterServers()
-          .addNodeAddress(nodes)
-          .setUsername(username)
-          .setPassword(redisProperties.getPassword())
-          .setClientName(clientName);
+      ClusterServersConfig c =
+          config
+              .useClusterServers()
+              .addNodeAddress(nodes)
+              .setUsername(username)
+              .setPassword(redisProperties.getPassword())
+              .setClientName(clientName);
       if (connectTimeout != null) {
         c.setConnectTimeout(connectTimeout);
       }
@@ -190,16 +204,18 @@ public class RedissonAutoConfiguration {
       config = new Config();
       String prefix = REDIS_PROTOCOL_PREFIX;
       Method method = ReflectionUtils.findMethod(RedisProperties.class, "isSsl");
-      if (method != null && (Boolean)ReflectionUtils.invokeMethod(method, redisProperties)) {
+      if (method != null && (Boolean) ReflectionUtils.invokeMethod(method, redisProperties)) {
         prefix = REDISS_PROTOCOL_PREFIX;
       }
 
-      SingleServerConfig c = config.useSingleServer()
-          .setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
-          .setDatabase(redisProperties.getDatabase())
-          .setUsername(username)
-          .setPassword(redisProperties.getPassword())
-          .setClientName(clientName);
+      SingleServerConfig c =
+          config
+              .useSingleServer()
+              .setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
+              .setDatabase(redisProperties.getDatabase())
+              .setUsername(username)
+              .setPassword(redisProperties.getPassword())
+              .setClientName(clientName);
       if (connectTimeout != null) {
         c.setConnectTimeout(connectTimeout);
       }
@@ -232,11 +248,8 @@ public class RedissonAutoConfiguration {
     return resource.getInputStream();
   }
 
-
-
-
   @Bean
-  public RedisLockService redisLockService(RedissonClient redissonClient){
+  public RedisLockService redisLockService(RedissonClient redissonClient) {
     return new RedisLockService(redissonClient);
   }
 }

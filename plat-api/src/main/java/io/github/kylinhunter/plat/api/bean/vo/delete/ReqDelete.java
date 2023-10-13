@@ -36,7 +36,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ReqDelete", description = "ReqDelete")
 public class ReqDelete extends Req implements Serializable {
-  
 
   @ApiModelProperty(value = "physical", hidden = true, required = true)
   private boolean physical = true;

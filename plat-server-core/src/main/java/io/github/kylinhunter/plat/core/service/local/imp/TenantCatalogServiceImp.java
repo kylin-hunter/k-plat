@@ -50,17 +50,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TenantCatalogServiceImp
     extends CommonServiceImpl<
-    TenantCatalogMapper,
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery>
+        TenantCatalogMapper,
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery>
     implements TenantCatalogService {
 
-  @Autowired
-  private TenantCatalogTreeComponent tenantCatalogTreeComponent;
+  @Autowired private TenantCatalogTreeComponent tenantCatalogTreeComponent;
 
   public TenantCatalogServiceImp(
       TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,

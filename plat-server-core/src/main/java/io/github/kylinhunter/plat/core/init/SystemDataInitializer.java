@@ -54,14 +54,21 @@ public class SystemDataInitializer {
     if (force || appConfig.isInitialize()) {
       TreeMap<Integer, Initializer> allIntializers =
           initializers.values().stream()
-              .collect(Collectors.toMap(Initializer::order, e -> e, (o, n) -> {
-                throw new IllegalStateException(String.format("Duplicate key %s", o));
-              }, TreeMap::new));
-      allIntializers.values().forEach(
-          initializer -> {
-            log.info("init order:" + initializer.order());
-            initializer.init();
-          });
+              .collect(
+                  Collectors.toMap(
+                      Initializer::order,
+                      e -> e,
+                      (o, n) -> {
+                        throw new IllegalStateException(String.format("Duplicate key %s", o));
+                      },
+                      TreeMap::new));
+      allIntializers
+          .values()
+          .forEach(
+              initializer -> {
+                log.info("init order:" + initializer.order());
+                initializer.init();
+              });
       log.info("init ok");
     } else {
       log.info("skip init");

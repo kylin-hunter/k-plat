@@ -33,8 +33,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BatchResp<T extends BasicVO> implements Serializable {
 
-  
-
   @ApiModelProperty(value = "body")
   private List<BatchSingleResp<T>> body = Lists.newArrayList();
 

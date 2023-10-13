@@ -36,7 +36,7 @@ public class LogFilter implements Ordered, GlobalFilter {
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
     String path = request.getURI().getPath();
-    log.info("start {}",path);
+    log.info("start {}", path);
     return chain
         .filter(exchange)
         .then(

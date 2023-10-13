@@ -31,8 +31,6 @@ import lombok.Setter;
 @ApiModel("返回basicbean")
 public class BasicResponse<T> implements Serializable {
 
-  
-
   @ApiModelProperty("业务状态码 0正常  非0错误")
   private int code = ErrInfos.CODE_SUCCESS;
 

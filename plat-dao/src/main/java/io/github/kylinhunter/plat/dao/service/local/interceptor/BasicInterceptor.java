@@ -17,6 +17,7 @@ package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
@@ -24,7 +25,6 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,8 +44,7 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired
-  protected TraceHolder traceHolder;
+  @Autowired protected TraceHolder traceHolder;
 
   protected void setCreateMsg(Req req, T entity) {
 
@@ -93,6 +92,7 @@ public class BasicInterceptor<
     }
     return tenantId;
   }
+
   public void checkSelfPermission(String userId) {
     UserContext userContext = traceHolder.get().getUserContext();
     if (!userContext.getUserId().equals(userId)) {

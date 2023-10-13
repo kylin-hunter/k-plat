@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
@@ -29,8 +44,9 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
   private final TraceHolder traceHolder;
   private final ResponseWriter responseWriter;
 
-
-  public JwtVerifyFilter(AuthenticationManager authenticationManager, TraceHolder traceHolder,
+  public JwtVerifyFilter(
+      AuthenticationManager authenticationManager,
+      TraceHolder traceHolder,
       TokenService tokenService,
       ResponseWriter responseWriter) {
     super(authenticationManager);
@@ -40,8 +56,9 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain chain) throws IOException, ServletException {
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     try {
 
       Trace trace = traceHolder.get();
@@ -55,9 +72,9 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
         return;
       }
       trace.setVerifyToken(tokenUserDetails.getVerifyToken());
-      UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-          = new UsernamePasswordAuthenticationToken(tokenUserDetails, null,
-          tokenUserDetails.getAuthorities());
+      UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+          new UsernamePasswordAuthenticationToken(
+              tokenUserDetails, null, tokenUserDetails.getAuthorities());
       SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
       chain.doFilter(request, response);
@@ -67,11 +84,6 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
 
     } catch (Exception e) {
       throw new AuthenticationServiceException("verify token error", e);
-
-
     }
-
-
   }
-
 }

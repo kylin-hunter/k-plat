@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "SysConfig")
 public class SysConfig extends BaseEntity {
 
-  
-
   @ApiModelProperty(value = "type 0 string")
   private Integer type;
 

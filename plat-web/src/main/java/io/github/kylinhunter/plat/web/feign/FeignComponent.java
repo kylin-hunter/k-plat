@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.web.feign;
 
 import feign.Response;
@@ -13,14 +28,12 @@ import java.io.Reader;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.Collection;
-import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2023-09-26 17:14
  */
-
 public class FeignComponent {
 
   private static final int MAX_ERR_BODY_LENGTH = 400;
@@ -44,14 +57,12 @@ public class FeignComponent {
     } catch (IOException e) {
       throw new WebException(e);
     }
-
   }
 
-
   /**
-   * @param body    body
+   * @param body body
    * @param charset charset
-   * @param length  length
+   * @param length length
    * @return java.lang.String
    * @throws
    * @title getResponseBody
@@ -74,5 +85,4 @@ public class FeignComponent {
       return e.toString() + ", failed to parse response";
     }
   }
-
 }

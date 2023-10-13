@@ -24,7 +24,6 @@ import org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicat
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
@@ -33,8 +32,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @date 2022-11-30 01:59
  */
 @Component
-public class DCRoutePredicate
-    extends AbstractRoutePredicateFactory<DCRoutePredicate.Config> {
+public class DCRoutePredicate extends AbstractRoutePredicateFactory<DCRoutePredicate.Config> {
   public DCRoutePredicate() {
     super(Config.class);
   }
@@ -66,14 +64,13 @@ public class DCRoutePredicate
    * @return
    */
   @Override
-
   public List<String> shortcutFieldOrder() {
     return Arrays.asList("dcid");
   }
+
   @Getter
   @Setter
   public static class Config {
     private String dcid;
-
   }
 }

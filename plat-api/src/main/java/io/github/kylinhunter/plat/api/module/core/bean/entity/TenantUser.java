@@ -32,7 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantUser")
 public class TenantUser extends BaseEntity {
 
-
   @ApiModelProperty(value = "userId")
   private String userId;
 

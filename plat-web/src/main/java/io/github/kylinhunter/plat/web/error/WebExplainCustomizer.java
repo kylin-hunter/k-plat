@@ -19,7 +19,6 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.collect.Maps;
 import io.github.kylinhunter.commons.exception.ExceptionFinder;
-import io.github.kylinhunter.commons.exception.common.KRuntimeException;
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
@@ -91,14 +90,12 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
 
     // feign err
     this.addExplainer(feign.RetryableException.class)
-        .explain(
-            e -> new ExplainResult(WebErrInfoCustomizer.FEIGN_ERROR, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfoCustomizer.FEIGN_ERROR, e.getMessage()));
 
     // sentinel error
 
     this.addExplainer(BlockException.class)
-        .explain(
-            e -> new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage()));
 
     this.addExplainer(UndeclaredThrowableException.class)
         .explain(
@@ -112,9 +109,6 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
             });
 
     this.addExplainer(AccessDeniedException.class)
-        .explain(
-            e -> new ExplainResult(WebErrInfoCustomizer.AUTH_NO_PERMISSION));
-
-
+        .explain(e -> new ExplainResult(WebErrInfoCustomizer.AUTH_NO_PERMISSION));
   }
 }

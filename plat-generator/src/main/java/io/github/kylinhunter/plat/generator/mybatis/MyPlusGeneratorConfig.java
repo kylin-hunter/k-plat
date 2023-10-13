@@ -24,8 +24,6 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.google.common.collect.Lists;
-import io.github.kylinhunter.commons.component.CF;
-
 import io.github.kylinhunter.commons.name.CamelFormat;
 import io.github.kylinhunter.commons.name.SnakeToCamelUtils;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
@@ -79,7 +77,7 @@ public class MyPlusGeneratorConfig {
     String entityPkg = packageConfig.getEntity();
     table = table.replace(module.getTablePrefix(), "");
     ;
-    String entityName =SnakeToCamelUtils.convert(table, CamelFormat.UPPER);
+    String entityName = SnakeToCamelUtils.convert(table, CamelFormat.UPPER);
     return parentPkg + "." + entityPkg + "." + entityName;
   }
 
@@ -87,7 +85,7 @@ public class MyPlusGeneratorConfig {
     String parentPkg = packageConfig.getParent();
     String mapperPkg = packageConfig.getMapper();
     table = table.replace(module.getTablePrefix(), "");
-    String entityName =SnakeToCamelUtils.convert(table, CamelFormat.UPPER);
+    String entityName = SnakeToCamelUtils.convert(table, CamelFormat.UPPER);
     return parentPkg + "." + mapperPkg + "." + entityName + "Mapper";
   }
 

@@ -26,8 +26,6 @@ import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -35,7 +33,6 @@ import org.springframework.util.CollectionUtils;
  * @description
  * @date 2022-06-08 23:40
  */
-
 public class DeleteInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,

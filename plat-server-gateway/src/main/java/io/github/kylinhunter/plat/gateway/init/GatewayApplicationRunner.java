@@ -15,9 +15,6 @@
  */
 package io.github.kylinhunter.plat.gateway.init;
 
-import io.github.kylinhunter.commons.exception.info.ErrInfoManager;
-import io.github.kylinhunter.commons.init.KCommons;
-import java.util.logging.ErrorManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -36,9 +33,6 @@ import org.springframework.stereotype.Component;
 @Order(value = 3)
 public class GatewayApplicationRunner implements ApplicationRunner {
 
-
   @Override
-  public void run(ApplicationArguments args) {
-
-   }
+  public void run(ApplicationArguments args) {}
 }

@@ -39,6 +39,4 @@ public class LogHelper {
   public static void clearContext() {
     MDC.clear();
   }
-
-
 }

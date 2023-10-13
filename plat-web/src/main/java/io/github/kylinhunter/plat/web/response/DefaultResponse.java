@@ -37,7 +37,6 @@ import lombok.Setter;
 @ApiModel("返回bean")
 public class DefaultResponse<T> implements Response<T> {
 
-
   @ApiModelProperty("业务状态码 0正常  非0错误")
   private int code;
 

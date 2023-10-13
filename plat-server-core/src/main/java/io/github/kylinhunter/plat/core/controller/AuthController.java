@@ -49,7 +49,6 @@ public class AuthController extends CommonController {
   private final TraceHolder traceHolder;
   private final TokenService tokenService;
 
-
   @PostMapping(value = "/tenant_login")
   @ApiOperation("tenant_login")
   public DefaultResponse<String> createTenantToken(
@@ -59,8 +58,8 @@ public class AuthController extends CommonController {
 
   @PostMapping(value = "/verify_token")
   @ApiOperation("verify_token")
-  public DefaultResponse<String> verify(HttpServletRequest request,
-      @RequestParam(name = "token", required = false) String token) {
+  public DefaultResponse<String> verify(
+      HttpServletRequest request, @RequestParam(name = "token", required = false) String token) {
     if (StringUtils.isEmpty(token)) {
       token = traceHolder.get().getToken();
     }

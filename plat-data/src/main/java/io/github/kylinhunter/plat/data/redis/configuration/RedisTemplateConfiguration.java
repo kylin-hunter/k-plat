@@ -31,16 +31,13 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -54,7 +51,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @Slf4j
-@ConditionalOnProperty(prefix = "plat", value = "data.redis.enabled", havingValue = "true" ,matchIfMissing = true)
+@ConditionalOnProperty(
+    prefix = "plat",
+    value = "data.redis.enabled",
+    havingValue = "true",
+    matchIfMissing = true)
 public class RedisTemplateConfiguration {
 
   @Resource private RedisConnectionFactory redisConnectionFactory;
@@ -130,6 +131,4 @@ public class RedisTemplateConfiguration {
     objectMapper.registerModule(javaTimeModule);
     return objectMapper;
   }
-
-
 }

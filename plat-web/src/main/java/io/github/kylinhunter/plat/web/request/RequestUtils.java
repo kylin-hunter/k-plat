@@ -17,8 +17,8 @@ package io.github.kylinhunter.plat.web.request;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import io.github.kylinhunter.plat.api.trace.CookieInfo;
+import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +45,6 @@ public class RequestUtils {
    * @author BiJi'an
    * @date 2023-10-13 01:22
    */
-
   public static HttpServletRequest getRequest() {
     ServletRequestAttributes requestAttributes =
         (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -55,7 +54,6 @@ public class RequestUtils {
     }
     return null;
   }
-
 
   /**
    * @return boolean

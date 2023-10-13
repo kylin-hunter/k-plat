@@ -42,13 +42,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantRoleServiceImp
     extends CommonServiceImpl<
-    TenantRoleMapper,
-    TenantRole,
-    TenantRoleReqCreate,
-    TenantRoleReqUpdate,
-    TenantRoleResp,
-    TenantRoleVO,
-    TenantRoleReqQuery>
+        TenantRoleMapper,
+        TenantRole,
+        TenantRoleReqCreate,
+        TenantRoleReqUpdate,
+        TenantRoleResp,
+        TenantRoleVO,
+        TenantRoleReqQuery>
     implements TenantRoleService {
 
   private TenantUserRoleMapper tenantUserRoleMapper;

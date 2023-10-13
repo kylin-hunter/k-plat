@@ -33,8 +33,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "RoleReqCreate", description = "RoleReqCreate")
 public class RoleReqCreate extends ReqCreate implements RoleVO {
 
-  
-
   @ApiModelProperty(value = "code")
   @NotBlank
   private String code;

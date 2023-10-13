@@ -26,7 +26,4 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DummyUserContext extends DefaultUserContext implements UserContext, Serializable {
-
-
-}
+public class DummyUserContext extends DefaultUserContext implements UserContext, Serializable {}

@@ -34,7 +34,6 @@ public class DefaultUserContext implements UserContext, Serializable {
 
   private int userType;
 
-
   private String userId = "";
 
   private String userName = "";
@@ -43,14 +42,15 @@ public class DefaultUserContext implements UserContext, Serializable {
 
   private String realName = "";
 
-
   private String tenantId = "";
   private String tenantUserId = "";
+
   public DefaultUserContext(User user) {
     BeanUtils.copyProperties(user, this);
     this.userId = user.getId();
     this.userType = user.getType();
   }
+
   public DefaultUserContext(UserContext userContext) {
     BeanUtils.copyProperties(userContext, this);
   }

@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantCatalogReqUpdate", description = "TenantCatalogReqUpdate")
 public class TenantCatalogReqUpdate extends ReqUpdate implements TenantCatalogVO {
 
-  
-
   @ApiModelProperty(value = "code")
   private String code;
 

@@ -42,7 +42,7 @@ public class GlobalConfig {
 
   private boolean clearBeforExec = false; /*执行前对 outputDir下的自定义子目录 清空 */
 
-  private Path defaultOutputDir = UserDirUtils.getTmpDir(true,"auto_code").toPath(); /*生成文件的输出目录*/
+  private Path defaultOutputDir = UserDirUtils.getTmpDir(true, "auto_code").toPath(); /*生成文件的输出目录*/
 
   private boolean fileOverride = false; /*是否覆盖已有文件*/
 

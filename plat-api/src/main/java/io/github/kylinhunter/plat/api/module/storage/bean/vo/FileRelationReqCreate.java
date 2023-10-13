@@ -32,8 +32,6 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "FileRelationReqCreate对象", description = "FileRelationReqCreate")
 public class FileRelationReqCreate extends ReqCreate implements FileRelationVO {
 
-  
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

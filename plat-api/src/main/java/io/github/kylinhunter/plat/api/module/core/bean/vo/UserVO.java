@@ -35,8 +35,8 @@ public interface UserVO extends VO {
   String getDescription();
 
   void setRealName(final String realName);
-  void setNickName(final String nickName);
 
+  void setNickName(final String nickName);
 
   void setUserName(final String userName);
 

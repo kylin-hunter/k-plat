@@ -32,14 +32,11 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantUserReqUpdate", description = "TenantUserReqUpdate")
 public class TenantUserReqUpdate extends ReqUpdate implements TenantUserVO {
 
-  
-
   @ApiModelProperty(value = "description")
   private String description;
 
   @ApiModelProperty(value = "userId")
   private String userId;
-
 
   @ApiModelProperty(value = "type")
   private Integer type;

@@ -17,8 +17,8 @@ package io.github.kylinhunter.plat.web.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.web.request.RequestConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
  * @description
  * @date 2022-06-19 00:23
  */
-
 @Slf4j
 @RequiredArgsConstructor
 public class FeignTokenInterceptor implements RequestInterceptor {

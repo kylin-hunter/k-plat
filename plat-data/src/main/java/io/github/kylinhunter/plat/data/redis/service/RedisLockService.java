@@ -20,8 +20,6 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.stereotype.Component;
-
 
 @RequiredArgsConstructor
 public class RedisLockService {

@@ -24,7 +24,6 @@ import javax.annotation.PostConstruct;
  * @author BiJi'an
  * @date 2022-01-22 19:41
  */
-
 public class FilterCustoms {
   public static final Map<String, FilterCustom> DATA = Maps.newHashMap();
 

@@ -37,16 +37,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserConfigServiceImp
     extends CommonServiceImpl<
-    SysUserConfigMapper,
-    SysUserConfig,
-    SysUserConfigReqCreate,
-    SysUserConfigReqUpdate,
-    SysUserConfigResp,
-    SysUserConfigVO,
-    SysUserConfigReqQuery>
+        SysUserConfigMapper,
+        SysUserConfig,
+        SysUserConfigReqCreate,
+        SysUserConfigReqUpdate,
+        SysUserConfigResp,
+        SysUserConfigVO,
+        SysUserConfigReqQuery>
     implements SysUserConfigService {
 
-  public SysUserConfigServiceImp(SysUserConfigDeleteInterceptor sysUserConfigDeleteInterceptor,
+  public SysUserConfigServiceImp(
+      SysUserConfigDeleteInterceptor sysUserConfigDeleteInterceptor,
       SysUserConfigSaveOrUpdateInterceptor sysUserConfigSaveOrUpdateInterceptor) {
     this.deleteInterceptor = sysUserConfigDeleteInterceptor;
     this.saveOrUpdateInterceptor = sysUserConfigSaveOrUpdateInterceptor;

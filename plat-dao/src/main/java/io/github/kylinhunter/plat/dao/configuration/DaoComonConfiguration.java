@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Primary;
 public class DaoComonConfiguration {
 
   @Bean
-  public FilterCustoms filterCustoms(){
+  public FilterCustoms filterCustoms() {
     return new FilterCustoms();
   }
 
@@ -43,33 +43,34 @@ public class DaoComonConfiguration {
   public FilterComponent filterComponent(FilterCustoms filterCustoms) {
     return new FilterComponent(filterCustoms);
   }
+
   @Bean
-  public SortComponent sortComponent( ) {
+  public SortComponent sortComponent() {
     return new SortComponent();
   }
 
   @Bean
   @Primary
-  public QueryComplexInterceptor queryComplexInterceptor(SortComponent sortComponent ,FilterComponent filterComponent){
-    return new QueryComplexInterceptor(sortComponent,filterComponent);
+  public QueryComplexInterceptor queryComplexInterceptor(
+      SortComponent sortComponent, FilterComponent filterComponent) {
+    return new QueryComplexInterceptor(sortComponent, filterComponent);
   }
 
   @Bean
   @Primary
-  public DeleteInterceptor deleteInterceptor(){
+  public DeleteInterceptor deleteInterceptor() {
     return new DeleteInterceptor();
   }
 
   @Bean
   @Primary
-  public SaveOrUpdateInterceptor saveOrUpdateInterceptor(){
+  public SaveOrUpdateInterceptor saveOrUpdateInterceptor() {
     return new SaveOrUpdateInterceptor();
   }
 
   @Bean
   @Primary
-  public QueryAccurateInterceptor queryAccurateInterceptor(){
+  public QueryAccurateInterceptor queryAccurateInterceptor() {
     return new QueryAccurateInterceptor();
   }
-
 }

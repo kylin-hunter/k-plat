@@ -1,7 +1,21 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.web.security.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
@@ -35,7 +49,6 @@ public class TokenUserDetails implements UserDetails {
   private String nickName;
   private String realName;
 
-
   private Integer userType;
 
   private String tenantId;
@@ -46,20 +59,15 @@ public class TokenUserDetails implements UserDetails {
   private boolean enabled = true;
 
   private VerifyToken verifyToken;
-  @JsonIgnore
-  private User user;
-  @JsonIgnore
-  private TenantUser tenantUser;
+  @JsonIgnore private User user;
+  @JsonIgnore private TenantUser tenantUser;
 
-  @JsonIgnore
-  private Set<String> pemCodes = new HashSet<>();
+  @JsonIgnore private Set<String> pemCodes = new HashSet<>();
   Collection<? extends GrantedAuthority> authorities;
-
 
   public TokenUserDetails(User user, Set<String> pemCodes) {
     this(user, null, pemCodes);
   }
-
 
   public TokenUserDetails(User user, TenantUser tenantUser, Set<String> pemCodes) {
     this.user = user;
@@ -76,12 +84,10 @@ public class TokenUserDetails implements UserDetails {
       this.tenantId = tenantUser.getSysTenantId();
       this.tenantUserId = tenantUser.getId();
       this.userType = tenantUser.getType();
-
     }
     this.pemCodes = pemCodes;
     if (!CollectionUtils.isEmpty(pemCodes)) {
-      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
-          .collect(Collectors.toList());
+      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     } else {
       authorities = Collections.emptyList();
     }
@@ -98,8 +104,7 @@ public class TokenUserDetails implements UserDetails {
     this.userType = verifyToken.getUserType();
 
     if (!CollectionUtils.isEmpty(pemCodes)) {
-      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
-          .collect(Collectors.toList());
+      authorities = pemCodes.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     } else {
       authorities = Collections.emptyList();
     }
@@ -112,6 +117,4 @@ public class TokenUserDetails implements UserDetails {
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return authorities;
   }
-
-
 }

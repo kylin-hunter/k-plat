@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -67,13 +66,11 @@ public class AddTraceFilter extends AbstractGatewayFilterFactory<AddTraceFilter.
           traceId = UUID.randomUUID().toString();
         }
 
-        ServerHttpRequest request = req.mutate().header(RequestConst.HEADER_TRACE_ID, traceId)
-            .build();
+        ServerHttpRequest request =
+            req.mutate().header(RequestConst.HEADER_TRACE_ID, traceId).build();
         return chain.filter(exchange.mutate().request(request).build());
       }
       return chain.filter(exchange);
-
-
     };
   }
 

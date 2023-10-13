@@ -58,8 +58,7 @@ public abstract class CommonCurdController<
     Q extends ReqPage,
     T extends BaseEntity> {
 
-  @Autowired
-  protected S service;
+  @Autowired protected S service;
 
   @PostConstruct
   private void init() {
@@ -77,7 +76,8 @@ public abstract class CommonCurdController<
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ResponseBody
   @ApiOperation("修改")
-  public DefaultResponse<Z> update(@RequestBody @Validated Y reqUpdate, @PathVariable("id") String id) {
+  public DefaultResponse<Z> update(
+      @RequestBody @Validated Y reqUpdate, @PathVariable("id") String id) {
     reqUpdate.setId(id);
     return new DefaultResponse<>(service.update(reqUpdate));
   }

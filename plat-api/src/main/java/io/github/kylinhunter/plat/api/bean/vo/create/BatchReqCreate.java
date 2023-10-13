@@ -30,7 +30,6 @@ import lombok.Data;
 @Data
 @ApiModel(value = "BatchReqCreate", description = "BatchReqCreate")
 public class BatchReqCreate<T extends ReqCreate> implements Serializable {
-  
 
   @ApiModelProperty(value = "body")
   @NotNull

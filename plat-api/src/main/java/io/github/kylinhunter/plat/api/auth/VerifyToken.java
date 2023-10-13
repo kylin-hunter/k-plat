@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.api.auth;
 
-import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -34,11 +33,10 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class VerifyToken extends Token implements UserContext {
 
-
   private String token;
 
-  public VerifyToken(UserContext userContext, long effectiveTime, LocalDateTime expireTime,
-      String token) {
+  public VerifyToken(
+      UserContext userContext, long effectiveTime, LocalDateTime expireTime, String token) {
     super(userContext, effectiveTime, expireTime);
     this.token = token;
   }

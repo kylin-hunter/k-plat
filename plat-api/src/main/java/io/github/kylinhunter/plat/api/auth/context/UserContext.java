@@ -19,33 +19,29 @@ public interface UserContext {
 
   String getTenantId();
 
-
-
   String getTenantUserId();
 
   void setTenantUserId(String tenantUserId);
 
-
-
-
-
   int getUserType();
-
 
   void setTenantId(final String tenantId);
 
   void setUserId(final String userId);
+
   String getUserId();
 
   void setUserName(final String userName);
+
   String getUserName();
 
   String getNickName();
+
   void setNickName(final String nickName);
 
   String getRealName();
+
   void setRealName(final String realName);
 
   void setUserType(final int type);
-
 }

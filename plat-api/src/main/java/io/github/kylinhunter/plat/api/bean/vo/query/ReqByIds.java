@@ -40,7 +40,6 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReqByIds extends ReqQuery implements Serializable {
-  
 
   @ApiModelProperty(value = "primary keys", required = true)
   @NotEmpty

@@ -42,11 +42,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleServiceImp
     extends CommonServiceImpl<
-    RoleMapper, Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery>
+        RoleMapper, Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery>
     implements RoleService {
 
   private final UserRoleMapper userRoleMapper;
-
 
   @Override
   public Role findByCode(String code) {

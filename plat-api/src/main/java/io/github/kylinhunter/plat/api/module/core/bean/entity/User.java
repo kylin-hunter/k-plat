@@ -40,7 +40,6 @@ public class User extends BaseEntity {
   @ApiModelProperty(value = "realName")
   private String realName;
 
-
   @ApiModelProperty(value = "userName")
   private String userName;
 

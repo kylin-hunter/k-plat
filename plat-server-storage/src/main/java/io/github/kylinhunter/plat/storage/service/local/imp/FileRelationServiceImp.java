@@ -23,9 +23,9 @@ import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqQuer
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationReqUpdate;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationResp;
 import io.github.kylinhunter.plat.api.module.storage.bean.vo.FileRelationVO;
+import io.github.kylinhunter.plat.api.module.storage.service.FileRelationService;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.storage.dao.mapper.FileRelationMapper;
-import io.github.kylinhunter.plat.api.module.storage.service.FileRelationService;
 import org.springframework.stereotype.Service;
 
 /**
