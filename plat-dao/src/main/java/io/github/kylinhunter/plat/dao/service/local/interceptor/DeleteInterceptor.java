@@ -34,12 +34,12 @@ import org.springframework.util.CollectionUtils;
  * @date 2022-06-08 23:40
  */
 public class DeleteInterceptor<
-        T extends BaseEntity,
-        C extends ReqCreate,
-        U extends ReqUpdate,
-        Z extends Resp,
-        V extends VO,
-        Q extends ReqPage>
+    T extends BaseEntity,
+    C extends ReqCreate,
+    U extends ReqUpdate,
+    Z extends Resp,
+    V extends VO,
+    Q extends ReqPage>
     extends BasicInterceptor<T, C, U, Z, V, Q> {
 
   public void before(ReqDelete reqDelete, boolean tenantSupported, T entity) {
@@ -47,8 +47,7 @@ public class DeleteInterceptor<
       throw new ParamException("delete id is empty");
     }
     if (tenantSupported) {
-      String tenantId = checkAndGetTenantId();
-      checkTenantData(tenantId, entity);
+      checkSameTenant(entity.getSysTenantId());
     }
     if (!reqDelete.isPhysical()) {
       entity.setSysDeleteFlag(true);
@@ -65,8 +64,7 @@ public class DeleteInterceptor<
       throw new ParamException("delete id is empty");
     }
     if (tenantSupported) {
-      final String tenantId = checkAndGetTenantId();
-      checkTenantData(tenantId, entities);
+      checkSameTenant(entities);
     }
     if (!reqDeletes.isPhysical()) {
       entities.forEach(

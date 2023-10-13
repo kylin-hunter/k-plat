@@ -17,27 +17,28 @@ package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.commons.utils.bean.BeanCopyUtils;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.create.ReqCreate;
-import io.github.kylinhunter.plat.api.bean.vo.query.ReqById;
-import io.github.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import io.github.kylinhunter.plat.api.page.PageData;
+import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
+import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-06 22:59
  */
-public class QueryAccurateInterceptor<
+@RequiredArgsConstructor
+public class QueryInterceptor<
         T extends BaseEntity,
         C extends ReqCreate,
         U extends ReqUpdate,
@@ -46,53 +47,40 @@ public class QueryAccurateInterceptor<
         Q extends ReqPage>
     extends BasicInterceptor<T, C, U, Z, V, Q> {
 
-  public QueryWrapper<T> before(ReqById reqById, boolean tenantSupported) {
+  private final SortComponent sortComponent;
+  private final FilterComponent filterComponent;
+
+  public QueryWrapper<T> before(Q q, boolean tenantSupported) {
     QueryWrapper<T> query = Wrappers.query();
+
     if (tenantSupported) {
-      final String tenantId = this.checkAndGetTenantId();
+      final String tenantId = this.checkTenantId();
       query.eq(SysCols.SYS_TENANT_ID, tenantId);
     }
-    if (!reqById.isWithLogicDelData()) {
+
+    if (!q.isWithLogicDelData()) {
       query.eq(SysCols.SYS_DELETE_FLAG, "0");
     }
+    sortComponent.sort(query, q);
+    filterComponent.filter(query, q);
     return query;
   }
 
-  public Z after(ReqById reqById, T enity, Z responseBean) {
-    if (enity != null) {
-      BeanCopyUtils.copyProperties(enity, responseBean);
-      return responseBean;
+  public PageData<Z> after(Q reqQueryPage, Page<T> page, Class<Z> respClass) {
+    PageData<Z> pageData = new PageData<>();
+    pageData.setPn(page.getCurrent());
+    pageData.setPs(page.getSize());
+    pageData.setPages(page.getPages());
+    pageData.setTotal(page.getTotal());
+    for (T r : page.getRecords()) {
+      try {
+        Z response = respClass.newInstance();
+        BeanCopyUtils.copyProperties(r, response);
+        pageData.getBody().add(response);
+      } catch (Exception e) {
+        throw new DBException("copy bean error", e);
+      }
     }
-    return null;
-  }
-
-  public QueryWrapper<T> before(ReqByIds reqByIds, boolean tenantSupported) {
-    QueryWrapper<T> query = Wrappers.query();
-    if (tenantSupported) {
-      final String tenantId = this.checkAndGetTenantId();
-      query.eq(SysCols.SYS_TENANT_ID, tenantId);
-    }
-    if (!reqByIds.isWithLogicDelData()) {
-      query.eq(SysCols.SYS_DELETE_FLAG, "0");
-    }
-    return query;
-  }
-
-  public List<Z> after(ReqByIds reqByIds, List<T> entities, Class<Z> respClass) {
-    if (entities != null) {
-      return entities.stream()
-          .map(
-              bean -> {
-                try {
-                  Z response = respClass.newInstance();
-                  BeanCopyUtils.copyProperties(bean, response);
-                  return response;
-                } catch (Exception e) {
-                  throw new DBException("copy bean error", e);
-                }
-              })
-          .collect(Collectors.toList());
-    }
-    return Collections.emptyList();
+    return pageData;
   }
 }

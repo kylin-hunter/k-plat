@@ -13,43 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.core.service.local.imp;
+package io.github.kylinhunter.plat.core.service.local.interceptor;
 
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
-import io.github.kylinhunter.plat.core.dao.mapper.TenantUserConfigMapper;
-import io.github.kylinhunter.plat.core.service.local.TenantUserConfigService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserConfigDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserConfigSaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
-import org.springframework.stereotype.Service;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
- * TenantUserConfigServiceImp 代码工具自动生成，按需扩展
- *
- * @author biji'an
- * @since 2022-06-23
+ * @author BiJi'an
+ * @description
+ * @date 2022-06-06 17:05
  */
-@Service
-public class TenantUserConfigServiceImp
-    extends CommonServiceImpl<
-    TenantUserConfigMapper,
+@Component
+@RequiredArgsConstructor
+public class TenantUserConfigDeleteInterceptor
+    extends DeleteInterceptor<
     TenantUserConfig,
     TenantUserConfigReqCreate,
     TenantUserConfigReqUpdate,
     TenantUserConfigResp,
     TenantUserConfigVO,
-    TenantUserConfigReqQuery>
-    implements TenantUserConfigService {
+    TenantUserConfigReqQuery> {
 
-  public TenantUserConfigServiceImp(
-      TenantUserConfigDeleteInterceptor tenantUserConfigDeleteInterceptor,
-      TenantUserConfigSaveOrUpdateInterceptor tenantUserConfigSaveOrUpdateInterceptor) {
-    this.deleteInterceptor = tenantUserConfigDeleteInterceptor;
-    this.saveOrUpdateInterceptor = tenantUserConfigSaveOrUpdateInterceptor;
+  @Override
+  public void before(ReqDelete reqDelete, boolean tenantSupported, TenantUserConfig entity) {
+    super.before(reqDelete, tenantSupported, entity);
+    this.checkSelfUser(entity.getUserId());
+  }
+
+  @Override
+  public void before(ReqDeletes reqDeletes, boolean tenantSupported,
+      List<TenantUserConfig> entities) {
+    super.before(reqDeletes, tenantSupported, entities);
+    this.checkSelfUser(
+        entities.stream().map(TenantUserConfig::getUserId).collect(Collectors.toList()));
+
   }
 }

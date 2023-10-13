@@ -29,43 +29,44 @@ import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
  * @date 2022-06-08 23:40
  */
 public class SaveOrUpdateInterceptor<
-        T extends BaseEntity,
-        C extends ReqCreate,
-        U extends ReqUpdate,
-        Z extends Resp,
-        V extends VO,
-        Q extends ReqPage>
+    T extends BaseEntity,
+    C extends ReqCreate,
+    U extends ReqUpdate,
+    Z extends Resp,
+    V extends VO,
+    Q extends ReqPage>
     extends BasicInterceptor<T, C, U, Z, V, Q> {
 
   private final String[] createSkipProperties =
-      new String[] {
-        "sysTenantId",
-        "sysCreatedUserId",
-        "sysCreatedUserName",
-        "sysCreatedTime",
-        "sysUpdateUserId",
-        "sysUpdateUserName",
-        "sysUpdateTime",
-        "sysDeleteFlag",
-        "sysOpLock"
+      new String[]{
+          "sysTenantId",
+          "sysCreatedUserId",
+          "sysCreatedUserName",
+          "sysCreatedTime",
+          "sysUpdateUserId",
+          "sysUpdateUserName",
+          "sysUpdateTime",
+          "sysDeleteFlag",
+          "sysOpLock"
       };
 
   private final String[] updateSkipProperties =
-      new String[] {
-        "id",
-        "sysTenantId",
-        "sysCreatedUserId",
-        "sysCreatedUserName",
-        "sysCreatedTime",
-        "sysUpdateUserId",
-        "sysUpdateUserName",
-        "sysUpdateTime",
-        "sysDeleteFlag",
-        "sysOpLock",
-        "code"
+      new String[]{
+          "id",
+          "sysTenantId",
+          "sysCreatedUserId",
+          "sysCreatedUserName",
+          "sysCreatedTime",
+          "sysUpdateUserId",
+          "sysUpdateUserName",
+          "sysUpdateTime",
+          "sysDeleteFlag",
+          "sysOpLock",
+          "code"
       };
 
-  protected void saveOrUpdateBefore(V vo) {}
+  protected void saveOrUpdateBefore(V vo) {
+  }
 
   public Z saveOrUpdateAfter(V vo, Z z) {
     return z;
@@ -74,7 +75,7 @@ public class SaveOrUpdateInterceptor<
   @SuppressWarnings("unchecked")
   public T before(C c, boolean tenantSupported, T entity) {
     if (tenantSupported) {
-      this.checkAndGetTenantId();
+      this.checkTenantId();
     }
     saveOrUpdateBefore((V) c);
     BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
@@ -92,8 +93,7 @@ public class SaveOrUpdateInterceptor<
   @SuppressWarnings("unchecked")
   public T before(U u, boolean tenantSupported, T entity) {
     if (tenantSupported) {
-      final String tenantId = this.checkAndGetTenantId();
-      checkTenantData(tenantId, entity);
+      checkSameTenant(entity.getSysTenantId());
     }
     saveOrUpdateBefore((V) u);
     BeanCopyUtils.copyProperties(u, entity, updateSkipProperties);

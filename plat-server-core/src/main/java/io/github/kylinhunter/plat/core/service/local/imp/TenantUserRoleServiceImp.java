@@ -23,8 +23,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserRoleVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantUserRoleMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantUserRoleService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserRoleDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantUserRoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +44,5 @@ public class TenantUserRoleServiceImp
         TenantUserRoleReqQuery>
     implements TenantUserRoleService {
 
-  public TenantUserRoleServiceImp(
-      TenantUserRoleSaveOrUpdateInterceptor saveOrUpdateInterceptor,
-      TenantUserRoleDeleteInterceptor deleteInterceptor) {
-    this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
-    this.deleteInterceptor = deleteInterceptor;
-  }
+ 
 }

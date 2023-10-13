@@ -16,6 +16,7 @@
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
+import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
@@ -23,6 +24,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,16 +38,24 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SysUserConfigDeleteInterceptor
     extends DeleteInterceptor<
-        SysUserConfig,
-        SysUserConfigReqCreate,
-        SysUserConfigReqUpdate,
-        SysUserConfigResp,
-        SysUserConfigVO,
-        SysUserConfigReqQuery> {
+    SysUserConfig,
+    SysUserConfigReqCreate,
+    SysUserConfigReqUpdate,
+    SysUserConfigResp,
+    SysUserConfigVO,
+    SysUserConfigReqQuery> {
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, SysUserConfig entity) {
     super.before(reqDelete, tenantSupported, entity);
-    this.checkSelfPermission(entity.getUserId());
+    this.checkSelfUser(entity.getUserId());
+  }
+
+  @Override
+  public void before(ReqDeletes reqDeletes, boolean tenantSupported, List<SysUserConfig> entities) {
+    super.before(reqDeletes, tenantSupported, entities);
+    this.checkSelfUser(
+        entities.stream().map(SysUserConfig::getUserId).collect(Collectors.toList()));
+
   }
 }

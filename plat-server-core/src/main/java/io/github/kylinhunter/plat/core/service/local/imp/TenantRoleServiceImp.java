@@ -27,10 +27,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRoleVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantRoleMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantUserRoleMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantRoleService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantRoleDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantRoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,6 +39,7 @@ import org.springframework.stereotype.Service;
  * @since 2022-06-17
  */
 @Service
+@RequiredArgsConstructor
 public class TenantRoleServiceImp
     extends CommonServiceImpl<
         TenantRoleMapper,
@@ -51,16 +51,8 @@ public class TenantRoleServiceImp
         TenantRoleReqQuery>
     implements TenantRoleService {
 
-  private TenantUserRoleMapper tenantUserRoleMapper;
+  private final TenantUserRoleMapper tenantUserRoleMapper;
 
-  public TenantRoleServiceImp(
-      TenantRoleSaveOrUpdateInterceptor tenantRoleSaveOrUpdateInterceptor,
-      TenantRoleDeleteInterceptor tenantRoleDeleteInterceptor,
-      TenantUserRoleMapper tenantUserRoleMapper) {
-    this.saveOrUpdateInterceptor = tenantRoleSaveOrUpdateInterceptor;
-    this.deleteInterceptor = tenantRoleDeleteInterceptor;
-    this.tenantUserRoleMapper = tenantUserRoleMapper;
-  }
 
   @Override
   public TenantRole queryByCode(String code) {

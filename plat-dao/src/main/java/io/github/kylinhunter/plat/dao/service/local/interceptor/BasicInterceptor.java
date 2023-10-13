@@ -44,7 +44,8 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired protected TraceHolder traceHolder;
+  @Autowired
+  protected TraceHolder traceHolder;
 
   protected void setCreateMsg(Req req, T entity) {
 
@@ -69,14 +70,15 @@ public class BasicInterceptor<
     entity.setSysUpdateTime(LocalDateTime.now());
   }
 
-  protected void checkTenantData(String tenantId, T entity) {
-    if (!tenantId.equals(entity.getSysTenantId())) {
-      throw new DBException("tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
+  protected void checkSameTenant(String tenantId) {
+    String clientTenantId = checkTenantId();
+    if (!clientTenantId.equals(tenantId)) {
+      throw new DBException("tenantId invalid：" + clientTenantId + "/" + tenantId);
     }
   }
 
-  protected void checkTenantData(String tenantId, List<T> entities) {
-
+  protected void checkSameTenant(List<T> entities) {
+    String tenantId = checkTenantId();
     entities.forEach(
         entity -> {
           if (!tenantId.equals(entity.getSysTenantId())) {
@@ -85,7 +87,7 @@ public class BasicInterceptor<
         });
   }
 
-  protected String checkAndGetTenantId() {
+  protected String checkTenantId() {
     String tenantId = traceHolder.get().getUserContext().getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new DBException("tenantId is emtpy");
@@ -93,10 +95,28 @@ public class BasicInterceptor<
     return tenantId;
   }
 
-  public void checkSelfPermission(String userId) {
+  public String checkSelfUser(String userId) {
     UserContext userContext = traceHolder.get().getUserContext();
     if (!userContext.getUserId().equals(userId)) {
       throw new ParamException("no access to other users' data");
+    }
+    return userContext.getUserId();
+  }
+
+  public void checkSelfUser(List<String> userIds) {
+    UserContext userContext = traceHolder.get().getUserContext();
+    userIds.forEach(userId -> {
+      if (!userContext.getUserId().equals(userId)) {
+        throw new ParamException("no access to other users' data");
+      }
+    });
+
+  }
+
+  public void checkSelfTenant(String tenantId) {
+    UserContext userContext = traceHolder.get().getUserContext();
+    if (!userContext.getTenantId().equals(tenantId)) {
+      throw new ParamException("no access to other tenant' data");
     }
   }
 }

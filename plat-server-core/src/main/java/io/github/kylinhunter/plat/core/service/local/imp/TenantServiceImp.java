@@ -25,8 +25,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -49,12 +47,7 @@ public class TenantServiceImp
         TenantReqQuery>
     implements TenantService {
 
-  public TenantServiceImp(
-      TenantSaveOrUpdateInterceptor tenantSaveOrUpdateInterceptor,
-      TenantDeleteInterceptor tenantDeleteInterceptor) {
-    this.saveOrUpdateInterceptor = tenantSaveOrUpdateInterceptor;
-    this.deleteInterceptor = tenantDeleteInterceptor;
-  }
+
 
   @PostConstruct
   @Override

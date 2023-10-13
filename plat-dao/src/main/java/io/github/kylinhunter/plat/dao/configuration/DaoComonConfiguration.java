@@ -19,8 +19,8 @@ import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 import io.github.kylinhunter.plat.dao.service.local.ex.FilterCustoms;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.FindByIdInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,9 +51,9 @@ public class DaoComonConfiguration {
 
   @Bean
   @Primary
-  public QueryComplexInterceptor queryComplexInterceptor(
+  public QueryInterceptor queryComplexInterceptor(
       SortComponent sortComponent, FilterComponent filterComponent) {
-    return new QueryComplexInterceptor(sortComponent, filterComponent);
+    return new QueryInterceptor(sortComponent, filterComponent);
   }
 
   @Bean
@@ -70,7 +70,7 @@ public class DaoComonConfiguration {
 
   @Bean
   @Primary
-  public QueryAccurateInterceptor queryAccurateInterceptor() {
-    return new QueryAccurateInterceptor();
+  public FindByIdInterceptor queryAccurateInterceptor() {
+    return new FindByIdInterceptor();
   }
 }

@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
@@ -45,7 +44,7 @@ public class SysUserConfigSaveOrUpdateInterceptor
   @Override
   protected void saveOrUpdateBefore(SysUserConfigVO vo) {
     super.saveOrUpdateBefore(vo);
-    UserContext userContext = traceHolder.get().getUserContext();
-    vo.setUserId(userContext.getUserId());
+    String userId = this.checkSelfUser(vo.getUserId());
+    vo.setUserId(userId);
   }
 }

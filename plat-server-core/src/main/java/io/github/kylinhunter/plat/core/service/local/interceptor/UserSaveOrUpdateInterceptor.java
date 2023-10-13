@@ -23,6 +23,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import io.github.kylinhunter.plat.core.init.data.UserInitDatas;
+import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.web.auth.PasswordUtil;
 import lombok.RequiredArgsConstructor;
@@ -38,12 +39,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-        User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
+    User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
   private final UserInitDatas userInitData;
 
   @Override
   public void saveOrUpdateBefore(UserVO vo) {
+    if (vo.getId().equals(DefaultUsers.ADMIN_USER_ID)) {
+      throw new ParamException("can't save or update  sys user:" + vo.getId());
+    }
+
+    super.saveOrUpdateBefore(vo);
+
     String password = vo.getPassword();
     if (!StringUtils.isEmpty(password)) {
       vo.setPassword(PasswordUtil.encode(password));
@@ -51,7 +58,7 @@ public class UserSaveOrUpdateInterceptor
       throw new ParamException("invalid password");
     }
 
-    super.saveOrUpdateBefore(vo);
+
   }
 
   @Override

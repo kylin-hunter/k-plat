@@ -42,8 +42,8 @@ import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryAccurateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryComplexInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.FindByIdInterceptor;
+import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import java.util.Collection;
 import java.util.List;
@@ -84,9 +84,9 @@ public abstract class CommonServiceImpl<
 
   protected DeleteInterceptor<T, X, Y, Z, V, Q> deleteInterceptor;
 
-  protected QueryComplexInterceptor<T, X, Y, Z, V, Q> queryComplexInterceptor;
+  protected QueryInterceptor<T, X, Y, Z, V, Q> queryInterceptor;
 
-  protected QueryAccurateInterceptor<T, X, Y, Z, V, Q> queryAccurateInterceptor;
+  protected FindByIdInterceptor<T, X, Y, Z, V, Q> findByIdInterceptor;
 
   protected boolean tenantSupported = true;
 
@@ -229,10 +229,10 @@ public abstract class CommonServiceImpl<
   @Override
   public Z findyById(ReqById reqById) {
     try {
-      QueryWrapper<T> query = queryAccurateInterceptor.before(reqById, this.tenantSupported);
+      QueryWrapper<T> query = findByIdInterceptor.before(reqById, this.tenantSupported);
       query.eq(SysCols.ID, reqById.getId());
       T entity = this.baseMapper.selectOne(query);
-      return queryAccurateInterceptor.after(reqById, entity, createResponse());
+      return findByIdInterceptor.after(reqById, entity, createResponse());
     } catch (Exception e) {
       throw ExceptionConvertor.convert(e);
     }
@@ -242,10 +242,10 @@ public abstract class CommonServiceImpl<
   public List<Z> findyByIds(ReqByIds reqByIds) {
     try {
 
-      QueryWrapper<T> query = this.queryAccurateInterceptor.before(reqByIds, this.tenantSupported);
+      QueryWrapper<T> query = this.findByIdInterceptor.before(reqByIds, this.tenantSupported);
       query.in(SysCols.ID, reqByIds.getIds());
       List<T> beans = this.baseMapper.selectList(query);
-      return this.queryAccurateInterceptor.after(reqByIds, beans, respClass);
+      return this.findByIdInterceptor.after(reqByIds, beans, respClass);
 
     } catch (Exception e) {
       throw ExceptionConvertor.convert(e);
@@ -255,10 +255,10 @@ public abstract class CommonServiceImpl<
   @Override
   public PageData<Z> query(Q reqQueryPage) {
     try {
-      QueryWrapper<T> queryWrapper = queryComplexInterceptor.before(reqQueryPage, tenantSupported);
+      QueryWrapper<T> queryWrapper = queryInterceptor.before(reqQueryPage, tenantSupported);
       Page<T> page = Page.of(reqQueryPage.getPn(), reqQueryPage.getPs());
       Page<T> entities = this.baseMapper.selectPage(page, queryWrapper);
-      return queryComplexInterceptor.after(reqQueryPage, entities, respClass);
+      return queryInterceptor.after(reqQueryPage, entities, respClass);
     } catch (Exception e) {
       throw ExceptionConvertor.convert(e);
     }
@@ -275,12 +275,12 @@ public abstract class CommonServiceImpl<
       this.deleteInterceptor = this.applicationContext.getBean(DeleteInterceptor.class);
     }
 
-    if (this.queryComplexInterceptor == null) {
-      this.queryComplexInterceptor = this.applicationContext.getBean(QueryComplexInterceptor.class);
+    if (this.queryInterceptor == null) {
+      this.queryInterceptor = this.applicationContext.getBean(QueryInterceptor.class);
     }
-    if (this.queryAccurateInterceptor == null) {
-      this.queryAccurateInterceptor =
-          this.applicationContext.getBean(QueryAccurateInterceptor.class);
+    if (this.findByIdInterceptor == null) {
+      this.findByIdInterceptor =
+          this.applicationContext.getBean(FindByIdInterceptor.class);
     }
 
     Class<? extends CommonServiceImpl> clazz = this.getClass();
