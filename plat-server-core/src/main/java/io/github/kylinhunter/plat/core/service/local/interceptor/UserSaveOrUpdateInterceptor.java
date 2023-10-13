@@ -22,7 +22,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import io.github.kylinhunter.plat.core.init.data.UserInitDatas;
 import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.web.auth.PasswordUtil;
@@ -41,7 +40,6 @@ public class UserSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
     User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
-  private final UserInitDatas userInitData;
 
   @Override
   public void saveOrUpdateBefore(UserVO vo) {
@@ -63,8 +61,8 @@ public class UserSaveOrUpdateInterceptor
 
   @Override
   public User before(UserReqUpdate reqUpdate, boolean tenantSupported, User entity) {
-    if (!userInitData.canBeModified(entity.getUserName())) {
-      throw new ParamException("invalid user name:" + entity.getUserName());
+    if (entity.getUserName().equals(DefaultUsers.ADMIN_USER_NAME)) {
+      throw new ParamException("can't update sys user" + entity.getUserName());
     }
     return super.before(reqUpdate, tenantSupported, entity);
   }

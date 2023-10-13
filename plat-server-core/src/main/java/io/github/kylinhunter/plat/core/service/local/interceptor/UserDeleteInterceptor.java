@@ -23,7 +23,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import io.github.kylinhunter.plat.core.init.data.UserInitDatas;
 import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -39,12 +38,11 @@ import org.springframework.stereotype.Component;
 public class UserDeleteInterceptor
     extends DeleteInterceptor<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
-  private final UserInitDatas userInitData;
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, User entity) {
     super.before(reqDelete, tenantSupported, entity);
-    if (entity.getId().equals(DefaultUsers.ADMIN_USER_ID)) {
+    if (entity.getUserName().equals(DefaultUsers.ADMIN_USER_NAME)) {
       throw new ParamException("can't delete sys user" + entity.getUserName());
     }
   }
