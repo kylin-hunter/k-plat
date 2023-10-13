@@ -23,6 +23,9 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import io.github.kylinhunter.commons.date.DateUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import java.time.LocalDateTime;
@@ -91,25 +94,27 @@ public class JWTService {
     }
   }
 
-  public Token verify(String token) {
+  public VerifyToken verify(String token) {
     try {
       if (StringUtils.isBlank(token) || "null".equalsIgnoreCase(token)) {
         throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_NOT_FOUND);
       }
       JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
+      UserContext userContext = new DefaultUserContext();
       DecodedJWT decodedJWT = jwtVerifier.verify(token);
-      String tenantId = decodedJWT.getClaim(TENANT_ID).asString();
-      String tenantUserId = decodedJWT.getClaim(TENANT_USER_ID).asString();
-      String userId = decodedJWT.getClaim(USER_ID).asString();
-      String nickName = decodedJWT.getClaim(NICK_NAME).asString();
-      String realName = decodedJWT.getClaim(REAL_NAME).asString();
-      String userName = decodedJWT.getClaim(USER_NAME).asString();
-      int userType = decodedJWT.getClaim(USER_TYPE).asInt();
+      userContext.setUserType(decodedJWT.getClaim(USER_TYPE).asInt());
+
+      userContext.setUserId(decodedJWT.getClaim(USER_ID).asString());
+      userContext.setUserName(decodedJWT.getClaim(USER_NAME).asString());
+      userContext.setNickName(decodedJWT.getClaim(NICK_NAME).asString());
+      userContext.setRealName(decodedJWT.getClaim(REAL_NAME).asString());
+
+      userContext.setTenantId(decodedJWT.getClaim(TENANT_ID).asString());
+      userContext.setTenantUserId(decodedJWT.getClaim(TENANT_USER_ID).asString());
+
       long effectiveTime = decodedJWT.getClaim(EFFECTIVE_TIME).asLong();
-      Date date = decodedJWT.getExpiresAt();
-      return new Token(
-          userId, userName, nickName, realName,tenantId, tenantUserId, userType, effectiveTime,
-          DateUtils.toLocalDateTime(date));
+      LocalDateTime expiredTime = DateUtils.toLocalDateTime(decodedJWT.getExpiresAt());
+      return new VerifyToken(userContext, effectiveTime, expiredTime, token);
     } catch (AuthException e) {
       throw e;
     } catch (TokenExpiredException e) {

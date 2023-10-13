@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;

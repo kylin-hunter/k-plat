@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.controller;
 
-import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
+import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;

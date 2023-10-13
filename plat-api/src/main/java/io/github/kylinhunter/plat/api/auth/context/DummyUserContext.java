@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.context;
+package io.github.kylinhunter.plat.api.auth.context;
 
-import io.github.kylinhunter.plat.api.auth.Token;
 import java.io.Serializable;
-import java.util.List;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author BiJi'an
@@ -26,44 +25,8 @@ import lombok.Data;
  * @date 2022-05-11 02:55
  */
 @Data
-public class DummyUserContext implements UserContext, Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class DummyUserContext extends DefaultUserContext implements UserContext, Serializable {
 
-  @Override
-  public String getTenantId() {
-    return null;
-  }
-
-  @Override
-  public String getUserId() {
-    return null;
-  }
-
-  @Override
-  public String getUserName() {
-    return null;
-  }
-
-  @Override
-  public int getUserType() {
-    return 0;
-  }
-
-
-  @Override
-  public void setTenantId(String tenantId) {
-  }
-
-  @Override
-  public void setUserId(String userId) {
-  }
-
-
-  @Override
-  public void setUserName(String userName) {
-  }
-
-  @Override
-  public void setUserType(int type) {
-  }
 
 }

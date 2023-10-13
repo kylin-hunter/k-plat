@@ -13,16 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.context;
+package io.github.kylinhunter.plat.api.auth.context;
 
 public interface UserContext {
 
   String getTenantId();
 
-  String getUserId();
 
 
-  String getUserName();
+  String getTenantUserId();
+
+  void setTenantUserId(String tenantUserId);
+
+
+
+
 
   int getUserType();
 
@@ -30,9 +35,16 @@ public interface UserContext {
   void setTenantId(final String tenantId);
 
   void setUserId(final String userId);
-
+  String getUserId();
 
   void setUserName(final String userName);
+  String getUserName();
+
+  String getNickName();
+  void setNickName(final String nickName);
+
+  String getRealName();
+  void setRealName(final String realName);
 
   void setUserType(final int type);
 

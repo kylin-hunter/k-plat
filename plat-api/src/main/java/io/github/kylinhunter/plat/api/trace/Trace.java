@@ -15,8 +15,8 @@
  */
 package io.github.kylinhunter.plat.api.trace;
 
-import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 
 /**
  * @author BiJi'an
@@ -33,13 +33,16 @@ public interface Trace {
 
   void setDebug(boolean debug);
 
-  String getToken();
-
   UserContext getUserContext();
 
-  Token getTokenObj();
+  VerifyToken getVerifyToken();
 
-  void setUserContext(Token token);
+  String getToken();
+
+  void setVerifyToken(VerifyToken verifyToken);
+
+
+  void setUserContext(UserContext userContext);
 
   void setToken(String token);
 

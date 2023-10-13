@@ -15,12 +15,14 @@
  */
 package io.github.kylinhunter.plat.web.security.service.imp;
 
-import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
+import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -43,12 +45,13 @@ public class DefaultTokenService implements TokenService {
 
     Token token = new Token();
     token.setUserId(tokenUserDetails.getUserId());
-    token.setUserType(tokenUserDetails.getType());
+    token.setUserType(tokenUserDetails.getUserType());
     token.setNickName(tokenUserDetails.getNickName());
     token.setRealName(tokenUserDetails.getRealName());
 
     token.setUserName(tokenUserDetails.getUsername());
     token.setTenantId(tokenUserDetails.getTenantId());
+
     String tokenStr = jwtService.create(token);
     log.info("createToken user={} token={}", tokenUserDetails.getUsername(), tokenStr);
     return tokenStr;
@@ -68,8 +71,8 @@ public class DefaultTokenService implements TokenService {
    * @date 2023-10-02 00:30
    */
   public TokenUserDetails verify(String token) {
-    Token verifyToken = jwtService.verify(token);
-    return new TokenUserDetails(verifyToken, null);
+    VerifyToken verifyToken = jwtService.verify(token);
+    return new TokenUserDetails(verifyToken, Collections.emptySet());
   }
 
 }

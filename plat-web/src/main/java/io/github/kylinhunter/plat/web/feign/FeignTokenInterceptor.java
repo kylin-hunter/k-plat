@@ -36,7 +36,7 @@ public class FeignTokenInterceptor implements RequestInterceptor {
   @Override
   public void apply(RequestTemplate requestTemplate) {
 
-    String feignToken = RequestConst.BEARER + traceHolder.get().getToken();
+    String feignToken = RequestConst.BEARER + traceHolder.get().getVerifyToken().getToken();
 
     requestTemplate.header(RequestConst.HEADER_AUTH, feignToken);
   }

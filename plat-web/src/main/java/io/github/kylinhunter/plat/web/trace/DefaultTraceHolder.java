@@ -47,6 +47,13 @@ public class DefaultTraceHolder implements TraceHolder {
   }
 
   @Override
+  public Trace create() {
+    Trace trace = new DefaultTrace();
+    traces.set(trace);
+    return trace;
+  }
+
+  @Override
   public Trace get() {
     return traces.get();
   }
@@ -67,7 +74,7 @@ public class DefaultTraceHolder implements TraceHolder {
   private Trace tryCreateTraceFromRequest(HttpServletRequest request) {
     String traceId = request.getHeader(RequestConst.HEADER_TRACE_ID);
     String token = getToken(request);
-    Trace trace = new DefaulTrace(traceId, token);
+    Trace trace = new DefaultTrace(traceId, token);
 
     if (RequestUtils.isDebugMode(request)) {
       trace.setDebug(true);

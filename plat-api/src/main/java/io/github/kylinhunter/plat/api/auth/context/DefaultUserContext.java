@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.context;
+package io.github.kylinhunter.plat.api.auth.context;
 
-import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
-import io.github.kylinhunter.plat.api.module.core.constants.UserType;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -29,37 +28,30 @@ import org.springframework.beans.BeanUtils;
  * @date 2022-05-11 02:55
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DefaultUserContext implements UserContext, Serializable {
 
-  @ApiModelProperty(value = "tenantId", hidden = true)
-  private String tenantId = "";
-
-  @ApiModelProperty(value = "userId", hidden = true)
-  private String userId = "";
-
-  @ApiModelProperty(value = "userCode", hidden = true)
-  private String userCode = "";
-
-  @ApiModelProperty(value = "userName", hidden = true)
-  private String userName = "";
-
-  @ApiModelProperty(value = "userType")
   private int userType;
 
 
-  private Token token;
+  private String userId = "";
+
+  private String userName = "";
+
+  private String nickName = "";
+
+  private String realName = "";
 
 
-  public DefaultUserContext(Token token) {
-    BeanUtils.copyProperties(token, this);
-    this.token = token;
-  }
-
+  private String tenantId = "";
+  private String tenantUserId = "";
   public DefaultUserContext(User user) {
     BeanUtils.copyProperties(user, this);
-    this.userType = user.getType();
     this.userId = user.getId();
+    this.userType = user.getType();
   }
-
- 
+  public DefaultUserContext(UserContext userContext) {
+    BeanUtils.copyProperties(userContext, this);
+  }
 }

@@ -1,13 +1,12 @@
 package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
+import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import io.github.kylinhunter.plat.api.trace.Trace;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -26,9 +25,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
  */
 public class JwtVerifyFilter extends BasicAuthenticationFilter {
 
-  private TokenService tokenService;
-  private TraceHolder traceHolder;
-  private ResponseWriter responseWriter;
+  private final TokenService tokenService;
+  private final TraceHolder traceHolder;
+  private final ResponseWriter responseWriter;
 
 
   public JwtVerifyFilter(AuthenticationManager authenticationManager, TraceHolder traceHolder,
@@ -55,7 +54,7 @@ public class JwtVerifyFilter extends BasicAuthenticationFilter {
         responseWriter.write(e, trace.isDebug());
         return;
       }
-      trace.setUserContext(tokenUserDetails.getToken());
+      trace.setVerifyToken(tokenUserDetails.getVerifyToken());
       UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
           = new UsernamePasswordAuthenticationToken(tokenUserDetails, null,
           tokenUserDetails.getAuthorities());

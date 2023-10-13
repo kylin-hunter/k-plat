@@ -19,13 +19,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.github.kylinhunter.commons.date.DatePatterns;
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.aop.ControllerAspect;
 import io.github.kylinhunter.plat.web.aop.LogAspect;
 import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.AppConfig;
-import io.github.kylinhunter.plat.web.context.DefaultUserContextHolder;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
@@ -81,13 +79,8 @@ public class AutoWebCommonConfiguration {
 
 
   @Bean
-  public DefaultUserContextHolder defaultUserContextHandler() {
-    return new DefaultUserContextHolder();
-  }
-
-  @Bean
-  public ControllerAspect controllerAspect(UserContextHolder userContextHolder) {
-    return new ControllerAspect(userContextHolder);
+  public ControllerAspect controllerAspect() {
+    return new ControllerAspect();
   }
 
   @Bean

@@ -15,9 +15,10 @@
  */
 package io.github.kylinhunter.plat.core.init.initializer;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.init.data.UserInitDatas;
 import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.web.auth.PasswordUtil;
@@ -41,7 +42,7 @@ import org.springframework.stereotype.Component;
 public class Order01UserInitializer extends BasicInitializer {
   private final UserInitDatas userInitData;
   private final UserService userService;
-  private final UserContextHolder userContextHolder;
+  private final TraceHolder traceHolder;
 
   @Override
   public void init() {
@@ -70,7 +71,9 @@ public class Order01UserInitializer extends BasicInitializer {
   }
 
   private UserContext initUserContext(User user) {
-    UserContext userContext = userContextHolder.create(user);
+
+    UserContext userContext = new DefaultUserContext(user);
+    traceHolder.get().setUserContext(userContext);
     log.info("init userContext {}", userContext);
     return userContext;
   }

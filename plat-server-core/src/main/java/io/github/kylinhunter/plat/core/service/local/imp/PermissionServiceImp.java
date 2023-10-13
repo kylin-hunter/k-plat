@@ -8,8 +8,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionVO;
 import io.github.kylinhunter.plat.core.dao.mapper.PermissionMapper;
 import io.github.kylinhunter.plat.core.service.local.PermissionService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.PermissionDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.PermissionSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +21,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PermissionServiceImp
-        extends CommonServiceImpl<PermissionMapper, Permission,
-                PermissionReqCreate, PermissionReqUpdate,
-                PermissionResp, PermissionVO, PermissionReqQuery> implements PermissionService {
-
-    public PermissionServiceImp(PermissionSaveOrUpdateInterceptor saveOrUpdateInterceptor,
-        PermissionDeleteInterceptor deleteInterceptor) {
-        this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
-        this.deleteInterceptor = deleteInterceptor;
-    }
-
+    extends CommonServiceImpl<PermissionMapper, Permission,
+    PermissionReqCreate, PermissionReqUpdate,
+    PermissionResp, PermissionVO, PermissionReqQuery> implements PermissionService {
 
 
 }

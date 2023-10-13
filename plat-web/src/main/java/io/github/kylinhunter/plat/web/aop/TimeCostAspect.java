@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.aop;
 
+import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.web.config.AppConfig;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +56,11 @@ public class TimeCostAspect {
     long startTime = System.currentTimeMillis();
     Object obj = pjp.proceed();
     long cost = System.currentTimeMillis() - startTime;
-    if (cost > appConfig.getLogWatchThreshold()) {
+    Trace trace = traceHolder.get();
+    if (cost > appConfig.getLogWatchThreshold()|| trace.isDebug()) {
       log.info("process {}.{} with cost:{}ms", className, methodName, cost);
     }
-    traceHolder.get().getExplain().addCost(timerKey, cost);
+    trace.getExplain().addCost(timerKey, cost);
     return obj;
   }
 }

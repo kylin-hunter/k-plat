@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.init;
 
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.init.initializer.Initializer;
 import io.github.kylinhunter.plat.web.config.AppConfig;
 import java.util.Map;
@@ -33,30 +34,34 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class SystemDataInitializer {
+
   private final AppConfig appConfig;
+  private final TraceHolder traceHolder;
 
   private final Map<String, Initializer> initializers;
 
   public boolean init(boolean force) {
+    try {
+      traceHolder.create();
+      return _init(force);
+    } finally {
+      traceHolder.remove();
+    }
+  }
+
+  private boolean _init(boolean force) {
 
     if (force || appConfig.isInitialize()) {
       TreeMap<Integer, Initializer> allIntializers =
           initializers.values().stream()
-              .collect(
-                  Collectors.toMap(
-                      e -> e.order(),
-                      e -> e,
-                      (o, n) -> {
-                        throw new IllegalStateException(String.format("Duplicate key %s", o));
-                      },
-                      TreeMap::new));
-      allIntializers
-          .values()
-          .forEach(
-              initializer -> {
-                log.info("init order:" + initializer.order());
-                initializer.init();
-              });
+              .collect(Collectors.toMap(Initializer::order, e -> e, (o, n) -> {
+                throw new IllegalStateException(String.format("Duplicate key %s", o));
+              }, TreeMap::new));
+      allIntializers.values().forEach(
+          initializer -> {
+            log.info("init order:" + initializer.order());
+            initializer.init();
+          });
       log.info("init ok");
     } else {
       log.info("skip init");

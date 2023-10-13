@@ -1,7 +1,6 @@
 package io.github.kylinhunter.plat.web.security.service;
 
-import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
-import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 

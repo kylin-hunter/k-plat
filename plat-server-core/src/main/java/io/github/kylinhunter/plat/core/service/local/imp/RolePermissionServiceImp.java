@@ -8,8 +8,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionVO;
 import io.github.kylinhunter.plat.core.dao.mapper.RolePermissionMapper;
 import io.github.kylinhunter.plat.core.service.local.RolePermissionService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.RolePermissionDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.RolePermissionSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +21,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RolePermissionServiceImp
-        extends CommonServiceImpl<RolePermissionMapper, RolePermission,
-                RolePermissionReqCreate, RolePermissionReqUpdate,
-                RolePermissionResp, RolePermissionVO, RolePermissionReqQuery> implements RolePermissionService {
-
-    public RolePermissionServiceImp(RolePermissionSaveOrUpdateInterceptor saveOrUpdateInterceptor,
-        RolePermissionDeleteInterceptor deleteInterceptor) {
-        this.saveOrUpdateInterceptor = saveOrUpdateInterceptor;
-        this.deleteInterceptor = deleteInterceptor;
-    }
-
+    extends CommonServiceImpl<RolePermissionMapper, RolePermission,
+    RolePermissionReqCreate, RolePermissionReqUpdate,
+    RolePermissionResp, RolePermissionVO, RolePermissionReqQuery> implements RolePermissionService {
 
 
 }

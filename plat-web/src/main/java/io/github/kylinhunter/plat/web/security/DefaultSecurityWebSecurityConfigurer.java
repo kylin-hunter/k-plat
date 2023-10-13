@@ -1,6 +1,5 @@
 package io.github.kylinhunter.plat.web.security;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
 import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler;

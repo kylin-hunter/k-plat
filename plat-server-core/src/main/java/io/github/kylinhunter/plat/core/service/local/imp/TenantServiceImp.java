@@ -60,7 +60,6 @@ public class TenantServiceImp
   @Override
   public void init() {
     super.init();
-    this.tenantSupported = false;
   }
 
   @Override

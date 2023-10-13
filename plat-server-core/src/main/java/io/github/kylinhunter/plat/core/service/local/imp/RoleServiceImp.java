@@ -27,10 +27,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RoleVO;
 import io.github.kylinhunter.plat.core.dao.mapper.RoleMapper;
 import io.github.kylinhunter.plat.core.dao.mapper.UserRoleMapper;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.RoleDeleteInterceptor;
-import io.github.kylinhunter.plat.core.service.local.interceptor.RoleSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,20 +39,14 @@ import org.springframework.stereotype.Service;
  * @since 2022-06-11
  */
 @Service
+@RequiredArgsConstructor
 public class RoleServiceImp
     extends CommonServiceImpl<
     RoleMapper, Role, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery>
     implements RoleService {
 
-  private UserRoleMapper userRoleMapper;
+  private final UserRoleMapper userRoleMapper;
 
-  public RoleServiceImp(
-      RoleSaveOrUpdateInterceptor RoleSaveOrUpdateInterceptor,
-      RoleDeleteInterceptor RoleDeleteInterceptor, UserRoleMapper userRoleMapper) {
-    this.saveOrUpdateInterceptor = RoleSaveOrUpdateInterceptor;
-    this.deleteInterceptor = RoleDeleteInterceptor;
-    this.userRoleMapper = userRoleMapper;
-  }
 
   @Override
   public Role findByCode(String code) {

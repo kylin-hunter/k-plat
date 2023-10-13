@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.aop;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ import org.aspectj.lang.annotation.Aspect;
 // @ConditionalOnExpression("'${a}' == 'a' || '${b}' == 'b'")
 @RequiredArgsConstructor
 public class ControllerAspect {
-  private final UserContextHolder userContextHolder;
 
   @Around("execution(* io.github.kylinhunter.plat..*Controller.*(..))")
   public Object allController(ProceedingJoinPoint point) throws Throwable {
@@ -42,9 +40,6 @@ public class ControllerAspect {
     if (args != null && args.length > 0) {
       Req req = (Req) Stream.of(args).filter(arg -> arg instanceof Req).findFirst().orElse(null);
       if (req != null) {
-        //                UserContext userContext = userContextHolder.get();
-        //                req.setUserContext(userContext);
-
       }
     }
   }

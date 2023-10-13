@@ -15,11 +15,11 @@
  */
 package io.github.kylinhunter.plat.core.init.initializer;
 
-import io.github.kylinhunter.plat.api.auth.context.UserContextHolder;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.init.data.TenantInitDatas;
 import io.github.kylinhunter.plat.core.service.local.TenantService;
 import lombok.Getter;
@@ -42,7 +42,7 @@ public class Order03TenantInitializer extends BasicInitializer {
 
   private final TenantService tenantService;
   private final TenantInitDatas tenantInitData;
-  private final UserContextHolder userContextHolder;
+  private final TraceHolder traceHolder;
 
   @Override
   public void init() {
@@ -62,7 +62,7 @@ public class Order03TenantInitializer extends BasicInitializer {
       tenantInitData.addDbData(code, tenant);
     }
 
-    UserContext userContext = userContextHolder.get();
+    UserContext userContext = traceHolder.get().getUserContext();
     userContext.setTenantId(tenant.getId());
     userContext.setUserType(UserType.TENANT_ADMIN.getCode());
   }

@@ -15,9 +15,11 @@
  */
 package io.github.kylinhunter.plat.api.auth;
 
-import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotBlank;
+import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
+import java.time.LocalDateTime;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -29,8 +31,15 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-public class ReqTenantToken {
-  @ApiModelProperty(value = "tenantId")
-  @NotBlank
-  private String tenantId;
+@EqualsAndHashCode(callSuper = false)
+public class VerifyToken extends Token implements UserContext {
+
+
+  private String token;
+
+  public VerifyToken(UserContext userContext, long effectiveTime, LocalDateTime expireTime,
+      String token) {
+    super(userContext, effectiveTime, expireTime);
+    this.token = token;
+  }
 }

@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.interceptor;
 
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import javax.annotation.Nonnull;

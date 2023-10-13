@@ -16,7 +16,8 @@
 package io.github.kylinhunter.plat.core.security.service.imp;
 
 import io.github.kylinhunter.commons.lang.EnumUtils;
-import io.github.kylinhunter.plat.api.auth.ReqTenantToken;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
@@ -71,7 +72,7 @@ public class TokenServiceImp extends DefaultTokenService {
 
     Token token = new Token();
     token.setUserId(tokenUserDetails.getUserId());
-    token.setUserType(tokenUserDetails.getType());
+    token.setUserType(tokenUserDetails.getUserType());
     token.setNickName(tokenUserDetails.getNickName());
     token.setRealName(tokenUserDetails.getRealName());
     token.setUserName(tokenUserDetails.getUsername());
@@ -82,7 +83,7 @@ public class TokenServiceImp extends DefaultTokenService {
       tokenUserDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,
           token.getUserName());
       token.setTenantId(tenantId);
-      token.setUserType(tokenUserDetails.getType());
+      token.setUserType(tokenUserDetails.getUserType());
       token.setTenantUserId(tokenUserDetails.getTenantUserId());
       setPerCodes(token.getTenantUserId(), tokenUserDetails.getPemCodes());
 
@@ -109,14 +110,14 @@ public class TokenServiceImp extends DefaultTokenService {
    */
   @Override
   public String createTenantToken(ReqTenantToken reqTenantToken) {
-    Token token = traceHolder.get().getTokenObj();
+    Token token = traceHolder.get().getVerifyToken();
     token.setEffectiveTime(tokenExpireTime);
     String tenantId = reqTenantToken.getTenantId();
     TokenUserDetails userDetails = tenantUserDetailsService.loadTenantUserByUsername(tenantId,
         token.getUserName());
 
     token.setTenantId(tenantId);
-    token.setUserType(userDetails.getType());
+    token.setUserType(userDetails.getUserType());
     token.setTenantUserId(userDetails.getTenantUserId());
     String tokenStr = jwtService.create(token);
     log.info("create tenant={},username={},token={}", tenantId, userDetails.getUsername(),
@@ -136,7 +137,7 @@ public class TokenServiceImp extends DefaultTokenService {
    * @date 2023-10-02 00:30
    */
   public TokenUserDetails verify(String token) {
-    Token verifyToken = jwtService.verify(token);
+    VerifyToken verifyToken = jwtService.verify(token);
     UserType userType = EnumUtils.fromCode(UserType.class, verifyToken.getUserType());
     Set<String> pemCodes;
 

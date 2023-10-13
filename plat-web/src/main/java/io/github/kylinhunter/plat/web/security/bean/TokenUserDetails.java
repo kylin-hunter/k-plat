@@ -1,8 +1,8 @@
 package io.github.kylinhunter.plat.web.security.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import java.util.Collection;
@@ -36,7 +36,7 @@ public class TokenUserDetails implements UserDetails {
   private String realName;
 
 
-  private Integer type;
+  private Integer userType;
 
   private String tenantId;
   private String tenantUserId;
@@ -45,7 +45,7 @@ public class TokenUserDetails implements UserDetails {
   private boolean credentialsNonExpired = true;
   private boolean enabled = true;
 
-  private Token token;
+  private VerifyToken verifyToken;
   @JsonIgnore
   private User user;
   @JsonIgnore
@@ -70,12 +70,12 @@ public class TokenUserDetails implements UserDetails {
     this.userId = user.getId();
     this.nickName = user.getNickName();
     this.realName = user.getRealName();
-    this.type = user.getType();
+    this.userType = user.getType();
 
     if (tenantUser != null) {
       this.tenantId = tenantUser.getSysTenantId();
       this.tenantUserId = tenantUser.getId();
-      this.type = tenantUser.getType();
+      this.userType = tenantUser.getType();
 
     }
     this.pemCodes = pemCodes;
@@ -87,15 +87,15 @@ public class TokenUserDetails implements UserDetails {
     }
   }
 
-  public TokenUserDetails(Token token, Set<String> pemCodes) {
-    this.token = token;
+  public TokenUserDetails(VerifyToken verifyToken, Set<String> pemCodes) {
+    this.verifyToken = verifyToken;
 
-    this.username = token.getUserName();
+    this.username = verifyToken.getUserName();
     this.password = "";
-    this.userId = token.getUserId();
-    this.nickName = token.getNickName();
-    this.realName = token.getRealName();
-    this.type = token.getUserType();
+    this.userId = verifyToken.getUserId();
+    this.nickName = verifyToken.getNickName();
+    this.realName = verifyToken.getRealName();
+    this.userType = verifyToken.getUserType();
 
     if (!CollectionUtils.isEmpty(pemCodes)) {
       authorities = pemCodes.stream().map(SimpleGrantedAuthority::new)
@@ -104,8 +104,8 @@ public class TokenUserDetails implements UserDetails {
       authorities = Collections.emptyList();
     }
 
-    this.tenantId = token.getTenantId();
-    this.tenantUserId = token.getTenantUserId();
+    this.tenantId = verifyToken.getTenantId();
+    this.tenantUserId = verifyToken.getTenantUserId();
   }
 
   @Override

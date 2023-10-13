@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
@@ -47,14 +47,7 @@ public class SysUserConfigSaveOrUpdateInterceptor
   @Override
   protected void saveOrUpdateBefore(SysUserConfigVO vo) {
     super.saveOrUpdateBefore(vo);
-    final String userId = vo.getUserId();
     UserContext userContext = traceHolder.get().getUserContext();
-    if (!StringUtils.isEmpty(userId)) {
-      if (!userId.equals(userContext.getUserId())) {
-        throw new ParamException("only set self config ");
-      }
-    } else {
-      vo.setUserId(userContext.getUserId());
-    }
+    vo.setUserId(userContext.getUserId());
   }
 }

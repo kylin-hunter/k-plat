@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.auth;
+package io.github.kylinhunter.plat.api.auth.bean.vo;
 
-import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
-import io.github.kylinhunter.plat.api.auth.context.UserContext;
-import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -31,16 +29,8 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class Token extends DefaultUserContext implements UserContext {
-
-
-  private long effectiveTime;
-  private LocalDateTime expireTime;
-
-  public Token(UserContext userContext, long effectiveTime, LocalDateTime expireTime) {
-    super(userContext);
-    this.effectiveTime = effectiveTime;
-    this.expireTime = expireTime;
-  }
+public class ReqTenantToken {
+  @ApiModelProperty(value = "tenantId")
+  @NotBlank
+  private String tenantId;
 }

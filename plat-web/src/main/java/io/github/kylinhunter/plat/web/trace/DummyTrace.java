@@ -17,8 +17,9 @@ package io.github.kylinhunter.plat.web.trace;
 
 import io.github.kylinhunter.commons.lang.strings.StringConst;
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.context.DummyUserContext;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.context.DummyUserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.web.trace.explain.DummyTraceExplain;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
@@ -53,24 +54,32 @@ public class DummyTrace implements Trace {
   }
 
   @Override
-  public String getToken() {
-    return StringConst.EMPTY;
-  }
-
-  @Override
   public UserContext getUserContext() {
     return DUMMY_USER_CONTEXT;
   }
 
   @Override
-  public Token getTokenObj() {
+  public VerifyToken getVerifyToken() {
     return null;
   }
 
   @Override
-  public void setUserContext(Token token) {
+  public String getToken() {
+    return null;
+  }
+
+  @Override
+  public void setVerifyToken(VerifyToken verifyToken) {
 
   }
+
+
+
+  @Override
+  public void setUserContext(UserContext userContext) {
+
+  }
+
 
   @Override
   public void setToken(String token) {

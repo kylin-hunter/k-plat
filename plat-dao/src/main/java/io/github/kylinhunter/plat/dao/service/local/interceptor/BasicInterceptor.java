@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
+import io.github.kylinhunter.commons.exception.embed.ParamException;
 import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
@@ -23,7 +24,7 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,10 +44,12 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired protected TraceHolder traceHolder;
+  @Autowired
+  protected TraceHolder traceHolder;
 
   protected void setCreateMsg(Req req, T entity) {
-    UserContext userContext =traceHolder.get().getUserContext();
+
+    UserContext userContext = traceHolder.get().getUserContext();
     entity.setSysTenantId(userContext.getTenantId());
     entity.setSysCreatedUserId(userContext.getUserId());
     entity.setSysCreatedUserName(userContext.getUserName());
@@ -60,7 +63,7 @@ public class BasicInterceptor<
   }
 
   protected void setUpdateMsg(Req req, T entity) {
-    UserContext userContext =traceHolder.get().getUserContext();
+    UserContext userContext = traceHolder.get().getUserContext();
 
     entity.setSysUpdateUserId(userContext.getUserId());
     entity.setSysUpdateUserName(userContext.getUserName());
@@ -69,7 +72,7 @@ public class BasicInterceptor<
 
   protected void checkTenantData(String tenantId, T entity) {
     if (!tenantId.equals(entity.getSysTenantId())) {
-      throw new DBException("check tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
+      throw new DBException("tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
     }
   }
 
@@ -78,17 +81,22 @@ public class BasicInterceptor<
     entities.forEach(
         entity -> {
           if (!tenantId.equals(entity.getSysTenantId())) {
-            throw new DBException(
-                "check tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
+            throw new DBException("tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
           }
         });
   }
 
   protected String checkAndGetTenantId() {
-    String tenantId =traceHolder.get().getUserContext().getTenantId();
+    String tenantId = traceHolder.get().getUserContext().getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new DBException("tenantId is emtpy");
     }
     return tenantId;
+  }
+  public void checkSelfPermission(String userId) {
+    UserContext userContext = traceHolder.get().getUserContext();
+    if (!userContext.getUserId().equals(userId)) {
+      throw new ParamException("no access to other users' data");
+    }
   }
 }

@@ -15,8 +15,8 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
-import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.context.UserContext;
+import io.github.kylinhunter.plat.api.auth.VerifyToken;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import java.util.UUID;
@@ -32,7 +32,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DefaulTrace implements Trace {
+public class DefaultTrace implements Trace {
 
   private String id;
   private String token;
@@ -45,9 +45,11 @@ public class DefaulTrace implements Trace {
 
   private TraceExplain explain;
 
-  private Token tokenObj;
+  private VerifyToken verifyToken;
 
-  public DefaulTrace(String id, String token) {
+  private UserContext userContext;
+
+  public DefaultTrace(String id, String token) {
     if (id != null && id.length() > 0) {
       this.id = id;
     } else {
@@ -58,19 +60,25 @@ public class DefaulTrace implements Trace {
 
   @Override
   public UserContext getUserContext() {
-    return tokenObj;
+    return verifyToken;
   }
 
   @Override
-  public Token getTokenObj() {
-    return tokenObj;
+  public void setUserContext(UserContext userContext) {
+    this.userContext = userContext;
+    this.verifyToken=null;
   }
 
   @Override
-  public void setUserContext(Token token) {
-    this.tokenObj = token;
+  public VerifyToken getVerifyToken() {
+    return verifyToken;
   }
 
+  @Override
+  public void setVerifyToken(VerifyToken verifyToken) {
+    this.verifyToken = verifyToken;
+    this.userContext=null;
+  }
 
   @Override
   public Trace end() {
