@@ -29,13 +29,11 @@ import lombok.Data;
 public class PathPatterns {
   public static final PathPattern ALL = PathPattern.builder().build().add("/**");
 
-  public static final PathPattern LOGIN = PathPattern.builder().build().add("/login");
-  public static final PathPattern AUTH = PathPattern.builder().build().add("/auth/**");
   public static final PathPattern API_V1_TENANTS =
       PathPattern.builder().build().add("/api/v1/core/tenants/**");
 
   public static final PathPattern API_V1_TENANTS_ACTION =
-      PathPattern.builder().build().add("/api/v1/core/tenant*/**");
+      PathPattern.builder().build().add("/api/v1/core/tenant_*/**");
 
   public static final PathPattern API_V1 = PathPattern.builder().build().add("/api/v1/**");
 

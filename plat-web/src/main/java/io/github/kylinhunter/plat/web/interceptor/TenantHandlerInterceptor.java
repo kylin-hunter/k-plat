@@ -42,10 +42,8 @@ public class TenantHandlerInterceptor implements HandlerInterceptor {
   private final TraceHolder traceHolder;
 
   @Override
-  public boolean preHandle(
-      @Nonnull HttpServletRequest request,
-      @Nonnull HttpServletResponse response,
-      @Nonnull Object handler) {
+  public boolean preHandle(@Nonnull HttpServletRequest request,
+      @Nonnull HttpServletResponse response, @Nonnull Object handler) {
     UserContext userContext = traceHolder.get().getUserContext();
     String tenantId = userContext.getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
@@ -60,5 +58,6 @@ public class TenantHandlerInterceptor implements HandlerInterceptor {
       @Nonnull HttpServletRequest request,
       @Nonnull HttpServletResponse response,
       @Nonnull Object handler,
-      Exception ex) {}
+      Exception ex) {
+  }
 }

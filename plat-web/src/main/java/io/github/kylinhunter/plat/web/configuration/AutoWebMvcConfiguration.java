@@ -37,8 +37,7 @@ public class AutoWebMvcConfiguration implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
 
-    registry
-        .addInterceptor(tenantHandlerInterceptor)
+    registry.addInterceptor(tenantHandlerInterceptor)
         .addPathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANTS_ACTION))
         .excludePathPatterns(PathPatterns.of(PathPatterns.API_V1_TENANTS));
   }
