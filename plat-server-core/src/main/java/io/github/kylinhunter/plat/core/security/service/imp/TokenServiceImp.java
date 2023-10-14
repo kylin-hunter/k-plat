@@ -17,6 +17,7 @@ package io.github.kylinhunter.plat.core.security.service.imp;
 
 import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.TokenEx;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
@@ -29,7 +30,6 @@ import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
 import java.util.Objects;
-import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,10 +87,10 @@ public class TokenServiceImp extends DefaultTokenService {
       token.setTenantId(tenantId);
       token.setUserType(tokenUserDetails.getUserType());
       token.setTenantUserId(tokenUserDetails.getTenantUserId());
-      setPerCodes(token.getTenantUserId(), tokenUserDetails.getPemCodes());
+      setTokenEx(token.getTenantUserId(), new TokenEx(tokenUserDetails.getPemCodes()));
 
     } else {
-      setPerCodes(token.getUserId(), tokenUserDetails.getPemCodes());
+      setTokenEx(token.getUserId(), new TokenEx(tokenUserDetails.getPemCodes()));
     }
 
     String tokenStr = jwtService.create(token);
@@ -122,9 +122,17 @@ public class TokenServiceImp extends DefaultTokenService {
     log.info(
         "create tenant={},username={},token={}", tenantId, userDetails.getUsername(), tokenStr);
 
-    setPerCodes(token.getTenantUserId(), userDetails.getPemCodes());
+    setTokenEx(token.getTenantUserId(), new TokenEx(userDetails.getPemCodes()));
 
     return tokenStr;
+  }
+
+  @Override
+  public Token invalidToken() {
+    TokenUserDetails tokenUserDetails = this.verify(traceHolder.get().getToken());
+    VerifyToken verifyToken = tokenUserDetails.getVerifyToken();
+    removePerCodes(verifyToken);
+    return verifyToken;
   }
 
   /**
@@ -138,25 +146,30 @@ public class TokenServiceImp extends DefaultTokenService {
   public TokenUserDetails verify(String token) {
     VerifyToken verifyToken = jwtService.verify(token);
     UserType userType = EnumUtils.fromCode(UserType.class, verifyToken.getUserType());
-    Set<String> pemCodes;
+    TokenEx tokenEx;
 
     if (userType == UserType.USER || userType == UserType.SUPER_ADMIN) {
-      pemCodes = getPerCodes(verifyToken.getUserId());
+      tokenEx = getPerCodes(verifyToken.getUserId());
     } else {
-      pemCodes = getPerCodes(verifyToken.getTenantUserId());
+      tokenEx = getPerCodes(verifyToken.getTenantUserId());
     }
-    if (Objects.isNull(pemCodes)) {
-      throw new AuthException("no user permissions");
+    if (tokenEx == null) {
+      throw new AuthException("token expired or logout");
     }
 
-    return new TokenUserDetails(verifyToken, pemCodes);
+    return new TokenUserDetails(verifyToken, tokenEx.getPemCodes());
   }
 
-  private void setPerCodes(String userId, Set<String> perCodes) {
-    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), perCodes, tokenExpireTime);
+  private void setTokenEx(String userId, TokenEx tokenEx) {
+    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx, tokenExpireTime);
   }
 
-  private Set<String> getPerCodes(String userId) {
+  private TokenEx getPerCodes(String userId) {
     return redisService.get(RedisKeys.AUTH_USER_PERMS.key(userId));
+  }
+
+  private void removePerCodes(Token token) {
+    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getUserId()));
+    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getTenantUserId()));
   }
 }

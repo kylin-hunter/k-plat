@@ -35,6 +35,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 /**
  * @author BiJi'an
@@ -43,12 +45,17 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  */
 public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-  @Autowired protected UserDetailsService userDetailsService;
-  @Autowired protected TokenService tokenService;
-  @Autowired protected PasswordEncoder passwordEncoder;
+  @Autowired
+  protected UserDetailsService userDetailsService;
+  @Autowired
+  protected TokenService tokenService;
+  @Autowired
+  protected PasswordEncoder passwordEncoder;
 
-  @Autowired protected TraceHolder traceHolder;
-  @Autowired protected ResponseWriter responseWriter;
+  @Autowired
+  protected TraceHolder traceHolder;
+  @Autowired
+  protected ResponseWriter responseWriter;
 
   @Bean
   @Override
@@ -88,14 +95,17 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
         .and()
         .logout()
         .logoutUrl("/logout")
+        .logoutSuccessHandler(new DefaultLogoutSuccessHandler(tokenService, responseWriter))
         .and()
         .exceptionHandling()
         .accessDeniedHandler(accessDeniedHandler(responseWriter))
         .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
         .and()
-        .addFilter(
+
+        .addFilterBefore(
             new JwtLoginFilter(
-                authenticationManagerBean(), tokenService, responseWriter, traceHolder))
+                authenticationManagerBean(), tokenService, responseWriter, traceHolder),
+            UsernamePasswordAuthenticationFilter.class)
         .addFilter(
             new JwtVerifyFilter(
                 authenticationManagerBean(), traceHolder, tokenService, responseWriter))

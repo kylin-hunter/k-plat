@@ -20,6 +20,7 @@ import io.github.kylinhunter.plat.api.middleware.redis.RedisKey;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
@@ -53,7 +54,11 @@ public class RedisService {
    * @date 2023-10-09 22:52
    */
   public Boolean delete(String key) {
-    return redisTemplate.delete(key);
+
+    if (!StringUtils.isBlank(key)) {
+      return redisTemplate.delete(key);
+    }
+    return false;
   }
 
   /**
@@ -80,7 +85,7 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key   key
    * @param value value
    * @return void
    * @title set
@@ -94,8 +99,8 @@ public class RedisService {
   }
 
   /**
-   * @param key key
-   * @param values values
+   * @param key          key
+   * @param values       values
    * @param expireSecond expireSecond
    * @return void
    * @title set
@@ -109,10 +114,10 @@ public class RedisService {
   }
 
   /**
-   * @param key key
-   * @param value value
+   * @param key     key
+   * @param value   value
    * @param timeout timeout
-   * @param unit unit
+   * @param unit    unit
    * @return void
    * @title set
    * @description set
@@ -124,7 +129,7 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key   key
    * @param value value
    * @return java.lang.Long
    * @title increment
@@ -137,7 +142,7 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key   key
    * @param value value
    * @return java.lang.Long
    * @title increment
@@ -163,7 +168,7 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key          key
    * @param defaultValue defaultValue
    * @return java.lang.Long
    * @title getLong
@@ -188,7 +193,7 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key   key
    * @param value value
    * @return void
    * @title forSetAdd
@@ -236,9 +241,9 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key    key
    * @param member member
-   * @param value value
+   * @param value  value
    * @return void
    * @title forZSetAdd
    * @description forZSetAdd
@@ -250,9 +255,9 @@ public class RedisService {
   }
 
   /**
-   * @param key key
+   * @param key    key
    * @param member member
-   * @param value value
+   * @param value  value
    * @return void
    * @title forZSetIncrementScore
    * @description forZSetIncrementScore
@@ -274,21 +279,22 @@ public class RedisService {
   public Long forZSetSize(String key) {
     return redisTemplate.opsForZSet().size(key);
   }
+
   /**
+   * @param key    key
+   * @param values values
+   * @return T
    * @title forSetRemove
    * @description forSetRemove
    * @author BiJi'an
-   * @param key key
-   * @param values values
    * @date 2023-10-09 22:58
-   * @return T
    */
   public <T> T forZSetRemove(String key, Object... values) {
     return (T) redisTemplate.opsForZSet().remove(key, values);
   }
 
   /**
-   * @param key key
+   * @param key    key
    * @param member member
    * @return java.lang.Double
    * @title forZSetScore
@@ -302,8 +308,8 @@ public class RedisService {
 
   /**
    * @param redisScript redisScript
-   * @param keys keys
-   * @param args args
+   * @param keys        keys
+   * @param args        args
    * @return T
    * @title executeLuaScript
    * @description executeLuaScript

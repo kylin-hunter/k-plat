@@ -61,6 +61,12 @@ public class DefaultTokenService implements TokenService {
     throw new AuthException("no implement");
   }
 
+  @Override
+  public Token invalidToken() {
+    return new Token();
+
+  }
+
   /**
    * @param token token
    * @return io.github.kylinhunter.plat.core.service.local.security.bean.TokenUserDetails

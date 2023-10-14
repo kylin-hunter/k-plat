@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.security.service;
 
+import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
@@ -29,6 +30,8 @@ public interface TokenService {
   String createToken(TokenUserDetails tokenUserDetails);
 
   String createTenantToken(ReqTenantToken reqTenantToken);
+
+  Token invalidToken();
 
   TokenUserDetails verify(String token) throws AuthException;
 }
