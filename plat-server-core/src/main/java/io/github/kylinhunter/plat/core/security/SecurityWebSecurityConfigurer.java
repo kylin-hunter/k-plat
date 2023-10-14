@@ -16,6 +16,7 @@
 package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.security.DefaultSecurityWebSecurityConfigurer;
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
@@ -40,13 +41,15 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring()
-        .antMatchers("/initialize", "/auth/verify_token", "/health", "/echo/**", "/error");
+        .antMatchers(PathPatterns.of(PathPatterns.SECURITY_IGNORE))
+        .antMatchers(PathPatterns.of(PathPatterns.ACTUATOR))
+        .antMatchers(PathPatterns.of(PathPatterns.SWAGGER));
   }
 
   private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
           urlRegistry) {
-    String[] defaultAuthorities = new String[] {UserType.SUPER_ADMIN.getName()};
+    String[] defaultAuthorities = new String[]{UserType.SUPER_ADMIN.getName()};
     urlRegistry = addPerm(urlRegistry, "permissions", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "roles", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "role_permissions", defaultAuthorities);
@@ -56,7 +59,7 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
     urlRegistry = addPerm(urlRegistry, "sys_user_configs", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "tenants", defaultAuthorities);
     defaultAuthorities =
-        new String[] {UserType.SUPER_ADMIN.getName(), UserType.TENANT_ADMIN.getName()};
+        new String[]{UserType.SUPER_ADMIN.getName(), UserType.TENANT_ADMIN.getName()};
 
     urlRegistry = addPerm(urlRegistry, "tenant_configs", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "tenant_user_configs", defaultAuthorities);

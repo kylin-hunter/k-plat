@@ -13,8 +13,9 @@ dependencies {
     api(rootProject.dependency_management['commons-lang3'])
     api(rootProject.dependency_management['commons-io'])
     api(rootProject.dependency_management['mybatis-plus'])
-    api(rootProject.dependency_management['springfox-swagger2'])
-    api(rootProject.dependency_management['springfox-swagger-ui'])
+//    api(rootProject.dependency_management['springfox-swagger2'])
+//    api(rootProject.dependency_management['springfox-swagger-ui'])
+    api("io.springfox:springfox-boot-starter:3.0.0")
 }
 jar.enabled = true
 bootJar.enabled = false
