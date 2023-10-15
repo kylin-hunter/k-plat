@@ -66,6 +66,7 @@ public class RequestUtils {
     return BooleanUtils.toBoolean(getHeader(request, RequestConst.HEADER_DEBUG));
   }
 
+
   /**
    * @param request request
    * @param xForwardedFor xForwardedFor

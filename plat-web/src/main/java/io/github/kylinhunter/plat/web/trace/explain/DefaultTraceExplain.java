@@ -78,8 +78,4 @@ public class DefaultTraceExplain implements TraceExplain {
     }
   }
 
-  @Override
-  public boolean isDummy() {
-    return false;
-  }
 }

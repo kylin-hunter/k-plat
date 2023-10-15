@@ -93,8 +93,8 @@ public class AutoWebCommonConfiguration {
   }
 
   @Bean
-  public TraceHolder traceHolder() {
-    return new DefaultTraceHolder();
+  public TraceHolder traceHolder(AppConfig appConfig) {
+    return new DefaultTraceHolder(appConfig);
   }
 
   @Bean

@@ -56,6 +56,9 @@ public class AppConfig {
   @Value("${kplat.env:RELEASE}")
   private String envStr;
 
+  @Value("${kplat.debugEnabled:false}")
+  private boolean debugEnabled;
+
   private Env env;
 
   @PostConstruct

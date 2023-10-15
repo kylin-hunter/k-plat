@@ -1,16 +1,6 @@
-1、swager正常
-2、跨agent访问要报错
 3、初始化分类
 4、去掉无用的初始化代码
-5、去掉无用的拦截器若干，包括对tokenIner 和 agentInter
-
-
-6、AutoWebMvcConfiguration 里面的exclued可能配置的不对
-
-
 11、plat-server-storage的权限和数据库初始化
-13、去掉dummy
-
 
 
 

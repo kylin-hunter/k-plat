@@ -19,6 +19,7 @@ import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
+import io.github.kylinhunter.plat.web.trace.explain.DefaultTraceExplain;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,7 @@ public class DefaultTrace implements Trace {
 
   private boolean debug;
 
-  private TraceExplain explain;
+  private TraceExplain explain = new DefaultTraceExplain();
 
   private VerifyToken verifyToken;
 
@@ -90,8 +91,5 @@ public class DefaultTrace implements Trace {
     return this;
   }
 
-  @Override
-  public boolean isDummy() {
-    return false;
-  }
+
 }

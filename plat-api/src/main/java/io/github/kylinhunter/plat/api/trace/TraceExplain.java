@@ -39,9 +39,12 @@ public interface TraceExplain {
 
   List<CookieInfo> getCookies();
 
+  void setCookies(List<CookieInfo> cookieInfos);
+
   Map<String, List<String>> getHeaders();
+
+  void setHeaders(Map<String, List<String>> headers);
 
   Map<String, Object> getOthers();
 
-  boolean isDummy();
 }

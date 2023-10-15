@@ -16,11 +16,13 @@
 package io.github.kylinhunter.plat.web.trace;
 
 import io.github.kylinhunter.plat.api.trace.Trace;
+import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.api.web.request.RequestConst;
+import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.log.LogHelper;
 import io.github.kylinhunter.plat.web.request.RequestUtils;
-import io.github.kylinhunter.plat.web.trace.explain.DefaultTraceExplain;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +37,8 @@ import org.apache.commons.lang3.StringUtils;
 @RequiredArgsConstructor
 public class DefaultTraceHolder implements TraceHolder {
 
-  private static final DummyTrace DUMMY_TRACE = new DummyTrace();
-  private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> DUMMY_TRACE);
+  private final AppConfig appConfig;
+  private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
 
   @Override
   public Trace create(HttpServletRequest request) {
@@ -55,13 +57,18 @@ public class DefaultTraceHolder implements TraceHolder {
 
   @Override
   public Trace get() {
-    return traces.get();
+
+    Trace trace = traces.get();
+    if (trace == null) {
+      throw new AuthException("no trace found");
+    }
+    return trace;
   }
 
   @Override
   public void remove() {
     LogHelper.clearContext();
-    traces.set(DUMMY_TRACE);
+    traces.set(null);
   }
 
   /**
@@ -75,16 +82,11 @@ public class DefaultTraceHolder implements TraceHolder {
     String traceId = request.getHeader(RequestConst.HEADER_TRACE_ID);
     String token = getToken(request);
     Trace trace = new DefaultTrace(traceId, token);
-
-    if (RequestUtils.isDebugMode(request)) {
+    TraceExplain explain = trace.getExplain();
+    if (appConfig.isDebugEnabled() && RequestUtils.isDebugMode(request)) {
       trace.setDebug(true);
-      DefaultTraceExplain defaultExplain = new DefaultTraceExplain();
-      defaultExplain.setHeaders(RequestUtils.getHeaders(request));
-      defaultExplain.setCookies(RequestUtils.getCookies(request));
-      trace.setExplain(defaultExplain);
-
-    } else {
-      trace.setExplain(DUMMY_TRACE.getExplain());
+      explain.setHeaders(RequestUtils.getHeaders(request));
+      explain.setCookies(RequestUtils.getCookies(request));
     }
     return trace;
   }

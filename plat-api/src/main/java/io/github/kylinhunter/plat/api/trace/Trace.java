@@ -57,5 +57,4 @@ public interface Trace {
 
   TraceExplain getExplain();
 
-  boolean isDummy();
 }
