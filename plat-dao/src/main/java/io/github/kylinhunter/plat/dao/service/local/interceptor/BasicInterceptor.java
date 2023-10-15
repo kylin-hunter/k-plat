@@ -44,7 +44,7 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired
+  @Autowired(required = false)
   protected TraceHolder traceHolder;
 
   protected void setCreateMsg(Req req, T entity) {

@@ -1,16 +1,10 @@
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-    }
-}
+
 
 dependencies {
 
-    api project(':plat-web')
     implementation 'io.minio:minio'
     implementation 'com.squareup.okhttp3:okhttp'
-    api project(':plat-data')
+    api project(':plat-web')
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
 }

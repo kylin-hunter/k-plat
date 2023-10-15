@@ -13,12 +13,12 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: local
-  redis:
-    timeout: 30000
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
+#  redis:
+#    timeout: 30000
+#    database: 0
+#    host: 127.0.0.1
+#    port: 6379
+#    password: 123456
 #    cluster:
 #      nodes:
 #        - 192.168.0.105:7361

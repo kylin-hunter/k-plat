@@ -16,6 +16,7 @@
 package io.github.kylinhunter.plat.web.security;
 
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
 import io.github.kylinhunter.plat.web.security.error.DefaultlAccessDeniedHandler;
@@ -78,7 +79,10 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
 
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/auth/verify_token", "/error");
+    web.ignoring()
+        .antMatchers(PathPatterns.of(PathPatterns.SECURITY_IGNORE))
+        .antMatchers(PathPatterns.of(PathPatterns.ACTUATOR))
+        .antMatchers(PathPatterns.of(PathPatterns.SWAGGER));
   }
 
   @Override

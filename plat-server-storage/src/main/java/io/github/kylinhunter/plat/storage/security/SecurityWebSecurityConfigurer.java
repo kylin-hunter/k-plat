@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.core.security;
+package io.github.kylinhunter.plat.storage.security;
 
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
@@ -43,26 +43,27 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
   protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
           urlRegistry) {
-    String[] defaultAuthorities = new String[]{UserType.SUPER_ADMIN.getName()};
-    urlRegistry = addPerm(urlRegistry, "permissions", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "roles", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "role_permissions", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "users", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "user_roles", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "sys_configs", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "sys_user_configs", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenants", defaultAuthorities);
-    defaultAuthorities =
+    String[] defaultAuthorities =
         new String[]{UserType.SUPER_ADMIN.getName(), UserType.TENANT_ADMIN.getName()};
 
-    urlRegistry = addPerm(urlRegistry, "tenant_configs", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_user_configs", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_catalogs", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_roles", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_role_permissions", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_users", defaultAuthorities);
-    urlRegistry = addPerm(urlRegistry, "tenant_user_roles", defaultAuthorities);
+    urlRegistry = addPerm(urlRegistry, "file_relations", defaultAuthorities);
+    urlRegistry = addPerm(urlRegistry, "file_metadatas", defaultAuthorities);
 
+    urlRegistry
+        .antMatchers(HttpMethod.POST, "/api/v1/storage/upload")
+        .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_upload"));
+
+    urlRegistry
+        .antMatchers(HttpMethod.GET, "/api/v1/storage/download")
+        .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_download"));
+
+    urlRegistry
+        .antMatchers(HttpMethod.GET, "/api/v1/storage/exist")
+        .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_exist"));
+
+    urlRegistry
+        .antMatchers(HttpMethod.POST, "/api/v1/storage/delete")
+        .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_delete"));
     return urlRegistry;
   }
 
@@ -71,7 +72,7 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
           expressionInterceptUrlRegistry,
       String module,
       String[] authorities) {
-    String baseUrl = "/api/v1/core/" + module;
+    String baseUrl = "/api/v1/storage/" + module;
     String[] createAuthorities = ArrayUtils.add(authorities, module + "::create");
     String[] updateAuthorities = ArrayUtils.add(authorities, module + "::update");
     String[] deleteAuthorities = ArrayUtils.add(authorities, module + "::delete");

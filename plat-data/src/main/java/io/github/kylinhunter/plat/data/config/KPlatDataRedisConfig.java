@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * @author BiJi'an
@@ -16,7 +15,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @Data
 @ToString
 @Slf4j
-@RefreshScope
 @ConfigurationProperties(prefix = "kplat.data.redis")
 public class KPlatDataRedisConfig {
 
