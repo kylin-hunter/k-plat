@@ -62,7 +62,7 @@ public class RequestUtils {
    * @author BiJi'an
    * @date 2021/8/1 3:46 上午
    */
-  public static boolean isDebugMode(HttpServletRequest request) {
+  public static boolean isDebug(HttpServletRequest request) {
     return BooleanUtils.toBoolean(getHeader(request, RequestConst.HEADER_DEBUG));
   }
 

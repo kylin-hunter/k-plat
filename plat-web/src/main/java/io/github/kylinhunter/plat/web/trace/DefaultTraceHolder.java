@@ -83,7 +83,7 @@ public class DefaultTraceHolder implements TraceHolder {
     String token = getToken(request);
     Trace trace = new DefaultTrace(traceId, token);
     TraceExplain explain = trace.getExplain();
-    if (appConfig.isDebugEnabled() && RequestUtils.isDebugMode(request)) {
+    if (appConfig.isDebugEnabled() && RequestUtils.isDebug(request)) {
       trace.setDebug(true);
       explain.setHeaders(RequestUtils.getHeaders(request));
       explain.setCookies(RequestUtils.getCookies(request));
