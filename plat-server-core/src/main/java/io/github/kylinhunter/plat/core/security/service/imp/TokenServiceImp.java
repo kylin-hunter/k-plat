@@ -129,10 +129,15 @@ public class TokenServiceImp extends DefaultTokenService {
 
   @Override
   public Token invalidToken() {
-    TokenUserDetails tokenUserDetails = this.verify(traceHolder.get().getToken());
-    VerifyToken verifyToken = tokenUserDetails.getVerifyToken();
-    removePerCodes(verifyToken);
-    return verifyToken;
+    String token = traceHolder.get().getToken();
+    if (StringUtils.isNotBlank(token)) {
+      VerifyToken verifyToken = jwtService.verify(token);
+      removePerCodes(verifyToken);
+      return verifyToken;
+    } else {
+      return null;
+    }
+
   }
 
   /**

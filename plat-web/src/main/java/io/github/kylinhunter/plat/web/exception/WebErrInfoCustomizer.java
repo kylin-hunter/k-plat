@@ -26,6 +26,10 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 @ErrInfoAware
 public class WebErrInfoCustomizer {
 
+  public static final ErrInfo NOT_FOUND = new ErrInfo(404);
+  public static final ErrInfo FORBIDDEN = new ErrInfo(403);
+  public static final ErrInfo INTERNAL_SERVER_ERROR = new ErrInfo(500);
+
   static int WEB_BASE_CODE = 60000;
   public static final ErrInfo WEB_ERROR = new ErrInfo(++WEB_BASE_CODE);
   public static final ErrInfo WEB_NOT_SUPPORTED = new ErrInfo(++WEB_BASE_CODE);

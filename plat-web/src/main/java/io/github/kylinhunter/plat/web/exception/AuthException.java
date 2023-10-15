@@ -19,17 +19,18 @@ import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.commons.exception.info.ErrInfo;
 
 /**
- * @description
  * @author BiJi'an
+ * @description
  * @date 2022-01-01 14:03
  */
 public class AuthException extends BizException {
+
   public AuthException(String message, Throwable cause) {
     this(WebErrInfoCustomizer.AUTH_ERROR, message, cause);
   }
 
   public AuthException(ErrInfo errInfo) {
-    this(errInfo, "");
+    this(errInfo, errInfo.getDefaultMsg());
   }
 
   public AuthException(String message) {
@@ -49,6 +50,6 @@ public class AuthException extends BizException {
   }
 
   public AuthException(ErrInfo errInfo, Throwable cause) {
-    super(errInfo, "", cause);
+    super(errInfo, errInfo.getDefaultMsg(), cause);
   }
 }

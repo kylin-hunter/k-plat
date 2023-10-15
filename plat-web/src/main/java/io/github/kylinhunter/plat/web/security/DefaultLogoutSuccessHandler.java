@@ -37,7 +37,9 @@ public class DefaultLogoutSuccessHandler implements LogoutSuccessHandler {
       Authentication authentication) throws IOException, ServletException {
     try {
       Token token = tokenService.invalidToken();
-      log.info("{}/{} log out success", token.getUserId(), token.getUserName());
+      if (token != null) {
+        log.info("{}/{} log out success", token.getUserId(), token.getUserName());
+      }
       responseWriter.writeJson(successResp);
     } catch (Exception e) {
       log.error("logout error", e);
