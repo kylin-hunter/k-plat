@@ -46,7 +46,8 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
         .antMatchers(PathPatterns.of(PathPatterns.SWAGGER));
   }
 
-  private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
+  @Override
+  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
           urlRegistry) {
     String[] defaultAuthorities = new String[]{UserType.SUPER_ADMIN.getName()};

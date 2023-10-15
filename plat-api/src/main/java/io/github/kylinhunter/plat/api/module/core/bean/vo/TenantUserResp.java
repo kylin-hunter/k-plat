@@ -38,9 +38,6 @@ public class TenantUserResp extends DefaultSysResp {
   @ApiModelProperty(value = "userId")
   private String userId;
 
-  @ApiModelProperty(value = "tenantId")
-  private String tenantId;
-
   @ApiModelProperty(value = "type")
   private Integer type;
 

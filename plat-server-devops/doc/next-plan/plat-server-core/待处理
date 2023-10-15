@@ -7,7 +7,6 @@
 
 6、AutoWebMvcConfiguration 里面的exclued可能配置的不对
 
-11、logout逻辑
 
 11、plat-server-storage的权限和数据库初始化
 13、去掉dummy

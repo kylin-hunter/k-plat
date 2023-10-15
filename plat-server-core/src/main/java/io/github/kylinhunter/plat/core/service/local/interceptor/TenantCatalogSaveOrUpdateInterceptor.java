@@ -49,8 +49,8 @@ public class TenantCatalogSaveOrUpdateInterceptor
   private final TenantCatalogMapper tenantCatalogMapper;
 
   @Override
-  protected void saveOrUpdateBefore(TenantCatalogVO vo) {
-    super.saveOrUpdateBefore(vo);
+  protected void saveOrUpdateBefore(TenantCatalogVO vo,TenantCatalog entity) {
+    super.saveOrUpdateBefore(vo,entity);
     String code = vo.getCode();
     if (DefaultTenantCatalogs.DEFAULT_CODE.equals(code)) {
       vo.setLevel(0);

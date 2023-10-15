@@ -36,7 +36,6 @@ import lombok.Setter;
 @ApiModel(value = "ReqUpdate", description = "ReqUpdate")
 public class ReqUpdate extends Req {
   @ApiModelProperty(value = "primary key")
-  @NotBlank
   @EqualsAndHashCode.Include
   private String id;
 

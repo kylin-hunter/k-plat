@@ -15,6 +15,8 @@
  */
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
+import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
@@ -34,17 +36,22 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SysUserConfigSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-        SysUserConfig,
-        SysUserConfigReqCreate,
-        SysUserConfigReqUpdate,
-        SysUserConfigResp,
-        SysUserConfigVO,
-        SysUserConfigReqQuery> {
+    SysUserConfig,
+    SysUserConfigReqCreate,
+    SysUserConfigReqUpdate,
+    SysUserConfigResp,
+    SysUserConfigVO,
+    SysUserConfigReqQuery> {
 
   @Override
-  protected void saveOrUpdateBefore(SysUserConfigVO vo) {
-    super.saveOrUpdateBefore(vo);
-    String userId = this.checkSelfUser(vo.getUserId());
-    vo.setUserId(userId);
+  protected void saveOrUpdateBefore(SysUserConfigVO vo, SysUserConfig entity) {
+    super.saveOrUpdateBefore(vo, entity);
+    if (vo.getVoType() == VoType.CREATE) {
+      UserContext userContext = traceHolder.get().getUserContext();
+      vo.setUserId(userContext.getUserId());
+    } else {
+      this.checkSelfUser(entity.getUserId());
+    }
+
   }
 }

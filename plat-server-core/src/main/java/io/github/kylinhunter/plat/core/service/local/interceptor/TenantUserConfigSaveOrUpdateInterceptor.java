@@ -15,6 +15,9 @@
  */
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
+import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
@@ -42,9 +45,13 @@ public class TenantUserConfigSaveOrUpdateInterceptor
     TenantUserConfigReqQuery> {
 
   @Override
-  protected void saveOrUpdateBefore(TenantUserConfigVO vo) {
-    super.saveOrUpdateBefore(vo);
-    String userId = this.checkSelfUser(vo.getUserId());
-    vo.setUserId(userId);
+  protected void saveOrUpdateBefore(TenantUserConfigVO vo, TenantUserConfig entity) {
+    super.saveOrUpdateBefore(vo, entity);
+    if (vo.getVoType() == VoType.CREATE) {
+      UserContext userContext = traceHolder.get().getUserContext();
+      vo.setUserId(userContext.getUserId());
+    } else {
+      this.checkSelfUser(entity.getUserId());
+    }
   }
 }

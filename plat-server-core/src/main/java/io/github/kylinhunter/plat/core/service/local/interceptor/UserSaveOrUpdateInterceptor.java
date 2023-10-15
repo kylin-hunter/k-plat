@@ -42,12 +42,12 @@ public class UserSaveOrUpdateInterceptor
 
 
   @Override
-  public void saveOrUpdateBefore(UserVO vo) {
-    if (vo.getId().equals(DefaultUsers.ADMIN_USER_ID)) {
+  public void saveOrUpdateBefore(UserVO vo, User entity) {
+    if (vo.getUserName().equals(DefaultUsers.ADMIN_USER_NAME)) {
       throw new ParamException("can't save or update  sys user:" + vo.getId());
     }
 
-    super.saveOrUpdateBefore(vo);
+    super.saveOrUpdateBefore(vo, entity);
 
     String password = vo.getPassword();
     if (!StringUtils.isEmpty(password)) {

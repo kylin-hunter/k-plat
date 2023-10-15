@@ -118,7 +118,7 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
         .disable();
   }
 
-  private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
+  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
           expressionInterceptUrlRegistry) {
     return expressionInterceptUrlRegistry;

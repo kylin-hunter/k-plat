@@ -65,7 +65,7 @@ public class SaveOrUpdateInterceptor<
           "code"
       };
 
-  protected void saveOrUpdateBefore(V vo) {
+  protected void saveOrUpdateBefore(V vo, T entity) {
   }
 
   public Z saveOrUpdateAfter(V vo, Z z) {
@@ -77,7 +77,7 @@ public class SaveOrUpdateInterceptor<
     if (tenantSupported) {
       this.checkTenantId();
     }
-    saveOrUpdateBefore((V) c);
+    saveOrUpdateBefore((V) c,entity);
     BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
     this.setCreateMsg(c, entity);
     return entity;
@@ -95,7 +95,7 @@ public class SaveOrUpdateInterceptor<
     if (tenantSupported) {
       checkSameTenant(entity.getSysTenantId());
     }
-    saveOrUpdateBefore((V) u);
+    saveOrUpdateBefore((V) u,entity);
     BeanCopyUtils.copyProperties(u, entity, updateSkipProperties);
     this.setUpdateMsg(u, entity);
     return entity;

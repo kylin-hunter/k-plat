@@ -24,6 +24,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import io.github.kylinhunter.plat.core.dao.mapper.SysUserConfigMapper;
 import io.github.kylinhunter.plat.core.service.local.SysUserConfigService;
 import io.github.kylinhunter.plat.core.service.local.interceptor.SysUserConfigDeleteInterceptor;
+import io.github.kylinhunter.plat.core.service.local.interceptor.SysUserConfigFindByIdInterceptor;
+import io.github.kylinhunter.plat.core.service.local.interceptor.SysUserConfigQueryInterceptor;
 import io.github.kylinhunter.plat.core.service.local.interceptor.SysUserConfigSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
@@ -37,19 +39,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserConfigServiceImp
     extends CommonServiceImpl<
-        SysUserConfigMapper,
-        SysUserConfig,
-        SysUserConfigReqCreate,
-        SysUserConfigReqUpdate,
-        SysUserConfigResp,
-        SysUserConfigVO,
-        SysUserConfigReqQuery>
+    SysUserConfigMapper,
+    SysUserConfig,
+    SysUserConfigReqCreate,
+    SysUserConfigReqUpdate,
+    SysUserConfigResp,
+    SysUserConfigVO,
+    SysUserConfigReqQuery>
     implements SysUserConfigService {
 
   public SysUserConfigServiceImp(
       SysUserConfigDeleteInterceptor sysUserConfigDeleteInterceptor,
-      SysUserConfigSaveOrUpdateInterceptor sysUserConfigSaveOrUpdateInterceptor) {
+      SysUserConfigSaveOrUpdateInterceptor sysUserConfigSaveOrUpdateInterceptor,
+      SysUserConfigFindByIdInterceptor sysUserConfigFindByIdInterceptor,
+      SysUserConfigQueryInterceptor sysUserConfigQueryInterceptor){
     this.deleteInterceptor = sysUserConfigDeleteInterceptor;
     this.saveOrUpdateInterceptor = sysUserConfigSaveOrUpdateInterceptor;
+    this.findByIdInterceptor = sysUserConfigFindByIdInterceptor;
+    this.queryInterceptor = sysUserConfigQueryInterceptor;
   }
+
 }
