@@ -1,6 +1,6 @@
 3、初始化分类
 4、去掉无用的初始化代码
 11、plat-server-storage的权限和数据库初始化
-
+12、利用bean直接读取整个配置 pepertic,减少 @Value
 
 

@@ -15,14 +15,15 @@
  */
 package io.github.kylinhunter.plat.web.config;
 
-import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.Env;
 import javax.annotation.PostConstruct;
 import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.stereotype.Component;
 
 /**
  * @description: 主要配置
@@ -33,7 +34,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @Slf4j
 @ToString
 @RefreshScope
-public class AppConfig {
+@ConfigurationProperties(prefix = "kplat")
+public class KplatConfig {
 
   @Value("${spring.application.name}")
   private String appName;
@@ -41,29 +43,23 @@ public class AppConfig {
   @Value("${server.port}")
   private String serverPort;
 
-  @Value("${kplat.devVersion:1.0.1}")
   private String devVersion;
 
-  @Value("${kplat.productVersion:1.0}")
   private String productVersion;
 
-  @Value("${kplat.logwatch.threshold:0}")
   private int logWatchThreshold;
 
-  @Value("${kplat.initialize.enabled:false}")
   private boolean initialize;
 
-  @Value("${kplat.env:RELEASE}")
-  private String envStr;
 
-  @Value("${kplat.debugEnabled:false}")
   private boolean debugEnabled;
 
-  private Env env;
+  private Env env = Env.RELEASE;
+
+  private long tokenExpireTime = 1800;
 
   @PostConstruct
   private void init() {
-    this.env = EnumUtils.fromName(Env.class, this.envStr);
     log.info("init config ok {}", this.toString());
   }
 }

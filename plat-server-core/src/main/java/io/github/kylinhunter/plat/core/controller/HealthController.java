@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.controller;
 
-import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class HealthController {
 
-  private final AppConfig appConfig;
+  private final KplatConfig kplatConfig;
 
   @RequestMapping(
       value = "/health",
@@ -41,7 +41,7 @@ public class HealthController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public String health() {
-    return "Hello  I'm plat-server-core , service in port:" + appConfig.getServerPort();
+    return "Hello  I'm plat-server-core , service in port:" + kplatConfig.getServerPort();
   }
 
   @RequestMapping(
@@ -50,6 +50,6 @@ public class HealthController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public String echo(@PathVariable String string) {
-    return "Hello  I'm plat-server-core , service in port:" + appConfig.getServerPort();
+    return "Hello  I'm plat-server-core , service in port:" + kplatConfig.getServerPort();
   }
 }

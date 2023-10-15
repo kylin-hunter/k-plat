@@ -17,9 +17,11 @@ package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
 import io.github.kylinhunter.plat.api.middleware.redis.RedisKey;
+import io.github.kylinhunter.plat.data.config.KPlatDataRedisConfig;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,21 +30,17 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.RedisScript;
 
+@RequiredArgsConstructor
 public class RedisService {
 
-  protected RedisTemplate<String, Object> redisTemplate;
+  protected final RedisTemplate<String, Object> redisTemplate;
 
-  @Value("${kplat.data.redis.name-space:kplat}")
-  private String namespace;
+  private final KPlatDataRedisConfig kplatDataRedisConfig;
 
-  public RedisService(RedisTemplate<String, Object> redisTemplate) {
-    super();
-    this.redisTemplate = redisTemplate;
-  }
 
   @PostConstruct
   private void init() {
-    RedisKey.setNamespace(namespace);
+    RedisKey.setNamespace(kplatDataRedisConfig.getNamespace());
   }
 
   /**

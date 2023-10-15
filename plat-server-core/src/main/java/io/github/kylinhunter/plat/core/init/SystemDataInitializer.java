@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.core.init;
 
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.init.initializer.Initializer;
-import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SystemDataInitializer {
 
-  private final AppConfig appConfig;
+  private final KplatConfig kplatConfig;
   private final TraceHolder traceHolder;
 
   private final Map<String, Initializer> initializers;
@@ -51,7 +51,7 @@ public class SystemDataInitializer {
 
   private boolean _init(boolean force) {
 
-    if (force || appConfig.isInitialize()) {
+    if (force || kplatConfig.isInitialize()) {
       TreeMap<Integer, Initializer> allIntializers =
           initializers.values().stream()
               .collect(

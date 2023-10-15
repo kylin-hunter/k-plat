@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.data.redis.configuration;
 
+import io.github.kylinhunter.plat.data.config.KPlatDataRedisConfig;
 import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +58,8 @@ import org.springframework.util.ReflectionUtils;
 @Configuration
 @ConditionalOnClass({Redisson.class, RedisOperations.class})
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@EnableConfigurationProperties({RedissonProperties.class, RedisProperties.class})
+@EnableConfigurationProperties({RedissonProperties.class, RedisProperties.class,
+    KPlatDataRedisConfig.class})
 public class RedissonAutoConfiguration {
 
   private static final String REDIS_PROTOCOL_PREFIX = "redis://";

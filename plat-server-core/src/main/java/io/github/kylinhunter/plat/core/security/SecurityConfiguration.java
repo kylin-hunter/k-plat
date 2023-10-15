@@ -26,6 +26,7 @@ import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -45,12 +46,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration {
 
   @Bean
-  public TokenService tokenService(
+  public TokenService tokenService(KplatConfig kplatConfig,
       JWTService jwtService,
       TraceHolder traceHolder,
       RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    return new TokenServiceImp(jwtService, traceHolder, redisService, tenantUserDetailsService);
+    return new TokenServiceImp(kplatConfig, jwtService, traceHolder, redisService,
+        tenantUserDetailsService);
   }
 
   @Bean

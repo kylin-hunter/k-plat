@@ -25,14 +25,13 @@ import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @author BiJi'an
@@ -47,15 +46,16 @@ public class TokenServiceImp extends DefaultTokenService {
 
   private final TenantUserDetailsService tenantUserDetailsService;
 
-  @Value("${kplat.token_expire_time:1800}")
-  private long tokenExpireTime;
+  private final KplatConfig kplatConfig;
 
   public TokenServiceImp(
+      KplatConfig kplatConfig,
       JWTService jwtService,
       TraceHolder traceHolder,
       RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
     super(jwtService);
+    this.kplatConfig = kplatConfig;
     this.traceHolder = traceHolder;
     this.redisService = redisService;
     this.tenantUserDetailsService = tenantUserDetailsService;
@@ -78,7 +78,7 @@ public class TokenServiceImp extends DefaultTokenService {
     token.setNickName(tokenUserDetails.getNickName());
     token.setRealName(tokenUserDetails.getRealName());
     token.setUserName(tokenUserDetails.getUsername());
-    token.setEffectiveTime(tokenExpireTime);
+    token.setEffectiveTime(kplatConfig.getTokenExpireTime());
 
     String tenantId = tokenUserDetails.getTenantId();
     if (!StringUtils.isEmpty(tenantId)) {
@@ -110,7 +110,7 @@ public class TokenServiceImp extends DefaultTokenService {
   @Override
   public String createTenantToken(ReqTenantToken reqTenantToken) {
     Token token = traceHolder.get().getVerifyToken();
-    token.setEffectiveTime(tokenExpireTime);
+    token.setEffectiveTime(kplatConfig.getTokenExpireTime());
     String tenantId = reqTenantToken.getTenantId();
     TokenUserDetails userDetails =
         tenantUserDetailsService.loadTenantUserByUsername(tenantId, token.getUserName());
@@ -166,7 +166,8 @@ public class TokenServiceImp extends DefaultTokenService {
   }
 
   private void setTokenEx(String userId, TokenEx tokenEx) {
-    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx, tokenExpireTime);
+    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx,
+        kplatConfig.getTokenExpireTime());
   }
 
   private TokenEx getPerCodes(String userId) {

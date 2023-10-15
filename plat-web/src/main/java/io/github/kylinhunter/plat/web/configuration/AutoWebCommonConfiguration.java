@@ -24,7 +24,7 @@ import io.github.kylinhunter.plat.web.aop.ControllerAspect;
 import io.github.kylinhunter.plat.web.aop.LogAspect;
 import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
 import io.github.kylinhunter.plat.web.auth.JWTService;
-import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.i18n.KplatLocaleResolver;
 import io.github.kylinhunter.plat.web.init.WebApplicationRunner;
@@ -39,6 +39,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,6 +53,7 @@ import org.springframework.web.servlet.LocaleResolver;
  */
 @Configuration
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
+@EnableConfigurationProperties(KplatConfig.class)
 public class AutoWebCommonConfiguration {
 
   @Bean // 将区域信息对象注册到容器
@@ -87,19 +89,15 @@ public class AutoWebCommonConfiguration {
     return new LogAspect();
   }
 
+
   @Bean
-  public AppConfig appConfig() {
-    return new AppConfig();
+  public TraceHolder traceHolder(KplatConfig kplatConfig) {
+    return new DefaultTraceHolder(kplatConfig);
   }
 
   @Bean
-  public TraceHolder traceHolder(AppConfig appConfig) {
-    return new DefaultTraceHolder(appConfig);
-  }
-
-  @Bean
-  public TimeCostAspect timeCostAspect(AppConfig appConfig, TraceHolder traceHolder) {
-    return new TimeCostAspect(appConfig, traceHolder);
+  public TimeCostAspect timeCostAspect(KplatConfig kplatConfig, TraceHolder traceHolder) {
+    return new TimeCostAspect(kplatConfig, traceHolder);
   }
 
   @Bean

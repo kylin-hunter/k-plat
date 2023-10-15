@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.core;
 
 import com.google.common.base.Charsets;
-import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -45,7 +45,7 @@ public class WelcomeLogoApplicationListener implements ApplicationListener<Appli
 
   private static final AtomicBoolean ATOMIC_BOOLEAN = new AtomicBoolean(false);
 
-  private final AppConfig appConfig;
+  private final KplatConfig kplatConfig;
 
   @Override
   public void onApplicationEvent(@Nonnull ApplicationReadyEvent event) {
@@ -86,12 +86,12 @@ public class WelcomeLogoApplicationListener implements ApplicationListener<Appli
           .append(SystemUtils.LINE_SEPARATOR)
           .append(" :: APP Dev Version::")
           .append("( ")
-          .append(appConfig.getDevVersion())
+          .append(kplatConfig.getDevVersion())
           .append(" )")
           .append(SystemUtils.LINE_SEPARATOR)
           .append(" :: APP Product Version::")
           .append("( ")
-          .append(appConfig.getProductVersion())
+          .append(kplatConfig.getProductVersion())
           .append(" )")
           .append(SystemUtils.LINE_SEPARATOR)
           .append(SystemUtils.LINE_SEPARATOR);

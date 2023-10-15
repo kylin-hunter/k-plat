@@ -19,7 +19,7 @@ import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.api.web.request.RequestConst;
-import io.github.kylinhunter.plat.web.config.AppConfig;
+import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.log.LogHelper;
 import io.github.kylinhunter.plat.web.request.RequestUtils;
@@ -37,7 +37,7 @@ import org.apache.commons.lang3.StringUtils;
 @RequiredArgsConstructor
 public class DefaultTraceHolder implements TraceHolder {
 
-  private final AppConfig appConfig;
+  private final KplatConfig kplatConfig;
   private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
 
   @Override
@@ -83,7 +83,7 @@ public class DefaultTraceHolder implements TraceHolder {
     String token = getToken(request);
     Trace trace = new DefaultTrace(traceId, token);
     TraceExplain explain = trace.getExplain();
-    if (appConfig.isDebugEnabled() && RequestUtils.isDebug(request)) {
+    if (kplatConfig.isDebugEnabled() && RequestUtils.isDebug(request)) {
       trace.setDebug(true);
       explain.setHeaders(RequestUtils.getHeaders(request));
       explain.setCookies(RequestUtils.getCookies(request));

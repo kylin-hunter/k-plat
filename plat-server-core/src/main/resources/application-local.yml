@@ -16,5 +16,4 @@ spring:
         namespace: local
 
 kplat:
-  debugEnabled: true
   env: LOCAL
