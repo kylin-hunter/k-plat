@@ -44,6 +44,7 @@ public class UserReqCreate extends ReqCreate implements UserVO {
   private String userName;
 
   @ApiModelProperty(value = "password")
+  @NotBlank
   private String password;
 
   @ApiModelProperty(value = "source")

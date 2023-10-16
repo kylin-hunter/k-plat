@@ -1,8 +1,4 @@
 3、初始化分类
 4、去掉无用的初始化代码
-11、plat-server-storage的权限和数据库初始化
-1、弱密码不安全
-2、两个 WebMvcEndpointHandlerMapping h好好安置
-   可能 io.springfox:springfox-boot-starter:3.0.0放到plat-web里面就可以解决
-
-
+4、Duplicate一次不好看
+1、WeakPassChecker和PasswordEncoder合并的可能性

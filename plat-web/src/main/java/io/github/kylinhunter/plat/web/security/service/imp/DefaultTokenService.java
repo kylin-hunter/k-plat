@@ -15,9 +15,14 @@
  */
 package io.github.kylinhunter.plat.web.security.service.imp;
 
+import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
+import io.github.kylinhunter.plat.api.auth.TokenEx;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
+import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
@@ -38,6 +43,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 public class DefaultTokenService implements TokenService {
 
   protected final JWTService jwtService;
+  protected final RedisService redisService;
 
   @Override
   public String createToken(TokenUserDetails tokenUserDetails) {
@@ -63,7 +69,7 @@ public class DefaultTokenService implements TokenService {
 
   @Override
   public Token invalidToken() {
-    return new Token();
+    throw new AuthException("no implement");
 
   }
 
@@ -77,6 +83,30 @@ public class DefaultTokenService implements TokenService {
    */
   public TokenUserDetails verify(String token) {
     VerifyToken verifyToken = jwtService.verify(token);
-    return new TokenUserDetails(verifyToken, Collections.emptySet());
+    UserType userType = EnumUtils.fromCode(UserType.class, verifyToken.getUserType());
+    TokenEx tokenEx;
+
+    if (userType == UserType.USER || userType == UserType.SUPER_ADMIN) {
+      tokenEx = getTokenEx(verifyToken.getUserId());
+    } else {
+      tokenEx = getTokenEx(verifyToken.getTenantUserId());
+    }
+    if (tokenEx == null) {
+      throw new AuthException("token expired or logout");
+    }
+
+    return new TokenUserDetails(verifyToken, tokenEx.getPemCodes());
+  }
+
+  protected TokenEx getTokenEx(String userId) {
+    return redisService.get(RedisKeys.AUTH_USER_PERMS.key(userId));
+  }
+
+
+
+
+  protected void removeTokenEx(Token token) {
+    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getUserId()));
+    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getTenantUserId()));
   }
 }

@@ -52,6 +52,7 @@ kplat:
   devVersion: 1.0.1
   productVersion: 1.0
   logWatchThreshold: 0
+  tokenExpireTime: 86400
   data:
     redis:
       name-space: kplat

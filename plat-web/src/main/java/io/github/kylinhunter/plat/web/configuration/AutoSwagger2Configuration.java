@@ -106,7 +106,7 @@ public class AutoSwagger2Configuration {
    * @author BiJi'an
    * @date 2023-10-15 01:15
    */
-//  @Bean
+  @Bean
   public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
       WebEndpointsSupplier webEndpointsSupplier,
       ServletEndpointsSupplier servletEndpointsSupplier,

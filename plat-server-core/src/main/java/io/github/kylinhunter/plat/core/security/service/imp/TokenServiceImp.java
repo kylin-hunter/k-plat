@@ -15,18 +15,15 @@
  */
 package io.github.kylinhunter.plat.core.security.service.imp;
 
-import io.github.kylinhunter.commons.lang.EnumUtils;
 import io.github.kylinhunter.plat.api.auth.Token;
 import io.github.kylinhunter.plat.api.auth.TokenEx;
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.bean.vo.ReqTenantToken;
-import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.api.module.core.redis.RedisKeys;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
-import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
@@ -42,7 +39,6 @@ import org.apache.commons.lang3.StringUtils;
 public class TokenServiceImp extends DefaultTokenService {
 
   private final TraceHolder traceHolder;
-  private final RedisService redisService;
 
   private final TenantUserDetailsService tenantUserDetailsService;
 
@@ -54,10 +50,9 @@ public class TokenServiceImp extends DefaultTokenService {
       TraceHolder traceHolder,
       RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    super(jwtService);
+    super(jwtService, redisService);
     this.kplatConfig = kplatConfig;
     this.traceHolder = traceHolder;
-    this.redisService = redisService;
     this.tenantUserDetailsService = tenantUserDetailsService;
   }
 
@@ -132,50 +127,26 @@ public class TokenServiceImp extends DefaultTokenService {
     String token = traceHolder.get().getToken();
     if (StringUtils.isNotBlank(token)) {
       VerifyToken verifyToken = jwtService.verify(token);
-      removePerCodes(verifyToken);
+      removeTokenEx(verifyToken);
       return verifyToken;
     } else {
       return null;
     }
-
   }
 
   /**
-   * @param token token
-   * @return io.github.kylinhunter.plat.core.service.local.security.bean.TokenUserDetails
-   * @title verify
-   * @description verify
+   * @param userId  userId
+   * @param tokenEx tokenEx
+   * @return void
+   * @throws
+   * @title setTokenEx
+   * @description setTokenEx
    * @author BiJi'an
-   * @date 2023-10-02 00:30
+   * @date 2023-10-16 10:55
    */
-  public TokenUserDetails verify(String token) {
-    VerifyToken verifyToken = jwtService.verify(token);
-    UserType userType = EnumUtils.fromCode(UserType.class, verifyToken.getUserType());
-    TokenEx tokenEx;
-
-    if (userType == UserType.USER || userType == UserType.SUPER_ADMIN) {
-      tokenEx = getPerCodes(verifyToken.getUserId());
-    } else {
-      tokenEx = getPerCodes(verifyToken.getTenantUserId());
-    }
-    if (tokenEx == null) {
-      throw new AuthException("token expired or logout");
-    }
-
-    return new TokenUserDetails(verifyToken, tokenEx.getPemCodes());
-  }
-
-  private void setTokenEx(String userId, TokenEx tokenEx) {
+  protected void setTokenEx(String userId, TokenEx tokenEx) {
     redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx,
         kplatConfig.getTokenExpireTime());
   }
 
-  private TokenEx getPerCodes(String userId) {
-    return redisService.get(RedisKeys.AUTH_USER_PERMS.key(userId));
-  }
-
-  private void removePerCodes(Token token) {
-    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getUserId()));
-    redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getTenantUserId()));
-  }
 }

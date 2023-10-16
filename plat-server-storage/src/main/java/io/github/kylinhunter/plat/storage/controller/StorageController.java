@@ -20,6 +20,7 @@ import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,8 +42,8 @@ public class StorageController extends CommonController {
 
   private final StorageService storageService;
 
-  @ApiOperation(value = "needUpload", notes = "上传")
-  @PostMapping(value = "/upload")
+  @ApiOperation(value = "upload", notes = "上传")
+  @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
   String upload(@RequestParam(value = "file") final MultipartFile multipartFile) throws Exception {
     return storageService.upload(multipartFile);
   }

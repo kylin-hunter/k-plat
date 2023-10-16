@@ -26,6 +26,8 @@ dependencies {
 
     api('io.micrometer:micrometer-registry-prometheus')
     api(rootProject.dependency_management['java-jwt'])
+    api("io.springfox:springfox-boot-starter:3.0.0")
+
 
 
 }

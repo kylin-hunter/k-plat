@@ -58,11 +58,11 @@ public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityCon
         .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_download"));
 
     urlRegistry
-        .antMatchers(HttpMethod.GET, "/api/v1/storage/exist")
+        .antMatchers(HttpMethod.GET, "/api/v1/storage/exists")
         .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_exist"));
 
     urlRegistry
-        .antMatchers(HttpMethod.POST, "/api/v1/storage/delete")
+        .antMatchers(HttpMethod.DELETE, "/api/v1/storage/delete")
         .hasAnyAuthority(ArrayUtils.add(defaultAuthorities, "storage_delete"));
     return urlRegistry;
   }

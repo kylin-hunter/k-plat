@@ -13,6 +13,8 @@ spring:
     validate-on-migrate: true
     # 迁移时发现目标schema非空，而且带有没有元数据的表时，是否自动执行基准迁移，默认false.
     baseline-on-migrate: true
+    locations: "classpath:db/migration-core"
+    table: flyway_schema_history_core
 logging:
   level:
     org.springframework.transaction: debug
@@ -21,3 +23,4 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+

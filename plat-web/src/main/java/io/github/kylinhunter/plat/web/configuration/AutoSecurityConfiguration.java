@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.configuration;
 
+import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
@@ -42,8 +43,8 @@ public class AutoSecurityConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(TokenService.class)
-  public TokenService tokenService(JWTService jwtService) {
-    return new DefaultTokenService(jwtService);
+  public TokenService tokenService(JWTService jwtService, RedisService redisService) {
+    return new DefaultTokenService(jwtService, redisService);
   }
 
   @Bean

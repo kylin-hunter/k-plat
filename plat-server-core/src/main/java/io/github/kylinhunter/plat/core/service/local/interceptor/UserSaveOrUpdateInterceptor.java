@@ -23,10 +23,12 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
+import io.github.kylinhunter.plat.core.security.password.WeakPassChecker;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.web.auth.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -40,6 +42,9 @@ public class UserSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
     User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
+  private final PasswordEncoder passwordEncoder;
+
+  private final WeakPassChecker weakPassChecker;
 
   @Override
   public void saveOrUpdateBefore(UserVO vo, User entity) {
@@ -51,9 +56,13 @@ public class UserSaveOrUpdateInterceptor
 
     String password = vo.getPassword();
     if (!StringUtils.isEmpty(password)) {
-      vo.setPassword(PasswordUtil.encode(password));
+      boolean weak = weakPassChecker.isWeak(password);
+      if (weak) {
+        throw new ParamException("invalid password");
+      }
+      vo.setPassword(passwordEncoder.encode(password));
     } else {
-      throw new ParamException("invalid password");
+      throw new ParamException(" password can't be empty");
     }
 
 

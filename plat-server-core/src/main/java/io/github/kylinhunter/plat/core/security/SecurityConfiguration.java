@@ -16,6 +16,8 @@
 package io.github.kylinhunter.plat.core.security;
 
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.core.security.password.WeakPassChecker;
+import io.github.kylinhunter.plat.core.security.password.WeakPassOption;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
@@ -87,5 +89,12 @@ public class SecurityConfiguration {
         tenantUserService,
         tenantRoleService,
         redisService);
+  }
+
+  @Bean
+  public WeakPassChecker weakPassChecker() {
+    WeakPassOption weakPassOption = WeakPassOption.builder().build();
+    WeakPassChecker weakPassChecker = new WeakPassChecker(weakPassOption);
+    return weakPassChecker;
   }
 }
