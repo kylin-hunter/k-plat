@@ -2,6 +2,7 @@ package io.github.kylinhunter.plat.web.auth;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.kylinhunter.commons.tools.WeakPasswordChecker;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
