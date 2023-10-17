@@ -23,9 +23,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
 import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
-import io.github.kylinhunter.plat.core.security.password.WeakPassChecker;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.web.auth.PasswordUtil;
+import io.github.kylinhunter.plat.web.auth.PasswordManager;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,7 +43,7 @@ public class UserSaveOrUpdateInterceptor
 
   private final PasswordEncoder passwordEncoder;
 
-  private final WeakPassChecker weakPassChecker;
+  private final PasswordManager passwordManager;
 
   @Override
   public void saveOrUpdateBefore(UserVO vo, User entity) {
@@ -56,7 +55,7 @@ public class UserSaveOrUpdateInterceptor
 
     String password = vo.getPassword();
     if (!StringUtils.isEmpty(password)) {
-      boolean weak = weakPassChecker.isWeak(password);
+      boolean weak = passwordManager.isWeak(password);
       if (weak) {
         throw new ParamException("invalid password");
       }

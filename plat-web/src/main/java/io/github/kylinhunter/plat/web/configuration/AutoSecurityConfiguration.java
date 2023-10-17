@@ -15,8 +15,11 @@
  */
 package io.github.kylinhunter.plat.web.configuration;
 
+import io.github.kylinhunter.commons.tools.WeakPasswordChecker;
+import io.github.kylinhunter.commons.tools.WeakPasswordChecker.WeakPassOption;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
+import io.github.kylinhunter.plat.web.auth.PasswordManager;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import io.github.kylinhunter.plat.web.security.service.imp.DefaultTokenService;
@@ -57,5 +60,19 @@ public class AutoSecurityConfiguration {
   @ConditionalOnMissingBean(UserDetailsService.class)
   public TenantUserDetailsService tenantUserDetailsService() {
     return new DefaultUserDetailsService();
+  }
+
+
+  @Bean
+  public WeakPasswordChecker weakPassChecker() {
+    WeakPassOption weakPassOption = WeakPassOption.builder().build();
+    WeakPasswordChecker weakPasswordChecker = new WeakPasswordChecker(weakPassOption);
+    return weakPasswordChecker;
+  }
+
+  @Bean
+  public PasswordManager passwordManager(PasswordEncoder passwordEncoder,
+      WeakPasswordChecker weakPasswordChecker) {
+    return new PasswordManager(passwordEncoder, weakPasswordChecker);
   }
 }
