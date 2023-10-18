@@ -56,5 +56,5 @@ public interface TenantCatalogService
 
   TenantCatalogRespTree tree(int type);
 
-  void init(List<TenantCatalogReqInit> tenantCatalogReqInits);
+  void init(TenantCatalogReqInit tenantCatalogReqInit);
 }

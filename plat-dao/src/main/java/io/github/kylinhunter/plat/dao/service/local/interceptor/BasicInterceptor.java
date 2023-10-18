@@ -66,11 +66,11 @@ public class BasicInterceptor<
   }
 
 
-  protected static void setUpdateMsg(Req req, BaseEntity entity) {
+  public static void setUpdateMsg(Req req, BaseEntity entity) {
     setUpdateMsg(entity);
   }
 
-  protected static void setUpdateMsg(BaseEntity entity) {
+  public static void setUpdateMsg(BaseEntity entity) {
     UserContext userContext = TraceHolder.get().getUserContext();
 
     entity.setSysUpdateUserId(userContext.getUserId());

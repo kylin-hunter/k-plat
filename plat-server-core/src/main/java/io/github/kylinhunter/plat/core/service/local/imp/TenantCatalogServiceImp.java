@@ -133,8 +133,8 @@ public class TenantCatalogServiceImp
   }
 
   @Override
-  public void init(List<TenantCatalogReqInit> tenantCatalogReqInits) {
-    this.complexComponent.init(tenantCatalogReqInits);
+  public void init(TenantCatalogReqInit tenantCatalogReqInit) {
+    this.complexComponent.init(tenantCatalogReqInit);
   }
 
 }

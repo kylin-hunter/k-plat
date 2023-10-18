@@ -20,6 +20,6 @@ public class TenantCatalogReqInit {
   String name;
   int level = 0;
   int type = TenantCatalogType.DEFAULT.getCode();
-  String parentCode = "0";
+  String parentCode;
   List<TenantCatalogReqInit> children;
 }

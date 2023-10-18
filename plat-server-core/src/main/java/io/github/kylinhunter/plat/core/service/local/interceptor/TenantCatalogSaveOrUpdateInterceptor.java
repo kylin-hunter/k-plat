@@ -22,8 +22,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
+import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
-import io.github.kylinhunter.plat.core.init.initializer.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -50,7 +50,7 @@ public class TenantCatalogSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(TenantCatalogVO vo, TenantCatalog entity) {
     super.saveOrUpdateBefore(vo, entity);
     String code = vo.getCode();
-    if (DefaultTenantCatalogs.DEFAULT_CODE.equals(code)) {
+    if (DefaultTenantCatalogs.ROOT_CODE.equals(code)) {
       vo.setLevel(0);
       vo.setPath("0");
       vo.setStatus(0);

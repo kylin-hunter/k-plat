@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.core.init.initializer;
+package io.github.kylinhunter.plat.api.module.core.constants.init;
 
 /**
  * @author BiJi'an

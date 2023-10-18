@@ -16,20 +16,19 @@
 package io.github.kylinhunter.plat.core.controller;
 
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqInit;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqInit;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
+import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
 import io.github.kylinhunter.plat.core.service.local.TenantCatalogService;
-import io.github.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,15 +62,16 @@ public class TenantCatalogController
   @ApiOperation("tree获取全部数据")
   public DefaultResponse<TenantCatalogRespTree> tree() {
 
-    return new DefaultResponse<>(this.service.tree(TenantSaveOrUpdateInterceptor.DEFAULT_TYPE));
+    return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
   }
 
   @RequestMapping(value = "/init", method = RequestMethod.POST)
   @ResponseBody
   @ApiOperation("tree获取全部数据")
-  public DefaultResponse<TenantCatalogRespTree> init(@RequestBody @Validated List<TenantCatalogReqInit> tenantCatalogReqInits) {
-    this.service.init(tenantCatalogReqInits);
+  public DefaultResponse<TenantCatalogRespTree> init(
+      @RequestBody @Validated TenantCatalogReqInit tenantCatalogReqInit) {
+    this.service.init(tenantCatalogReqInit);
 
-    return new DefaultResponse<>(this.service.tree(TenantSaveOrUpdateInterceptor.DEFAULT_TYPE));
+    return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
   }
 }

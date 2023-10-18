@@ -22,7 +22,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
-import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
+import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultUsers;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.web.auth.PasswordManager;
 import lombok.RequiredArgsConstructor;

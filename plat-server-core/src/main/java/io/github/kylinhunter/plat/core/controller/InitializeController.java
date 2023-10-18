@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.core.controller;
 
-import io.github.kylinhunter.plat.core.init.SystemDataInitializer;
+import io.github.kylinhunter.plat.core.init.initializer.SystemDataInitializer;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.Response;
 import io.swagger.annotations.Api;

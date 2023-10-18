@@ -18,19 +18,16 @@ package io.github.kylinhunter.plat.core.service.local.interceptor;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
+import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
+import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.web.auth.PasswordManager;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,8 +41,7 @@ public class TenantSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
     Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
 
-  public static final String DEFAULT_CODE = "default";
-  public static final int DEFAULT_TYPE = 0;
+
   private final TenantCatalogMapper tenantCatalogMapper;
 
   @Override
@@ -53,18 +49,18 @@ public class TenantSaveOrUpdateInterceptor
     TenantResp tenantResp = super.after(tenantReqCreate, enity, response);
 
     TenantCatalog tenantCatalog = new TenantCatalog();
-    tenantCatalog.setType(DEFAULT_TYPE);
-    tenantCatalog.setCode(DEFAULT_CODE);
-    tenantCatalog.setName(DEFAULT_CODE);
+    tenantCatalog.setType(TenantCatalogType.DEFAULT.getCode());
+    tenantCatalog.setCode(DefaultTenantCatalogs.ROOT_CODE);
+    tenantCatalog.setName(DefaultTenantCatalogs.ROOT_CODE);
     tenantCatalog.setStatus(0);
 
     tenantCatalog.setLevel(0);
     tenantCatalog.setPath("0");
     tenantCatalog.setParentId("0");
-    tenantCatalog.setDescription(DEFAULT_CODE);
-    this.setCreateMsg((BaseEntity)tenantCatalog);
+    tenantCatalog.setDescription(DefaultTenantCatalogs.ROOT_CODE);
+    this.setCreateMsg((BaseEntity) tenantCatalog);
     tenantCatalog.setSysTenantId(enity.getId());
-     tenantCatalogMapper.insert(tenantCatalog);
+    tenantCatalogMapper.insert(tenantCatalog);
     return tenantResp;
   }
 }

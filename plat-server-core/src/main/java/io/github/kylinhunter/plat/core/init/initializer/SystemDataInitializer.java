@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.core.init;
+package io.github.kylinhunter.plat.core.init.initializer;
 
-import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
-import io.github.kylinhunter.plat.api.auth.context.UserContext;
-import io.github.kylinhunter.plat.api.bean.vo.query.ReqById;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
-import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
+import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultUsers;
 import io.github.kylinhunter.plat.core.init.initializer.Initializer;
 import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
