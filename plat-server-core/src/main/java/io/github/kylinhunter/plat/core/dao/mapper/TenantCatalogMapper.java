@@ -15,7 +15,10 @@
  */
 package io.github.kylinhunter.plat.core.dao.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,9 +36,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
 
-  @Select(
-      "SELECT *  FROM  kplat_tenant_catalog  WHERE"
-          + "  parent_id = #{parentId} "
-          + " and sys_delete_flag=0 ")
+  @Select("SELECT *  FROM  kplat_tenant_catalog  "
+      + "WHERE  parent_id = #{parentId}  and sys_delete_flag=0 ")
   List<TenantCatalog> selectByParentId(@Param("parentId") String parentId);
+
+
+  @Select("SELECT *  FROM  kplat_tenant_catalog  "
+      + "WHERE sys_tenant_id = #{tenantId} and type = #{type} and code = #{code} and sys_delete_flag=0 ")
+  TenantCatalog findByCode(@Param("tenantId") String tenantId, @Param("type") int type,
+      @Param("code") String code);
+
+
+  @Select("SELECT *  FROM  kplat_tenant_catalog  "
+      + "WHERE sys_tenant_id = #{tenantId} and type = #{type}  and sys_delete_flag=0 order by level asc ")
+  List<TenantCatalog> findByType(@Param("tenantId") String tenantId, @Param("type") int type);
+
 }

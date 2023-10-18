@@ -13,13 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.bean.vo;
+package io.github.kylinhunter.plat.api.module.core.constants;
 
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
+import io.github.kylinhunter.commons.lang.EnumUtils;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public interface VO {
+/**
+ * @author BiJi'an
+ * @description
+ * @date 2022-01-07 16:34
+ */
+@Getter
+@RequiredArgsConstructor
+public enum TenantCatalogType implements EnumUtils.EnumCode {
+  DEFAULT(0, "DEFAULT");
+  private final int code;
+  private final String name;
 
-  VoType getVoType();
-
-  String getId();
 }

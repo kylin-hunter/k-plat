@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "TenantCatalogResp", description = "TenantCatalogResp")
-public class TenantCatalogTree extends Resp {
+public class TenantCatalogRespTree extends Resp {
 
   @ApiModelProperty(value = "code")
   private String code;
@@ -58,9 +58,9 @@ public class TenantCatalogTree extends Resp {
   @ApiModelProperty(value = "status")
   private Integer status;
 
-  private List<TenantCatalogTree> children;
+  private List<TenantCatalogRespTree> children;
 
-  public void addChild(TenantCatalogTree child) {
+  public void addChild(TenantCatalogRespTree child) {
     if (children == null) {
       children = new ArrayList<>();
     }

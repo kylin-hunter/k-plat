@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.github.kylinhunter.commons.date.DatePatterns;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.aop.ControllerAspect;
 import io.github.kylinhunter.plat.web.aop.LogAspect;
 import io.github.kylinhunter.plat.web.aop.TimeCostAspect;
@@ -33,8 +32,8 @@ import io.github.kylinhunter.plat.web.request.WebDataBinderConfig;
 import io.github.kylinhunter.plat.web.response.ResponseAdvice;
 import io.github.kylinhunter.plat.web.response.ResponseService;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import io.github.kylinhunter.plat.web.trace.DefaultTraceHolder;
 import io.github.kylinhunter.plat.web.trace.TraceFilter;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import java.time.format.DateTimeFormatter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -91,13 +90,13 @@ public class AutoWebCommonConfiguration {
 
 
   @Bean
-  public TraceHolder traceHolder(KplatConfig kplatConfig) {
-    return new DefaultTraceHolder(kplatConfig);
+  public WebTraceHolder traceHolder(KplatConfig kplatConfig) {
+    return new WebTraceHolder(kplatConfig.isDebugEnabled());
   }
 
   @Bean
-  public TimeCostAspect timeCostAspect(KplatConfig kplatConfig, TraceHolder traceHolder) {
-    return new TimeCostAspect(kplatConfig, traceHolder);
+  public TimeCostAspect timeCostAspect(KplatConfig kplatConfig) {
+    return new TimeCostAspect(kplatConfig);
   }
 
   @Bean
@@ -111,13 +110,13 @@ public class AutoWebCommonConfiguration {
   }
 
   @Bean
-  public TenantHandlerInterceptor tenantHandlerInterceptor(TraceHolder traceHolder) {
-    return new TenantHandlerInterceptor(traceHolder);
+  public TenantHandlerInterceptor tenantHandlerInterceptor() {
+    return new TenantHandlerInterceptor();
   }
 
   @Bean
-  public ResponseService responseService(TraceHolder traceHolder) {
-    return new ResponseService(traceHolder);
+  public ResponseService responseService() {
+    return new ResponseService();
   }
 
   @Bean
@@ -132,13 +131,13 @@ public class AutoWebCommonConfiguration {
   }
 
   @Bean
-  public TraceFilter traceFilter(TraceHolder traceHolder) {
-    return new TraceFilter(traceHolder);
+  public TraceFilter traceFilter(WebTraceHolder webTraceHolder) {
+    return new TraceFilter(webTraceHolder);
   }
 
   @Bean
-  public ResponseAdvice responseAdvice(TraceHolder traceHolder) {
-    return new ResponseAdvice(traceHolder);
+  public ResponseAdvice responseAdvice() {
+    return new ResponseAdvice();
   }
 
   @Bean

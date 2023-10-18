@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.web.configuration;
 
 import feign.codec.ErrorDecoder;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.exception.WebException;
 import io.github.kylinhunter.plat.web.feign.FeignComponent;
@@ -69,7 +68,7 @@ public class AutoFeignConfiguration {
   }
 
   @Bean
-  public FeignTokenInterceptor feignTokenInterceptor(TraceHolder traceHolder) {
-    return new FeignTokenInterceptor(traceHolder);
+  public FeignTokenInterceptor feignTokenInterceptor() {
+    return new FeignTokenInterceptor();
   }
 }

@@ -9,3 +9,6 @@ INSERT INTO kp.kplat_tenant (id, sys_tenant_id, sys_auto_updated, sys_created_us
                              code, name, type, status, description)
 VALUES ('1', '', CURRENT_TIMESTAMP, '1', 'admin', CURRENT_TIMESTAMP, '1', 'admin',
         CURRENT_TIMESTAMP, 0, null, 'default', '默认租户', 1, 0, '系统初始化');
+
+
+

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace.explain;
+package io.github.kylinhunter.plat.api.trace.explain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Maps;
@@ -50,6 +50,7 @@ public class DefaultTraceExplain implements TraceExplain {
   @Override
   public void costStart(String key) {
     costs.put(key, System.currentTimeMillis());
+
   }
 
   @Override

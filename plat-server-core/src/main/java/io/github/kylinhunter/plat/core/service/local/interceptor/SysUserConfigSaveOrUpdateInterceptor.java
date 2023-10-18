@@ -23,6 +23,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -47,7 +48,7 @@ public class SysUserConfigSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(SysUserConfigVO vo, SysUserConfig entity) {
     super.saveOrUpdateBefore(vo, entity);
     if (vo.getVoType() == VoType.CREATE) {
-      UserContext userContext = traceHolder.get().getUserContext();
+      UserContext userContext = TraceHolder.get().getUserContext();
       vo.setUserId(userContext.getUserId());
     } else {
       this.checkSelfUser(entity.getUserId());

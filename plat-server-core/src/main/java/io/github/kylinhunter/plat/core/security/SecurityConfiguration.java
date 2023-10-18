@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.core.security;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.core.service.local.RoleService;
@@ -47,11 +46,9 @@ public class SecurityConfiguration {
 
   @Bean
   public TokenService tokenService(KplatConfig kplatConfig,
-      JWTService jwtService,
-      TraceHolder traceHolder,
-      RedisService redisService,
+      JWTService jwtService, RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    return new TokenServiceImp(kplatConfig, jwtService, traceHolder, redisService,
+    return new TokenServiceImp(kplatConfig, jwtService, redisService,
         tenantUserDetailsService);
   }
 

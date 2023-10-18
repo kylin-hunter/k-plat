@@ -17,8 +17,8 @@ package io.github.kylinhunter.plat.web.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.api.web.request.RequestConst;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,12 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class FeignTokenInterceptor implements RequestInterceptor {
-  private final TraceHolder traceHolder;
 
   @Override
   public void apply(RequestTemplate requestTemplate) {
 
-    String feignToken = RequestConst.BEARER + traceHolder.get().getVerifyToken().getToken();
+    String feignToken = RequestConst.BEARER + WebTraceHolder.get().getVerifyToken().getToken();
 
     requestTemplate.header(RequestConst.HEADER_AUTH, feignToken);
   }

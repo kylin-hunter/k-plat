@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.aop;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -36,7 +35,6 @@ import org.springframework.web.util.UrlPathHelper;
 @Order(Integer.MAX_VALUE)
 public class LogAspect extends HandlerInterceptorAdapter {
 
-  @Autowired private TraceHolder traceHolder;
 
   private UrlPathHelper urlPathHelper = new UrlPathHelper();
 

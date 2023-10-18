@@ -16,8 +16,8 @@
 package io.github.kylinhunter.plat.web.aop;
 
 import io.github.kylinhunter.plat.api.trace.Trace;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -37,7 +37,6 @@ import org.aspectj.lang.annotation.Pointcut;
 @RequiredArgsConstructor
 public class TimeCostAspect {
   public final KplatConfig kplatConfig;
-  private final TraceHolder traceHolder;
 
   @Pointcut("execution(* io.github.kylinhunter.plat..*Controller.*(..))")
   private void logController() {}
@@ -56,7 +55,8 @@ public class TimeCostAspect {
     long startTime = System.currentTimeMillis();
     Object obj = pjp.proceed();
     long cost = System.currentTimeMillis() - startTime;
-    Trace trace = traceHolder.get();
+
+    Trace trace = WebTraceHolder.get();
     if (cost > kplatConfig.getLogWatchThreshold() || trace.isDebug()) {
       log.info("process {}.{} with cost:{}ms", className, methodName, cost);
     }

@@ -17,8 +17,8 @@ package io.github.kylinhunter.plat.web.response;
 
 import io.github.kylinhunter.commons.exception.ExceptionHelper;
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.i18n.I18nUtils;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 public class ResponseService {
-
-  private final TraceHolder traceHolder;
 
   /**
    * @param e
@@ -52,7 +50,7 @@ public class ResponseService {
     } else {
       response.setMsg(ExceptionHelper.getMessage(e, debug, 1000));
     }
-    response.setTrace(traceHolder.get());
+    response.setTrace(WebTraceHolder.get());
 
     return response;
   }

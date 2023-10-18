@@ -79,7 +79,7 @@ public class SaveOrUpdateInterceptor<
     }
     saveOrUpdateBefore((V) c,entity);
     BeanCopyUtils.copyProperties(c, entity, createSkipProperties);
-    this.setCreateMsg(c, entity);
+    setCreateMsg(c, entity);
     return entity;
   }
 

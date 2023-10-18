@@ -10,6 +10,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import io.github.kylinhunter.plat.api.module.core.constants.SysUserConfigCols;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.FindByIdInterceptor;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ public class SysUserConfigFindByIdInterceptor extends FindByIdInterceptor<
   @Override
   public QueryWrapper<SysUserConfig> before(ReqById reqById, boolean tenantSupported) {
     QueryWrapper<SysUserConfig> queryWrapper = super.before(reqById, tenantSupported);
-    queryWrapper.eq(SysUserConfigCols.USER_ID, traceHolder.get().getUserContext().getUserId());
+    queryWrapper.eq(SysUserConfigCols.USER_ID, TraceHolder.get().getUserContext().getUserId());
     return queryWrapper;
 
   }
@@ -39,7 +40,7 @@ public class SysUserConfigFindByIdInterceptor extends FindByIdInterceptor<
   public QueryWrapper<SysUserConfig> before(ReqByIds reqByIds, boolean tenantSupported) {
 
     QueryWrapper<SysUserConfig> queryWrapper = super.before(reqByIds, tenantSupported);
-    queryWrapper.eq(SysUserConfigCols.USER_ID, traceHolder.get().getUserContext().getUserId());
+    queryWrapper.eq(SysUserConfigCols.USER_ID, TraceHolder.get().getUserContext().getUserId());
     return queryWrapper;
   }
 }

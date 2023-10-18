@@ -45,8 +45,6 @@ import org.springframework.web.bind.annotation.RestController;
 @EqualsAndHashCode(callSuper = false)
 @RequestMapping("/auth")
 public class AuthController extends CommonController {
-
-  private final TraceHolder traceHolder;
   private final TokenService tokenService;
 
   @PostMapping(value = "/tenant_login")
@@ -61,7 +59,7 @@ public class AuthController extends CommonController {
   public DefaultResponse<String> verify(
       HttpServletRequest request, @RequestParam(name = "token", required = false) String token) {
     if (StringUtils.isEmpty(token)) {
-      token = traceHolder.get().getToken();
+      token = TraceHolder.get().getToken();
     }
     return new DefaultResponse(tokenService.verify(token));
   }

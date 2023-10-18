@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -39,7 +38,7 @@ import org.springframework.core.annotation.Order;
 @RequiredArgsConstructor
 public class TraceFilter implements Filter {
 
-  private final TraceHolder traceHolder;
+  private final WebTraceHolder webTraceHolder;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {}
@@ -51,10 +50,10 @@ public class TraceFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
 
     try {
-      traceHolder.create(request);
+      webTraceHolder.create(request);
       chain.doFilter(servletRequest, servletResponse);
     } finally {
-      traceHolder.remove();
+      webTraceHolder.remove();
     }
   }
 

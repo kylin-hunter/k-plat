@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.security;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.error.DefaultAuthenticationEntryPoint;
@@ -37,7 +36,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 /**
  * @author BiJi'an
@@ -53,8 +51,6 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
   @Autowired
   protected PasswordEncoder passwordEncoder;
 
-  @Autowired
-  protected TraceHolder traceHolder;
   @Autowired
   protected ResponseWriter responseWriter;
 
@@ -108,11 +104,11 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
 
         .addFilterBefore(
             new JwtLoginFilter(
-                authenticationManagerBean(), tokenService, responseWriter, traceHolder),
+                authenticationManagerBean(), tokenService, responseWriter),
             UsernamePasswordAuthenticationFilter.class)
         .addFilter(
             new JwtVerifyFilter(
-                authenticationManagerBean(), traceHolder, tokenService, responseWriter))
+                authenticationManagerBean(), tokenService, responseWriter))
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()

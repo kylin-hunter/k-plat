@@ -24,6 +24,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQue
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -48,7 +49,7 @@ public class TenantUserConfigSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(TenantUserConfigVO vo, TenantUserConfig entity) {
     super.saveOrUpdateBefore(vo, entity);
     if (vo.getVoType() == VoType.CREATE) {
-      UserContext userContext = traceHolder.get().getUserContext();
+      UserContext userContext = TraceHolder.get().getUserContext();
       vo.setUserId(userContext.getUserId());
     } else {
       this.checkSelfUser(entity.getUserId());

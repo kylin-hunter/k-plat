@@ -25,6 +25,7 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,12 +45,14 @@ public class BasicInterceptor<
     V extends VO,
     Q extends ReqPage> {
 
-  @Autowired(required = false)
-  protected TraceHolder traceHolder;
 
-  protected void setCreateMsg(Req req, T entity) {
+  public static void setCreateMsg(Req req, BaseEntity entity) {
 
-    UserContext userContext = traceHolder.get().getUserContext();
+    setCreateMsg(entity);
+  }
+
+  public static void setCreateMsg(BaseEntity entity) {
+    UserContext userContext = TraceHolder.get().getUserContext();
     entity.setSysTenantId(userContext.getTenantId());
     entity.setSysCreatedUserId(userContext.getUserId());
     entity.setSysCreatedUserName(userContext.getUserName());
@@ -62,8 +65,13 @@ public class BasicInterceptor<
     entity.setSysDeleteFlag(false);
   }
 
-  protected void setUpdateMsg(Req req, T entity) {
-    UserContext userContext = traceHolder.get().getUserContext();
+
+  protected static void setUpdateMsg(Req req, BaseEntity entity) {
+    setUpdateMsg(entity);
+  }
+
+  protected static void setUpdateMsg(BaseEntity entity) {
+    UserContext userContext = TraceHolder.get().getUserContext();
 
     entity.setSysUpdateUserId(userContext.getUserId());
     entity.setSysUpdateUserName(userContext.getUserName());
@@ -88,7 +96,7 @@ public class BasicInterceptor<
   }
 
   protected String checkTenantId() {
-    String tenantId = traceHolder.get().getUserContext().getTenantId();
+    String tenantId = TraceHolder.get().getUserContext().getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
       throw new DBException("tenantId is emtpy");
     }
@@ -96,7 +104,7 @@ public class BasicInterceptor<
   }
 
   public String checkSelfUser(String userId) {
-    UserContext userContext = traceHolder.get().getUserContext();
+    UserContext userContext = TraceHolder.get().getUserContext();
     if (!userContext.getUserId().equals(userId)) {
       throw new ParamException("no access to other users' data");
     }
@@ -104,7 +112,7 @@ public class BasicInterceptor<
   }
 
   public void checkSelfUser(List<String> userIds) {
-    UserContext userContext = traceHolder.get().getUserContext();
+    UserContext userContext = TraceHolder.get().getUserContext();
     userIds.forEach(userId -> {
       if (!userContext.getUserId().equals(userId)) {
         throw new ParamException("no access to other users' data");
@@ -114,7 +122,7 @@ public class BasicInterceptor<
   }
 
   public void checkSelfTenant(String tenantId) {
-    UserContext userContext = traceHolder.get().getUserContext();
+    UserContext userContext = TraceHolder.get().getUserContext();
     if (!userContext.getTenantId().equals(tenantId)) {
       throw new ParamException("no access to other tenant' data");
     }

@@ -15,8 +15,6 @@
  */
 package io.github.kylinhunter.plat.core.service.local.imp;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
@@ -25,6 +23,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantService;
+import io.github.kylinhunter.plat.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -38,16 +37,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImp
     extends CommonServiceImpl<
-        TenantMapper,
-        Tenant,
-        TenantReqCreate,
-        TenantReqUpdate,
-        TenantResp,
-        TenantVO,
-        TenantReqQuery>
+    TenantMapper,
+    Tenant,
+    TenantReqCreate,
+    TenantReqUpdate,
+    TenantResp,
+    TenantVO,
+    TenantReqQuery>
     implements TenantService {
 
-
+  public TenantServiceImp(TenantSaveOrUpdateInterceptor tenantSaveOrUpdateInterceptor) {
+    this.saveOrUpdateInterceptor = tenantSaveOrUpdateInterceptor;
+  }
 
   @PostConstruct
   @Override
@@ -56,10 +57,7 @@ public class TenantServiceImp
   }
 
   @Override
-  public Tenant queryByCode(String code) {
-    LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.lambdaQuery();
-    queryWrapper.eq(Tenant::getSysDeleteFlag, false);
-    queryWrapper.eq(Tenant::getCode, code);
-    return this.baseMapper.selectOne(queryWrapper);
+  public Tenant findByCode(String code) {
+    return this.baseMapper.findByCode(code);
   }
 }

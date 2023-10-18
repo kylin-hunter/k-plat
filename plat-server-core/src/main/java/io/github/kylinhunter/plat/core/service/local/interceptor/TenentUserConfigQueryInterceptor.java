@@ -8,6 +8,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpd
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
 import io.github.kylinhunter.plat.api.module.core.constants.TenantUserConfigCols;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
@@ -37,7 +38,7 @@ public class TenentUserConfigQueryInterceptor extends QueryInterceptor<
   public QueryWrapper<TenantUserConfig> before(TenantUserConfigReqQuery TenantUserConfigReqQuery,
       boolean tenantSupported) {
     QueryWrapper<TenantUserConfig> queryWrapper = super.before(TenantUserConfigReqQuery, tenantSupported);
-    queryWrapper.eq(TenantUserConfigCols.USER_ID, traceHolder.get().getUserContext().getUserId());
+    queryWrapper.eq(TenantUserConfigCols.USER_ID, TraceHolder.get().getUserContext().getUserId());
     return queryWrapper;
   }
 }

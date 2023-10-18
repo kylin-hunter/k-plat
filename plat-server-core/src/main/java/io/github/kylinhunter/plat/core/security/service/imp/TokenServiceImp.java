@@ -38,8 +38,6 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class TokenServiceImp extends DefaultTokenService {
 
-  private final TraceHolder traceHolder;
-
   private final TenantUserDetailsService tenantUserDetailsService;
 
   private final KplatConfig kplatConfig;
@@ -47,12 +45,10 @@ public class TokenServiceImp extends DefaultTokenService {
   public TokenServiceImp(
       KplatConfig kplatConfig,
       JWTService jwtService,
-      TraceHolder traceHolder,
       RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
     super(jwtService, redisService);
     this.kplatConfig = kplatConfig;
-    this.traceHolder = traceHolder;
     this.tenantUserDetailsService = tenantUserDetailsService;
   }
 
@@ -104,7 +100,7 @@ public class TokenServiceImp extends DefaultTokenService {
    */
   @Override
   public String createTenantToken(ReqTenantToken reqTenantToken) {
-    Token token = traceHolder.get().getVerifyToken();
+    Token token = TraceHolder.get().getVerifyToken();
     token.setEffectiveTime(kplatConfig.getTokenExpireTime());
     String tenantId = reqTenantToken.getTenantId();
     TokenUserDetails userDetails =
@@ -124,7 +120,7 @@ public class TokenServiceImp extends DefaultTokenService {
 
   @Override
   public Token invalidToken() {
-    String token = traceHolder.get().getToken();
+    String token = TraceHolder.get().getToken();
     if (StringUtils.isNotBlank(token)) {
       VerifyToken verifyToken = jwtService.verify(token);
       removeTokenEx(verifyToken);
@@ -138,7 +134,6 @@ public class TokenServiceImp extends DefaultTokenService {
    * @param userId  userId
    * @param tokenEx tokenEx
    * @return void
-   * @throws
    * @title setTokenEx
    * @description setTokenEx
    * @author BiJi'an

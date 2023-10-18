@@ -33,5 +33,5 @@ public interface TenantService
     extends CommonService<
         Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
 
-  Tenant queryByCode(String code);
+  Tenant findByCode(String code);
 }

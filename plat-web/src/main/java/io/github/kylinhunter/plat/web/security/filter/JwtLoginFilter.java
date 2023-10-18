@@ -16,13 +16,13 @@
 package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,9 +44,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
   private final AuthenticationManager authenticationManager;
   private final TokenService tokenService;
-
   private final ResponseWriter responseWriter;
-  private final TraceHolder traceHolder;
 
   @Override
   public Authentication attemptAuthentication(
@@ -79,7 +77,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
       userDetail.setTenantId(tetantId);
       String token = tokenService.createToken(userDetail);
       DefaultResponse<String> rep = new DefaultResponse<>(token);
-      rep.setTrace(traceHolder.get());
+      rep.setTrace(WebTraceHolder.get());
       responseWriter.writeJson(rep);
     } catch (AuthException e) {
       throw new AuthenticationServiceException(e.getMessage(), e);

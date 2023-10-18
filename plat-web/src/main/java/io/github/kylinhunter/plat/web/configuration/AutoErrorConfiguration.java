@@ -15,7 +15,6 @@
  */
 package io.github.kylinhunter.plat.web.configuration;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.error.ErrorMessageController;
 import io.github.kylinhunter.plat.web.error.GlobalExceptionHandler;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
@@ -53,8 +52,7 @@ public class AutoErrorConfiguration {
   }
 
   @Bean
-  public GlobalExceptionHandler globalExceptionHandler(
-      ResponseWriter responseWriter, TraceHolder traceHolder) {
-    return new GlobalExceptionHandler(responseWriter, traceHolder);
+  public GlobalExceptionHandler globalExceptionHandler(ResponseWriter responseWriter) {
+    return new GlobalExceptionHandler(responseWriter);
   }
 }

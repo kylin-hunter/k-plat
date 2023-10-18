@@ -8,6 +8,7 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysUserConfigVO;
 import io.github.kylinhunter.plat.api.module.core.constants.SysUserConfigCols;
+import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
@@ -37,7 +38,7 @@ public class SysUserConfigQueryInterceptor extends QueryInterceptor<
   public QueryWrapper<SysUserConfig> before(SysUserConfigReqQuery sysUserConfigReqQuery,
       boolean tenantSupported) {
     QueryWrapper<SysUserConfig> queryWrapper = super.before(sysUserConfigReqQuery, tenantSupported);
-    queryWrapper.eq(SysUserConfigCols.USER_ID, traceHolder.get().getUserContext().getUserId());
+    queryWrapper.eq(SysUserConfigCols.USER_ID, TraceHolder.get().getUserContext().getUserId());
     return queryWrapper;
   }
 }

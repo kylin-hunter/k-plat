@@ -15,43 +15,39 @@
  */
 package io.github.kylinhunter.plat.api.trace;
 
-import javax.servlet.http.HttpServletRequest;
+import io.github.kylinhunter.commons.exception.embed.biz.BizException;
+import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author BiJi'an
- * @description 日志追踪
+ * @description trace
  * @date 2022/01/01
  */
-public interface TraceHolder {
-  /**
-   * @return io.github.kylinhunter.plat.commons.trace.Trace
-   * @throws
-   * @title 隐式 从 request中 创建 trace
-   * @description
-   * @author BiJi'an
-   * @date 2022/01/01 2:46 下午
-   */
-  Trace create(HttpServletRequest request);
+@Slf4j
+public abstract class TraceHolder {
 
-  Trace create();
+  protected final static ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
 
-  /**
-   * @return io.github.kylinhunter.plat.commons.trace.Trace
-   * @throws
-   * @title 获取trace
-   * @description
-   * @author BiJi'an
-   * @date 2021/7/30 11:25 上午
-   */
-  Trace get();
 
-  /**
-   * @return 清空trace
-   * @throws
-   * @title remove
-   * @description
-   * @author BiJi'an
-   * @date 2022/01/01 2:54 下午
-   */
-  void remove();
+  public static Trace create(User user) {
+    Trace trace = new DefaultTrace();
+    trace.setUserContext(new DefaultUserContext(user));
+    traces.set(trace);
+    return trace;
+  }
+
+  public static Trace get() {
+
+    Trace trace = traces.get();
+    if (trace == null) {
+      throw new BizException("no trace found");
+    }
+    return trace;
+  }
+
+  public static void remove() {
+    traces.set(null);
+  }
 }

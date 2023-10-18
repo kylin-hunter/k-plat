@@ -17,7 +17,11 @@ package io.github.kylinhunter.plat.core.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -28,4 +32,8 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface TenantMapper extends BaseMapper<Tenant> {}
+public interface TenantMapper extends BaseMapper<Tenant> {
+
+  @Select("SELECT *  FROM  kplat_tenant  WHERE code = #{code} and sys_delete_flag=0 ")
+  Tenant findByCode(@Param("code") String code);
+}

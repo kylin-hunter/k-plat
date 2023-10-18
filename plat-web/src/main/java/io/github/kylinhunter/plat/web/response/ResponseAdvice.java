@@ -18,7 +18,7 @@ package io.github.kylinhunter.plat.web.response;
 import io.github.kylinhunter.commons.sys.KConst;
 import io.github.kylinhunter.commons.utils.json.JsonOptions;
 import io.github.kylinhunter.commons.utils.json.JsonUtils;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RequiredArgsConstructor
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
-  private final TraceHolder traceHolder;
 
   @Override
   public boolean supports(
@@ -73,7 +72,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     Response<Object> response =
         isResponse ? (Response<Object>) returnValue : new DefaultResponse<>();
 
-    response.setTrace(traceHolder.get());
+    response.setTrace(WebTraceHolder.get());
 
     log.info(
         "{} 's response:{}",

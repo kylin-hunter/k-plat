@@ -15,9 +15,17 @@
  */
 package io.github.kylinhunter.plat.core.init;
 
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
+import io.github.kylinhunter.plat.api.auth.context.UserContext;
+import io.github.kylinhunter.plat.api.bean.vo.query.ReqById;
+import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
+import io.github.kylinhunter.plat.api.module.core.constants.UserType;
+import io.github.kylinhunter.plat.core.init.initializer.DefaultUsers;
 import io.github.kylinhunter.plat.core.init.initializer.Initializer;
+import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
+import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -36,16 +44,21 @@ import org.springframework.stereotype.Component;
 public class SystemDataInitializer {
 
   private final KplatConfig kplatConfig;
-  private final TraceHolder traceHolder;
+
+  private final UserService userService;
 
   private final Map<String, Initializer> initializers;
 
   public boolean init(boolean force) {
     try {
-      traceHolder.create();
+      User user = new User();
+      user.setId(DefaultUsers.ADMIN_USER_ID);
+      user.setUserName(DefaultUsers.ADMIN_USER_NAME);
+      user.setType(UserType.SUPER_ADMIN.getCode());
+      WebTraceHolder.create(user);
       return _init(force);
     } finally {
-      traceHolder.remove();
+      WebTraceHolder.remove();
     }
   }
 

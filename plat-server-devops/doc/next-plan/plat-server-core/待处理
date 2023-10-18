@@ -1,4 +1,7 @@
 3、初始化分类
 4、去掉无用的初始化代码
-4、Duplicate一次不好看
-1、WeakPassChecker和PasswordEncoder合并的可能性
+4、i18n，例如 Duplicate 不好看
+TraceHolder采用静态方法实现
+
+catlog没有排序
+和移动

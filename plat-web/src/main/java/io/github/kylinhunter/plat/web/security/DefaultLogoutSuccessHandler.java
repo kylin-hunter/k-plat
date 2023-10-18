@@ -1,14 +1,10 @@
 package io.github.kylinhunter.plat.web.security;
 
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.api.auth.VerifyToken;
-import io.github.kylinhunter.plat.api.trace.Trace;
-import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.Response;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
-import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
 import java.io.IOException;
 import javax.servlet.ServletException;

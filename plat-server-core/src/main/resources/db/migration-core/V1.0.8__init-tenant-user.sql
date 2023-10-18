@@ -18,6 +18,6 @@ INSERT INTO kp.kplat_tenant_user (id, sys_tenant_id, sys_auto_updated, sys_creat
                                   sys_op_lock, user_id, type, status, description)
 VALUES ('tenant-user1', '1', CURRENT_TIMESTAMP, '1', 'admin', CURRENT_TIMESTAMP, '1', 'admin',
         CURRENT_TIMESTAMP, 0, null, '101', 1, 0, '系统初始化'),
-    
+
        ('tenant-user2', '1', CURRENT_TIMESTAMP, '1', 'admin', CURRENT_TIMESTAMP, '1', 'admin',
         CURRENT_TIMESTAMP, 0, null, '102', 1, 0, '系统初始化');

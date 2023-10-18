@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.web.trace;
+package io.github.kylinhunter.plat.api.trace;
 
 import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
-import io.github.kylinhunter.plat.api.trace.Trace;
-import io.github.kylinhunter.plat.api.trace.TraceExplain;
-import io.github.kylinhunter.plat.web.trace.explain.DefaultTraceExplain;
+import io.github.kylinhunter.plat.api.trace.explain.DefaultTraceExplain;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,7 +76,7 @@ public class DefaultTrace implements Trace {
   @Override
   public void setVerifyToken(VerifyToken verifyToken) {
     this.verifyToken = verifyToken;
-    this.userContext = null;
+    this.userContext = verifyToken;
   }
 
   @Override

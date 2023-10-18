@@ -15,12 +15,11 @@
  */
 package io.github.kylinhunter.plat.web.trace;
 
+import io.github.kylinhunter.plat.api.trace.DefaultTrace;
 import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.api.web.request.RequestConst;
-import io.github.kylinhunter.plat.web.config.KplatConfig;
-import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.log.LogHelper;
 import io.github.kylinhunter.plat.web.request.RequestUtils;
 import javax.servlet.http.HttpServletRequest;
@@ -35,12 +34,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class DefaultTraceHolder implements TraceHolder {
+public class WebTraceHolder extends TraceHolder {
 
-  private final KplatConfig kplatConfig;
-  private final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
+  private final boolean debugEnabled;
 
-  @Override
   public Trace create(HttpServletRequest request) {
     Trace trace = this.tryCreateTraceFromRequest(request);
     traces.set(trace);
@@ -48,25 +45,8 @@ public class DefaultTraceHolder implements TraceHolder {
     return trace;
   }
 
-  @Override
-  public Trace create() {
-    Trace trace = new DefaultTrace();
-    traces.set(trace);
-    return trace;
-  }
 
-  @Override
-  public Trace get() {
-
-    Trace trace = traces.get();
-    if (trace == null) {
-      throw new AuthException("no trace found");
-    }
-    return trace;
-  }
-
-  @Override
-  public void remove() {
+  public static void remove() {
     LogHelper.clearContext();
     traces.set(null);
   }
@@ -83,7 +63,7 @@ public class DefaultTraceHolder implements TraceHolder {
     String token = getToken(request);
     Trace trace = new DefaultTrace(traceId, token);
     TraceExplain explain = trace.getExplain();
-    if (kplatConfig.isDebugEnabled() && RequestUtils.isDebug(request)) {
+    if (debugEnabled && RequestUtils.isDebug(request)) {
       trace.setDebug(true);
       explain.setHeaders(RequestUtils.getHeaders(request));
       explain.setCookies(RequestUtils.getCookies(request));
