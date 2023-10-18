@@ -15,17 +15,12 @@
  */
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
-import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
-import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
-import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
-import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -42,25 +37,4 @@ public class TenantSaveOrUpdateInterceptor
     Tenant, TenantReqCreate, TenantReqUpdate, TenantResp, TenantVO, TenantReqQuery> {
 
 
-  private final TenantCatalogMapper tenantCatalogMapper;
-
-  @Override
-  public TenantResp after(TenantReqCreate tenantReqCreate, Tenant enity, TenantResp response) {
-    TenantResp tenantResp = super.after(tenantReqCreate, enity, response);
-
-    TenantCatalog tenantCatalog = new TenantCatalog();
-    tenantCatalog.setType(TenantCatalogType.DEFAULT.getCode());
-    tenantCatalog.setCode(DefaultTenantCatalogs.ROOT_CODE);
-    tenantCatalog.setName(DefaultTenantCatalogs.ROOT_CODE);
-    tenantCatalog.setStatus(0);
-
-    tenantCatalog.setLevel(0);
-    tenantCatalog.setPath("0");
-    tenantCatalog.setParentId("0");
-    tenantCatalog.setDescription(DefaultTenantCatalogs.ROOT_CODE);
-    this.setCreateMsg((BaseEntity) tenantCatalog);
-    tenantCatalog.setSysTenantId(enity.getId());
-    tenantCatalogMapper.insert(tenantCatalog);
-    return tenantResp;
-  }
 }

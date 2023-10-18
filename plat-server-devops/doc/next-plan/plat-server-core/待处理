@@ -1,7 +1,3 @@
-3、初始化分类
-4、去掉无用的初始化代码
-4、i18n，例如 Duplicate 不好看
-TraceHolder采用静态方法实现
+1、i18n，例如 Duplicate 不好看
+2、catlog没有排序和移动
 
-catlog没有排序
-和移动
