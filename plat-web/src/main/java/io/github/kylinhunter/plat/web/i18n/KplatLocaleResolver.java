@@ -51,6 +51,5 @@ public class KplatLocaleResolver implements LocaleResolver {
   public void setLocale(
       HttpServletRequest httpServletRequest,
       HttpServletResponse httpServletResponse,
-      Locale locale) {
-  }
+      Locale locale) {}
 }

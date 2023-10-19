@@ -53,7 +53,6 @@ public class TenantRoleServiceImp
 
   private final TenantUserRoleMapper tenantUserRoleMapper;
 
-
   @Override
   public TenantRole queryByCode(String code) {
     LambdaQueryWrapper<TenantRole> queryWrapper = Wrappers.lambdaQuery();

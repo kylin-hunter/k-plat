@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
@@ -38,12 +37,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantUserConfigSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-    TenantUserConfig,
-    TenantUserConfigReqCreate,
-    TenantUserConfigReqUpdate,
-    TenantUserConfigResp,
-    TenantUserConfigVO,
-    TenantUserConfigReqQuery> {
+        TenantUserConfig,
+        TenantUserConfigReqCreate,
+        TenantUserConfigReqUpdate,
+        TenantUserConfigResp,
+        TenantUserConfigVO,
+        TenantUserConfigReqQuery> {
 
   @Override
   protected void saveOrUpdateBefore(TenantUserConfigVO vo, TenantUserConfig entity) {

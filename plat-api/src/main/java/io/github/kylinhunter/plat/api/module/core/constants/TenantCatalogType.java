@@ -30,5 +30,4 @@ public enum TenantCatalogType implements EnumUtils.EnumCode {
   DEFAULT(0, "DEFAULT");
   private final int code;
   private final String name;
-
 }

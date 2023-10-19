@@ -35,19 +35,18 @@ public class DaoErrExplainer extends AbstractExplainerSupplier {
     this.addExplainer(SQLIntegrityConstraintViolationException.class)
         .explain(
             e -> {
-              ExplainResult explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT,
-                  "数据约束异常");
+              ExplainResult explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT, "数据约束异常");
               String message = e.getMessage();
               String sqlState = e.getSQLState();
               if (!StringUtils.isEmpty(sqlState)
                   && sqlState.startsWith(SQLSTATE_CONSTRAINT)
                   && !StringUtils.isEmpty(message)) {
                 if (message.toLowerCase().indexOf("foreign") >= 0) {
-                  explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT_FOREIGN,
-                      "数据约束异常,更新foreign异常");
+                  explainResult =
+                      new ExplainResult(DaoErrInfos.CONSTRAINT_FOREIGN, "数据约束异常,更新foreign异常");
                 } else if (message.toLowerCase().indexOf("duplicate") >= 0) {
-                  explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT_DUPLICATE,
-                      "数据约束异常,数据重复");
+                  explainResult =
+                      new ExplainResult(DaoErrInfos.CONSTRAINT_DUPLICATE, "数据约束异常,数据重复");
                 }
               }
               explainResult.setExtra(e.getMessage());

@@ -51,7 +51,7 @@ public class I18nUtils {
   }
 
   /**
-   * @param key  key
+   * @param key key
    * @param args args
    * @return java.lang.String
    * @title get
@@ -59,14 +59,13 @@ public class I18nUtils {
    * @author BiJi'an
    * @date 2023-10-19 18:43
    */
-
   public static String get(Object key, Object args) {
     return get(key, args, null);
   }
 
   /**
-   * @param code         code
-   * @param args         args
+   * @param code code
+   * @param args args
    * @param defaultValue defaultValue
    * @return java.lang.String
    * @title get
@@ -83,7 +82,7 @@ public class I18nUtils {
       if (args instanceof Object[]) {
         params = (Object[]) args;
       } else {
-        params = new Object[]{args};
+        params = new Object[] {args};
       }
     }
 

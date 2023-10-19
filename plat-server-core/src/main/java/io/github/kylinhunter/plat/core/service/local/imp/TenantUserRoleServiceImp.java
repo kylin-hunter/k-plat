@@ -42,7 +42,4 @@ public class TenantUserRoleServiceImp
         TenantUserRoleResp,
         TenantUserRoleVO,
         TenantUserRoleReqQuery>
-    implements TenantUserRoleService {
-
- 
-}
+    implements TenantUserRoleService {}

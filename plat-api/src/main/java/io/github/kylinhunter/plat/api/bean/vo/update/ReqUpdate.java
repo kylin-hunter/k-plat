@@ -20,7 +20,6 @@ import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

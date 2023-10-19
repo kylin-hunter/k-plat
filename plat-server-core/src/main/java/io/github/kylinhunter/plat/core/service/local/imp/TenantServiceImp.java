@@ -37,13 +37,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImp
     extends CommonServiceImpl<
-    TenantMapper,
-    Tenant,
-    TenantReqCreate,
-    TenantReqUpdate,
-    TenantResp,
-    TenantVO,
-    TenantReqQuery>
+        TenantMapper,
+        Tenant,
+        TenantReqCreate,
+        TenantReqUpdate,
+        TenantResp,
+        TenantVO,
+        TenantReqQuery>
     implements TenantService {
 
   public TenantServiceImp(TenantSaveOrUpdateInterceptor tenantSaveOrUpdateInterceptor) {

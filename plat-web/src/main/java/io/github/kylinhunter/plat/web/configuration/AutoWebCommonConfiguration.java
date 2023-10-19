@@ -88,7 +88,6 @@ public class AutoWebCommonConfiguration {
     return new LogAspect();
   }
 
-
   @Bean
   public WebTraceHolder traceHolder(KplatConfig kplatConfig) {
     return new WebTraceHolder(kplatConfig.isDebugEnabled());

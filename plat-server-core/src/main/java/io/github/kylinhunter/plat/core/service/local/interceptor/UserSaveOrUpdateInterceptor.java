@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-    User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
+        User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
   private final PasswordEncoder passwordEncoder;
 
@@ -63,8 +63,6 @@ public class UserSaveOrUpdateInterceptor
     } else {
       throw new ParamException(" password can't be empty");
     }
-
-
   }
 
   @Override

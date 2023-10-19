@@ -37,12 +37,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SysUserConfigSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-    SysUserConfig,
-    SysUserConfigReqCreate,
-    SysUserConfigReqUpdate,
-    SysUserConfigResp,
-    SysUserConfigVO,
-    SysUserConfigReqQuery> {
+        SysUserConfig,
+        SysUserConfigReqCreate,
+        SysUserConfigReqUpdate,
+        SysUserConfigResp,
+        SysUserConfigVO,
+        SysUserConfigReqQuery> {
 
   @Override
   protected void saveOrUpdateBefore(SysUserConfigVO vo, SysUserConfig entity) {
@@ -53,6 +53,5 @@ public class SysUserConfigSaveOrUpdateInterceptor
     } else {
       this.checkSelfUser(entity.getUserId());
     }
-
   }
 }

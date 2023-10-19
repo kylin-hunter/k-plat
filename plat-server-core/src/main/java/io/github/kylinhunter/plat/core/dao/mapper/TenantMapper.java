@@ -17,8 +17,6 @@ package io.github.kylinhunter.plat.core.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.Tenant;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

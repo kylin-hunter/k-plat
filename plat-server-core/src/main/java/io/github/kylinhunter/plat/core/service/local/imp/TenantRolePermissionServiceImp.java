@@ -42,7 +42,4 @@ public class TenantRolePermissionServiceImp
         TenantRolePermissionResp,
         TenantRolePermissionVO,
         TenantRolePermissionReqQuery>
-    implements TenantRolePermissionService {
-
-
-}
+    implements TenantRolePermissionService {}

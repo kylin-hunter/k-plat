@@ -56,5 +56,4 @@ public interface Trace {
   void setExplain(TraceExplain explain);
 
   TraceExplain getExplain();
-
 }

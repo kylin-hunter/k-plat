@@ -45,11 +45,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration {
 
   @Bean
-  public TokenService tokenService(KplatConfig kplatConfig,
-      JWTService jwtService, RedisService redisService,
+  public TokenService tokenService(
+      KplatConfig kplatConfig,
+      JWTService jwtService,
+      RedisService redisService,
       TenantUserDetailsService tenantUserDetailsService) {
-    return new TokenServiceImp(kplatConfig, jwtService, redisService,
-        tenantUserDetailsService);
+    return new TokenServiceImp(kplatConfig, jwtService, redisService, tenantUserDetailsService);
   }
 
   @Bean
@@ -85,5 +86,4 @@ public class SecurityConfiguration {
         tenantRoleService,
         redisService);
   }
-
 }

@@ -38,7 +38,7 @@ public class BasicVO implements Serializable, VO {
   @ApiModelProperty(value = "voType", hidden = true)
   @JsonIgnore
   private final VoType voType;
+
   private String id;
   private String sysTenantId;
-
 }

@@ -55,8 +55,7 @@ public class AutoFeignConfiguration {
         return new WebException(
             WebErrInfos.FEIGN_SERVER_ERROR, "(" + status + ") =>" + key + ":" + msg);
       }
-      return new WebException(
-          WebErrInfos.FEIGN_ERROR, "(" + status + ")=>" + key + ":" + msg);
+      return new WebException(WebErrInfos.FEIGN_ERROR, "(" + status + ")=>" + key + ":" + msg);
 
       //      return errorDecoder.decode(key, response);
     };

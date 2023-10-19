@@ -58,11 +58,17 @@ public class TenantCatalogComponent {
     TenantCatalogRespTree root = new TenantCatalogRespTree();
 
     Map<String, TenantCatalogRespTree> allCatalogs =
-        tenantCatalogs.stream().collect(Collectors.toMap(BaseEntity::getId, e -> {
-          TenantCatalogRespTree tmpTreeNode = new TenantCatalogRespTree();
-          BeanUtils.copyProperties(e, tmpTreeNode);
-          return tmpTreeNode;
-        }, (o, n) -> n, LinkedHashMap::new));
+        tenantCatalogs.stream()
+            .collect(
+                Collectors.toMap(
+                    BaseEntity::getId,
+                    e -> {
+                      TenantCatalogRespTree tmpTreeNode = new TenantCatalogRespTree();
+                      BeanUtils.copyProperties(e, tmpTreeNode);
+                      return tmpTreeNode;
+                    },
+                    (o, n) -> n,
+                    LinkedHashMap::new));
 
     for (Map.Entry<String, TenantCatalogRespTree> en : allCatalogs.entrySet()) {
       TenantCatalogRespTree curTreeNode = en.getValue();
@@ -91,9 +97,12 @@ public class TenantCatalogComponent {
   public void init(TenantCatalogReqInit tenantCatalogReqInit) {
     log.info("init catalog:" + tenantCatalogReqInit);
     TenantCatalog tenantCatalog = tryInitRoot(tenantCatalogReqInit);
-    tenantCatalogReqInit.getChildren().forEach(t -> {
-      init(t, tenantCatalog.getCode());
-    });
+    tenantCatalogReqInit
+        .getChildren()
+        .forEach(
+            t -> {
+              init(t, tenantCatalog.getCode());
+            });
   }
 
   /**
@@ -107,9 +116,9 @@ public class TenantCatalogComponent {
   private TenantCatalog tryInitRoot(TenantCatalogReqInit tenantCatalogReqInit) {
     String tenantId = TraceHolder.get().getUserContext().getTenantId();
 
-    TenantCatalog tenantCatalog = tenantCatalogMapper.findByCode(tenantId,
-        tenantCatalogReqInit.getType(),
-        DefaultTenantCatalogs.ROOT_CODE);
+    TenantCatalog tenantCatalog =
+        tenantCatalogMapper.findByCode(
+            tenantId, tenantCatalogReqInit.getType(), DefaultTenantCatalogs.ROOT_CODE);
     if (tenantCatalog == null) {
       tenantCatalog = new TenantCatalog();
       tenantCatalog.setType(tenantCatalogReqInit.getType());
@@ -126,7 +135,7 @@ public class TenantCatalogComponent {
 
   /**
    * @param curtCatalog curtCatalog
-   * @param parentCode  parentCode
+   * @param parentCode parentCode
    * @return void
    * @title init
    * @description init
@@ -138,15 +147,16 @@ public class TenantCatalogComponent {
     trySave(curtCatalog, parentCode);
     List<TenantCatalogReqInit> children = curtCatalog.getChildren();
     if (children != null && children.size() > 0) {
-      children.forEach(child -> {
-        init(child, curtCatalog.getCode());
-      });
+      children.forEach(
+          child -> {
+            init(child, curtCatalog.getCode());
+          });
     }
   }
 
   /**
    * @param curtCatalog curtCatalog
-   * @param parentCode  parentCode
+   * @param parentCode parentCode
    * @return void
    * @title tryInit
    * @description tryInit
@@ -187,8 +197,6 @@ public class TenantCatalogComponent {
       BasicInterceptor.setCreateMsg(catalog);
       tenantCatalogMapper.insert(catalog);
       log.info("create catalog={}", code);
-
     }
-
   }
 }

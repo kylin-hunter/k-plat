@@ -24,13 +24,11 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
-import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.dao.exception.DaoException;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author BiJi'an
@@ -44,7 +42,6 @@ public class BasicInterceptor<
     Z extends Resp,
     V extends VO,
     Q extends ReqPage> {
-
 
   public static void setCreateMsg(Req req, BaseEntity entity) {
 
@@ -64,7 +61,6 @@ public class BasicInterceptor<
 
     entity.setSysDeleteFlag(false);
   }
-
 
   public static void setUpdateMsg(Req req, BaseEntity entity) {
     setUpdateMsg(entity);
@@ -113,12 +109,12 @@ public class BasicInterceptor<
 
   public void checkSelfUser(List<String> userIds) {
     UserContext userContext = TraceHolder.get().getUserContext();
-    userIds.forEach(userId -> {
-      if (!userContext.getUserId().equals(userId)) {
-        throw new ParamException("no access to other users' data");
-      }
-    });
-
+    userIds.forEach(
+        userId -> {
+          if (!userContext.getUserId().equals(userId)) {
+            throw new ParamException("no access to other users' data");
+          }
+        });
   }
 
   public void checkSelfTenant(String tenantId) {

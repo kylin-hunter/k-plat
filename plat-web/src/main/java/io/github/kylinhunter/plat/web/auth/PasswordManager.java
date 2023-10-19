@@ -43,7 +43,7 @@ public class PasswordManager {
   }
 
   /**
-   * @param rawPassword     rawPassword
+   * @param rawPassword rawPassword
    * @param encodedPassword encodedPassword
    * @return boolean
    * @throws
@@ -59,8 +59,8 @@ public class PasswordManager {
   /***
    * @title isWeak
    * @description isWeak
-   * @author BiJi'an 
-   * @param pass pass 
+   * @author BiJi'an
+   * @param pass pass
    * @date 2023-10-17 15:39
    * @return boolean
    */

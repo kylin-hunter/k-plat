@@ -44,15 +44,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  protected UserDetailsService userDetailsService;
-  @Autowired
-  protected TokenService tokenService;
-  @Autowired
-  protected PasswordEncoder passwordEncoder;
+  @Autowired protected UserDetailsService userDetailsService;
+  @Autowired protected TokenService tokenService;
+  @Autowired protected PasswordEncoder passwordEncoder;
 
-  @Autowired
-  protected ResponseWriter responseWriter;
+  @Autowired protected ResponseWriter responseWriter;
 
   @Bean
   @Override
@@ -101,14 +97,10 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
         .accessDeniedHandler(accessDeniedHandler(responseWriter))
         .authenticationEntryPoint(authenticationEntryPoint(responseWriter))
         .and()
-
         .addFilterBefore(
-            new JwtLoginFilter(
-                authenticationManagerBean(), tokenService, responseWriter),
+            new JwtLoginFilter(authenticationManagerBean(), tokenService, responseWriter),
             UsernamePasswordAuthenticationFilter.class)
-        .addFilter(
-            new JwtVerifyFilter(
-                authenticationManagerBean(), tokenService, responseWriter))
+        .addFilter(new JwtVerifyFilter(authenticationManagerBean(), tokenService, responseWriter))
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
@@ -118,9 +110,10 @@ public class DefaultSecurityWebSecurityConfigurer extends WebSecurityConfigurerA
         .disable();
   }
 
-  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
-      ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
-          expressionInterceptUrlRegistry) {
+  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+      addPerm(
+          ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+              expressionInterceptUrlRegistry) {
     return expressionInterceptUrlRegistry;
   }
 }

@@ -88,6 +88,4 @@ public class DefaultTrace implements Trace {
     }
     return this;
   }
-
-
 }

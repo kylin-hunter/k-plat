@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -36,18 +35,6 @@ import org.redisson.config.SingleServerConfig;
 import org.redisson.spring.starter.RedissonAutoConfigurationCustomizer;
 import org.redisson.spring.starter.RedissonProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -59,11 +46,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.StringUtils;
 
 /**
  * @author Nikita Koksharov
@@ -73,8 +58,11 @@ import org.springframework.util.StringUtils;
 @Configuration
 @ConditionalOnClass({Redisson.class, RedisOperations.class})
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@EnableConfigurationProperties({RedissonProperties.class, RedisProperties.class,
-    KPlatDataRedisConfig.class})
+@EnableConfigurationProperties({
+  RedissonProperties.class,
+  RedisProperties.class,
+  KPlatDataRedisConfig.class
+})
 public class RedissonAutoConfiguration {
 
   private static final String REDIS_PROTOCOL_PREFIX = "redis://";
@@ -269,7 +257,4 @@ public class RedissonAutoConfiguration {
   public RedisLockService redisLockService(RedissonClient redissonClient) {
     return new RedisLockService(redissonClient);
   }
-
-
-
 }

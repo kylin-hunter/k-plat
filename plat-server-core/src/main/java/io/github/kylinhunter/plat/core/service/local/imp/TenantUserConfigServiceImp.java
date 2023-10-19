@@ -39,13 +39,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantUserConfigServiceImp
     extends CommonServiceImpl<
-    TenantUserConfigMapper,
-    TenantUserConfig,
-    TenantUserConfigReqCreate,
-    TenantUserConfigReqUpdate,
-    TenantUserConfigResp,
-    TenantUserConfigVO,
-    TenantUserConfigReqQuery>
+        TenantUserConfigMapper,
+        TenantUserConfig,
+        TenantUserConfigReqCreate,
+        TenantUserConfigReqUpdate,
+        TenantUserConfigResp,
+        TenantUserConfigVO,
+        TenantUserConfigReqQuery>
     implements TenantUserConfigService {
 
   public TenantUserConfigServiceImp(

@@ -131,7 +131,7 @@ public class TokenServiceImp extends DefaultTokenService {
   }
 
   /**
-   * @param userId  userId
+   * @param userId userId
    * @param tokenEx tokenEx
    * @return void
    * @title setTokenEx
@@ -140,8 +140,7 @@ public class TokenServiceImp extends DefaultTokenService {
    * @date 2023-10-16 10:55
    */
   protected void setTokenEx(String userId, TokenEx tokenEx) {
-    redisService.set(RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx,
-        kplatConfig.getTokenExpireTime());
+    redisService.set(
+        RedisKeys.AUTH_USER_PERMS.key(userId), tokenEx, kplatConfig.getTokenExpireTime());
   }
-
 }

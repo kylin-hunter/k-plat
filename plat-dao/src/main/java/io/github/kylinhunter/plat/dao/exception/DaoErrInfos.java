@@ -32,7 +32,4 @@ public class DaoErrInfos {
   public static final ErrInfo CONSTRAINT = new ErrInfo(++BASE_CODE);
   public static final ErrInfo CONSTRAINT_DUPLICATE = new ErrInfo(++BASE_CODE);
   public static final ErrInfo CONSTRAINT_FOREIGN = new ErrInfo(++BASE_CODE);
-
-
-
 }

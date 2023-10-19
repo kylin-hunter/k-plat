@@ -45,7 +45,6 @@ public class WebTraceHolder extends TraceHolder {
     return trace;
   }
 
-
   public static void remove() {
     LogHelper.clearContext();
     traces.set(null);

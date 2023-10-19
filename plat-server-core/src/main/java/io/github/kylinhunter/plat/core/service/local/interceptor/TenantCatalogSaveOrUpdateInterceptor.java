@@ -37,12 +37,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantCatalogSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery> {
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery> {
 
   private final TenantCatalogMapper tenantCatalogMapper;
 

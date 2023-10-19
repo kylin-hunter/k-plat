@@ -27,7 +27,6 @@ import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TokenService;
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -70,7 +69,6 @@ public class DefaultTokenService implements TokenService {
   @Override
   public Token invalidToken() {
     throw new AuthException("no implement");
-
   }
 
   /**
@@ -101,9 +99,6 @@ public class DefaultTokenService implements TokenService {
   protected TokenEx getTokenEx(String userId) {
     return redisService.get(RedisKeys.AUTH_USER_PERMS.key(userId));
   }
-
-
-
 
   protected void removeTokenEx(Token token) {
     redisService.delete(RedisKeys.AUTH_USER_PERMS.key(token.getUserId()));

@@ -51,17 +51,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TenantCatalogServiceImp
     extends CommonServiceImpl<
-    TenantCatalogMapper,
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery>
+        TenantCatalogMapper,
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery>
     implements TenantCatalogService {
 
-  @Autowired
-  private TenantCatalogComponent complexComponent;
+  @Autowired private TenantCatalogComponent complexComponent;
 
   public TenantCatalogServiceImp(
       TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,
@@ -81,7 +80,6 @@ public class TenantCatalogServiceImp
     return complexComponent.tree(tenantCatalogs);
   }
 
-
   @Override
   public boolean delete(ReqDelete reqDelete) {
 
@@ -96,7 +94,6 @@ public class TenantCatalogServiceImp
     return ok;
   }
 
-
   @Override
   public List<TenantCatalog> findByParentId(String parentId, boolean recursion) {
     if (recursion) {
@@ -107,7 +104,7 @@ public class TenantCatalogServiceImp
   }
 
   /**
-   * @param parentId    parentId
+   * @param parentId parentId
    * @param allChildren allChildren
    * @return java.util.List<io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog>
    * @title fetchAllChildren
@@ -136,5 +133,4 @@ public class TenantCatalogServiceImp
   public void init(TenantCatalogReqInit tenantCatalogReqInit) {
     this.complexComponent.init(tenantCatalogReqInit);
   }
-
 }

@@ -59,8 +59,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
     matchIfMissing = true)
 public class RedisTemplateConfiguration {
 
-  @Resource
-  private RedisConnectionFactory redisConnectionFactory;
+  @Resource private RedisConnectionFactory redisConnectionFactory;
 
   @Bean
   @Primary
@@ -80,7 +79,8 @@ public class RedisTemplateConfiguration {
 
   @Bean
   @Primary
-  public RedisService redisService(@Autowired RedisTemplate<String, Object> redisTemplate,
+  public RedisService redisService(
+      @Autowired RedisTemplate<String, Object> redisTemplate,
       KPlatDataRedisConfig kplatDataRedisConfig) {
     return new RedisService(redisTemplate, kplatDataRedisConfig);
   }

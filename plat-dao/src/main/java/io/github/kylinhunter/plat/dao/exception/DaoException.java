@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.dao.exception;
 
 import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.commons.exception.info.ErrInfo;
-import io.github.kylinhunter.commons.exception.info.ErrInfos;
 
 /**
  * @author BiJi'an

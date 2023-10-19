@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDelete;
 import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.SysUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
@@ -39,12 +38,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantUserConfigDeleteInterceptor
     extends DeleteInterceptor<
-    TenantUserConfig,
-    TenantUserConfigReqCreate,
-    TenantUserConfigReqUpdate,
-    TenantUserConfigResp,
-    TenantUserConfigVO,
-    TenantUserConfigReqQuery> {
+        TenantUserConfig,
+        TenantUserConfigReqCreate,
+        TenantUserConfigReqUpdate,
+        TenantUserConfigResp,
+        TenantUserConfigVO,
+        TenantUserConfigReqQuery> {
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, TenantUserConfig entity) {
@@ -53,11 +52,10 @@ public class TenantUserConfigDeleteInterceptor
   }
 
   @Override
-  public void before(ReqDeletes reqDeletes, boolean tenantSupported,
-      List<TenantUserConfig> entities) {
+  public void before(
+      ReqDeletes reqDeletes, boolean tenantSupported, List<TenantUserConfig> entities) {
     super.before(reqDeletes, tenantSupported, entities);
     this.checkSelfUser(
         entities.stream().map(TenantUserConfig::getUserId).collect(Collectors.toList()));
-
   }
 }

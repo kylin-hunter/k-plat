@@ -38,10 +38,10 @@ public class GlobalExceptionHandler {
   private final ResponseWriter responseWriter;
 
   /**
-   * @param req             req
-   * @param rsp             rsp
+   * @param req req
+   * @param rsp rsp
    * @param globalException globalException
-   * @param model           model
+   * @param model model
    * @return java.lang.Object
    * @title handler
    * @description

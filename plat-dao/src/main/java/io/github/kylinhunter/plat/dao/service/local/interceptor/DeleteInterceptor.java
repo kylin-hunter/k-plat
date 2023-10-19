@@ -34,12 +34,12 @@ import org.springframework.util.CollectionUtils;
  * @date 2022-06-08 23:40
  */
 public class DeleteInterceptor<
-    T extends BaseEntity,
-    C extends ReqCreate,
-    U extends ReqUpdate,
-    Z extends Resp,
-    V extends VO,
-    Q extends ReqPage>
+        T extends BaseEntity,
+        C extends ReqCreate,
+        U extends ReqUpdate,
+        Z extends Resp,
+        V extends VO,
+        Q extends ReqPage>
     extends BasicInterceptor<T, C, U, Z, V, Q> {
 
   public void before(ReqDelete reqDelete, boolean tenantSupported, T entity) {

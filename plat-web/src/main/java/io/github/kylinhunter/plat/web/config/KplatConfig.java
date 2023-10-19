@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.stereotype.Component;
 
 /**
  * @description: 主要配置
@@ -50,7 +49,6 @@ public class KplatConfig {
   private int logWatchThreshold;
 
   private boolean initialize;
-
 
   private boolean debugEnabled;
 

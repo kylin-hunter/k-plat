@@ -46,5 +46,4 @@ public interface TraceExplain {
   void setHeaders(Map<String, List<String>> headers);
 
   Map<String, Object> getOthers();
-
 }

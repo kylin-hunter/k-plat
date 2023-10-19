@@ -35,17 +35,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantCatalogDeleteInterceptor
     extends DeleteInterceptor<
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery> {
-
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery> {
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, TenantCatalog entity) {
     super.before(reqDelete, tenantSupported, entity);
-
   }
 }

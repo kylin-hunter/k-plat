@@ -38,7 +38,6 @@ import org.springframework.stereotype.Component;
 public class UserDeleteInterceptor
     extends DeleteInterceptor<User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
-
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, User entity) {
     super.before(reqDelete, tenantSupported, entity);

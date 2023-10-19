@@ -38,7 +38,6 @@ public class DefaultlAccessDeniedHandler implements AccessDeniedHandler {
       HttpServletRequest request,
       HttpServletResponse response,
       AccessDeniedException accessDeniedException) {
-    responseWriter.writeErr(
-        WebErrInfos.AUTH_NO_PERMISSION, "the logoned user no permission", "");
+    responseWriter.writeErr(WebErrInfos.AUTH_NO_PERMISSION, "the logoned user no permission", "");
   }
 }

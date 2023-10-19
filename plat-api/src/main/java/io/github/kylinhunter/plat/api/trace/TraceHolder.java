@@ -28,8 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class TraceHolder {
 
-  protected final static ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
-
+  protected static final ThreadLocal<Trace> traces = InheritableThreadLocal.withInitial(() -> null);
 
   public static Trace create(User user) {
     Trace trace = new DefaultTrace();

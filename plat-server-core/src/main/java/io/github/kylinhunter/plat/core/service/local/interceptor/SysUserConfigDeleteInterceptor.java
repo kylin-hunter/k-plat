@@ -38,12 +38,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SysUserConfigDeleteInterceptor
     extends DeleteInterceptor<
-    SysUserConfig,
-    SysUserConfigReqCreate,
-    SysUserConfigReqUpdate,
-    SysUserConfigResp,
-    SysUserConfigVO,
-    SysUserConfigReqQuery> {
+        SysUserConfig,
+        SysUserConfigReqCreate,
+        SysUserConfigReqUpdate,
+        SysUserConfigResp,
+        SysUserConfigVO,
+        SysUserConfigReqQuery> {
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, SysUserConfig entity) {
@@ -56,6 +56,5 @@ public class SysUserConfigDeleteInterceptor
     super.before(reqDeletes, tenantSupported, entities);
     this.checkSelfUser(
         entities.stream().map(SysUserConfig::getUserId).collect(Collectors.toList()));
-
   }
 }

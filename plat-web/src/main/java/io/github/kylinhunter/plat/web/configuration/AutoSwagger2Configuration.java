@@ -43,7 +43,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author BiJi'an
@@ -87,22 +86,19 @@ public class AutoSwagger2Configuration {
         .build();
   }
 
-
   /**
-   * @param webEndpointsSupplier        webEndpointsSupplier
-   * @param servletEndpointsSupplier    servletEndpointsSupplier
+   * @param webEndpointsSupplier webEndpointsSupplier
+   * @param servletEndpointsSupplier servletEndpointsSupplier
    * @param controllerEndpointsSupplier controllerEndpointsSupplier
-   * @param endpointMediaTypes          endpointMediaTypes
-   * @param corsProperties              corsProperties
-   * @param webEndpointProperties       webEndpointProperties
-   * @param environment                 environment
+   * @param endpointMediaTypes endpointMediaTypes
+   * @param corsProperties corsProperties
+   * @param webEndpointProperties webEndpointProperties
+   * @param environment environment
    * @return org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping
    * @throws
    * @title webEndpointServletHandlerMapping
    * @description webEndpointServletHandlerMapping
-   * <p>
-   * Spring Boot 2.6.x \Swagger 3.0.0 compatibility ,核心问题在 RequestMappingInfo的709行
-   * </p>
+   *     <p>Spring Boot 2.6.x \Swagger 3.0.0 compatibility ,核心问题在 RequestMappingInfo的709行
    * @author BiJi'an
    * @date 2023-10-15 01:15
    */
@@ -122,16 +118,22 @@ public class AutoSwagger2Configuration {
     allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
     String basePath = webEndpointProperties.getBasePath();
     EndpointMapping endpointMapping = new EndpointMapping(basePath);
-    boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties,
-        environment, basePath);
-    return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes,
-        corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath),
-        shouldRegisterLinksMapping, null);
+    boolean shouldRegisterLinksMapping =
+        this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
+    return new WebMvcEndpointHandlerMapping(
+        endpointMapping,
+        webEndpoints,
+        endpointMediaTypes,
+        corsProperties.toCorsConfiguration(),
+        new EndpointLinksResolver(allEndpoints, basePath),
+        shouldRegisterLinksMapping,
+        null);
   }
 
-  private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties,
-      Environment environment, String basePath) {
-    return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath)
-        || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
+  private boolean shouldRegisterLinksMapping(
+      WebEndpointProperties webEndpointProperties, Environment environment, String basePath) {
+    return webEndpointProperties.getDiscovery().isEnabled()
+        && (StringUtils.hasText(basePath)
+            || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
   }
 }

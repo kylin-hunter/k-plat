@@ -18,7 +18,6 @@ package io.github.kylinhunter.plat.core.init.initializer;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultUsers;
-import io.github.kylinhunter.plat.core.init.initializer.Initializer;
 import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.trace.WebTraceHolder;

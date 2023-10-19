@@ -50,7 +50,6 @@ public class DefaultTraceExplain implements TraceExplain {
   @Override
   public void costStart(String key) {
     costs.put(key, System.currentTimeMillis());
-
   }
 
   @Override
@@ -78,5 +77,4 @@ public class DefaultTraceExplain implements TraceExplain {
       return 0;
     }
   }
-
 }

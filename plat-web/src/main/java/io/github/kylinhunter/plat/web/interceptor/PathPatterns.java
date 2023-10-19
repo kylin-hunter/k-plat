@@ -48,7 +48,6 @@ public class PathPatterns {
           .add("/swagger-ui/**")
           .add("/swagger-ui.html");
 
-
   public static final PathPattern SECURITY_IGNORE =
       PathPattern.builder()
           .build()
@@ -57,7 +56,6 @@ public class PathPatterns {
           .add("/auth/verify_token")
           .add("/echo/**")
           .add("/error");
-
 
   public static final PathPattern ACTUATOR = PathPattern.builder().build().add("/actuator/**");
 
@@ -79,8 +77,7 @@ public class PathPatterns {
   @Builder
   public static class PathPattern {
 
-    @Builder.Default
-    private Set<String> paths = Sets.newHashSet();
+    @Builder.Default private Set<String> paths = Sets.newHashSet();
 
     public PathPattern add(String path) {
       paths.add(path);

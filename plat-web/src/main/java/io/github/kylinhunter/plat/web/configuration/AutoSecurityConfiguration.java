@@ -62,7 +62,6 @@ public class AutoSecurityConfiguration {
     return new DefaultUserDetailsService();
   }
 
-
   @Bean
   public WeakPasswordChecker weakPassChecker() {
     WeakPassOption weakPassOption = WeakPassOption.builder().build();
@@ -71,8 +70,8 @@ public class AutoSecurityConfiguration {
   }
 
   @Bean
-  public PasswordManager passwordManager(PasswordEncoder passwordEncoder,
-      WeakPasswordChecker weakPasswordChecker) {
+  public PasswordManager passwordManager(
+      PasswordEncoder passwordEncoder, WeakPasswordChecker weakPasswordChecker) {
     return new PasswordManager(passwordEncoder, weakPasswordChecker);
   }
 }

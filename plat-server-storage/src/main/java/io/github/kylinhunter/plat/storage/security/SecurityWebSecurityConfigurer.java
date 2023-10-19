@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.storage.security;
 
 import io.github.kylinhunter.plat.api.module.core.constants.UserType;
-import io.github.kylinhunter.plat.web.interceptor.PathPatterns;
 import io.github.kylinhunter.plat.web.security.DefaultSecurityWebSecurityConfigurer;
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 /**
@@ -38,13 +36,13 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 @Slf4j
 public class SecurityWebSecurityConfigurer extends DefaultSecurityWebSecurityConfigurer {
 
-
   @Override
-  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry addPerm(
-      ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
-          urlRegistry) {
+  protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+      addPerm(
+          ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+              urlRegistry) {
     String[] defaultAuthorities =
-        new String[]{UserType.SUPER_ADMIN.getName(), UserType.TENANT_ADMIN.getName()};
+        new String[] {UserType.SUPER_ADMIN.getName(), UserType.TENANT_ADMIN.getName()};
 
     urlRegistry = addPerm(urlRegistry, "file_relations", defaultAuthorities);
     urlRegistry = addPerm(urlRegistry, "file_metadatas", defaultAuthorities);

@@ -15,12 +15,9 @@
  */
 package io.github.kylinhunter.plat.web.security.service.imp;
 
-import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUser;
-import io.github.kylinhunter.plat.api.module.core.bean.entity.User;
 import io.github.kylinhunter.plat.web.exception.AuthException;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
-import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

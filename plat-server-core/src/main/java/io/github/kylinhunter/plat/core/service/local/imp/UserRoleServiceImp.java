@@ -35,14 +35,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleServiceImp
     extends CommonServiceImpl<
-    UserRoleMapper,
-    UserRole,
-    UserRoleReqCreate,
-    UserRoleReqUpdate,
-    UserRoleResp,
-    UserRoleVO,
-    UserRoleReqQuery>
-    implements UserRoleService {
-
-
-}
+        UserRoleMapper,
+        UserRole,
+        UserRoleReqCreate,
+        UserRoleReqUpdate,
+        UserRoleResp,
+        UserRoleVO,
+        UserRoleReqQuery>
+    implements UserRoleService {}
