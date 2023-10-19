@@ -25,7 +25,7 @@ import io.github.kylinhunter.commons.exception.info.ErrInfo;
  */
 public class StorageException extends BizException {
   public StorageException(String message, Throwable cause) {
-    this(StorageErrInfoCustomizer.STORAGE_ERROR, message, cause);
+    this(StorageErrInfos.STORAGE_ERROR, message, cause);
   }
 
   public StorageException(ErrInfo errInfo) {
@@ -33,11 +33,11 @@ public class StorageException extends BizException {
   }
 
   public StorageException(String message) {
-    this(StorageErrInfoCustomizer.STORAGE_ERROR, message);
+    this(StorageErrInfos.STORAGE_ERROR, message);
   }
 
   public StorageException(Throwable cause) {
-    this(StorageErrInfoCustomizer.STORAGE_ERROR, cause);
+    this(StorageErrInfos.STORAGE_ERROR, cause);
   }
 
   public StorageException(ErrInfo errInfo, String message, Throwable cause) {

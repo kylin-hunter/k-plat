@@ -1,7 +1,7 @@
 package io.github.kylinhunter.plat.web.security;
 
 import io.github.kylinhunter.plat.api.auth.Token;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.Response;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
@@ -39,7 +39,7 @@ public class DefaultLogoutSuccessHandler implements LogoutSuccessHandler {
       responseWriter.writeJson(successResp);
     } catch (Exception e) {
       log.error("logout error", e);
-      responseWriter.writeErr(WebErrInfoCustomizer.AUTH_ERROR, "logout error", "");
+      responseWriter.writeErr(WebErrInfos.AUTH_ERROR, "logout error", "");
 
     }
   }

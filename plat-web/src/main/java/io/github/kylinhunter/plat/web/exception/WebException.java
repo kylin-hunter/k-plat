@@ -25,7 +25,7 @@ import io.github.kylinhunter.commons.exception.info.ErrInfo;
  */
 public class WebException extends BizException {
   public WebException(String message, Throwable cause) {
-    this(WebErrInfoCustomizer.WEB_ERROR, message, cause);
+    this(WebErrInfos.WEB_ERROR, message, cause);
   }
 
   public WebException(ErrInfo errInfo) {
@@ -33,11 +33,11 @@ public class WebException extends BizException {
   }
 
   public WebException(String message) {
-    this(WebErrInfoCustomizer.WEB_ERROR, message);
+    this(WebErrInfos.WEB_ERROR, message);
   }
 
   public WebException(Throwable cause) {
-    this(WebErrInfoCustomizer.WEB_ERROR, cause);
+    this(WebErrInfos.WEB_ERROR, cause);
   }
 
   public WebException(ErrInfo errInfo, String message, Throwable cause) {

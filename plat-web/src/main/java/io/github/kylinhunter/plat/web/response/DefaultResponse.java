@@ -82,7 +82,7 @@ public class DefaultResponse<T> implements Response<T> {
   public DefaultResponse(int code, String msg, T data) {
     this.code = code;
     if (code == ErrInfos.CODE_SUCCESS) {
-      this.msg = "ok";
+      this.msg = ErrInfos.MSG_SUCCESS;
     } else {
       this.msg = ErrInfoManager.getDefaultMsg(this.code);
       if (msg != null && msg.length() > 0) {

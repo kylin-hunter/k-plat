@@ -15,11 +15,13 @@
  */
 package io.github.kylinhunter.plat.web.i18n;
 
+import io.github.kylinhunter.commons.lang.strings.StringUtil;
+import io.github.kylinhunter.commons.util.ObjectValues;
 import java.util.Locale;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.util.StringUtils;
 
 /**
  * @author BiJi'an
@@ -36,34 +38,61 @@ public class I18nUtils {
     LocaleContextHolder.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
   }
 
-  /** 获取单个国际化翻译值 */
-  public static String get(long errCode) {
-    return get(errCode + "", null, null);
+  /**
+   * @param key key
+   * @return java.lang.String
+   * @title get
+   * @description get
+   * @author BiJi'an
+   * @date 2023-10-19 23:54
+   */
+  public static String get(Object key) {
+    return get(key, null, null);
   }
 
-  /** 获取单个国际化翻译值 */
-  public static String get(long errCode, Object params) {
-    if (params instanceof Object[]) {
-      return get(errCode + "", (Object[]) params, null);
+  /**
+   * @param key  key
+   * @param args args
+   * @return java.lang.String
+   * @title get
+   * @description get
+   * @author BiJi'an
+   * @date 2023-10-19 18:43
+   */
 
-    } else {
-      return get(errCode + "", null, null);
+  public static String get(Object key, Object args) {
+    return get(key, args, null);
+  }
+
+  /**
+   * @param code         code
+   * @param args         args
+   * @param defaultValue defaultValue
+   * @return java.lang.String
+   * @title get
+   * @description get
+   * @author BiJi'an
+   * @date 2023-10-19 18:43
+   */
+  public static String get(Object code, Object args, String defaultValue) {
+    Objects.requireNonNull(code);
+    String key = ObjectValues.getString(code);
+
+    Object[] params = null;
+    if (args != null) {
+      if (args instanceof Object[]) {
+        params = (Object[]) args;
+      } else {
+        params = new Object[]{args};
+      }
     }
-  }
 
-  /** 获取单个国际化翻译值 */
-  public static String get(String msgKey) {
-    return get(msgKey, null, msgKey);
-  }
-
-  /** 获取单个国际化翻译值 */
-  public static String get(String msgKey, Object[] args, String defaultValue) {
     try {
       Locale locale = LocaleContextHolder.getLocale();
-      String value = messageSource.getMessage(msgKey, args, locale);
+      String value = messageSource.getMessage(key, params, locale);
       log.info("get in :" + locale + ":" + value);
-      if (!StringUtils.isEmpty(value)) {
-        return value;
+      if (!StringUtil.isEmpty(value)) {
+        return value.trim();
       }
     } catch (Exception e) {
       log.warn("invalid msg={}", e.getMessage());

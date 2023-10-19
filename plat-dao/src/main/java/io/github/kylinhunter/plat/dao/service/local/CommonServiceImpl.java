@@ -23,8 +23,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.kylinhunter.commons.exception.ExceptionConvertor;
 import io.github.kylinhunter.commons.exception.ExceptionHelper;
 import io.github.kylinhunter.commons.exception.common.KRuntimeException;
-import io.github.kylinhunter.commons.exception.embed.biz.DBException;
-import io.github.kylinhunter.commons.exception.info.ErrInfos;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
@@ -41,6 +39,8 @@ import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.dao.exception.DaoErrInfos;
+import io.github.kylinhunter.plat.dao.exception.DaoException;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.FindByIdInterceptor;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.QueryInterceptor;
@@ -106,7 +106,7 @@ public abstract class CommonServiceImpl<
     try {
       return entityClass.newInstance();
     } catch (Exception e) {
-      throw new DBException("crete EntityBean error", e);
+      throw new DaoException("crete EntityBean error", e);
     }
   }
 
@@ -114,7 +114,7 @@ public abstract class CommonServiceImpl<
     try {
       return respClass.newInstance();
     } catch (Exception e) {
-      throw new DBException("getEntityBean error", e);
+      throw new DaoException("getEntityBean error", e);
     }
   }
 
@@ -128,7 +128,7 @@ public abstract class CommonServiceImpl<
           return null;
         }
       } else {
-        throw new DBException("save db error");
+        throw new DaoException("save db error");
       }
     } catch (Exception e) {
       throw ExceptionConvertor.convert(e);
@@ -155,13 +155,13 @@ public abstract class CommonServiceImpl<
     try {
       T t = this.getById(reqUpdate.getId());
       if (t == null) {
-        throw new DBException(ErrInfos.DB_NO_EXIST, "no data for id =" + reqUpdate.getId());
+        throw new DaoException(DaoErrInfos.DATA_NO_EXIST, "no data for id =" + reqUpdate.getId());
       }
       t = saveOrUpdateInterceptor.before(reqUpdate, this.tenantSupported, t);
       if (this.updateById(t)) {
         return saveOrUpdateInterceptor.after(reqUpdate, t, createResponse());
       } else {
-        throw new DBException("update db error");
+        throw new DaoException("update db error");
       }
     } catch (KRuntimeException e) {
       throw e;

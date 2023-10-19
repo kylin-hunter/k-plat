@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.storage.exception;
+package io.github.kylinhunter.plat.data.exception;
 
-import io.github.kylinhunter.commons.exception.info.ErrInfo;
-import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
+import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-01 00:53
+ * @date 2022-06-08 00:01
  */
-@ErrInfoAware
-public class StorageErrInfoCustomizer {
+public class DataErrExplainer extends AbstractExplainerSupplier {
 
-  private static int BASE_CODE = 70000;
-  public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
+  @Override
+  public void explain() {}
 }

@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.security.error;
 
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +39,6 @@ public class DefaultlAccessDeniedHandler implements AccessDeniedHandler {
       HttpServletResponse response,
       AccessDeniedException accessDeniedException) {
     responseWriter.writeErr(
-        WebErrInfoCustomizer.AUTH_NO_PERMISSION, "the logoned user no permission", "");
+        WebErrInfos.AUTH_NO_PERMISSION, "the logoned user no permission", "");
   }
 }

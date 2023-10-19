@@ -24,7 +24,7 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
  * @date 2022-01-01 00:53
  */
 @ErrInfoAware
-public class WebErrInfoCustomizer {
+public class WebErrInfos {
 
   public static final ErrInfo NOT_FOUND = new ErrInfo(404);
   public static final ErrInfo FORBIDDEN = new ErrInfo(403);

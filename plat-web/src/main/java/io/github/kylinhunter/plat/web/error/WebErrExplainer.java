@@ -22,7 +22,7 @@ import io.github.kylinhunter.commons.exception.ExceptionFinder;
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * @date 2021/8/1
  */
 @Slf4j
-public class WebExplainCustomizer extends AbstractExplainerSupplier {
+public class WebErrExplainer extends AbstractExplainerSupplier {
 
   @Override
   public void explain() {
@@ -77,10 +77,10 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
             });
 
     this.addExplainer(HttpRequestMethodNotSupportedException.class)
-        .explain(e -> new ExplainResult(WebErrInfoCustomizer.WEB_NOT_SUPPORTED, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfos.WEB_NOT_SUPPORTED, e.getMessage()));
 
     this.addExplainer(NoHandlerFoundException.class)
-        .explain(e -> new ExplainResult(WebErrInfoCustomizer.WEB_NO_HANDLER_FOUND, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfos.WEB_NO_HANDLER_FOUND, e.getMessage()));
 
     this.addExplainer(InvalidFormatException.class)
         .explain(e -> new ExplainResult(ErrInfos.FORMAT, e.getMessage()));
@@ -90,12 +90,12 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
 
     // feign err
     this.addExplainer(feign.RetryableException.class)
-        .explain(e -> new ExplainResult(WebErrInfoCustomizer.FEIGN_ERROR, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfos.FEIGN_ERROR, e.getMessage()));
 
     // sentinel error
 
     this.addExplainer(BlockException.class)
-        .explain(e -> new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage()));
+        .explain(e -> new ExplainResult(WebErrInfos.LIMIT_EXCEEDS, e.getMessage()));
 
     this.addExplainer(UndeclaredThrowableException.class)
         .explain(
@@ -103,12 +103,12 @@ public class WebExplainCustomizer extends AbstractExplainerSupplier {
               BlockException ex = ExceptionFinder.find(e, true, BlockException.class);
 
               if (ex != null) {
-                return new ExplainResult(WebErrInfoCustomizer.LIMIT_EXCEEDS, e.getMessage());
+                return new ExplainResult(WebErrInfos.LIMIT_EXCEEDS, e.getMessage());
               }
-              return new ExplainResult(WebErrInfoCustomizer.WEB_ERROR);
+              return new ExplainResult(WebErrInfos.WEB_ERROR);
             });
 
     this.addExplainer(AccessDeniedException.class)
-        .explain(e -> new ExplainResult(WebErrInfoCustomizer.AUTH_NO_PERMISSION));
+        .explain(e -> new ExplainResult(WebErrInfos.AUTH_NO_PERMISSION));
   }
 }

@@ -15,19 +15,36 @@
  */
 package io.github.kylinhunter.plat.dao.exception;
 
+import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.commons.exception.info.ErrInfo;
-import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
+import io.github.kylinhunter.commons.exception.info.ErrInfos;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-01 00:53
+ * @date 2022/1/1
  */
-@ErrInfoAware
-public class DaoErrInfoCustomizer {
+public class DaoException extends BizException {
 
-  static int BASE_CODE = 50000;
-  public static final ErrInfo DUPLICATE = new ErrInfo(++BASE_CODE);
-  public static final ErrInfo CONSTRAINT = new ErrInfo(++BASE_CODE);
-  public static final ErrInfo CONSTRAINT_FOREIGN = new ErrInfo(++BASE_CODE);
+  private static final long serialVersionUID = 1L;
+
+  public DaoException() {
+    this.errInfo = DaoErrInfos.DAO;
+  }
+
+  public DaoException(ErrInfo errInfo, Throwable cause) {
+    super(errInfo, cause);
+  }
+
+  public DaoException(ErrInfo errInfo, String message) {
+    super(errInfo, message);
+  }
+
+  public DaoException(String message) {
+    super(DaoErrInfos.DAO, message);
+  }
+
+  public DaoException(String message, Throwable cause) {
+    super(DaoErrInfos.DAO, message, cause);
+  }
 }

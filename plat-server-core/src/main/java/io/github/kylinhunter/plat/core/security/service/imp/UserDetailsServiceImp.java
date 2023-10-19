@@ -30,7 +30,7 @@ import io.github.kylinhunter.plat.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.core.service.local.UserService;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.exception.AuthException;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;
 import java.time.LocalDateTime;
@@ -67,7 +67,7 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userService.findByUserName(username);
     if (Objects.isNull(user)) {
-      throw new BizException(WebErrInfoCustomizer.AUTH_ERROR, "username or password error");
+      throw new BizException(WebErrInfos.AUTH_ERROR, "username or password error");
     }
     List<Permission> permissions = roleService.findPermissionsByUserId(user.getId());
     Set<String> permCodes = calPermCodes(permissions, user.getId(), user.getType());
@@ -80,7 +80,7 @@ public class UserDetailsServiceImp implements UserDetailsService, TenantUserDeta
       throws UsernameNotFoundException {
     User user = userService.findByUserName(username);
     if (Objects.isNull(user)) {
-      throw new BizException(WebErrInfoCustomizer.AUTH_ERROR, "username or password error");
+      throw new BizException(WebErrInfos.AUTH_ERROR, "username or password error");
     }
     Tenant tenant = tenantService.getById(tenantId);
     if (tenant == null) {

@@ -21,6 +21,7 @@ import io.github.kylinhunter.plat.web.i18n.I18nUtils;
 import io.github.kylinhunter.plat.web.trace.WebTraceHolder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author BiJi'an
@@ -32,9 +33,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ResponseService {
 
   /**
-   * @param e
+   * @param e e
    * @return io.github.kylinhunter.plat.commons.web.response.DefaultResponse
-   * @throws
    * @title toResponse
    * @description
    * @author BiJi'an
@@ -42,10 +42,10 @@ public class ResponseService {
    */
   public Response<?> toResponse(KRuntimeException e, boolean debug) {
 
-    Response response = new DefaultResponse<>();
+    Response<?> response = new DefaultResponse<>();
     response.setCode(e.getErrInfo().getCode());
-    String errMsg = I18nUtils.get(e.getErrInfo().getCode(), e.getExtra());
-    if (errMsg != null) {
+    String errMsg = this.getI18nErrMsg(e, debug);
+    if (!StringUtils.isBlank(errMsg)) {
       response.setMsg(errMsg);
     } else {
       response.setMsg(ExceptionHelper.getMessage(e, debug, 1000));
@@ -54,4 +54,18 @@ public class ResponseService {
 
     return response;
   }
+
+  private String getI18nErrMsg(KRuntimeException e, boolean debug) {
+    String errMsg;
+    if (debug) {
+      errMsg = I18nUtils.get(e.getErrInfo().getCode(), e.getExtra());
+    } else {
+      errMsg = I18nUtils.get(e.getErrInfo().getCode());
+      if (!StringUtils.isEmpty(errMsg)) {
+        errMsg = errMsg.replaceAll("\\{.*\\d.*\\}", "").trim();
+      }
+    }
+    return errMsg;
+  }
 }
+

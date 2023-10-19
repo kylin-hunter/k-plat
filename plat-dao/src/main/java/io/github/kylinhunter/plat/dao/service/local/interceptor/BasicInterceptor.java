@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
-import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
@@ -27,6 +26,7 @@ import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.trace.Trace;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
+import io.github.kylinhunter.plat.dao.exception.DaoException;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -81,7 +81,7 @@ public class BasicInterceptor<
   protected void checkSameTenant(String tenantId) {
     String clientTenantId = checkTenantId();
     if (!clientTenantId.equals(tenantId)) {
-      throw new DBException("tenantId invalid：" + clientTenantId + "/" + tenantId);
+      throw new DaoException("tenantId invalid：" + clientTenantId + "/" + tenantId);
     }
   }
 
@@ -90,7 +90,7 @@ public class BasicInterceptor<
     entities.forEach(
         entity -> {
           if (!tenantId.equals(entity.getSysTenantId())) {
-            throw new DBException("tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
+            throw new DaoException("tenantId invalid：" + tenantId + "/" + entity.getSysTenantId());
           }
         });
   }
@@ -98,7 +98,7 @@ public class BasicInterceptor<
   protected String checkTenantId() {
     String tenantId = TraceHolder.get().getUserContext().getTenantId();
     if (StringUtils.isEmpty(tenantId)) {
-      throw new DBException("tenantId is emtpy");
+      throw new DaoException("tenantId is emtpy");
     }
     return tenantId;
   }

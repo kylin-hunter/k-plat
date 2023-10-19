@@ -18,7 +18,6 @@ package io.github.kylinhunter.plat.dao.service.local.interceptor;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.commons.utils.bean.BeanCopyUtils;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
@@ -28,6 +27,7 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
+import io.github.kylinhunter.plat.dao.exception.DaoException;
 import io.github.kylinhunter.plat.dao.service.local.component.FilterComponent;
 import io.github.kylinhunter.plat.dao.service.local.component.SortComponent;
 import lombok.RequiredArgsConstructor;
@@ -78,7 +78,7 @@ public class QueryInterceptor<
         BeanCopyUtils.copyProperties(r, response);
         pageData.getBody().add(response);
       } catch (Exception e) {
-        throw new DBException("copy bean error", e);
+        throw new DaoException("copy bean error", e);
       }
     }
     return pageData;

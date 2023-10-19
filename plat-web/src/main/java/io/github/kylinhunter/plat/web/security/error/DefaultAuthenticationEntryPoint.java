@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.web.security.error;
 
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +38,6 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
       HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
       throws IOException {
     responseWriter.writeErr(
-        WebErrInfoCustomizer.AUTH_NO_PERMISSION_ANONYMOUS, "no permission for anonymous", "");
+        WebErrInfos.AUTH_NO_PERMISSION_ANONYMOUS, "no permission for anonymous", "");
   }
 }

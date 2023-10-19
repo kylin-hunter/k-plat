@@ -109,9 +109,11 @@ CREATE TABLE IF NOT EXISTS `kplat_user_role`
     `sys_delete_flag`       tinyint     NOT NULL DEFAULT 0 COMMENT '0 未删除 1删除',
     `sys_op_lock`           int         NULL COMMENT '乐观锁',
     `user_id`               varchar(64) NOT NULL COMMENT '用户id',
-    `role_id`         varchar(64) NOT NULL DEFAULT '' COMMENT '角色 id',
+    `role_id`               varchar(64) NOT NULL DEFAULT '' COMMENT '角色 id',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `idx_user_role` (`user_id`, `role_id`) COMMENT '用户角色唯一'
+    UNIQUE KEY `idx_user_role` (`user_id`, `role_id`) COMMENT '用户角色唯一',
+    constraint kplat_user_role_kplat_role_id_fk foreign key (role_id) references kp.kplat_role (id),
+    constraint kplat_user_role_kplat_user_id_fk foreign key (user_id) references kp.kplat_user (id)
 
 );
 

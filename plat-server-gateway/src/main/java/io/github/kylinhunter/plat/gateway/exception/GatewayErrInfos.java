@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.exception;
+package io.github.kylinhunter.plat.gateway.exception;
 
-import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
+import io.github.kylinhunter.commons.exception.info.ErrInfo;
+import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-06-08 00:01
+ * @date 2022-01-01 00:53
  */
-public class DataExplainCustomizer extends AbstractExplainerSupplier {
+@ErrInfoAware
+public class GatewayErrInfos {
 
-  @Override
-  public void explain() {}
+  private static int BASE_CODE = 80000;
+  public static final ErrInfo GW_ERROR = new ErrInfo(++BASE_CODE);
 }

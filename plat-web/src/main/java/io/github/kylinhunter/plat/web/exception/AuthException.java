@@ -26,7 +26,7 @@ import io.github.kylinhunter.commons.exception.info.ErrInfo;
 public class AuthException extends BizException {
 
   public AuthException(String message, Throwable cause) {
-    this(WebErrInfoCustomizer.AUTH_ERROR, message, cause);
+    this(WebErrInfos.AUTH_ERROR, message, cause);
   }
 
   public AuthException(ErrInfo errInfo) {
@@ -34,11 +34,11 @@ public class AuthException extends BizException {
   }
 
   public AuthException(String message) {
-    this(WebErrInfoCustomizer.AUTH_ERROR, message);
+    this(WebErrInfos.AUTH_ERROR, message);
   }
 
   public AuthException(Throwable cause) {
-    this(WebErrInfoCustomizer.AUTH_ERROR, cause);
+    this(WebErrInfos.AUTH_ERROR, cause);
   }
 
   public AuthException(ErrInfo errInfo, String message, Throwable cause) {

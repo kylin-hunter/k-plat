@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.dao.service.local.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.github.kylinhunter.commons.exception.embed.biz.DBException;
 import io.github.kylinhunter.commons.utils.bean.BeanCopyUtils;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.bean.entity.constants.SysCols;
@@ -28,6 +27,7 @@ import io.github.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
+import io.github.kylinhunter.plat.dao.exception.DaoException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,7 +88,7 @@ public class FindByIdInterceptor<
                   BeanCopyUtils.copyProperties(bean, response);
                   return response;
                 } catch (Exception e) {
-                  throw new DBException("copy bean error", e);
+                  throw new DaoException("copy bean error", e);
                 }
               })
           .collect(Collectors.toList());

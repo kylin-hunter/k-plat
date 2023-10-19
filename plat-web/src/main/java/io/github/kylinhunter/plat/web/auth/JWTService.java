@@ -27,7 +27,7 @@ import io.github.kylinhunter.plat.api.auth.VerifyToken;
 import io.github.kylinhunter.plat.api.auth.context.DefaultUserContext;
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
 import io.github.kylinhunter.plat.web.exception.AuthException;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
@@ -88,14 +88,14 @@ public class JWTService {
     } catch (AuthException e) {
       throw e;
     } catch (Exception e) {
-      throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_CREATE_ERROR, e);
+      throw new AuthException(WebErrInfos.AUTH_TOKEN_CREATE_ERROR, e);
     }
   }
 
   public VerifyToken verify(String token) {
     try {
       if (StringUtils.isBlank(token) || "null".equalsIgnoreCase(token)) {
-        throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_NOT_FOUND);
+        throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_NOT_FOUND);
       }
       JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
       UserContext userContext = new DefaultUserContext();
@@ -116,11 +116,11 @@ public class JWTService {
     } catch (AuthException e) {
       throw e;
     } catch (TokenExpiredException e) {
-      throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_EXPIRED, e);
+      throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_EXPIRED, e);
     } catch (JWTVerificationException e) {
-      throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_INVALID, e);
+      throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_INVALID, e);
     } catch (Exception e) {
-      throw new AuthException(WebErrInfoCustomizer.AUTH_TOKEN_VERIFY_ERROR, e);
+      throw new AuthException(WebErrInfos.AUTH_TOKEN_VERIFY_ERROR, e);
     }
   }
 }

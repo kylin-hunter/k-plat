@@ -19,41 +19,39 @@ import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier
 import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import java.sql.SQLIntegrityConstraintViolationException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.dao.DuplicateKeyException;
 
 /**
  * @author BiJi'an
  * @description
  * @date 2022-06-08 00:01
  */
-public class DaoExplainCustomizer extends AbstractExplainerSupplier {
+public class DaoErrExplainer extends AbstractExplainerSupplier {
 
   String SQLSTATE_CONSTRAINT = "23";
 
   @Override
   public void explain() {
 
-    this.addExplainer(DuplicateKeyException.class)
-        .explain(
-            e -> {
-              ExplainResult explainResult = new ExplainResult(DaoErrInfoCustomizer.DUPLICATE);
-              explainResult.setExtra("extra");
-              return explainResult;
-            });
-
     this.addExplainer(SQLIntegrityConstraintViolationException.class)
         .explain(
             e -> {
+              ExplainResult explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT,
+                  "数据约束异常");
               String message = e.getMessage();
               String sqlState = e.getSQLState();
               if (!StringUtils.isEmpty(sqlState)
                   && sqlState.startsWith(SQLSTATE_CONSTRAINT)
-                  && !StringUtils.isEmpty(message)
-                  && message.toLowerCase().indexOf("foreign") > 0) {
-                return new ExplainResult(
-                    DaoErrInfoCustomizer.CONSTRAINT_FOREIGN, "数据约束异常,更新foreign异常");
+                  && !StringUtils.isEmpty(message)) {
+                if (message.toLowerCase().indexOf("foreign") >= 0) {
+                  explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT_FOREIGN,
+                      "数据约束异常,更新foreign异常");
+                } else if (message.toLowerCase().indexOf("duplicate") >= 0) {
+                  explainResult = new ExplainResult(DaoErrInfos.CONSTRAINT_DUPLICATE,
+                      "数据约束异常,数据重复");
+                }
               }
-              return new ExplainResult(DaoErrInfoCustomizer.CONSTRAINT, "数据约束异常");
+              explainResult.setExtra(e.getMessage());
+              return explainResult;
             });
   }
 }

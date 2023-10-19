@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.web.configuration;
 
 import feign.codec.ErrorDecoder;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.exception.WebException;
 import io.github.kylinhunter.plat.web.feign.FeignComponent;
 import io.github.kylinhunter.plat.web.feign.FeignTokenInterceptor;
@@ -49,14 +49,14 @@ public class AutoFeignConfiguration {
       int status = response.status();
       if (status >= 400 && status <= 499) {
         return new WebException(
-            WebErrInfoCustomizer.FEIGN_REQUEST_ERROR, "(" + status + ")" + key + ":" + msg);
+            WebErrInfos.FEIGN_REQUEST_ERROR, "(" + status + ")" + key + ":" + msg);
       }
       if (status >= 500 && status <= 599) {
         return new WebException(
-            WebErrInfoCustomizer.FEIGN_SERVER_ERROR, "(" + status + ") =>" + key + ":" + msg);
+            WebErrInfos.FEIGN_SERVER_ERROR, "(" + status + ") =>" + key + ":" + msg);
       }
       return new WebException(
-          WebErrInfoCustomizer.FEIGN_ERROR, "(" + status + ")=>" + key + ":" + msg);
+          WebErrInfos.FEIGN_ERROR, "(" + status + ")=>" + key + ":" + msg);
 
       //      return errorDecoder.decode(key, response);
     };

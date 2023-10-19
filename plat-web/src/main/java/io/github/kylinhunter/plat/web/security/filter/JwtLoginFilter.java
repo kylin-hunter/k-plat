@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.web.security.filter;
 
 import io.github.kylinhunter.commons.lang.strings.StringUtil;
 import io.github.kylinhunter.plat.web.exception.AuthException;
-import io.github.kylinhunter.plat.web.exception.WebErrInfoCustomizer;
+import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
 import io.github.kylinhunter.plat.web.response.ResponseWriter;
 import io.github.kylinhunter.plat.web.security.bean.TokenUserDetails;
@@ -91,6 +91,6 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
   protected void unsuccessfulAuthentication(
       HttpServletRequest request, HttpServletResponse response, AuthenticationException ex) {
 
-    responseWriter.writeErr(WebErrInfoCustomizer.AUTH_ERROR, "auth error:" + ex.getMessage(), "");
+    responseWriter.writeErr(WebErrInfos.AUTH_ERROR, "auth error:" + ex.getMessage(), "");
   }
 }
