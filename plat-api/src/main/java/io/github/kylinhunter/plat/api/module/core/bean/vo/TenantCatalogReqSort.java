@@ -13,30 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.bean.vo.response.single;
+package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
-import lombok.EqualsAndHashCode;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
+import io.github.kylinhunter.plat.api.bean.vo.request.Req;
+import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
+import java.util.List;
+import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-01-01 21:42
+ * @date 2023-10-18 11:29
  */
+@ToString
 @Getter
 @Setter
-@ApiModel(value = "Resp", description = "Resp")
-@NoArgsConstructor
-public class Resp implements Serializable {
+public class TenantCatalogReqSort extends Req {
 
-  @ApiModelProperty(value = "id")
-  @EqualsAndHashCode.Include
-  protected String id;
+  @NotEmpty
+  private List<String> ids;
 
-
+  public TenantCatalogReqSort() {
+    super(ReqType.OTHER);
+  }
 }

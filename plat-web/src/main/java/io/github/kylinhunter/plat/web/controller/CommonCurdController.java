@@ -23,7 +23,9 @@ import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqById;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqByIds;
 import io.github.kylinhunter.plat.api.bean.vo.query.ReqPage;
+import io.github.kylinhunter.plat.api.bean.vo.response.batch.BatchResp;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.DefaultSysResp;
+import io.github.kylinhunter.plat.api.bean.vo.update.BatchReqUpdate;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.github.kylinhunter.plat.api.page.PageData;
 import io.github.kylinhunter.plat.api.service.local.CommonService;
@@ -58,7 +60,8 @@ public abstract class CommonCurdController<
     Q extends ReqPage,
     T extends BaseEntity> {
 
-  @Autowired protected S service;
+  @Autowired
+  protected S service;
 
   @PostConstruct
   private void init() {
@@ -80,6 +83,15 @@ public abstract class CommonCurdController<
       @RequestBody @Validated Y reqUpdate, @PathVariable("id") String id) {
     reqUpdate.setId(id);
     return new DefaultResponse<>(service.update(reqUpdate));
+  }
+
+  @RequestMapping(value = "/batch", method = RequestMethod.PUT)
+  @ResponseBody
+  @ApiOperation("批量")
+  public DefaultResponse<BatchResp<Z>> update(
+      @RequestBody @Validated BatchReqUpdate<Y> batchReqUpdate) {
+
+    return new DefaultResponse<BatchResp<Z>>(this.service.updateBatch(batchReqUpdate));
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

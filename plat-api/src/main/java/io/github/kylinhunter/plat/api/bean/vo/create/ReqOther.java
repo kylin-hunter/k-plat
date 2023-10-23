@@ -13,28 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.module.core.bean.vo;
+package io.github.kylinhunter.plat.api.bean.vo.create;
 
-import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
-import java.util.List;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
+import io.github.kylinhunter.plat.api.bean.vo.request.Req;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2023-10-18 11:29
+ * @date 2022/5/12
  */
-@ToString
 @Getter
 @Setter
-public class TenantCatalogReqInit {
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@ApiModel(value = "ReqOther", description = "ReqOther")
+public class ReqOther extends Req {
+  @ApiModelProperty(value = "primary key", hidden = true)
+  @EqualsAndHashCode.Include
+  private String id;
 
-  String code;
-  String name;
-  int level = 0;
-  int type = TenantCatalogType.DEFAULT.getCode();
-  String parentCode;
-  List<TenantCatalogReqInit> children;
+  public ReqOther() {
+    super(ReqType.OTHER);
+  }
+
+  public ReqOther(String id) {
+    this();
+    this.id = id;
+  }
 }

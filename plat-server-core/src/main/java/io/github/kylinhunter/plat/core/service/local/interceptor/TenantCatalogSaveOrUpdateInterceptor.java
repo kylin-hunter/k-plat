@@ -16,6 +16,7 @@
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.commons.exception.embed.ParamException;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
@@ -37,12 +38,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantCatalogSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-        TenantCatalog,
-        TenantCatalogReqCreate,
-        TenantCatalogReqUpdate,
-        TenantCatalogResp,
-        TenantCatalogVO,
-        TenantCatalogReqQuery> {
+    TenantCatalog,
+    TenantCatalogReqCreate,
+    TenantCatalogReqUpdate,
+    TenantCatalogResp,
+    TenantCatalogVO,
+    TenantCatalogReqQuery> {
 
   private final TenantCatalogMapper tenantCatalogMapper;
 
@@ -54,22 +55,26 @@ public class TenantCatalogSaveOrUpdateInterceptor
       vo.setLevel(0);
       vo.setPath("0");
       vo.setStatus(0);
+      vo.setSort(0);
     } else {
       String parentId = vo.getParentId();
       TenantCatalog parent = this.tenantCatalogMapper.selectById(parentId);
       if (parent == null) {
         throw new ParamException("invalid parentId:" + parentId);
       }
-      vo.setLevel(parent.getLevel() + 1);
       vo.setType(parent.getType());
+      vo.setLevel(parent.getLevel() + 1);
       vo.setPath(parent.getPath() + "_" + parentId);
       vo.setStatus(parent.getStatus());
+      if (vo.getReqType() == ReqType.CREATE) {
+        int count = tenantCatalogMapper.selectCountByParentId(parentId);
+        vo.setSort(count + 1);
+      } else {
+        vo.setSort(entity.getSort());
+      }
+
+
     }
   }
 
-  @Override
-  public TenantCatalog before(
-      TenantCatalogReqUpdate reqUpdate, boolean tenantSupported, TenantCatalog entity) {
-    return super.before(reqUpdate, tenantSupported, entity);
-  }
 }

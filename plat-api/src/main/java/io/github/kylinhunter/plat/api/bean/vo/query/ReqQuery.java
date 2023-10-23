@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.api.bean.vo.query;
 
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,6 +39,6 @@ public class ReqQuery extends Req implements Serializable {
   private boolean withLogicDelData = false;
 
   public ReqQuery() {
-    super(VoType.QUERY, ReqType.QUERY);
+    super(ReqType.QUERY);
   }
 }

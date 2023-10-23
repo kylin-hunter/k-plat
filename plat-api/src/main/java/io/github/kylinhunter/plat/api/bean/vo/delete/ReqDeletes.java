@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.api.bean.vo.delete;
 
 import com.google.common.collect.Lists;
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,7 +48,7 @@ public class ReqDeletes extends Req implements Serializable {
   private Collection<String> ids;
 
   public ReqDeletes() {
-    super(VoType.DELETE, ReqType.DELETE);
+    super(ReqType.DELETE);
   }
 
   public ReqDeletes(Collection<String> ids) {

@@ -47,6 +47,9 @@ public class TenantCatalogResp extends DefaultSysResp {
   @ApiModelProperty(value = "parent_id")
   private String parentId;
 
+  @ApiModelProperty(value = "sort")
+  private Integer sort;
+
   @ApiModelProperty(value = "path")
   private String path;
 

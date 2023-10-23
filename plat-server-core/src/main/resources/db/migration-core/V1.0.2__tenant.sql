@@ -127,11 +127,13 @@ CREATE TABLE IF NOT EXISTS `kplat_tenant_catalog`
     `code`                  varchar(64)   NOT NULL DEFAULT '' COMMENT 'code',
     `name`                  varchar(64)   NOT NULL DEFAULT '' COMMENT 'name',
     `type`                  tinyint       NOT NULL DEFAULT 0 COMMENT '类型',
+    `parent_id`             varchar(64)   NOT NULL DEFAULT '0' COMMENT 'parent_id',
+    `sort`                  int           NOT NULL DEFAULT 0 COMMENT 'sort',
     `status`                tinyint       NOT NULL DEFAULT 0 COMMENT '状态，预留',
     `description`           varchar(255)  NOT NULL DEFAULT '' COMMENT '描述',
     `path`                  varchar(1024) NOT NULL DEFAULT '' COMMENT 'path',
     `level`                 int           NOT NULL DEFAULT 0 COMMENT 'level',
-    `parent_id`             varchar(64)   NOT NULL DEFAULT '0' COMMENT 'parent_id',
+
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_tenant_catalog_code` (`sys_tenant_id`, `type`, `code`) COMMENT '唯一的code',
     UNIQUE KEY `uniq_tenant_catalog_name` (`sys_tenant_id`, `type`, `level`, `name`) COMMENT '唯一的name'

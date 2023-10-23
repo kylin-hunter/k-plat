@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserSaveOrUpdateInterceptor
     extends SaveOrUpdateInterceptor<
-        User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
+    User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery> {
 
   private final PasswordEncoder passwordEncoder;
 
@@ -48,7 +48,7 @@ public class UserSaveOrUpdateInterceptor
   @Override
   public void saveOrUpdateBefore(UserVO vo, User entity) {
     if (vo.getUserName().equals(DefaultUsers.ADMIN_USER_NAME)) {
-      throw new ParamException("can't save or update  sys user:" + vo.getId());
+      throw new ParamException("can't save or update  sys user:" + DefaultUsers.ADMIN_USER_NAME);
     }
 
     super.saveOrUpdateBefore(vo, entity);

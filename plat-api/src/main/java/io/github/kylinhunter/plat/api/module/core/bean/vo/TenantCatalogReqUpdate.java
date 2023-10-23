@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.kylinhunter.plat.api.bean.vo.update.ReqUpdate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,27 +33,38 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value = "TenantCatalogReqUpdate", description = "TenantCatalogReqUpdate")
 public class TenantCatalogReqUpdate extends ReqUpdate implements TenantCatalogVO {
 
-  @ApiModelProperty(value = "code")
-  private String code;
-
-  @ApiModelProperty(value = "path")
-  private Integer level;
-
   @ApiModelProperty(value = "description")
   private String description;
-
-  @ApiModelProperty(value = "type")
-  private Integer type;
 
   @ApiModelProperty(value = "parent_id")
   private String parentId;
 
-  @ApiModelProperty(value = "path")
-  private String path;
-
-  @ApiModelProperty(value = "name")
+  @ApiModelProperty(value = "name", hidden = true)
   private String name;
 
-  @ApiModelProperty(value = "status")
+  @ApiModelProperty(value = "code")
+  @JsonIgnore
+  private String code;
+
+  @ApiModelProperty(value = "path", hidden = true)
+  @JsonIgnore
+  private Integer level;
+
+  @ApiModelProperty(value = "sort", hidden = true)
+  @JsonIgnore
+  private Integer sort;
+
+  @ApiModelProperty(value = "type", hidden = true)
+  @JsonIgnore
+  private Integer type;
+
+
+  @ApiModelProperty(value = "path", hidden = true)
+  @JsonIgnore
+  private String path;
+
+
+  @ApiModelProperty(value = "status", hidden = true)
+  @JsonIgnore
   private Integer status;
 }

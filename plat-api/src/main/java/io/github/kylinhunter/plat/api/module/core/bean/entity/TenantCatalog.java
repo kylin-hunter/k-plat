@@ -55,4 +55,7 @@ public class TenantCatalog extends BaseEntity {
 
   @ApiModelProperty(value = "parent_id")
   private String parentId;
+
+  @ApiModelProperty(value = "sort")
+  private Integer sort;
 }

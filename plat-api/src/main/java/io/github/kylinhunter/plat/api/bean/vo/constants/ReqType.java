@@ -19,5 +19,7 @@ public enum ReqType {
   CREATE,
   UPDATE,
   DELETE,
-  QUERY;
+  QUERY,
+  OTHER,
+  NULL;
 }

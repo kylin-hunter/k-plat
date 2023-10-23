@@ -35,7 +35,7 @@ public class TenantCatalogReqCreate extends ReqCreate implements TenantCatalogVO
   @ApiModelProperty(value = "code")
   private String code;
 
-  @ApiModelProperty(value = "path")
+  @ApiModelProperty(value = "level")
   private Integer level;
 
   @ApiModelProperty(value = "description")
@@ -46,6 +46,9 @@ public class TenantCatalogReqCreate extends ReqCreate implements TenantCatalogVO
 
   @ApiModelProperty(value = "parent_id")
   private String parentId;
+
+  @ApiModelProperty(value = "sort")
+  private Integer sort;
 
   @ApiModelProperty(value = "path")
   private String path;

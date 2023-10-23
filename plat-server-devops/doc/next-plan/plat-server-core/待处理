@@ -1,4 +1,2 @@
-1、i18n，例如 Duplicate 不好看
-2、catlog没有排序和移动
-
-i18n合并几个get
+2、日志收集和治理
+3、catalog tree_update，选择性替换和merge

@@ -13,12 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.api.bean.vo.constants;
+package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
-public enum VoType {
-  CREATE,
-  UPDATE,
-  DELETE,
-  QUERY,
-  RESP;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
+import io.github.kylinhunter.plat.api.bean.vo.request.Req;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * @author BiJi'an
+ * @description
+ * @date 2023-10-18 11:29
+ */
+@ToString
+@Getter
+@Setter
+public class TenantCatalogReqMove extends Req {
+
+  private String id;
+  private String parentId;
+
+  public TenantCatalogReqMove() {
+    super(ReqType.OTHER);
+  }
 }

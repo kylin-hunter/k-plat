@@ -17,8 +17,10 @@ package io.github.kylinhunter.plat.core.controller;
 
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqInit;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqMove;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqSort;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
@@ -49,13 +51,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TenantCatalogController
     extends CommonCurdController<
-        TenantCatalogService,
-        TenantCatalogReqCreate,
-        TenantCatalogReqUpdate,
-        TenantCatalogResp,
-        TenantCatalogVO,
-        TenantCatalogReqQuery,
-        TenantCatalog> {
+    TenantCatalogService,
+    TenantCatalogReqCreate,
+    TenantCatalogReqUpdate,
+    TenantCatalogResp,
+    TenantCatalogVO,
+    TenantCatalogReqQuery,
+    TenantCatalog> {
 
   @RequestMapping(value = "/tree", method = RequestMethod.GET)
   @ResponseBody
@@ -65,13 +67,32 @@ public class TenantCatalogController
     return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
   }
 
-  @RequestMapping(value = "/init", method = RequestMethod.POST)
+  @RequestMapping(value = "/tree_update", method = RequestMethod.PUT)
   @ResponseBody
-  @ApiOperation("tree获取全部数据")
-  public DefaultResponse<TenantCatalogRespTree> init(
-      @RequestBody @Validated TenantCatalogReqInit tenantCatalogReqInit) {
-    this.service.init(tenantCatalogReqInit);
+  @ApiOperation("批量更新")
+  public DefaultResponse<TenantCatalogRespTree> batch(
+      @RequestBody @Validated TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch) {
+    this.service.init(tenantCatalogReqCreateBatch);
 
     return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
+  }
+
+
+  @RequestMapping(value = "/move", method = RequestMethod.POST)
+  @ResponseBody
+  @ApiOperation("移动")
+  public DefaultResponse<Boolean> move(
+      @RequestBody @Validated TenantCatalogReqMove tenantCatalogReqMove) {
+    return new DefaultResponse<>(this.service.move(tenantCatalogReqMove));
+  }
+
+
+  @RequestMapping(value = "/sort", method = RequestMethod.POST)
+  @ResponseBody
+  @ApiOperation("排序")
+  public DefaultResponse<Boolean> sort(
+      @RequestBody @Validated TenantCatalogReqSort tenantCatalogReqSort) {
+
+    return new DefaultResponse<>(this.service.sort(tenantCatalogReqSort));
   }
 }

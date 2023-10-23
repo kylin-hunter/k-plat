@@ -18,6 +18,7 @@ package io.github.kylinhunter.plat.core.dao.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -36,7 +37,13 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
   @Select(
       "SELECT *  FROM  kplat_tenant_catalog  "
           + "WHERE  parent_id = #{parentId}  and sys_delete_flag=0 ")
-  List<TenantCatalog> selectByParentId(@Param("parentId") String parentId);
+  List<TenantCatalog> findByParentId(@Param("parentId") String parentId);
+
+  @Select(
+      "SELECT count(id)  FROM  kplat_tenant_catalog  "
+          + "WHERE  parent_id = #{parentId}  and sys_delete_flag=0 ")
+  int selectCountByParentId(@Param("parentId") String parentId);
+
 
   @Select(
       "SELECT *  FROM  kplat_tenant_catalog  "
@@ -46,6 +53,26 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
 
   @Select(
       "SELECT *  FROM  kplat_tenant_catalog  "
-          + "WHERE sys_tenant_id = #{tenantId} and type = #{type}  and sys_delete_flag=0 order by level asc ")
+          + "WHERE sys_tenant_id = #{tenantId} and type = #{type}  and sys_delete_flag=0 order by level,sort asc ")
   List<TenantCatalog> findByType(@Param("tenantId") String tenantId, @Param("type") int type);
+
+
+  @Delete(
+      "<script>"
+          + "delete  FROM  kplat_tenant_catalog  "
+          + "WHERE sys_tenant_id = #{tenantId} and type = #{type}  "
+          + " <choose>"
+          + " <when test=\"ids != null and ids.size() > 0\"  >"
+          + "     and id not in"
+          + "      <foreach collection=\"ids\" item=\"id\" separator=\",\" open=\"(\" close=\")\">"
+          + "        #{id}"
+          + "      </foreach>"
+          + " </when>"
+          + "<otherwise>"
+          + "   and 1 != 1"
+          + "</otherwise>"
+          + "</choose>"
+          + "</script>")
+  int deleteByTypeAndNotIn(@Param("tenantId") String tenantId, @Param("type") int type,
+      @Param("ids") List<String> ids);
 }

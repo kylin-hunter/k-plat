@@ -49,4 +49,8 @@ public interface TenantCatalogVO extends VO {
   Integer getStatus();
 
   void setStatus(Integer status);
+
+  Integer getSort();
+
+  void setSort(Integer sort);
 }

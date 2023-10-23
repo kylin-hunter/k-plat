@@ -17,8 +17,10 @@ package io.github.kylinhunter.plat.core.service.local;
 
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqInit;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqMove;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqSort;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
@@ -34,17 +36,17 @@ import java.util.List;
  */
 public interface TenantCatalogService
     extends CommonService<
-        TenantCatalog,
-        TenantCatalogReqCreate,
-        TenantCatalogReqUpdate,
-        TenantCatalogResp,
-        TenantCatalogVO,
-        TenantCatalogReqQuery> {
+    TenantCatalog,
+    TenantCatalogReqCreate,
+    TenantCatalogReqUpdate,
+    TenantCatalogResp,
+    TenantCatalogVO,
+    TenantCatalogReqQuery> {
 
   TenantCatalog findByCode(int type, String code);
 
   /**
-   * @param parentId parentId
+   * @param parentId  parentId
    * @param recursion recursion
    * @return java.util.List<io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog>
    * @title findByParentId
@@ -56,5 +58,9 @@ public interface TenantCatalogService
 
   TenantCatalogRespTree tree(int type);
 
-  void init(TenantCatalogReqInit tenantCatalogReqInit);
+  void init(TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch);
+
+  boolean move(TenantCatalogReqMove tenantCatalogReqMove);
+
+  boolean sort(TenantCatalogReqSort tenantCatalogReqSort);
 }

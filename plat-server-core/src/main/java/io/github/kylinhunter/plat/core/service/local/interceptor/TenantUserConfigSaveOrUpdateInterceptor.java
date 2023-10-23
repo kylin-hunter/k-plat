@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.core.service.local.interceptor;
 
 import io.github.kylinhunter.plat.api.auth.context.UserContext;
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantUserConfig;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQuery;
@@ -47,7 +47,7 @@ public class TenantUserConfigSaveOrUpdateInterceptor
   @Override
   protected void saveOrUpdateBefore(TenantUserConfigVO vo, TenantUserConfig entity) {
     super.saveOrUpdateBefore(vo, entity);
-    if (vo.getVoType() == VoType.CREATE) {
+    if (vo.getReqType() == ReqType.CREATE) {
       UserContext userContext = TraceHolder.get().getUserContext();
       vo.setUserId(userContext.getUserId());
     } else {

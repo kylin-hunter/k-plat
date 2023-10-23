@@ -15,14 +15,13 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo.request;
 
-import io.github.kylinhunter.plat.api.bean.vo.BasicVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.kylinhunter.plat.api.bean.vo.VO;
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -33,21 +32,12 @@ import lombok.Setter;
 @Setter
 @Getter
 @ApiModel(value = "Req", description = "Req")
-@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-public class Req extends BasicVO implements VO {
+@RequiredArgsConstructor
+public abstract class Req implements VO {
 
-  @ApiModelProperty(value = "debug", hidden = true)
-  private boolean debug = false;
+  @ApiModelProperty(value = "voType", hidden = true)
+  @JsonIgnore
+  private final ReqType reqType;
 
-  @ApiModelProperty(value = "reqType", hidden = true)
-  private ReqType reqType;
 
-  public Req(VoType voType, ReqType reqType) {
-    super(voType);
-    this.reqType = reqType;
-  }
-
-  public void copyFrom(Req req) {
-    this.debug = req.debug;
-  }
 }

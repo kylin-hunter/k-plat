@@ -15,11 +15,10 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo;
 
-import io.github.kylinhunter.plat.api.bean.vo.constants.VoType;
+import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 
 public interface VO {
 
-  VoType getVoType();
+  ReqType getReqType();
 
-  String getId();
 }
