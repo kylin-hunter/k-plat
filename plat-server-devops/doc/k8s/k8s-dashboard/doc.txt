@@ -1,0 +1,22 @@
+1、kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+2、修改NodePort
+kubectl edit services -n kubernetes-dashboard kubernetes-dashboard
+3、创建账号
+kubectl apply -f ServiceAccount.yaml
+4、生成secret
+ kubectl apply -f Secret.yaml
+
+
+5、绑定默认cluster-admin管理员集群角色
+kubectl apply -f ClusterRoleBinding.yaml
+
+6、查看 Secret 详细详细
+kubectl describe secrets  dashboard-admin -n kube-system
+
+7、浏览器打开dashboard，并输入上面的token
+https://localhost:30590
+
+
+
+
+==
