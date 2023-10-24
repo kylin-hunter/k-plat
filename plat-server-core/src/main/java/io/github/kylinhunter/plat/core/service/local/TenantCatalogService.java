@@ -18,9 +18,11 @@ package io.github.kylinhunter.plat.core.service.local;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateRoot;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqMove;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqSort;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
@@ -56,11 +58,13 @@ public interface TenantCatalogService
    */
   List<TenantCatalog> findByParentId(String parentId, boolean recursion);
 
-  TenantCatalogRespTree tree(int type);
+  TenantCatalogRespTree tree(TenantCatalogReqTree tenantCatalogReqTree);
 
   void init(TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch);
 
   boolean move(TenantCatalogReqMove tenantCatalogReqMove);
 
   boolean sort(TenantCatalogReqSort tenantCatalogReqSort);
+
+  boolean initRoot(TenantCatalogReqCreateRoot tenantCatalogReqCreateRoot);
 }

@@ -18,9 +18,11 @@ package io.github.kylinhunter.plat.core.controller;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateRoot;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqMove;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqSort;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
@@ -62,9 +64,10 @@ public class TenantCatalogController
   @RequestMapping(value = "/tree", method = RequestMethod.GET)
   @ResponseBody
   @ApiOperation("tree获取全部数据")
-  public DefaultResponse<TenantCatalogRespTree> tree() {
+  public DefaultResponse<TenantCatalogRespTree> tree(
+      @RequestBody @Validated TenantCatalogReqTree tenantCatalogReqTree) {
 
-    return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
+    return new DefaultResponse<>(this.service.tree(tenantCatalogReqTree));
   }
 
   @RequestMapping(value = "/tree_update", method = RequestMethod.PUT)
@@ -73,8 +76,9 @@ public class TenantCatalogController
   public DefaultResponse<TenantCatalogRespTree> batch(
       @RequestBody @Validated TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch) {
     this.service.init(tenantCatalogReqCreateBatch);
-
-    return new DefaultResponse<>(this.service.tree(TenantCatalogType.DEFAULT.getCode()));
+    TenantCatalogReqTree tenantCatalogReqTree = new TenantCatalogReqTree(
+        tenantCatalogReqCreateBatch.getType());
+    return new DefaultResponse<>(this.service.tree(tenantCatalogReqTree));
   }
 
 
@@ -94,5 +98,14 @@ public class TenantCatalogController
       @RequestBody @Validated TenantCatalogReqSort tenantCatalogReqSort) {
 
     return new DefaultResponse<>(this.service.sort(tenantCatalogReqSort));
+  }
+
+  @RequestMapping(value = "/init_root", method = RequestMethod.POST)
+  @ResponseBody
+  @ApiOperation("初始化根节点")
+  public DefaultResponse<Boolean> init_root(
+      @RequestBody @Validated TenantCatalogReqCreateRoot tenantCatalogReqCreateRoot) {
+
+    return new DefaultResponse<>(this.service.initRoot(tenantCatalogReqCreateRoot));
   }
 }

@@ -51,11 +51,9 @@ public class TenantCatalogSaveOrUpdateInterceptor
   protected void saveOrUpdateBefore(TenantCatalogVO vo, TenantCatalog entity) {
     super.saveOrUpdateBefore(vo, entity);
     String code = vo.getCode();
+
     if (DefaultTenantCatalogs.ROOT_CODE.equals(code)) {
-      vo.setLevel(0);
-      vo.setPath("0");
-      vo.setStatus(0);
-      vo.setSort(0);
+      throw new ParamException("root data: " + code + " is not allowed to be modified");
     } else {
       String parentId = vo.getParentId();
       TenantCatalog parent = this.tenantCatalogMapper.selectById(parentId);

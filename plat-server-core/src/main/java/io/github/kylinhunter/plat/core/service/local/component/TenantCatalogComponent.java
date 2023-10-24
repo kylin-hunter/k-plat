@@ -16,22 +16,14 @@
 package io.github.kylinhunter.plat.core.service.local.component;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
-import io.github.kylinhunter.commons.exception.embed.biz.BizException;
-import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.BasicInterceptor;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -46,25 +38,20 @@ public class TenantCatalogComponent {
 
   private final TenantCatalogMapper tenantCatalogMapper;
 
-  private void trySave(TenantCatalog curtCatalog, TenantCatalog parent) {
-    if (parent == null) {
-      throw new InitException("parent can't be   null ");
-    }
-    int type = curtCatalog.getType();
-    String code = curtCatalog.getCode();
+  public TenantCatalog save(int type, String code, String name, int sort, String parentCode) {
     String tenantId = TraceHolder.get().getUserContext().getTenantId();
+
+    TenantCatalog parent = tenantCatalogMapper.findByCode(tenantId, type, parentCode);
+    if (parent == null) {
+      throw new InitException("parent is null: " + parentCode);
+    }
 
     TenantCatalog catalog = tenantCatalogMapper.findByCode(tenantId, type, code);
 
     if (catalog != null) {
-      catalog.setName(curtCatalog.getName());
-      catalog.setParentId(parent.getId());
-
-      catalog.setLevel(parent.getLevel() + 1);
-      catalog.setPath(parent.getPath() + "_" + parent.getId());
-      catalog.setSort(curtCatalog.getSort());
-
-
+      catalog.setName(name);
+      catalog.setSort(sort);
+      this.setLevelAndPathFromParent(catalog, parent);
       BasicInterceptor.setUpdateMsg(catalog);
       tenantCatalogMapper.updateById(catalog);
       log.info("update catalog={}", catalog);
@@ -73,16 +60,57 @@ public class TenantCatalogComponent {
       catalog = new TenantCatalog();
       catalog.setType(type);
       catalog.setCode(code);
-      catalog.setName(curtCatalog.getName());
-      catalog.setParentId(parent.getId());
-      catalog.setLevel(parent.getLevel() + 1);
-      catalog.setPath(parent.getPath() + "_" + parent.getId());
-      catalog.setSort(curtCatalog.getSort());
-
+      catalog.setName(name);
+      catalog.setSort(sort);
+      this.setLevelAndPathFromParent(catalog, parent);
       BasicInterceptor.setCreateMsg(catalog);
       tenantCatalogMapper.insert(catalog);
       log.info("create catalog={}", code);
     }
+    return catalog;
+  }
+
+  /**
+   * @param curCatalog curCatalog
+   * @param parent     parent
+   * @return void
+   * @title setLevelAndPathFromParent
+   * @description setLevelAndPathFromParent
+   * @author BiJi'an
+   * @date 2023-10-24 15:05
+   */
+  public void setLevelAndPathFromParent(TenantCatalog curCatalog, TenantCatalog parent) {
+    curCatalog.setParentId(parent.getId());
+    curCatalog.setLevel(parent.getLevel() + 1);
+    curCatalog.setPath(parent.getPath() + "_" + parent.getId());
+  }
+
+  /**
+   * @param type type
+   * @return io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog
+   * @title initRoot
+   * @description initRoot
+   * @author BiJi'an
+   * @date 2023-10-24 15:09
+   */
+  public TenantCatalog initRoot(int type) {
+    String tenantId = TraceHolder.get().getUserContext().getTenantId();
+
+    TenantCatalog tenantCatalog = tenantCatalogMapper.findByCode(tenantId, type,
+        DefaultTenantCatalogs.ROOT_CODE);
+    if (tenantCatalog == null) {
+      tenantCatalog = new TenantCatalog();
+      tenantCatalog.setType(type);
+      tenantCatalog.setCode(DefaultTenantCatalogs.ROOT_CODE);
+      tenantCatalog.setName(DefaultTenantCatalogs.ROOT_NAME);
+      tenantCatalog.setLevel(0);
+      tenantCatalog.setPath("0");
+      tenantCatalog.setParentId("0");
+      tenantCatalog.setSort(0);
+      BasicInterceptor.setCreateMsg(tenantCatalog);
+      tenantCatalogMapper.insert(tenantCatalog);
+    }
+    return tenantCatalog;
   }
 
 }

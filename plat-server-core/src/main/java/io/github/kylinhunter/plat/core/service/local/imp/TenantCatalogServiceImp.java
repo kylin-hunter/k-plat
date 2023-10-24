@@ -24,15 +24,18 @@ import io.github.kylinhunter.plat.api.bean.vo.delete.ReqDeletes;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateRoot;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqMove;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqSort;
+import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.core.service.local.TenantCatalogService;
+import io.github.kylinhunter.plat.core.service.local.component.TenantCatalogComponent;
 import io.github.kylinhunter.plat.core.service.local.component.TenantCatalogTreeComponent;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantCatalogDeleteInterceptor;
 import io.github.kylinhunter.plat.core.service.local.interceptor.TenantCatalogSaveOrUpdateInterceptor;
@@ -65,6 +68,8 @@ public class TenantCatalogServiceImp
 
   @Autowired
   private TenantCatalogTreeComponent treeComponent;
+  @Autowired
+  private TenantCatalogComponent catalogComponent;
 
   public TenantCatalogServiceImp(
       TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,
@@ -79,8 +84,10 @@ public class TenantCatalogServiceImp
   }
 
   @Override
-  public TenantCatalogRespTree tree(int type) {
-    return treeComponent.tree(this.baseMapper.findByType(this.getTenanId(), type));
+  public TenantCatalogRespTree tree(TenantCatalogReqTree tenantCatalogReqTree) {
+    List<TenantCatalog> allCatalogs = this.baseMapper.findByType(this.getTenanId(),
+        tenantCatalogReqTree.getType());
+    return treeComponent.tree(allCatalogs, tenantCatalogReqTree.getType());
   }
 
   @Override
@@ -129,7 +136,7 @@ public class TenantCatalogServiceImp
 
   @Override
   public boolean delete(ReqDeletes reqDeletes) {
-    throw new ParamException(" not supported");
+    throw new ParamException(" not supported method");
   }
 
   @Override
@@ -140,13 +147,17 @@ public class TenantCatalogServiceImp
   @Override
   public boolean move(TenantCatalogReqMove tenantCatalogReqMove) {
     TenantCatalog curCatalog = this.baseMapper.selectById(tenantCatalogReqMove.getId());
-    TenantCatalog parentCatalog = this.baseMapper.selectById(tenantCatalogReqMove.getParentId());
-
-    if (curCatalog != null && parentCatalog != null) {
-      setLevelAndPathFromParent(curCatalog, parentCatalog);
-      this.baseMapper.updateById(curCatalog);
-      updateLevelAndPath(curCatalog);
+    if (curCatalog == null) {
+      throw new ParamException("catalog not found");
     }
+    TenantCatalog parentCatalog = this.baseMapper.selectById(tenantCatalogReqMove.getParentId());
+    if (parentCatalog == null) {
+      throw new ParamException("parent catalog not found");
+    }
+    this.catalogComponent.setLevelAndPathFromParent(curCatalog, parentCatalog);
+    this.baseMapper.updateById(curCatalog);
+    updateLevelAndPath(curCatalog);
+
     return true;
   }
 
@@ -175,20 +186,23 @@ public class TenantCatalogServiceImp
     return true;
   }
 
+
   private void updateLevelAndPath(TenantCatalog catalog) {
     List<TenantCatalog> children = this.baseMapper.findByParentId(catalog.getId());
     if (!CollectionUtils.isEmpty(children)) {
       children.forEach(child -> {
-        this.setLevelAndPathFromParent(child, catalog);
+        this.catalogComponent.setLevelAndPathFromParent(child, catalog);
         this.baseMapper.updateById(child);
         this.updateLevelAndPath(child);
       });
     }
   }
 
-  private void setLevelAndPathFromParent(TenantCatalog cur, TenantCatalog parent) {
-    cur.setParentId(parent.getId());
-    cur.setLevel(parent.getLevel() + 1);
-    cur.setPath(parent.getPath() + "_" + parent.getId());
+  @Override
+  public boolean initRoot(TenantCatalogReqCreateRoot tenantCatalogReqCreateRoot) {
+    this.catalogComponent.initRoot(tenantCatalogReqCreateRoot.getType());
+    return true;
   }
+
+
 }

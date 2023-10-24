@@ -17,8 +17,8 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
-import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,18 +31,12 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class TenantCatalogReqCreateBatch extends Req {
+public class TenantCatalogReqCreateRoot extends Req {
 
-  private String code;
-  private String name;
-  private int level = 0;
-  private int sort = 0;
-  private int type = TenantCatalogType.DEFAULT.getCode();
-  private String parentCode;
-  private List<TenantCatalogReqCreateBatch> children;
-  boolean force = false;
 
-  public TenantCatalogReqCreateBatch() {
+  private int type;
+
+  public TenantCatalogReqCreateRoot() {
     super(ReqType.OTHER);
   }
 }

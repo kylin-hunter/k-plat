@@ -1,2 +1,3 @@
 2、日志收集和治理
 3、catalog tree_update，选择性替换和merge
+3、catalog增加iniroot到controller

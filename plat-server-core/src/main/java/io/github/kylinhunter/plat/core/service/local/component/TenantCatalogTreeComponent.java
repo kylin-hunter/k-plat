@@ -46,6 +46,7 @@ import org.springframework.stereotype.Component;
 public class TenantCatalogTreeComponent {
 
   private final TenantCatalogMapper tenantCatalogMapper;
+  private final TenantCatalogComponent tenantCatalogComponent;
 
   /**
    * @param tenantCatalogs tenantCatalogs
@@ -55,8 +56,8 @@ public class TenantCatalogTreeComponent {
    * @author BiJi'an
    * @date 2023-10-18 15:42
    */
-  public TenantCatalogRespTree tree(List<TenantCatalog> tenantCatalogs) {
-    TenantCatalogRespTree root = new TenantCatalogRespTree();
+  public TenantCatalogRespTree tree(List<TenantCatalog> tenantCatalogs, int type) {
+    TenantCatalogRespTree root = null;
 
     Map<String, TenantCatalogRespTree> allCatalogs =
         tenantCatalogs.stream()
@@ -84,138 +85,66 @@ public class TenantCatalogTreeComponent {
         }
       }
     }
+    if (root == null) {
+      root=new TenantCatalogRespTree();
+      TenantCatalog tenantCatalog = this.tenantCatalogComponent.initRoot(type);
+      BeanUtils.copyProperties(tenantCatalog, root);
+    }
     return root;
   }
 
   /**
-   * @param tenantCatalogReqCreateBatch tenantCatalogReqInit
+   * @param createBatch tenantCatalogReqInit
    * @return void
    * @title init
    * @description init
    * @author BiJi'an
    * @date 2023-10-19 00:57
    */
-  public void init(TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch) {
-    log.info("init catalog:" + tenantCatalogReqCreateBatch);
+  public void init(TenantCatalogReqCreateBatch createBatch) {
+    log.info("init catalog:" + createBatch);
     String tenantId = TraceHolder.get().getUserContext().getTenantId();
 
-    TenantCatalog rootTenantCatalog = tryInitRoot(tenantCatalogReqCreateBatch);
+    TenantCatalog rootTenantCatalog = tenantCatalogComponent.initRoot(createBatch.getType());
     List<TenantCatalog> allTenantCatalogs = Lists.newArrayList(rootTenantCatalog);
-    List<TenantCatalogReqCreateBatch> children = tenantCatalogReqCreateBatch.getChildren();
+    List<TenantCatalogReqCreateBatch> children = createBatch.getChildren();
     for (int i = 0; i < children.size(); i++) {
       TenantCatalogReqCreateBatch child = children.get(i);
       child.setSort(i + 1);
+      child.setType(createBatch.getType());
       init(child, rootTenantCatalog.getCode(), allTenantCatalogs);
     }
 
     log.info("all catalog size =>" + allTenantCatalogs.size());
     List<String> ids = allTenantCatalogs.stream().map(TenantCatalog::getId)
         .collect(Collectors.toList());
-    this.tenantCatalogMapper.deleteByTypeAndNotIn(tenantId, tenantCatalogReqCreateBatch.getType(),
+    this.tenantCatalogMapper.deleteByTypeAndNotIn(tenantId, createBatch.getType(),
         ids);
   }
 
-  /**
-   * @param tenantCatalogReqCreateBatch tenantCatalogReqInit
-   * @return io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog
-   * @title tryInitRoot
-   * @description tryInitRoot
-   * @author BiJi'an
-   * @date 2023-10-19 00:58
-   */
-  private TenantCatalog tryInitRoot(TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch) {
-    String tenantId = TraceHolder.get().getUserContext().getTenantId();
-
-    TenantCatalog tenantCatalog =
-        tenantCatalogMapper.findByCode(
-            tenantId, tenantCatalogReqCreateBatch.getType(), DefaultTenantCatalogs.ROOT_CODE);
-    if (tenantCatalog == null) {
-      tenantCatalog = new TenantCatalog();
-      tenantCatalog.setType(tenantCatalogReqCreateBatch.getType());
-      tenantCatalog.setCode(DefaultTenantCatalogs.ROOT_CODE);
-      tenantCatalog.setName(DefaultTenantCatalogs.ROOT_NAME);
-      tenantCatalog.setLevel(0);
-      tenantCatalog.setPath("0");
-      tenantCatalog.setParentId("0");
-      tenantCatalog.setSort(0);
-      BasicInterceptor.setCreateMsg(tenantCatalog);
-      tenantCatalogMapper.insert(tenantCatalog);
-    }
-    return tenantCatalog;
-  }
 
   /**
-   * @param curtCatalog curtCatalog
-   * @param parentCode  parentCode
+   * @param catalog    catalog
+   * @param parentCode parentCode
    * @return void
    * @title init
    * @description init
    * @author BiJi'an
    * @date 2023-10-19 00:59
    */
-  private void init(TenantCatalogReqCreateBatch curtCatalog, String parentCode,
-      List<TenantCatalog> allTenantCatalogs) {
-
-    allTenantCatalogs.add(trySave(curtCatalog, parentCode));
-    List<TenantCatalogReqCreateBatch> children = curtCatalog.getChildren();
+  private void init(TenantCatalogReqCreateBatch catalog, String parentCode,
+      List<TenantCatalog> allCatalogs) {
+    TenantCatalog saveCatalog = tenantCatalogComponent.save(catalog.getType(), catalog.getCode(),
+        catalog.getName(), catalog.getSort(), parentCode);
+    allCatalogs.add(saveCatalog);
+    List<TenantCatalogReqCreateBatch> children = catalog.getChildren();
     if (children != null && children.size() > 0) {
       for (int i = 0; i < children.size(); i++) {
         TenantCatalogReqCreateBatch child = children.get(i);
         child.setSort(i + 1);
-        init(child, curtCatalog.getCode(), allTenantCatalogs);
+        child.setType(catalog.getType());
+        init(child, catalog.getCode(), allCatalogs);
       }
     }
-  }
-
-  /**
-   * @param curtCatalog curtCatalog
-   * @param parentCode  parentCode
-   * @return void
-   * @title tryInit
-   * @description tryInit
-   * @author BiJi'an
-   * @date 2023-10-19 01:00
-   */
-  private TenantCatalog trySave(TenantCatalogReqCreateBatch curtCatalog, String parentCode) {
-
-    curtCatalog.setParentCode(parentCode);
-    int type = curtCatalog.getType();
-    String code = curtCatalog.getCode();
-    String tenantId = TraceHolder.get().getUserContext().getTenantId();
-
-    TenantCatalog parent = tenantCatalogMapper.findByCode(tenantId, type, parentCode);
-    if (parent == null) {
-      throw new InitException("parent is null: " + curtCatalog.getParentCode());
-    }
-
-    TenantCatalog catalog = tenantCatalogMapper.findByCode(tenantId, type, code);
-
-    if (catalog != null) {
-      catalog.setName(curtCatalog.getName());
-      catalog.setParentId(parent.getId());
-
-      catalog.setLevel(parent.getLevel() + 1);
-      catalog.setPath(parent.getPath() + "_" + parent.getId());
-      catalog.setSort(curtCatalog.getSort());
-      BasicInterceptor.setUpdateMsg(catalog);
-      tenantCatalogMapper.updateById(catalog);
-      log.info("update catalog={}", catalog);
-
-    } else {
-      catalog = new TenantCatalog();
-      catalog.setType(type);
-      catalog.setCode(code);
-      catalog.setName(curtCatalog.getName());
-      catalog.setParentId(parent.getId());
-
-      catalog.setLevel(parent.getLevel() + 1);
-      catalog.setPath(parent.getPath() + "_" + parent.getId());
-      catalog.setSort(curtCatalog.getSort());
-
-      BasicInterceptor.setCreateMsg(catalog);
-      tenantCatalogMapper.insert(catalog);
-      log.info("create catalog={}", code);
-    }
-    return catalog;
   }
 }
