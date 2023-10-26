@@ -1,3 +1,7 @@
+github地址：
+https://github.com/kubernetes/dashboard/releases
+https://github.com/kubernetes/dashboard/tree/v2.7.0
+
 1、kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 2、修改NodePort
 kubectl edit services -n kubernetes-dashboard kubernetes-dashboard
