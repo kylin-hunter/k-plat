@@ -1,0 +1,23 @@
+=============================
+node-exporter 监控机器节点
+=============================
+docker pull prom/node-exporter:v1.6.1
+方法1： 这个是普通的网上资料，可以运行
+docker stop node-exporter && docker rm node-exporter
+docker run -d --name node-exporter  -p 9100:9100 \
+--network kylin-net  \
+-v "/proc:/host/proc:ro" \
+-v "/sys:/host/sys:ro" \
+-v "/:/rootfs:ro" \
+prom/node-exporter
+
+
+方法2：这个是官方推荐的，在mac上不好使
+docker run -d --name node-exporter\
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  prom/node-exporter \
+  --path.rootfs=/host
+
+http://127.0.0.1:9100/

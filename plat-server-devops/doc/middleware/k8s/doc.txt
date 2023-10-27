@@ -1,0 +1,26 @@
+==========
+查找operator
+====
+helm search repo prometheus-operator
+NAME                      	CHART VERSION	APP VERSION	DESCRIPTION
+stable/prometheus-operator	9.3.2        	0.38.1     	DEPRECATED Provides easy monitoring definitions...
+
+
+==========
+查看历史版本
+====
+
+helm history prometheus-operator
+helm history stable/prometheus-operator
+
+====
+创建namespace
+====
+kubectl create ns monitoring
+
+===
+安装
+====
+
+helm install prometheus-operator stable/prometheus-operator --version 9.3.2 -n monitoring
+helm install prometheus-operator stable/prometheus-operator  -n monitoring

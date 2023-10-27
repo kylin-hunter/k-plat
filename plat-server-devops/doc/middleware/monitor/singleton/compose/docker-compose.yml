@@ -1,0 +1,91 @@
+version: '3.5'
+services:
+  c-prometheus:
+    image: prom/prometheus:v2.47.2
+    container_name: c-prometheus
+    hostname: c-prometheus
+#    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./node_down.yml:/etc/prometheus/node_down.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - kylin-net
+
+#  alertmanager:
+#    image: prom/alertmanager
+#    container_name: alertmanager
+#    hostname: alertmanager
+#    restart: always
+#    volumes:
+#      - /opt/prometheus/config/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+#    ports:
+#      - "9093:9093"
+#    networks:
+#      - kylin-net
+
+  c-grafana:
+    image: grafana/grafana:10.2.0
+    container_name: c-grafana
+    hostname: c-grafana
+#    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - kylin-net
+
+  c-cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: c-cadvisor
+    hostname: c-cadvisor
+    privileged: true
+#    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - kylin-net
+
+  c-node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: c-node-exporter
+    hostname: c-node-exporter
+#    restart: always
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - kylin-net
+
+  c-mysqld-exporter:
+    image: prom/mysqld-exporter:v0.15.0
+    container_name: c-mysqld-exporter
+    hostname: c-mysqld-exporter
+    #    restart: always
+    volumes:
+      - ./my.cnf:/opt/mysql_export/my.cnf
+    ports:
+      - "9104:9104"
+    command:
+      - "--config.my-cnf=/opt/mysql_export/my.cnf"
+    networks:
+      - kylin-net
+volumes:
+  grafana-data:
+    driver: local
+
+networks:
+  kylin-net:
+    driver: bridge
+    name: kylin-net

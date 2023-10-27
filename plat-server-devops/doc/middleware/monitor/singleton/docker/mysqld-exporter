@@ -1,0 +1,14 @@
+
+=============================
+mysqld-exporter 监控mysql
+=============================
+docker pull prom/mysqld-exporter:v0.15.0
+docker stop mysqld_exporter  && docker rm mysqld_exporter
+##--restart=always
+
+docker run -d -p 9104:9104  --name mysqld_exporter \
+--network kylin-net  \
+-v /Users/bijian/tmp/mysqld_exporter/my.cnf:/opt/mysql_export/my.cnf \
+prom/mysqld-exporter  --config.my-cnf=/opt/mysql_export/my.cnf
+
+http://127.0.0.1:9104/

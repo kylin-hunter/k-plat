@@ -1,0 +1,17 @@
+=========
+安监遇到问题
+mac@1987demac:~$ helm install prometheus-operator stable/prometheus-operator -n monitoring
+WARNING: This chart is deprecated
+Error: INSTALLATION FAILED: failed to install CRD crds/crd-alertmanager.yaml: unable to recognize "": no matches for kind "CustomResourceDefinition" in version "apiextensions.k8s.io/v1beta1"
+
+解决方案：
+改用 kube-prometheus-stack
+
+kubectl config  set-context $(kubectl config current-context) --namespace=monitoring
+
+拉取镜像失败
+
+$ docker pull registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20221220-controller-v1.5.1-58-g787ea74b6
+docker pull sdedu/kube-webhook-certgen:v20221220-controller-v1.5.1-58-g787ea74b6
+
+======
