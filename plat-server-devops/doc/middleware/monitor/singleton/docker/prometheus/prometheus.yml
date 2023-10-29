@@ -27,3 +27,8 @@ scrape_configs:
       - targets: ['mysqld_exporter:9104']
         labels:
           instance: mysql-exporter
+  - job_name: redis_exporter_job
+    static_configs:
+      - targets: [ 'redis-exporter:9121' ]
+        labels:
+          instance: redis-exporter

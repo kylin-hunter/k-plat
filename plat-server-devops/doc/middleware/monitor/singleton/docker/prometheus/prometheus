@@ -10,7 +10,7 @@ docker stop prometheus && docker rm prometheus
 # --restart=always
 docker run  -d --name prometheus  -p 9090:9090 \
  --network kylin-net  \
- -v /Users/bijian/software/prometheus/singleton/prometheus.yml:/etc/prometheus/prometheus.yml \
+ -v /Users/bijian/Documents/workspace_gitee/k-plat/plat-server-devops/doc/middleware/monitor/singleton/docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
  prom/prometheus
 
 

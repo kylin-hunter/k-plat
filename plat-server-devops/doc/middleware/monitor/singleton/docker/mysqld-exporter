@@ -8,7 +8,7 @@ docker stop mysqld_exporter  && docker rm mysqld_exporter
 
 docker run -d -p 9104:9104  --name mysqld_exporter \
 --network kylin-net  \
--v /Users/bijian/tmp/mysqld_exporter/my.cnf:/opt/mysql_export/my.cnf \
+-v ./my.cnf:/opt/mysql_export/my.cnf \
 prom/mysqld-exporter  --config.my-cnf=/opt/mysql_export/my.cnf
 
 http://127.0.0.1:9104/

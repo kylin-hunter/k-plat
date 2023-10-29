@@ -1,0 +1,18 @@
+
+=============================
+redis-exporter 监控mysql
+=============================
+docker pull oliver006/redis_exporter:v1.55.0
+docker stop redis-exporter  && docker rm redis-exporter
+##--restart=always
+## --redis.password 'xxxx'
+
+docker run -d --name redis-exporter -p 9121:9121 \
+--network kylin-net  \
+oliver006/redis_exporter \
+--redis.addr redis://redis:6379 --redis.password '123456'
+
+
+
+
+http://localhost:9121/metrics
