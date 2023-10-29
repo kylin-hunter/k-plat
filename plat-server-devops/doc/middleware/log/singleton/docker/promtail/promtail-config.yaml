@@ -1,0 +1,49 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push  # 推送到loki地址
+scrape_configs:
+  - job_name: logs  # 唯一
+    static_configs:
+      - targets:
+          - localhost  # 读取本地文件
+        labels: # labels 用户loki labels查询
+          job: plat-server-core
+          __path__: /data/logs/plat-server-core*.log  # 读取后缀为info.log的日志文件
+      - targets:
+          - localhost
+        labels:
+          job: plat-server-storage
+          __path__: /data/logs/plat-server-storage*.log  # 读取后缀为info.log的日志文件
+    pipeline_stages:
+      - match:
+          selector: '{job="plat-server-core"}' #  job为plat-server-core可以匹配到
+          stages:
+            - multiline:
+                firstline: '^LOG'  # LOG开头进行多行合并
+            - regex:
+                expression: '.*(?P<level>INFO|WARN|ERROR).*' # 正则匹配解析 level
+            - timestamp:
+                format: RFC3339Nano
+                source: timestamp
+            - labels:
+                timestamp:
+                level:  # 将level 作为以一个标签 ,label loki会建立索引，加快查询
+      - match:
+          selector: '{job="plat-server-storage"}'
+          stages:
+            - multiline:
+                firstline: '^LOG'
+            - regex:
+                expression: '.*(?P<level>INFO|WARN|ERROR).*'
+            - timestamp:
+                format: RFC3339Nano
+                source: timestamp
+            - labels:
+                timestamp:
+                level:
