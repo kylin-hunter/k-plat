@@ -5,11 +5,12 @@ docker pull grafana/grafana
 docker pull grafana/grafana:10.2.0
 docker stop grafana && docker rm grafana
 
+docker volume create grafana-storage
 # --restart=always
 docker run -d --name grafana -p 3000:3000 \
 --name=grafana \
 --network kylin-net  \
--v /Users/bijian/software/grafana/singleton/storage:/var/lib/grafana \
+-v grafana-storage:/var/lib/grafana \
 grafana/grafana:10.2.0
 
 

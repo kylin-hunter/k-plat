@@ -1,7 +1,6 @@
 docker pull mongo:4.4.15
-
-docker run -d --name mongodb -v /Users/bijian/software/mongo/data:/data/db -p 27017:27017 --privileged=true mongo:4.4.15 --auth
-docker run -d --name mongodb -v /opt/mongo/data:/data/db -p 27017:27017 --privileged=true mongo:4.4.15 --auth
+docker create volum mongodb_data
+docker run -d --name mongodb -v mongodb_data:/data/db -p 27017:27017 --privileged=true mongo:4.4.15 --auth
 
 
 docker exec -it mongodb mongo admin

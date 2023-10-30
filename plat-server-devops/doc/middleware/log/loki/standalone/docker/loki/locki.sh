@@ -16,7 +16,7 @@ docker stop loki && docker rm loki
 
 docker run -d --name=loki \
 --network kylin-net  \
---mount type=bind,source=/Users/bijian/Documents/workspace_gitee/k-plat/plat-server-devops/doc/middleware/log/singleton/docker/loki/loki-config.yaml,target=/etc/loki/local-config.yaml \
+--mount type=bind,source=./config/loki-config.yaml,target=/etc/loki/local-config.yaml \
 -p 3100:3100 grafana/loki:2.9.2
 
 
