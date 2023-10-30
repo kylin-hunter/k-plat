@@ -1,0 +1,10 @@
+====================
+版本查看
+====================
+kubectl version
+
+====================
+获取所有和删除所有资源
+====================
+kubectl get  all -n xxxx
+kubectl delete all -n xxxx

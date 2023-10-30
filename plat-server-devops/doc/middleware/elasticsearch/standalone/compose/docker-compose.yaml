@@ -1,0 +1,42 @@
+version: '3.5'
+services:
+  elasticserach-standalone-compose:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    container_name: elasticserach-standalone-compose
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - kylin-net
+
+  kibana-compose:
+    image: kibana:7.17.13
+    container_name: kibana-compose
+#    environment:
+#      SERVER_NAME: kibana.example.org
+#      ELASTICSEARCH_HOSTS: '["http://elasticserach-standalone-compose:9200"]'
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+      - 5601:5601
+    networks:
+      - kylin-net
+    depends_on:
+      - elasticserach-standalone-compose
+
+volumes:
+  es-data:
+    driver: local
+
+networks:
+  kylin-net:
+    driver: bridge
+    name: kylin-net

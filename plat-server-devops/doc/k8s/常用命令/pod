@@ -1,0 +1,12 @@
+1、快速调整pod数量
+kubectl scale --replicas=1 -n xxxx deployment/xxxxx
+
+2、删除pod相关
+
+2.1、强制删除pod
+   kubectl delete  pod -n cskb-unit-backend-offline  backend-offline-b9d44cf5-bs594 --force --grace-period=0
+2.2 批量删除pod
+  kubectl  get pods -n cskb-backend| grep cskb-server |grep Terminating| awk '{print$1}'| xargs kubectl delete --force --grace-period=0 -n  cskb-backend  pods
+
+
+

@@ -1,0 +1,34 @@
+version: '3.5'
+services:
+
+  mysql-db:
+    # 指定容器的名称
+    container_name: mysql8-standalone-compose
+    # 指定镜像和版本
+    image: mysql:8.0.33
+    ports:
+      - "3306:3306"
+    networks:
+      - kylin-net
+#    restart: always
+    # 容器日志大小配置
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+    environment:
+      # 配置root密码
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      # 挂载数据目录
+      - "mysql_data:/var/lib/mysql"
+      # 挂载配置文件目录
+      - "./conf:/etc/mysql/conf.d"
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  kylin-net:
+    driver: bridge
+    name: kylin-net

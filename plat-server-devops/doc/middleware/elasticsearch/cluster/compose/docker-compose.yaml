@@ -1,0 +1,90 @@
+version: '3.5'
+services:
+  cluster-es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    container_name: cluster-es01
+    environment:
+      - node.name=cluster-es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=cluster-es02,cluster-es03
+      - cluster.initial_master_nodes=cluster-es01,cluster-es02,cluster-es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms64m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
+    networks:
+      - kylin-net
+  cluster-es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    container_name: cluster-es02
+    environment:
+      - node.name=cluster-es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=cluster-es01,cluster-es03
+      - cluster.initial_master_nodes=cluster-es01,cluster-es02,cluster-es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms64m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    ports:
+      - 9202:9200
+    networks:
+      - kylin-net
+  cluster-es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    container_name: cluster-es03
+    environment:
+      - node.name=cluster-es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=cluster-es01,cluster-es02
+      - cluster.initial_master_nodes=cluster-es01,cluster-es02,cluster-es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms64m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    ports:
+      - 9203:9200
+    networks:
+      - kylin-net
+  cluster-kibana:
+    image: kibana:7.17.13
+    container_name: cluster-kibana
+    #    environment:
+    #      SERVER_NAME: kibana.example.org
+    #      ELASTICSEARCH_HOSTS: '["http://es-compose:9200"]'
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+      - 5601:5601
+    networks:
+      - kylin-net
+    depends_on:
+      - cluster-es01
+      - cluster-es02
+      - cluster-es03
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
+    name: kylin-net

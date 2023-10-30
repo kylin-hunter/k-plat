@@ -13,3 +13,9 @@ docker exec -it zookeeper bash
 create /bijian "bijian-value"
 ls /bijian
 get /bijian
+
+
+
+#http://localhost:xxxx/commands
+
+#prettyZoo
