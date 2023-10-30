@@ -1,11 +1,4 @@
 version: '3.7'
-networks:
-  zk-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.22.0.0/24
-          gateway: 172.22.0.1
 services:
   zk1:
     image: zookeeper:3.6.4
@@ -20,10 +13,10 @@ services:
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "*"
     volumes:
-      - /Users/bijian/software/zookeeper/cluster/zk1/data:/data
-      - /Users/bijian/software/zookeeper/cluster/zk1/datalog:/datalog
+      - zk_1_data:/data
+      - zk_1_log:/datalog
     networks:
-      - zk-net
+      - kylin-net
   zk2:
     image: zookeeper:3.6.4
 #    restart: always
@@ -37,10 +30,10 @@ services:
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "*"
     volumes:
-      - /Users/bijian/software/zookeeper/cluster/zk2/data:/data
-      - /Users/bijian/software/zookeeper/cluster/zk2/datalog:/datalog
+      - zk_2_data:/data
+      - zk_2_log:/datalog
     networks:
-      - zk-net
+      - kylin-net
 
   zk3:
     image: zookeeper:3.6.4
@@ -55,7 +48,29 @@ services:
       ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
       ZOO_4LW_COMMANDS_WHITELIST: "*"
     volumes:
-      - /Users/bijian/software/zookeeper/cluster/zk3/data:/data
-      - /Users/bijian/software/zookeeper/cluster/zk3/datalog:/datalog
+      - zk_3_data:/data
+      - zk_3_log:/datalog
     networks:
-      - zk-net
+      - kylin-net
+
+volumes:
+  zk_1_data:
+    driver: local
+  zk_1_log:
+    driver: local
+  zk_2_data:
+    driver: local
+  zk_2_log:
+    driver: local
+  zk_3_data:
+    driver: local
+  zk_3_log:
+    driver: local
+networks:
+  kylin-net:
+    driver: bridge
+    name: kylin-net
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
