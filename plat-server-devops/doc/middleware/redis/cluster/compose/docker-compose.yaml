@@ -1,15 +1,17 @@
 version: '3.5'
 services:
-  redis-cluster:
+  cluster-init:
     image: redis:6.2.13
-    command: redis-cli -a 123456  --cluster create  172.25.104.116:7361 172.25.104.116:7362 172.25.104.116:7363 172.25.104.116:7364 172.25.104.116:7365 172.25.104.116:7366 --cluster-replicas 1  --cluster-yes
+    command: redis-cli -a 123456  --cluster create  ${REDIS_IP}:7361 ${REDIS_IP}:7362 ${REDIS_IP}:7363 ${REDIS_IP}:7364 ${REDIS_IP}:7365 ${REDIS_IP}:7366 --cluster-replicas 1  --cluster-yes
+    env_file:
+      - redis.env
     depends_on:
       - cluster-redis-1
-      - redis-2
-      - redis-3
-      - redis-4
-      - redis-5
-      - redis-6
+      - cluster-redis-2
+      - cluster-redis-3
+      - cluster-redis-4
+      - cluster-redis-5
+      - cluster-redis-6
   cluster-redis-1:
     image: redis:6.2.13
     container_name: cluster-redis-1
@@ -21,11 +23,14 @@ services:
       - kylin-net
     volumes:
       - redis_1_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-1/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
-  redis-2:
+      - ./conf/node-1/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
+  cluster-redis-2:
     image: redis:6.2.13
-    container_name: redis-2
+    container_name: cluster-redis-2
 #    restart: always
     ports:
       - 7362:7362
@@ -34,11 +39,14 @@ services:
       - kylin-net
     volumes:
       - redis_2_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-2/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
-  redis-3:
+      - ./conf/node-2/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
+  cluster-redis-3:
     image: redis:6.2.13
-    container_name: redis-3
+    container_name: cluster-redis-3
 #    restart: always
     ports:
       - 7363:7363
@@ -47,11 +55,14 @@ services:
       - kylin-net
     volumes:
       - redis_3_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-3/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
-  redis-4:
+      - ./conf/node-3/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
+  cluster-redis-4:
     image: redis:6.2.13
-    container_name: redis-4
+    container_name: cluster-redis-4
 #    restart: always
     ports:
       - 7364:7364
@@ -60,11 +71,14 @@ services:
       - kylin-net
     volumes:
       - redis_4_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-4/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
-  redis-5:
+      - ./conf/node-4/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
+  cluster-redis-5:
     image: redis:6.2.13
-    container_name: redis-5
+    container_name: cluster-redis-5
 #    restart: always
     ports:
       - 7365:7365
@@ -73,11 +87,14 @@ services:
       - kylin-net
     volumes:
       - redis_5_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-5/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
-  redis-6:
+      - ./conf/node-5/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
+  cluster-redis-6:
     image: redis:6.2.13
-    container_name: redis-6
+    container_name: cluster-redis-6
 #    restart: always
     ports:
       - 7366:7366
@@ -86,8 +103,11 @@ services:
       - kylin-net
     volumes:
       - redis_6_data:/data
-      - /Users/bijian/software/redis/cluster_compose/node-6/conf/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server","/usr/local/etc/redis/redis.conf" ]
+      - ./conf/node-6/conf:/opt/redis/conf
+      - ./bin:/opt/redis/bin
+    command: ["/opt/redis/bin/start.sh"]
+    env_file:
+      - redis.env
 
 volumes:
   redis_1_data:
@@ -102,6 +122,7 @@ volumes:
     driver: local
   redis_6_data:
     driver: local
+
 networks:
   kylin-net:
     driver: bridge

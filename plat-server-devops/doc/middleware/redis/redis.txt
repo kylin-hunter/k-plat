@@ -8,6 +8,7 @@ redis-cli -a 123456 --cluster create \
 
 
 # 进入集群
+docker exec -it cluster-redis-1 bash
 redis-cli -c -a 123456 -h 127.0.0.1 -p 7361
 
 # 查看集群节点

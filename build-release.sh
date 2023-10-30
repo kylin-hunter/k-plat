@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # exit whenever encounter errors
 set -e
+# print commands  before execute (for debug) set+x
+set -x
 
 ./script/build-script/build-before.sh
 
