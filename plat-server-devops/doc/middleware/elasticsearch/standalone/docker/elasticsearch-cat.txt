@@ -1,0 +1,43 @@
+
+（3）一个数据库表（Table）下的数据由多行（ROW）多列（column，属性）组成，等价于1个Type由多个文档（Document）和多Field组成。
+
+（4）在一个关系型数据库里面，schema定义了表、每个表的字段，还有表和字段之间的关系。 与之对应的，在ES中：Mapping定义索引下的Type的字段处理规则，即索引如何建立、索引类型、是否保存原始索引JSON文档、是否压缩原始JSON文档、是否需要分词处理、如何进行分词处理等。
+
+（5）在数据库中的增insert、删delete、改update、查search操作等价于ES中的增PUT/POST、删Delete、改_update、查GET.
+
+
+对比图：
+
+
+
+原文：
+mysql和ES对比_苍云烟的博客-CSDN博客_es和mysql的区别
+ES数据架构的主要概念与关系数据库Mysql对比这里写图片描述（1）关系型数据库中的数据库（DataBase），等价于ES中的索引（Index）（2）一个数据库下面有N张表（Table），等价于1个索引Index下面有N多类型（Type），（3）一个数据库表（Table）下的数据由多行（ROW）多列（column，属性）组成，等价于1个Type由多个文档（Document）和多Field组成。（4）在一个关系型数据库里面，schema定义了表、每个表的字段，还有表和字段之间的关系。
+https://blog.csdn.net/qq_34599132/article/details/108879842
+
+ES基础查询：
+
+/_cat/allocation         #查看单节点的shard分配整体情况
+/_cat/shards          #查看各shard的详细情况
+/_cat/shards/{index}     #查看指定分片的详细情况
+/_cat/master          #查看master节点信息
+/_cat/nodes           #查看所有节点信息
+/_cat/indices         #查看集群中所有index的详细信息
+/_cat/indices/{index}      #查看集群中指定index的详细信息
+/_cat/segments        #查看各index的segment详细信息,包括segment名, 所属shard, 内存(磁盘)占用大小, 是否刷盘
+/_cat/segments/{index}#查看指定index的segment详细信息
+/_cat/count           #查看当前集群的doc数量
+/_cat/count/{index}   #查看指定索引的doc数量
+/_cat/recovery        #查看集群内每个shard的recovery过程.调整replica。
+/_cat/recovery/{index}#查看指定索引shard的recovery过程
+/_cat/health          #查看集群当前状态：红、黄、绿
+/_cat/pending_tasks   #查看当前集群的pending task
+/_cat/aliases         #查看集群中所有alias信息,路由配置等
+/_cat/aliases/{alias} #查看指定索引的alias信息
+/_cat/thread_pool     #查看集群各节点内部不同类型的threadpool的统计信息,
+/_cat/plugins         #查看集群各个节点上的plugin信息
+/_cat/fielddata       #查看当前集群各个节点的fielddata内存使用情况
+/_cat/fielddata/{fields}     #查看指定field的内存使用情况,里面传field属性对应的值
+/_cat/nodeattrs              #查看单节点的自定义属性
+/_cat/repositories           #输出集群中注册快照存储库
+/_cat/templates              #输出当前正在存在的模板信息

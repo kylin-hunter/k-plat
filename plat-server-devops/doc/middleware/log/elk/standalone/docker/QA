@@ -1,0 +1,22 @@
+=================================
+导入后 索引是yellow
+=================================
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   kplat-2023.10.31 MC9Yp47yTwW1QVZN4tuPJQ   1   1      11680            0      1.6mb          1.6mb
+
+解决办法，删除索引，然后在setting中 增加如下配置:
+
+"index" : {
+     "number_of_replicas" : 0
+ }
+
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   kplat-2023.10.31 eyvR7GAJQkqM-6TV3YmR7g   1   0          6            0       227b           227b
+
+
+=================================
+想重新导入ES，怎么处理
+=================================
+
+需要删除 /usr/share/logstash/data/plugins/inputs/file/.sincedb****
+就可以了，但是没有成功过。。。。。
