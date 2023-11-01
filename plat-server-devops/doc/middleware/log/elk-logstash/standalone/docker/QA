@@ -1,0 +1,39 @@
+==================================================================
+导入后 索引是yellow
+==================================================================
+########################
+问题描述
+########################
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   kplat-2023.10.31 MC9Yp47yTwW1QVZN4tuPJQ   1   1      11680            0      1.6mb          1.6mb
+
+########################
+solution
+########################
+
+add configuration option  to  settings
+
+"index" : {
+     "number_of_replicas" : 0
+ }
+
+health status index            uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   kplat-2023.10.31 eyvR7GAJQkqM-6TV3YmR7g   1   0          6            0       227b           227b
+
+
+==================================================================
+想重新导入ES，怎么处理
+==================================================================
+########################
+问题描述
+########################
+第一次导入索引配置有问题，想重新导入
+########################
+solution
+########################
+1、修改kplat.conf，放弃在input中使用file读取文件
+具体操作是
+2、docker restart logstash
+3、登录登录，删除sincedb文件
+    rm -rf  /usr/share/logstash/data/plugins/inputs/file/.sincedb****
+4、docker restart logstash

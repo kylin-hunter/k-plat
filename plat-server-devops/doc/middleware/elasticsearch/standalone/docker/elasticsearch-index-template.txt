@@ -1,0 +1,4 @@
+旧的索引模板
+https://www.elastic.co/guide/en/elasticsearch/reference/7.17/indices-templates-v1.html
+新的索引模板
+https://www.elastic.co/guide/en/elasticsearch/reference/7.17/index-templates.html

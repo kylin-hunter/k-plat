@@ -1,0 +1,28 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /data/logs/kplat/*.log
+    fields:
+      source: kplat
+
+setup.template.pattern: "filebeat-%{[agent.version]}-*"
+setup.template.name: "filebeat-%{[agent.version]}"
+setup.ilm.enabled: false
+setup.dashboards.enabled: true
+output.elasticsearch:
+  hosts: ["http://elasticserach-standalone-compose:9200"]
+  index: "filebeat-%{[agent.version]}-%{[fields.source]}-%{+yyyy.MM.dd}"
+setup.kibana:
+  host: "kibana-compose:5601"
+
