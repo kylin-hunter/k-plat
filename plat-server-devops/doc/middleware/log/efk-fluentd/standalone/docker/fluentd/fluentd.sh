@@ -1,8 +1,11 @@
 ===================================
 资料
 ===================================
-https://github.com/fluent/fluentd
+[GitHub] https://github.com/fluent/fluentd
+[Doc] https://docs.fluentd.org/configuration/config-file-yaml
+[Example] https://github.com/fluent/fluentd/tree/master/example
 https://docs.fluentd.org/deployment/plugin-management#if-using-td-agent,-use-/etc/td-agent/plugin
+
 ===================================
 安装
 ===================================
@@ -13,14 +16,9 @@ docker stop fluentd && docker rm fluentd
 
 docker run -d --name fluentd \
 --net kylin-net \
-fluentd:v1.16-1
-
-
-docker run -d --name fluentd2 \
---net kylin-net \
-fluentd/k-fluentd:v1
-
-
+-v ./config:/fluentd/etc \
+-v /Users/bijian/Documents/workspace_gitee/k-plat/logs:/data/logs/kplat \
+kplat/k-fluentd:v1.16-1
 
 
 
