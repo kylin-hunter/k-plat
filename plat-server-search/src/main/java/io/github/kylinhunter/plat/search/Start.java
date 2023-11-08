@@ -31,7 +31,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(
     scanBasePackages = {"io.github.kylinhunter.plat.search"},
     exclude = {RedissonAutoConfiguration.class, AutoSecurityWebSecurityConfigurer.class})
-@MapperScan("io.github.kylinhunter.plat.storage.dao")
+@MapperScan("io.github.kylinhunter.plat.search.dao")
 public class Start {
   public static void main(String[] args) {
     SpringApplication.run(Start.class, args);

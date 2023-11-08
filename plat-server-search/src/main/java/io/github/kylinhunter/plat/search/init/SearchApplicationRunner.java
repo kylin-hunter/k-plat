@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Order(value = 3)
-public class StorageApplicationRunner implements ApplicationRunner {
+public class SearchApplicationRunner implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {}

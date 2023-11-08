@@ -23,32 +23,32 @@ import io.github.kylinhunter.commons.exception.info.ErrInfo;
  * @description
  * @date 2022-01-01 14:03
  */
-public class StorageException extends BizException {
-  public StorageException(String message, Throwable cause) {
-    this(StorageErrInfos.STORAGE_ERROR, message, cause);
+public class SearchException extends BizException {
+  public SearchException(String message, Throwable cause) {
+    this(SearchErrInfos.STORAGE_ERROR, message, cause);
   }
 
-  public StorageException(ErrInfo errInfo) {
+  public SearchException(ErrInfo errInfo) {
     this(errInfo, "");
   }
 
-  public StorageException(String message) {
-    this(StorageErrInfos.STORAGE_ERROR, message);
+  public SearchException(String message) {
+    this(SearchErrInfos.STORAGE_ERROR, message);
   }
 
-  public StorageException(Throwable cause) {
-    this(StorageErrInfos.STORAGE_ERROR, cause);
+  public SearchException(Throwable cause) {
+    this(SearchErrInfos.STORAGE_ERROR, cause);
   }
 
-  public StorageException(ErrInfo errInfo, String message, Throwable cause) {
+  public SearchException(ErrInfo errInfo, String message, Throwable cause) {
     super(errInfo, message, cause);
   }
 
-  public StorageException(ErrInfo errInfo, String message) {
+  public SearchException(ErrInfo errInfo, String message) {
     super(errInfo, message);
   }
 
-  public StorageException(ErrInfo errInfo, Throwable cause) {
+  public SearchException(ErrInfo errInfo, Throwable cause) {
     super(errInfo, "", cause);
   }
 }

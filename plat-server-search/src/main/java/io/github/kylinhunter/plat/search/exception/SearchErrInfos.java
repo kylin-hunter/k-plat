@@ -13,22 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.search.config;
+package io.github.kylinhunter.plat.search.exception;
 
-import lombok.Data;
+import io.github.kylinhunter.commons.exception.info.ErrInfo;
+import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-06-27 01:24
+ * @date 2022-01-01 00:53
  */
-@Data
-public class S3Config {
-  private String bucket;
-  private String url;
-  private String accessKey;
-  private String secretKey;
-  private long connectTimeout = 500000;
-  private long readTimeOut = 300000;
-  private long partSize;
+@ErrInfoAware
+public class SearchErrInfos {
+
+  private static int BASE_CODE = 70000;
+  public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
 }

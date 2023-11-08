@@ -53,10 +53,10 @@ public class WebApplicationRunner implements ApplicationRunner {
    * @date 2023-09-24 15:18
    */
   private void initKCommons() {
-    log.info("{} init kcommons start", LogHelper.SYS_TAG);
+    log.info("{} init k-commons start", LogHelper.SYS_TAG);
     KCommons.custom().cleanPackage().scanPackage("io.github.kylinhunter").init();
     ErrInfoManager.println();
-    log.info("{} init kcommons end", LogHelper.SYS_TAG);
+    log.info("{} init k-commons end", LogHelper.SYS_TAG);
   }
 
   private void initEnv() {

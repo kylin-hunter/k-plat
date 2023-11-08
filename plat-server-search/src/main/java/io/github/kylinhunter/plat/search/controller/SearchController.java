@@ -35,34 +35,16 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2022-06-27 01:45
  */
 @RestController
-@RequestMapping("/api/v1/storage")
+@RequestMapping("/api/v1/search")
 @Api(value = "Storage相关接口")
 @RequiredArgsConstructor
-public class StorageController extends CommonController {
+public class SearchController extends CommonController {
 
-  private final StorageService storageService;
 
   @ApiOperation(value = "upload", notes = "上传")
   @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
   String upload(@RequestParam(value = "file") final MultipartFile multipartFile) throws Exception {
-    return storageService.upload(multipartFile);
+    return "";
   }
 
-  @ApiOperation(value = "download", notes = "下载")
-  @GetMapping(value = "/download")
-  void download(@RequestParam("id") String id) {
-    storageService.download(id);
-  }
-
-  @ApiOperation("文件是否存在")
-  @GetMapping(value = "/exists")
-  public Boolean exists(String id) {
-    return storageService.exist(id);
-  }
-
-  @ApiOperation("文件删除")
-  @DeleteMapping(value = "/delete")
-  public Boolean delete(@RequestParam("id") String id) {
-    return storageService.delete(id);
-  }
 }
