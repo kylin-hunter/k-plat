@@ -4,4 +4,4 @@ spring:
   profiles:
     active: local
 server:
-  port: 8002
+  port: 8003
