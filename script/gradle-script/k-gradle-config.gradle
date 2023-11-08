@@ -12,6 +12,7 @@ ext {
             "plat-server-devops" : '1.0.2',
             "plat-server-gateway": '1.0.2',
             "plat-server-storage": '1.0.2',
+            "plat-server-search": '1.0.2',
             "plat-web"           : '1.0.2'
 
     ]
