@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: plat-server-gateway
-  profiles:
-    active: local
-server:
-  port: 8003

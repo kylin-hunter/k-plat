@@ -1,19 +1,19 @@
 ext {
     profile = "local"
     KYLIN_VERIONS = [
-            "plat-api"           : '1.0.2',
-            "plat-core"          : '1.0.2',
-            "plat-dao"           : '1.0.2',
-            "plat-data"          : '1.0.2',
-            "plat-file"          : '1.0.2',
-            "plat-generator"     : '1.0.2',
-            "plat-sample"        : '1.0.2',
-            "plat-server-core"   : '1.0.2',
-            "plat-server-devops" : '1.0.2',
-            "plat-server-gateway": '1.0.2',
-            "plat-server-storage": '1.0.2',
-            "plat-server-search": '1.0.2',
-            "plat-web"           : '1.0.2'
+            "k-api"           : '1.0.2',
+            "k-core"          : '1.0.2',
+            "k-dao"           : '1.0.2',
+            "k-data"          : '1.0.2',
+            "k-file"          : '1.0.2',
+            "k-generator"     : '1.0.2',
+            "k-sample"        : '1.0.2',
+            "k-server-core"   : '1.0.2',
+            "k-server-devops" : '1.0.2',
+            "k-server-gateway": '1.0.2',
+            "k-server-search": '1.0.2',
+            "k-server-storage": '1.0.2',
+            "k-web"           : '1.0.2'
 
     ]
     KYLIN_IMAGE_REPO = "私服地址"

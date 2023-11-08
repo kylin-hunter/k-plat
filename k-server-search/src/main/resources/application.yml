@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: k-server-storage
+  profiles:
+    active: local
+server:
+  port: 8003

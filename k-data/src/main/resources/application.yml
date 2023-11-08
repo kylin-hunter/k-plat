@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: k-data
+  profiles:
+    active: local
+server:
+  port: 8004
+kplat:
+  data:
+    redis:
+      name-space: "com.kplat::"
+      enabled: true
+

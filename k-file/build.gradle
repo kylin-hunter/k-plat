@@ -1,0 +1,17 @@
+dependencies {
+    api project(':k-api')
+    implementation(rootProject.dependency_management['jodconverter-local'])
+    implementation(rootProject.dependency_management['jodconverter-spring-boot-starter'])
+    implementation "org.springframework.boot:spring-boot-starter-web"
+//    implementation "org.springframework.boot:spring-boot-devtools"
+}
+jar.enabled = true
+bootJar.enabled(false)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

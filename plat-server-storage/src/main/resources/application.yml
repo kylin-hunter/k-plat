@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: plat-server-storage
-  profiles:
-    active: local
-server:
-  port: 8002

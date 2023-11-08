@@ -1,0 +1,20 @@
+dependencies {
+    api project(':k-api')
+
+    api(rootProject.dependency_management['mybatis-spring-boot-starter'])
+    api(rootProject.dependency_management['mybatis-plus-boot-starter'])
+    api(rootProject.dependency_management['mybatis-plus-generator'])
+    api(rootProject.dependency_management['mybatis-typehandlers-jsr310'])
+    api(rootProject.dependency_management['mysql-connector-java'])
+
+}
+jar.enabled = true
+bootJar.enabled=false
+
+test{
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

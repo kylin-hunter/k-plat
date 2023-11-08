@@ -1,0 +1,42 @@
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+    }
+}
+
+dependencies {
+    api project(':k-data')
+    api("org.springframework.boot:spring-boot-starter-web")
+    api('org.springframework.boot:spring-boot-starter-aop')
+    api('org.springframework.boot:spring-boot-starter-actuator')
+    api('org.springframework.boot:spring-boot-starter-security')
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api("org.springframework.cloud:spring-cloud-starter-loadbalancer")
+
+
+    api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
+    api "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
+    api "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
+    api 'com.alibaba.csp:sentinel-datasource-nacos'
+
+    api('io.micrometer:micrometer-registry-prometheus')
+    api(rootProject.dependency_management['java-jwt'])
+    api("io.springfox:springfox-boot-starter:3.0.0")
+
+
+
+}
+jar.enabled = true
+bootJar.enabled=false
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

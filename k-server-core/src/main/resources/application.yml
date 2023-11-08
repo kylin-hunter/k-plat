@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: k-server-core
+  profiles:
+    active: local
+server:
+  port: 8001

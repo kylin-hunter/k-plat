@@ -1,0 +1,18 @@
+
+
+dependencies {
+    api project(':k-web')
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-mysql")
+}
+
+jar.enabled = false
+bootJar.enabled(true)
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    println jvmArgs
+}
+
+
+

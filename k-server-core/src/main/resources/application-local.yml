@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import:
+      - optional:nacos:plat-common.yaml
+      - optional:nacos:k-server-core-local.yaml
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: local
+
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: local
+
+kplat:
+  env: LOCAL
