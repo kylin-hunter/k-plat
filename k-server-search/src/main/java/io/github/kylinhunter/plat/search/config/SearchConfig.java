@@ -15,7 +15,18 @@
  */
 package io.github.kylinhunter.plat.search.config;
 
+import io.github.kylinhunter.commons.exception.embed.InitException;
+import io.github.kylinhunter.commons.lang.EnumUtils;
+import io.github.kylinhunter.plat.api.module.storage.constants.StorageType;
+import javax.annotation.PostConstruct;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * @author BiJi'an
@@ -23,12 +34,22 @@ import lombok.Data;
  * @date 2022-06-27 01:24
  */
 @Data
+//@ConfigurationProperties(prefix = "kplat.search")
+@Component
+@Slf4j
+@ToString
 public class SearchConfig {
-  private String bucket;
-  private String url;
-  private String accessKey;
-  private String secretKey;
-  private long connectTimeout = 500000;
-  private long readTimeOut = 300000;
-  private long partSize;
+  @Getter(AccessLevel.NONE)
+  private String type;
+
+  private StorageType storageType;
+
+  @PostConstruct
+  private void init() {
+//    if (StringUtils.isEmpty(type)) {
+//      throw new InitException("init storage config error,type is emtpy");
+//    }
+//    storageType = EnumUtils.fromName(StorageType.class, type.toUpperCase());
+//    log.info("init storage config ={}", this.toString());
+  }
 }

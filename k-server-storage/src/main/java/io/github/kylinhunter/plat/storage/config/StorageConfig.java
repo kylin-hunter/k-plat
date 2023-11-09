@@ -42,7 +42,6 @@ public class StorageConfig {
   @Getter(AccessLevel.NONE)
   private String type;
 
-  private String a;
   private S3Config s3;
   private StorageType storageType;
 
