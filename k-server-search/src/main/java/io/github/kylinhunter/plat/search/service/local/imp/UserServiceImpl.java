@@ -1,8 +1,8 @@
 package io.github.kylinhunter.plat.search.service.local.imp;
 
 import io.github.kylinhunter.plat.search.bean.index.User;
+import io.github.kylinhunter.plat.search.dao.repository.UserRepository;
 import io.github.kylinhunter.plat.search.service.local.UserService;
-import io.github.kylinhunter.plat.search.dao.mapper.UserRepository;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Resource;

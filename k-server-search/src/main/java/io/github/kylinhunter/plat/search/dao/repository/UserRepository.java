@@ -8,6 +8,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @description
  * @date 2023-11-10 01:25
  */
-public interface UserRepository extends ElasticsearchRepository<User, Long> {
+public interface UserRepository extends ElasticsearchRepository<User, String> {
 
 }
