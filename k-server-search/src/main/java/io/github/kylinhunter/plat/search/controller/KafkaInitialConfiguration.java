@@ -28,7 +28,7 @@ public class KafkaInitialConfiguration {
   //创建TopicName为topic-new的Topic并设置分区数为4以及副本数为2
   @Bean
   public NewTopic initialTopic(KafkaAdmin kafkaAdmin) {
-    NewTopic newTopic = new NewTopic("topic-999", 2, (short) 1);
+    NewTopic newTopic = new NewTopic("topic-444", 2, (short) 1);
  KafkaAdminClient kafkaAdminClient = (KafkaAdminClient) KafkaAdminClient.create(kafkaAdmin.getConfigurationProperties());
 //    CreateTopicsResult topics = kafkaAdminClient.createTopics(Arrays.asList(newTopic));
 //    kafkaAdmin.createOrModifyTopics(newTopic);

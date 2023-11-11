@@ -1,0 +1,11 @@
+docker network ls|grep kylin-net
+docker network rm kylin-net
+docker network create kylin-net
+
+
+
+docker run -it --rm --network kylin-net   bitnami/kafka:3.3.2 kafka-topics.sh --list  --bootstrap-server 172.25.104.119:9092
+docker run -it --rm --network kylin-net   bitnami/kafka:3.3.2 kafka-topics.sh --list  --bootstrap-server 172.19.0.1:9092
+
+docker run -it --rm --network kylin-net   bitnami/kafka:3.3.2 kafka-topics.sh --list  --bootstrap-server 127.0.0.1:9092
+
