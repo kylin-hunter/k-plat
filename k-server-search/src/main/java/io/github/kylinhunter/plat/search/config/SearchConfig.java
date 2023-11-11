@@ -15,16 +15,10 @@
  */
 package io.github.kylinhunter.plat.search.config;
 
-import io.github.kylinhunter.plat.api.module.storage.constants.StorageType;
-import io.github.kylinhunter.plat.data.kafka.Topic;
-import javax.annotation.PostConstruct;
-import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

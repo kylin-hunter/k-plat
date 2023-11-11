@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.data.config;
 
-import io.github.kylinhunter.plat.data.kafka.Topic;
+import io.github.kylinhunter.plat.data.kafka.bean.Topic;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.Data;

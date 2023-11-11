@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.data.redis.service;
+package io.github.kylinhunter.plat.data.redis;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
 import java.util.function.Consumer;
@@ -22,7 +22,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
 @RequiredArgsConstructor
-public class RedisLockService {
+public class RedisLock {
   private final RedissonClient redissonClient;
 
   /***

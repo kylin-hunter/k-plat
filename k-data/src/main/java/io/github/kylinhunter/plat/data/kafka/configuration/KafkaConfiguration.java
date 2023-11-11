@@ -4,12 +4,14 @@ import io.github.kylinhunter.plat.data.config.KafkaConfig;
 import io.github.kylinhunter.plat.data.config.RedisConfig;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.redisson.spring.starter.RedissonProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
 /**
@@ -31,6 +33,8 @@ public class KafkaConfiguration {
 
   private final KafkaConfig dataConfig;
   private final GenericWebApplicationContext context;
+
+  private  final KafkaAdmin kafkaAdmin;
 
   @PostConstruct
   private void initTopics() {

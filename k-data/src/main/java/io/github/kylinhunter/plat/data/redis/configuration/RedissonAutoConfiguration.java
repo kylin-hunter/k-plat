@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.data.redis.configuration;
 
 import io.github.kylinhunter.plat.data.config.RedisConfig;
-import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
+import io.github.kylinhunter.plat.data.redis.RedisLock;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -260,7 +260,7 @@ public class RedissonAutoConfiguration {
   }
 
   @Bean
-  public RedisLockService redisLockService(RedissonClient redissonClient) {
-    return new RedisLockService(redissonClient);
+  public RedisLock redisLock(RedissonClient redissonClient) {
+    return new RedisLock(redissonClient);
   }
 }

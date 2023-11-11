@@ -1,4 +1,4 @@
-package io.github.kylinhunter.plat.data.kafka;
+package io.github.kylinhunter.plat.data.kafka.bean;
 
 import lombok.Data;
 
