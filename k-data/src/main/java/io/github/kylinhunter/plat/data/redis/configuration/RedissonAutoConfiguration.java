@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.data.redis.configuration;
 
-import io.github.kylinhunter.plat.data.config.KPlatDataRedisConfig;
+import io.github.kylinhunter.plat.data.config.RedisConfig;
 import io.github.kylinhunter.plat.data.redis.service.RedisLockService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Sentinel;
@@ -61,8 +62,13 @@ import org.springframework.util.ReflectionUtils;
 @EnableConfigurationProperties({
   RedissonProperties.class,
   RedisProperties.class,
-  KPlatDataRedisConfig.class
+  RedisConfig.class
 })
+@ConditionalOnProperty(
+    prefix = "plat",
+    value = "data.redis.enabled",
+    havingValue = "true",
+    matchIfMissing = true)
 public class RedissonAutoConfiguration {
 
   private static final String REDIS_PROTOCOL_PREFIX = "redis://";

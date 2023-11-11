@@ -15,7 +15,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  */
 @Data
 @RequiredArgsConstructor
-public class BasicIndexBean {
+public class IndexBean {
 
   @Id
   protected  String id;

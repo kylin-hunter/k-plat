@@ -13,22 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.search.config;
+package io.github.kylinhunter.plat.data.config;
 
+import javax.annotation.PostConstruct;
 import lombok.Data;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author BiJi'an
  * @description
- * @date 2022-06-27 01:24
+ * @date 2023-10-15 23:25
  */
 @Data
-public class SearchConfig1 {
-  private String bucket;
-  private String url;
-  private String accessKey;
-  private String secretKey;
-  private long connectTimeout = 500000;
-  private long readTimeOut = 300000;
-  private long partSize;
+@Slf4j
+@Configuration
+@ConfigurationProperties(prefix = "kplat.data.redis")
+public class RedisConfig {
+
+  private String namespace = "plat";
+
+  @PostConstruct
+  private void init() {
+    log.info("init " + this.toString());
+  }
 }

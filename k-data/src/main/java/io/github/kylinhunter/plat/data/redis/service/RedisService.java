@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.data.redis.service;
 
 import io.github.kylinhunter.commons.util.ObjectValues;
 import io.github.kylinhunter.plat.api.middleware.redis.RedisKey;
-import io.github.kylinhunter.plat.data.config.KPlatDataRedisConfig;
+import io.github.kylinhunter.plat.data.config.RedisConfig;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -34,7 +34,7 @@ public class RedisService {
 
   protected final RedisTemplate<String, Object> redisTemplate;
 
-  private final KPlatDataRedisConfig kplatDataRedisConfig;
+  private final RedisConfig kplatDataRedisConfig;
 
   @PostConstruct
   private void init() {

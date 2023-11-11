@@ -31,7 +31,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import io.github.kylinhunter.plat.data.config.KPlatDataRedisConfig;
+import io.github.kylinhunter.plat.data.config.RedisConfig;
 import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -53,7 +53,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @Slf4j
 @ConditionalOnProperty(
-    prefix = "plat",
+    prefix = "kplat",
     value = "data.redis.enabled",
     havingValue = "true",
     matchIfMissing = true)
@@ -81,7 +81,7 @@ public class RedisTemplateConfiguration {
   @Primary
   public RedisService redisService(
       @Autowired RedisTemplate<String, Object> redisTemplate,
-      KPlatDataRedisConfig kplatDataRedisConfig) {
+      RedisConfig kplatDataRedisConfig) {
     return new RedisService(redisTemplate, kplatDataRedisConfig);
   }
 
@@ -97,7 +97,7 @@ public class RedisTemplateConfiguration {
   @Bean("redisServiceJDK")
   public RedisService redisServiceJDK(
       @Autowired @Qualifier("redisTemplateJDK") RedisTemplate<String, Object> redisTemplate,
-      KPlatDataRedisConfig kplatDataRedisConfig) {
+      RedisConfig kplatDataRedisConfig) {
     return new RedisService(redisTemplate, kplatDataRedisConfig);
   }
 
@@ -135,4 +135,6 @@ public class RedisTemplateConfiguration {
     objectMapper.registerModule(javaTimeModule);
     return objectMapper;
   }
+
+
 }

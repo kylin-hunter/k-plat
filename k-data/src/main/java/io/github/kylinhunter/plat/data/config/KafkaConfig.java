@@ -15,11 +15,13 @@
  */
 package io.github.kylinhunter.plat.data.config;
 
+import io.github.kylinhunter.plat.data.kafka.Topic;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.Data;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author BiJi'an
@@ -27,12 +29,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2023-10-15 23:25
  */
 @Data
-@ToString
 @Slf4j
-@ConfigurationProperties(prefix = "kplat.data.redis")
-public class KPlatDataRedisConfig {
+@Configuration
+@ConfigurationProperties(prefix = "kplat.data.kafka")
+public class KafkaConfig {
 
-  private String namespace = "plat";
+  private List<Topic> initTopics;
 
   @PostConstruct
   private void init() {

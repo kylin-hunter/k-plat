@@ -50,3 +50,13 @@ spring:
             ms: 18000 # 消费请求的超时时间
   elasticsearch:
     uris: http://127.0.0.1:9200
+kplat:
+  data:
+    kafka:
+      enabled: true
+      initTopics:
+        - name: kplat-search
+          numPartitions: 2
+          replicationFactor: 1
+  search:
+    topic: kplat-search

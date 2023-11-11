@@ -2,7 +2,6 @@ package io.github.kylinhunter.plat.search.bean.index;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -15,7 +14,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Document(indexName = "employee_info", shards = 1, replicas = 0)
 @Getter
 @Setter
-public class User extends BasicIndexBean {
+public class User extends IndexBean {
 
   @Field(type = FieldType.Text)
   private String nickName;
