@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/msg")
+@RequestMapping("/kafka")
 
-public class MsgController {
+public class KafkaController {
 
   private final MsgSender msgSender;
 

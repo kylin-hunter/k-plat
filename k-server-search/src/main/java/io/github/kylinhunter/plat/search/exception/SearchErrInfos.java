@@ -26,6 +26,6 @@ import io.github.kylinhunter.commons.exception.info.ErrInfoAware;
 @ErrInfoAware
 public class SearchErrInfos {
 
-  private static int BASE_CODE = 70000;
+  private static int BASE_CODE = 90000;
   public static final ErrInfo STORAGE_ERROR = new ErrInfo(++BASE_CODE);
 }
