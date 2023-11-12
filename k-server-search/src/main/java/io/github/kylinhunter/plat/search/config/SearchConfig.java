@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.search.config;
 
+import javax.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +37,12 @@ import org.springframework.stereotype.Component;
 @Setter
 public class SearchConfig {
 
-  private String  topic;
+  private String topic;
+  private String topicRetry;
+  private String topicError;
 
+  @PostConstruct
+  private void init() {
+    log.info("init:{}", this.toString());
+  }
 }

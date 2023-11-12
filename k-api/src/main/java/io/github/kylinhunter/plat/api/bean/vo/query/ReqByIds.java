@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo.query;
 
-import com.google.common.collect.Lists;
+import io.github.kylinhunter.commons.collections.ListUtils;
 import io.github.kylinhunter.commons.exception.embed.ParamException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,7 +46,7 @@ public class ReqByIds extends ReqQuery implements Serializable {
   private Collection<String> ids;
 
   public static ReqByIds of(String idArr) {
-    List<String> allIds = Lists.newArrayList();
+    List<String> allIds = ListUtils.newArrayList();
     String[] ids = StringUtils.split(idArr, ',');
     for (String id : ids) {
       if (!StringUtils.isEmpty(id)) {

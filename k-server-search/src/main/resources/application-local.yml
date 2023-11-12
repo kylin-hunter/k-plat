@@ -68,5 +68,13 @@ kplat:
         - name: kplat-search
           numPartitions: 2
           replicationFactor: 1
+        - name: kplat-search-retry
+          numPartitions: 2
+          replicationFactor: 1
+        - name: kplat-search-error
+          numPartitions: 2
+          replicationFactor: 1
   search:
     topic: kplat-search
+    topic-retry: kplat-search-retry
+    topic-error: kplat-searche-rror

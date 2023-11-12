@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.page;
 
-import com.google.common.collect.Lists;
+import io.github.kylinhunter.commons.collections.ListUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -50,7 +50,7 @@ public class PageData<T> implements java.io.Serializable {
   protected long end;
 
   @ApiModelProperty(value = "body")
-  protected List<T> body = Lists.newArrayList();
+  protected List<T> body = ListUtils.newArrayList();
 
   public PageData(PageData<?> pageData) {
     this.pn = pageData.pn;

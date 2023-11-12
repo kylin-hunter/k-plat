@@ -16,7 +16,7 @@
 package io.github.kylinhunter.plat.api.trace.explain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.collect.Maps;
+import io.github.kylinhunter.commons.collections.MapUtils;
 import io.github.kylinhunter.plat.api.trace.CookieInfo;
 import io.github.kylinhunter.plat.api.trace.TraceExplain;
 import java.util.List;
@@ -38,8 +38,8 @@ public class DefaultTraceExplain implements TraceExplain {
   private Map<String, List<String>> headers;
   private List<CookieInfo> cookies;
 
-  private Map<String, Long> costs = Maps.newLinkedHashMap();
-  private Map<String, Object> others = Maps.newLinkedHashMap();
+  private Map<String, Long> costs = MapUtils.newLinkedHashMap();
+  private Map<String, Object> others = MapUtils.newLinkedHashMap();
 
   @Override
   public TraceExplain put(String key, Object value) {

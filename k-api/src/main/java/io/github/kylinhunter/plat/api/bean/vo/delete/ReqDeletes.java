@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo.delete;
 
-import com.google.common.collect.Lists;
+import io.github.kylinhunter.commons.collections.ListUtils;
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.swagger.annotations.ApiModel;
@@ -57,7 +57,7 @@ public class ReqDeletes extends Req implements Serializable {
   }
 
   public static ReqDeletes of(String idArr) {
-    List<String> allIds = Lists.newArrayList();
+    List<String> allIds = ListUtils.newArrayList();
     String[] ids = StringUtils.split(idArr, ',');
     for (String id : ids) {
       if (!StringUtils.isEmpty(id)) {

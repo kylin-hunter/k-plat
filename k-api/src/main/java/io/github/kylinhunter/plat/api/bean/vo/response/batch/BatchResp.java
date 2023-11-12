@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo.response.batch;
 
-import com.google.common.collect.Lists;
+import io.github.kylinhunter.commons.collections.ListUtils;
 import io.github.kylinhunter.plat.api.bean.vo.response.single.Resp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 public class BatchResp<T extends Resp> implements Serializable {
 
   @ApiModelProperty(value = "body")
-  private List<BatchSingleResp<T>> body = Lists.newArrayList();
+  private List<BatchSingleResp<T>> body = ListUtils.newArrayList();
 
   public void addSingleResp(T singleResp) {
     this.body.add(new BatchSingleResp<>(singleResp));

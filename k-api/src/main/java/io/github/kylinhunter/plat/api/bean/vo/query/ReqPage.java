@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.api.bean.vo.query;
 
-import com.google.common.collect.Lists;
+import io.github.kylinhunter.commons.collections.ListUtils;
 import io.github.kylinhunter.plat.api.bean.filter.ReqFilter;
 import io.github.kylinhunter.plat.api.bean.sort.Order;
 import io.github.kylinhunter.plat.api.bean.sort.ReqSort;
@@ -79,14 +79,14 @@ public class ReqPage extends ReqQuery implements Serializable {
    */
   public void addOrder(String field, Order order) {
     if (sorts == null) {
-      sorts = Lists.newArrayList();
+      sorts = ListUtils.newArrayList();
     }
     sorts.add(new ReqSort(field, order));
   }
 
   public void addFilter(String field, String value) {
     if (filters == null) {
-      filters = Lists.newArrayList();
+      filters = ListUtils.newArrayList();
     }
     filters.add(new ReqFilter(field, value));
   }

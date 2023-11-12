@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.dao.service.local.ex;
 
-import com.google.common.collect.Maps;
+import io.github.kylinhunter.commons.collections.MapUtils;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 
@@ -25,7 +25,7 @@ import javax.annotation.PostConstruct;
  * @date 2022-01-22 19:41
  */
 public class FilterCustoms {
-  public static final Map<String, FilterCustom> DATA = Maps.newHashMap();
+  public static final Map<String, FilterCustom> DATA = MapUtils.newHashMap();
 
   @PostConstruct
   private void init() {}
