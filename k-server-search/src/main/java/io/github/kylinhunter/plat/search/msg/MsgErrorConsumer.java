@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * @date 2023-11-09 01:16
  */
 @Component
-public class MsgConsumer {
+public class MsgErrorConsumer {
 
   //监听消费
-  @KafkaListener(id = "${kplat.search.topic}_id", topics = {"${kplat.search.topic}"},groupId="${kplat.search.topic}_group")
+  @KafkaListener(id = "${kplat.search.topic-error}_id", topics = {"${kplat.search.topic-error}"},groupId="${kplat.search.topic-error}_group")
   public void onNormalMessage(List<ConsumerRecord<String, Object>> records,
       Acknowledgment acknowledgment) {
     records.forEach(record -> {
