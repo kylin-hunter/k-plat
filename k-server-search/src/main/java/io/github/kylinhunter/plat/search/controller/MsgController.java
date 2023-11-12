@@ -1,5 +1,6 @@
 package io.github.kylinhunter.plat.search.controller;
 
+import io.github.kylinhunter.plat.data.kafka.KafkaListenerManager;
 import io.github.kylinhunter.plat.search.msg.MsgSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,36 @@ public class MsgController {
 
   private final MsgSender msgSender;
 
+  private final KafkaListenerManager kafkaListenerManager;
+
   @PostMapping("/send")
-  public void send(@RequestParam("message") String message) {
+  public boolean send(@RequestParam("message") String message) {
     msgSender.send(message);
+    return true;
+  }
+
+  @PostMapping("/listener/pause_all")
+  public boolean pause() {
+    kafkaListenerManager.pauseAll();
+    return true;
+  }
+
+  @PostMapping("/listener/resume_all")
+  public boolean resume() {
+    kafkaListenerManager.resumeAll();
+    return true;
+  }
+
+  @PostMapping("/listener/start_all")
+  public boolean start() {
+    kafkaListenerManager.startAll();
+    return true;
+  }
+
+  @PostMapping("/listener/stop_all")
+  public boolean stop() {
+    kafkaListenerManager.stopAll();
+    return true;
   }
 
 }

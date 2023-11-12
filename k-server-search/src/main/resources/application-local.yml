@@ -34,7 +34,7 @@ spring:
           #partitioner: #指定分区器
           #class: pers.zhang.config.CustomerPartitionHandler
     consumer:
-      group-id: testGroup #默认的消费组ID
+      group-id: search-group #默认的消费组ID
       # 是否自动提交偏移量，默认值是true,为了避免出现重复数据和数据丢失，可以把它设置为false,然后手动提交偏移量
       enable-auto-commit: false #是否自动提交offset
       auto-commit-interval: 2000 #提交offset延时

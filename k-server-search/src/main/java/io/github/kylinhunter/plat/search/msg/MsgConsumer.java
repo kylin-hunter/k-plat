@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 public class MsgConsumer {
 
   //监听消费
-  @KafkaListener(topics = {"${kplat.search.topic}"})
+  @KafkaListener(id = "${kplat.search.topic}", topics = {"${kplat.search.topic}"},groupId="${kplat.search.topic}_group")
   public void onNormalMessage(List<ConsumerRecord<String, Object>> records,
       Acknowledgment acknowledgment) {
-    records.forEach(record->{
+    records.forEach(record -> {
       System.out.println(
           "简单消费：" + record.topic() + "-" + record.partition() + "=" + record.value());
     });
