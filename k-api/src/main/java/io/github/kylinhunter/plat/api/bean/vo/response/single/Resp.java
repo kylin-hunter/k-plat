@@ -37,6 +37,4 @@ public class Resp implements Serializable {
   @ApiModelProperty(value = "id")
   @EqualsAndHashCode.Include
   protected String id;
-
-
 }

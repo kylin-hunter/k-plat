@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.core.service.local.component;
 
 import io.github.kylinhunter.commons.exception.embed.InitException;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
-import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqCreateBatch;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
@@ -72,7 +71,7 @@ public class TenantCatalogComponent {
 
   /**
    * @param curCatalog curCatalog
-   * @param parent     parent
+   * @param parent parent
    * @return void
    * @title setLevelAndPathFromParent
    * @description setLevelAndPathFromParent
@@ -96,8 +95,8 @@ public class TenantCatalogComponent {
   public TenantCatalog initRoot(int type) {
     String tenantId = TraceHolder.get().getUserContext().getTenantId();
 
-    TenantCatalog tenantCatalog = tenantCatalogMapper.findByCode(tenantId, type,
-        DefaultTenantCatalogs.ROOT_CODE);
+    TenantCatalog tenantCatalog =
+        tenantCatalogMapper.findByCode(tenantId, type, DefaultTenantCatalogs.ROOT_CODE);
     if (tenantCatalog == null) {
       tenantCatalog = new TenantCatalog();
       tenantCatalog.setType(type);
@@ -112,5 +111,4 @@ public class TenantCatalogComponent {
     }
     return tenantCatalog;
   }
-
 }

@@ -59,11 +59,7 @@ import org.springframework.util.ReflectionUtils;
 @Configuration
 @ConditionalOnClass({Redisson.class, RedisOperations.class})
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@EnableConfigurationProperties({
-  RedissonProperties.class,
-  RedisProperties.class,
-  RedisConfig.class
-})
+@EnableConfigurationProperties({RedissonProperties.class, RedisProperties.class, RedisConfig.class})
 @ConditionalOnProperty(
     prefix = "plat",
     value = "data.redis.enabled",

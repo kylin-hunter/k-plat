@@ -20,5 +20,4 @@ import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 public interface VO {
 
   ReqType getReqType();
-
 }

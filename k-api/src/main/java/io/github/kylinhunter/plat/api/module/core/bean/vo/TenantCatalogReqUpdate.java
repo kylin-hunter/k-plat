@@ -58,11 +58,9 @@ public class TenantCatalogReqUpdate extends ReqUpdate implements TenantCatalogVO
   @JsonIgnore
   private Integer type;
 
-
   @ApiModelProperty(value = "path", hidden = true)
   @JsonIgnore
   private String path;
-
 
   @ApiModelProperty(value = "status", hidden = true)
   @JsonIgnore

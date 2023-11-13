@@ -57,19 +57,17 @@ import org.springframework.util.CollectionUtils;
 @Slf4j
 public class TenantCatalogServiceImp
     extends CommonServiceImpl<
-    TenantCatalogMapper,
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery>
+        TenantCatalogMapper,
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery>
     implements TenantCatalogService {
 
-  @Autowired
-  private TenantCatalogTreeComponent treeComponent;
-  @Autowired
-  private TenantCatalogComponent catalogComponent;
+  @Autowired private TenantCatalogTreeComponent treeComponent;
+  @Autowired private TenantCatalogComponent catalogComponent;
 
   public TenantCatalogServiceImp(
       TenantCatalogSaveOrUpdateInterceptor tenantCatalogSaveOrUpdateInterceptor,
@@ -85,8 +83,8 @@ public class TenantCatalogServiceImp
 
   @Override
   public TenantCatalogRespTree tree(TenantCatalogReqTree tenantCatalogReqTree) {
-    List<TenantCatalog> allCatalogs = this.baseMapper.findByType(this.getTenanId(),
-        tenantCatalogReqTree.getType());
+    List<TenantCatalog> allCatalogs =
+        this.baseMapper.findByType(this.getTenanId(), tenantCatalogReqTree.getType());
     return treeComponent.tree(allCatalogs, tenantCatalogReqTree.getType());
   }
 
@@ -114,7 +112,7 @@ public class TenantCatalogServiceImp
   }
 
   /**
-   * @param parentId    parentId
+   * @param parentId parentId
    * @param allChildren allChildren
    * @return java.util.List<io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog>
    * @title fetchAllChildren
@@ -186,15 +184,15 @@ public class TenantCatalogServiceImp
     return true;
   }
 
-
   private void updateLevelAndPath(TenantCatalog catalog) {
     List<TenantCatalog> children = this.baseMapper.findByParentId(catalog.getId());
     if (!CollectionUtils.isEmpty(children)) {
-      children.forEach(child -> {
-        this.catalogComponent.setLevelAndPathFromParent(child, catalog);
-        this.baseMapper.updateById(child);
-        this.updateLevelAndPath(child);
-      });
+      children.forEach(
+          child -> {
+            this.catalogComponent.setLevelAndPathFromParent(child, catalog);
+            this.baseMapper.updateById(child);
+            this.updateLevelAndPath(child);
+          });
     }
   }
 
@@ -203,6 +201,4 @@ public class TenantCatalogServiceImp
     this.catalogComponent.initRoot(tenantCatalogReqCreateRoot.getType());
     return true;
   }
-
-
 }

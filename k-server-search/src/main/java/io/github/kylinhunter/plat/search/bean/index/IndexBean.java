@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 The k-commons Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.kylinhunter.plat.search.bean.index;
 
 import java.time.LocalDateTime;
@@ -17,8 +32,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @RequiredArgsConstructor
 public class IndexBean {
 
-  @Id
-  protected  String id;
+  @Id protected String id;
 
   //  @Field(type = FieldType.Keyword, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
   @Field(type = FieldType.Keyword)
@@ -32,14 +46,16 @@ public class IndexBean {
 
   @Field(type = FieldType.Date, format = DateFormat.date_time)
   private LocalDateTime sysCreatedTime;
+
   @Field(type = FieldType.Keyword)
   private String sysUpdateUserId;
+
   @Field(type = FieldType.Text)
   private String sysUpdateUserName;
+
   @Field(type = FieldType.Date, format = DateFormat.date_time)
   private LocalDateTime sysUpdateTime;
+
   @Field(type = FieldType.Boolean, format = DateFormat.date_time)
   private boolean sysDeleteFlag;
-
-
 }

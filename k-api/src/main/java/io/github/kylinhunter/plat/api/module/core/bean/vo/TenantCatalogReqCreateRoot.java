@@ -17,8 +17,6 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
-import java.util.List;
-import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,7 +30,6 @@ import lombok.ToString;
 @Getter
 @Setter
 public class TenantCatalogReqCreateRoot extends Req {
-
 
   private int type;
 

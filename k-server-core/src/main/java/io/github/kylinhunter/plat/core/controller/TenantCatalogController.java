@@ -27,7 +27,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
-import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
 import io.github.kylinhunter.plat.core.service.local.TenantCatalogService;
 import io.github.kylinhunter.plat.web.controller.CommonCurdController;
 import io.github.kylinhunter.plat.web.response.DefaultResponse;
@@ -53,13 +52,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TenantCatalogController
     extends CommonCurdController<
-    TenantCatalogService,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery,
-    TenantCatalog> {
+        TenantCatalogService,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery,
+        TenantCatalog> {
 
   @RequestMapping(value = "/tree", method = RequestMethod.GET)
   @ResponseBody
@@ -76,11 +75,10 @@ public class TenantCatalogController
   public DefaultResponse<TenantCatalogRespTree> batch(
       @RequestBody @Validated TenantCatalogReqCreateBatch tenantCatalogReqCreateBatch) {
     this.service.init(tenantCatalogReqCreateBatch);
-    TenantCatalogReqTree tenantCatalogReqTree = new TenantCatalogReqTree(
-        tenantCatalogReqCreateBatch.getType());
+    TenantCatalogReqTree tenantCatalogReqTree =
+        new TenantCatalogReqTree(tenantCatalogReqCreateBatch.getType());
     return new DefaultResponse<>(this.service.tree(tenantCatalogReqTree));
   }
-
 
   @RequestMapping(value = "/move", method = RequestMethod.POST)
   @ResponseBody
@@ -89,7 +87,6 @@ public class TenantCatalogController
       @RequestBody @Validated TenantCatalogReqMove tenantCatalogReqMove) {
     return new DefaultResponse<>(this.service.move(tenantCatalogReqMove));
   }
-
 
   @RequestMapping(value = "/sort", method = RequestMethod.POST)
   @ResponseBody

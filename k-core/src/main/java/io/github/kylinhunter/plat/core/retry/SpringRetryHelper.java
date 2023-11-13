@@ -41,7 +41,6 @@ public class SpringRetryHelper {
 
   private static Map<Class<? extends Throwable>, Boolean> exceptionMap = new HashMap<>();
 
-
   static {
     exceptionMap.put(ToRetryException.class, true);
 
@@ -61,7 +60,7 @@ public class SpringRetryHelper {
   }
 
   /**
-   * @param type    type
+   * @param type type
    * @param retryer retryer
    * @return void
    * @title registerRetryer
@@ -86,7 +85,7 @@ public class SpringRetryHelper {
   }
 
   /**
-   * @param callable         callable
+   * @param callable callable
    * @param recoveryCallback recoveryCallback
    * @return V
    * @title retry
@@ -94,27 +93,20 @@ public class SpringRetryHelper {
    * @author BiJi'an
    * @date 2023-11-12 22:45
    */
-  public static <V> V retry(RetryTemplate retryTemplate, Callable<V> callable,
-      RecoveryCallback<V> recoveryCallback)
+  public static <V> V retry(
+      RetryTemplate retryTemplate, Callable<V> callable, RecoveryCallback<V> recoveryCallback)
       throws Exception {
 
     if (recoveryCallback != null) {
-      return retryTemplate.execute(
-          retryContext -> callable.call(),
-          recoveryCallback
-      );
+      return retryTemplate.execute(retryContext -> callable.call(), recoveryCallback);
     } else {
-      return retryTemplate.execute(
-          retryContext -> callable.call()
-      );
+      return retryTemplate.execute(retryContext -> callable.call());
     }
-
-
   }
 
   /**
    * @param retryTemplate retryTemplate
-   * @param callable      callable
+   * @param callable callable
    * @return V
    * @title retry
    * @description retry
@@ -125,10 +117,9 @@ public class SpringRetryHelper {
     return retry(retryTemplate, callable, null);
   }
 
-
   /**
-   * @param type             type
-   * @param callable         callable
+   * @param type type
+   * @param callable callable
    * @param recoveryCallback recoveryCallback
    * @return V
    * @title retry
@@ -136,14 +127,13 @@ public class SpringRetryHelper {
    * @author BiJi'an
    * @date 2023-11-12 23:37
    */
-  public static <V, E extends Enum<E>> V retry(Enum<E> type, Callable<V> callable,
-      RecoveryCallback<V> recoveryCallback)
-      throws Exception {
+  public static <V, E extends Enum<E>> V retry(
+      Enum<E> type, Callable<V> callable, RecoveryCallback<V> recoveryCallback) throws Exception {
     return retry(RETRYERS.get(type), callable, recoveryCallback);
   }
 
   /**
-   * @param type     type
+   * @param type type
    * @param callable callable
    * @return V
    * @title retry
@@ -157,7 +147,7 @@ public class SpringRetryHelper {
   }
 
   /**
-   * @param callable         callable
+   * @param callable callable
    * @param recoveryCallback recoveryCallback
    * @return V
    * @title retry

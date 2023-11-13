@@ -22,7 +22,6 @@ import io.github.kylinhunter.commons.exception.ExceptionFinder;
 import io.github.kylinhunter.commons.exception.explain.AbstractExplainerSupplier;
 import io.github.kylinhunter.commons.exception.explain.ExplainResult;
 import io.github.kylinhunter.commons.exception.info.ErrInfos;
-import io.github.kylinhunter.plat.web.exception.WebErrInfos;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;

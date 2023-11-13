@@ -38,17 +38,17 @@ import java.util.List;
  */
 public interface TenantCatalogService
     extends CommonService<
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery> {
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery> {
 
   TenantCatalog findByCode(int type, String code);
 
   /**
-   * @param parentId  parentId
+   * @param parentId parentId
    * @param recursion recursion
    * @return java.util.List<io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog>
    * @title findByParentId

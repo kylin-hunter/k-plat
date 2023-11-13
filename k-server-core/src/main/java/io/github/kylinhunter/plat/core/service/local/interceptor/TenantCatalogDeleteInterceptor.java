@@ -24,7 +24,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
-import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultUsers;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.DeleteInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -38,12 +37,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TenantCatalogDeleteInterceptor
     extends DeleteInterceptor<
-    TenantCatalog,
-    TenantCatalogReqCreate,
-    TenantCatalogReqUpdate,
-    TenantCatalogResp,
-    TenantCatalogVO,
-    TenantCatalogReqQuery> {
+        TenantCatalog,
+        TenantCatalogReqCreate,
+        TenantCatalogReqUpdate,
+        TenantCatalogResp,
+        TenantCatalogVO,
+        TenantCatalogReqQuery> {
 
   @Override
   public void before(ReqDelete reqDelete, boolean tenantSupported, TenantCatalog entity) {

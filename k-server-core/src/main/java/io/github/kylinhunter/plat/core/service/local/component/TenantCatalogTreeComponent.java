@@ -16,7 +16,6 @@
 package io.github.kylinhunter.plat.core.service.local.component;
 
 import com.google.common.collect.Lists;
-import io.github.kylinhunter.commons.exception.embed.InitException;
 import io.github.kylinhunter.commons.exception.embed.biz.BizException;
 import io.github.kylinhunter.plat.api.bean.entity.BaseEntity;
 import io.github.kylinhunter.plat.api.module.core.bean.entity.TenantCatalog;
@@ -25,7 +24,6 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import io.github.kylinhunter.plat.api.trace.TraceHolder;
 import io.github.kylinhunter.plat.core.dao.mapper.TenantCatalogMapper;
-import io.github.kylinhunter.plat.dao.service.local.interceptor.BasicInterceptor;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +84,7 @@ public class TenantCatalogTreeComponent {
       }
     }
     if (root == null) {
-      root=new TenantCatalogRespTree();
+      root = new TenantCatalogRespTree();
       TenantCatalog tenantCatalog = this.tenantCatalogComponent.initRoot(type);
       BeanUtils.copyProperties(tenantCatalog, root);
     }
@@ -116,15 +114,13 @@ public class TenantCatalogTreeComponent {
     }
 
     log.info("all catalog size =>" + allTenantCatalogs.size());
-    List<String> ids = allTenantCatalogs.stream().map(TenantCatalog::getId)
-        .collect(Collectors.toList());
-    this.tenantCatalogMapper.deleteByTypeAndNotIn(tenantId, createBatch.getType(),
-        ids);
+    List<String> ids =
+        allTenantCatalogs.stream().map(TenantCatalog::getId).collect(Collectors.toList());
+    this.tenantCatalogMapper.deleteByTypeAndNotIn(tenantId, createBatch.getType(), ids);
   }
 
-
   /**
-   * @param catalog    catalog
+   * @param catalog catalog
    * @param parentCode parentCode
    * @return void
    * @title init
@@ -132,10 +128,11 @@ public class TenantCatalogTreeComponent {
    * @author BiJi'an
    * @date 2023-10-19 00:59
    */
-  private void init(TenantCatalogReqCreateBatch catalog, String parentCode,
-      List<TenantCatalog> allCatalogs) {
-    TenantCatalog saveCatalog = tenantCatalogComponent.save(catalog.getType(), catalog.getCode(),
-        catalog.getName(), catalog.getSort(), parentCode);
+  private void init(
+      TenantCatalogReqCreateBatch catalog, String parentCode, List<TenantCatalog> allCatalogs) {
+    TenantCatalog saveCatalog =
+        tenantCatalogComponent.save(
+            catalog.getType(), catalog.getCode(), catalog.getName(), catalog.getSort(), parentCode);
     allCatalogs.add(saveCatalog);
     List<TenantCatalogReqCreateBatch> children = catalog.getChildren();
     if (children != null && children.size() > 0) {

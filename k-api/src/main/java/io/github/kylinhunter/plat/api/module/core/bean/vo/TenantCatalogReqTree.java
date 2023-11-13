@@ -18,7 +18,6 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
 import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
-import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

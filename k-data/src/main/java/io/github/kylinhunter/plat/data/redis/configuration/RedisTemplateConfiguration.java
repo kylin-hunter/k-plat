@@ -80,8 +80,7 @@ public class RedisTemplateConfiguration {
   @Bean
   @Primary
   public RedisService redisService(
-      @Autowired RedisTemplate<String, Object> redisTemplate,
-      RedisConfig kplatDataRedisConfig) {
+      @Autowired RedisTemplate<String, Object> redisTemplate, RedisConfig kplatDataRedisConfig) {
     return new RedisService(redisTemplate, kplatDataRedisConfig);
   }
 
@@ -135,6 +134,4 @@ public class RedisTemplateConfiguration {
     objectMapper.registerModule(javaTimeModule);
     return objectMapper;
   }
-
-
 }

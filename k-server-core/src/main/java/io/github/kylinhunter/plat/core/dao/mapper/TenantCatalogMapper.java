@@ -44,7 +44,6 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
           + "WHERE  parent_id = #{parentId}  and sys_delete_flag=0 ")
   int selectCountByParentId(@Param("parentId") String parentId);
 
-
   @Select(
       "SELECT *  FROM  kplat_tenant_catalog  "
           + "WHERE sys_tenant_id = #{tenantId} and type = #{type} and code = #{code} and sys_delete_flag=0 ")
@@ -55,7 +54,6 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
       "SELECT *  FROM  kplat_tenant_catalog  "
           + "WHERE sys_tenant_id = #{tenantId} and type = #{type}  and sys_delete_flag=0 order by level,sort asc ")
   List<TenantCatalog> findByType(@Param("tenantId") String tenantId, @Param("type") int type);
-
 
   @Delete(
       "<script>"
@@ -73,6 +71,6 @@ public interface TenantCatalogMapper extends BaseMapper<TenantCatalog> {
           + "</otherwise>"
           + "</choose>"
           + "</script>")
-  int deleteByTypeAndNotIn(@Param("tenantId") String tenantId, @Param("type") int type,
-      @Param("ids") List<String> ids);
+  int deleteByTypeAndNotIn(
+      @Param("tenantId") String tenantId, @Param("type") int type, @Param("ids") List<String> ids);
 }

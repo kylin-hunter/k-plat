@@ -15,14 +15,11 @@
  */
 package io.github.kylinhunter.plat.search.controller;
 
-import io.github.kylinhunter.plat.api.module.storage.service.StorageService;
 import io.github.kylinhunter.plat.web.controller.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,11 +37,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class SearchController extends CommonController {
 
-
   @ApiOperation(value = "upload", notes = "上传")
   @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
   String upload(@RequestParam(value = "file") final MultipartFile multipartFile) throws Exception {
     return "";
   }
-
 }

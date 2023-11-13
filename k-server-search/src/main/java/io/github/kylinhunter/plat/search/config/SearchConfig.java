@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2022-06-27 01:24
  */
-
 @ConfigurationProperties(prefix = "kplat.search")
 @Component
 @Slf4j

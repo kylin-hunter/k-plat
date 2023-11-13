@@ -17,7 +17,6 @@ package io.github.kylinhunter.plat.api.module.core.bean.vo;
 
 import io.github.kylinhunter.plat.api.bean.vo.constants.ReqType;
 import io.github.kylinhunter.plat.api.bean.vo.request.Req;
-import io.github.kylinhunter.plat.api.module.core.constants.TenantCatalogType;
 import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -34,8 +33,7 @@ import lombok.ToString;
 @Setter
 public class TenantCatalogReqSort extends Req {
 
-  @NotEmpty
-  private List<String> ids;
+  @NotEmpty private List<String> ids;
 
   public TenantCatalogReqSort() {
     super(ReqType.OTHER);

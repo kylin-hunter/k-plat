@@ -38,6 +38,4 @@ public abstract class Req implements VO {
   @ApiModelProperty(value = "voType", hidden = true)
   @JsonIgnore
   private final ReqType reqType;
-
-
 }
