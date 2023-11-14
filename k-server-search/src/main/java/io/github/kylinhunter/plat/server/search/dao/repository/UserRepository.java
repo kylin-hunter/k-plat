@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.server.search.dao.repository;
 
-import io.github.kylinhunter.plat.server.search.bean.index.User;
+import io.github.kylinhunter.plat.server.search.index.bean.User;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

@@ -15,7 +15,7 @@
  */
 package io.github.kylinhunter.plat.server.search.service.local;
 
-import io.github.kylinhunter.plat.server.search.bean.index.User;
+import io.github.kylinhunter.plat.server.search.index.bean.User;
 import java.util.Iterator;
 import java.util.List;
 

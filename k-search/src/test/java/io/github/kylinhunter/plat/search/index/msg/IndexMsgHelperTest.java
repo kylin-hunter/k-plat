@@ -1,7 +1,5 @@
-package io.github.kylinhunter.plat.search.protocol;
+package io.github.kylinhunter.plat.search.index.msg;
 
-import io.github.kylinhunter.plat.server.search.bean.index.User;
-import io.github.kylinhunter.plat.server.search.protocol.ProtocolHelper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +7,13 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ProtocolHelperTest {
+class IndexMsgHelperTest {
 
   @Test
   void test() {
-    List<User> users1 = new ArrayList<>();
+    List<TestUser> users1 = new ArrayList<>();
     IntStream.range(0, 100).forEach(i -> {
-      User user = new User();
+      TestUser user = new TestUser();
       user.setId("id" + i);
       user.setSysCreatedUserId("user" + i);
       user.setSysCreatedUserName("userName" + i);
@@ -33,11 +31,20 @@ class ProtocolHelperTest {
       user.setSource("source" + i);
       users1.add(user);
     });
-    String s1 = ProtocolHelper.toString(users1);
+    String s1 = IndexMsgHelper.toString(users1);
     System.out.println(s1);
-    List<User> users2 = ProtocolHelper.toIndex(s1, User.class);
-    String s2 = ProtocolHelper.toString(users2);
+    List<TestUser> users2 = IndexMsgHelper.toBeans(s1, TestUser.class);
+    String s2 = IndexMsgHelper.toString(users2);
     System.out.println(s2);
     Assertions.assertEquals(s1, s2);
+
+    TestUser user0 = users1.get(0);
+    String s3 = IndexMsgHelper.toString(user0);
+    System.out.println(s3);
+    TestUser user00 = IndexMsgHelper.toBean(s3, TestUser.class);
+    String s4 = IndexMsgHelper.toString(user00);
+    System.out.println(s4);
+    Assertions.assertEquals(s3, s4);
+
   }
 }

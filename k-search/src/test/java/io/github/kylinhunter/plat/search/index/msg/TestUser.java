@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.server.search.bean.index;
+package io.github.kylinhunter.plat.search.index.msg;
 
 import io.github.kylinhunter.plat.search.index.bean.IndexBean;
 import lombok.Getter;
@@ -30,7 +30,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Document(indexName = "employee_info", shards = 1, replicas = 0)
 @Getter
 @Setter
-public class User extends IndexBean {
+public class TestUser extends IndexBean {
 
   @Field(type = FieldType.Text)
   private String nickName;
