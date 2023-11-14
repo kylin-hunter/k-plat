@@ -1,6 +1,6 @@
 package io.github.kylinhunter.plat.core.service.local.imp;
 
-import io.github.kylinhunter.plat.core.Start;
+import io.github.kylinhunter.plat.server.core.Start;
 
 /**
  * @author BiJi'an
