@@ -49,7 +49,7 @@ ext {
             "apollo-client"                   : 'com.ctrip.framework.apollo:apollo-client:1.7.0',
             "springfox-swagger2"              : 'io.springfox:springfox-swagger2:3.0.0',//2.9.2
             "springfox-swagger-ui"            : 'io.springfox:springfox-swagger-ui:3.0.0',//2.9.2
-
+            "springfox-boot-starter"          : "io.springfox:springfox-boot-starter:3.0.0",
             'mybatis-spring-boot-starter'     : 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4',
             'mybatis-plus'                    : 'com.baomidou:mybatis-plus:3.4.3.1',
             'mybatis-plus-boot-starter'       : 'com.baomidou:mybatis-plus-boot-starter:3.4.3.1',

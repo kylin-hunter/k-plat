@@ -2,8 +2,6 @@
 dependencies {
 
     api project(':k-web')
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-mysql")
 
 
 

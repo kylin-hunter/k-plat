@@ -17,7 +17,7 @@ package io.github.kylinhunter.plat.search.protocol;
 
 import io.github.kylinhunter.commons.utils.json.JsonOptions;
 import io.github.kylinhunter.commons.utils.json.JsonUtils;
-import io.github.kylinhunter.plat.search.bean.index.IndexBean;
+import io.github.kylinhunter.plat.search.index.bean.IndexBean;
 import java.util.List;
 
 /**

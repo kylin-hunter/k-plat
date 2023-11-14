@@ -15,6 +15,7 @@
  */
 package io.github.kylinhunter.plat.search.bean.index;
 
+import io.github.kylinhunter.plat.search.index.bean.IndexBean;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;

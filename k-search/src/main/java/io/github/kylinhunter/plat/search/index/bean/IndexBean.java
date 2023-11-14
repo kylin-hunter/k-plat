@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.kylinhunter.plat.search.bean.index;
+package io.github.kylinhunter.plat.search.index.bean;
 
 import java.time.LocalDateTime;
 import lombok.Data;
