@@ -29,9 +29,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication(
-    scanBasePackages = {"io.github.kylinhunter.plat.core"},
+    scanBasePackages = {"io.github.kylinhunter.plat.server.core"},
     exclude = {RedissonAutoConfiguration.class, AutoSecurityWebSecurityConfigurer.class})
-@MapperScan("io.github.kylinhunter.plat.core.dao")
+@MapperScan("io.github.kylinhunter.plat.server.core.dao")
 public class Start {
 
   public static void main(String[] args) {
