@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.SysConfigVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.SysConfigMapper;
 import io.github.kylinhunter.plat.server.core.service.local.SysConfigService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysConfigServiceImp
     extends CommonServiceImpl<
-    SysConfigMapper,
+        SysConfigMapper,
         SysConfig,
         SysConfigReqCreate,
         SysConfigReqUpdate,

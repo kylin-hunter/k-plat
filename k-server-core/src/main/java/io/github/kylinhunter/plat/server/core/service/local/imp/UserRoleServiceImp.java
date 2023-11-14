@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserRoleReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserRoleReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserRoleResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserRoleVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.UserRoleMapper;
 import io.github.kylinhunter.plat.server.core.service.local.UserRoleService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

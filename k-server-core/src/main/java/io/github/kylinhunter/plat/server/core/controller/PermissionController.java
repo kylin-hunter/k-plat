@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PermissionController
     extends CommonCurdController<
-    PermissionService,
+        PermissionService,
         PermissionReqCreate,
         PermissionReqUpdate,
         PermissionResp,

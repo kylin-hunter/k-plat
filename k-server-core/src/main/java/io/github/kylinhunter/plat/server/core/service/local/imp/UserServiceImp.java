@@ -23,11 +23,11 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.UserVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.UserMapper;
 import io.github.kylinhunter.plat.server.core.service.local.UserService;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.UserDeleteInterceptor;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.UserSaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
 @EqualsAndHashCode(callSuper = false)
 public class UserServiceImp
     extends CommonServiceImpl<
-    UserMapper, User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery>
+        UserMapper, User, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery>
     implements UserService {
 
   public UserServiceImp(

@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionReqQuery
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.RolePermissionVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.RolePermissionMapper;
 import io.github.kylinhunter.plat.server.core.service.local.RolePermissionService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

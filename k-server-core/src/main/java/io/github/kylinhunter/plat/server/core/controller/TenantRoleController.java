@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TenantRoleController
     extends CommonCurdController<
-    TenantRoleService,
+        TenantRoleService,
         TenantRoleReqCreate,
         TenantRoleReqUpdate,
         TenantRoleResp,

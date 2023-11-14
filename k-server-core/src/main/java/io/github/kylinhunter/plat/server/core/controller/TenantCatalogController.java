@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TenantCatalogController
     extends CommonCurdController<
-    TenantCatalogService,
+        TenantCatalogService,
         TenantCatalogReqCreate,
         TenantCatalogReqUpdate,
         TenantCatalogResp,

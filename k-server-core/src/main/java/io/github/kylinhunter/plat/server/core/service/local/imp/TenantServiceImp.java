@@ -21,10 +21,10 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantService;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantSaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImp
     extends CommonServiceImpl<
-    TenantMapper,
+        TenantMapper,
         Tenant,
         TenantReqCreate,
         TenantReqUpdate,

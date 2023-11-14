@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantConfigVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantConfigMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantConfigService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantConfigServiceImp
     extends CommonServiceImpl<
-    TenantConfigMapper,
+        TenantConfigMapper,
         TenantConfig,
         TenantConfigReqCreate,
         TenantConfigReqUpdate,

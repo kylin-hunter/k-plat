@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysConfigController
     extends CommonCurdController<
-    SysConfigService,
+        SysConfigService,
         SysConfigReqCreate,
         SysConfigReqUpdate,
         SysConfigResp,

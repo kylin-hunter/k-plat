@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserRoleController
     extends CommonCurdController<
-    UserRoleService,
+        UserRoleService,
         UserRoleReqCreate,
         UserRoleReqUpdate,
         UserRoleResp,

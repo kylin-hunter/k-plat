@@ -39,4 +39,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController
     extends CommonCurdController<
-    UserService, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery, User> {}
+        UserService, UserReqCreate, UserReqUpdate, UserResp, UserVO, UserReqQuery, User> {}

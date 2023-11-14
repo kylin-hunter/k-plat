@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRolePermissionRe
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRolePermissionReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRolePermissionResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantRolePermissionVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantRolePermissionMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantRolePermissionService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantRolePermissionServiceImp
     extends CommonServiceImpl<
-    TenantRolePermissionMapper,
+        TenantRolePermissionMapper,
         TenantRolePermission,
         TenantRolePermissionReqCreate,
         TenantRolePermissionReqUpdate,

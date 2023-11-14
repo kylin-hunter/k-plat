@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileRelationServiceImp
     extends CommonServiceImpl<
-    FileRelationMapper,
+        FileRelationMapper,
         FileRelation,
         FileRelationReqCreate,
         FileRelationReqUpdate,

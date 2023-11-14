@@ -33,13 +33,13 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogRespTree;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantCatalogService;
 import io.github.kylinhunter.plat.server.core.service.local.component.TenantCatalogComponent;
 import io.github.kylinhunter.plat.server.core.service.local.component.TenantCatalogTreeComponent;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantCatalogDeleteInterceptor;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantCatalogSaveOrUpdateInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;

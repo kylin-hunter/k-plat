@@ -21,13 +21,13 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqQue
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserConfigVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantUserConfigMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantUserConfigService;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantUserConfigDeleteInterceptor;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantUserConfigFindByIdInterceptor;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenantUserConfigSaveOrUpdateInterceptor;
 import io.github.kylinhunter.plat.server.core.service.local.interceptor.TenentUserConfigQueryInterceptor;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantUserConfigServiceImp
     extends CommonServiceImpl<
-    TenantUserConfigMapper,
+        TenantUserConfigMapper,
         TenantUserConfig,
         TenantUserConfigReqCreate,
         TenantUserConfigReqUpdate,

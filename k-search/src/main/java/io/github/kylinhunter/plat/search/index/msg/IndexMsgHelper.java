@@ -55,7 +55,7 @@ public class IndexMsgHelper {
 
   /**
    * @param content content
-   * @param clazz   clazz
+   * @param clazz clazz
    * @return java.util.List<T>
    * @throws
    * @title toBeans
@@ -69,7 +69,7 @@ public class IndexMsgHelper {
 
   /**
    * @param content content
-   * @param clazz   clazz
+   * @param clazz clazz
    * @return T
    * @throws
    * @title toBean

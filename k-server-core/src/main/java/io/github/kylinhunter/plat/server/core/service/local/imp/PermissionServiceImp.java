@@ -21,9 +21,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.PermissionVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.PermissionMapper;
 import io.github.kylinhunter.plat.server.core.service.local.PermissionService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

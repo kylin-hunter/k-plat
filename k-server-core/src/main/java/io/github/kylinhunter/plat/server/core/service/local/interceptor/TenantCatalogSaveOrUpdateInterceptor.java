@@ -24,8 +24,8 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogReqUpdate
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantCatalogVO;
 import io.github.kylinhunter.plat.api.module.core.constants.init.DefaultTenantCatalogs;
-import io.github.kylinhunter.plat.server.core.dao.mapper.TenantCatalogMapper;
 import io.github.kylinhunter.plat.dao.service.local.interceptor.SaveOrUpdateInterceptor;
+import io.github.kylinhunter.plat.server.core.dao.mapper.TenantCatalogMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

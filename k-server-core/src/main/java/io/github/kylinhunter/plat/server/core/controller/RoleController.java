@@ -40,4 +40,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RoleController
     extends CommonCurdController<
-    RoleService, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery, Role> {}
+        RoleService, RoleReqCreate, RoleReqUpdate, RoleResp, RoleVO, RoleReqQuery, Role> {}

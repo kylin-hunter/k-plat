@@ -15,6 +15,8 @@
  */
 package io.github.kylinhunter.plat.server.core.security;
 
+import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
+import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.server.core.security.service.imp.TokenServiceImp;
 import io.github.kylinhunter.plat.server.core.security.service.imp.UserDetailsServiceImp;
 import io.github.kylinhunter.plat.server.core.service.local.RoleService;
@@ -22,8 +24,6 @@ import io.github.kylinhunter.plat.server.core.service.local.TenantRoleService;
 import io.github.kylinhunter.plat.server.core.service.local.TenantService;
 import io.github.kylinhunter.plat.server.core.service.local.TenantUserService;
 import io.github.kylinhunter.plat.server.core.service.local.UserService;
-import io.github.kylinhunter.plat.data.redis.configuration.RedisTemplateConfiguration;
-import io.github.kylinhunter.plat.data.redis.service.RedisService;
 import io.github.kylinhunter.plat.web.auth.JWTService;
 import io.github.kylinhunter.plat.web.config.KplatConfig;
 import io.github.kylinhunter.plat.web.security.service.TenantUserDetailsService;

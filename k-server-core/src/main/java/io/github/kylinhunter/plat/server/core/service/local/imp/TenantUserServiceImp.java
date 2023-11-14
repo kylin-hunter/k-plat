@@ -23,9 +23,9 @@ import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqQuery;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserReqUpdate;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserResp;
 import io.github.kylinhunter.plat.api.module.core.bean.vo.TenantUserVO;
+import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import io.github.kylinhunter.plat.server.core.dao.mapper.TenantUserMapper;
 import io.github.kylinhunter.plat.server.core.service.local.TenantUserService;
-import io.github.kylinhunter.plat.dao.service.local.CommonServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantUserServiceImp
     extends CommonServiceImpl<
-    TenantUserMapper,
+        TenantUserMapper,
         TenantUser,
         TenantUserReqCreate,
         TenantUserReqUpdate,

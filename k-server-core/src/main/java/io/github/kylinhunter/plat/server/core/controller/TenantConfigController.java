@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TenantConfigController
     extends CommonCurdController<
-    TenantConfigService,
+        TenantConfigService,
         TenantConfigReqCreate,
         TenantConfigReqUpdate,
         TenantConfigResp,
