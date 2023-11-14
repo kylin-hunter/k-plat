@@ -1,14 +1,12 @@
 package io.github.kylinhunter.plat.search.protocol;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import io.github.kylinhunter.plat.search.bean.index.User;
+import io.github.kylinhunter.plat.server.search.bean.index.User;
+import io.github.kylinhunter.plat.server.search.protocol.ProtocolHelper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 class ProtocolHelperTest {
